@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/project
+    docker:
+      - image: gradle:7-jdk11
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: gradle assemble
+      - run:
+          name: Test
+          command: gradle test
+      - store_test_results:
+          path: junker.dev/build/test-results

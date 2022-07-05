@@ -1,1 +1,1 @@
-rootProject.name = "dev.junker.web"
+rootProject.name = "junker.dev"
