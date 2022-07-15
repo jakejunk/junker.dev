@@ -2,23 +2,7 @@
   <configuration default="false" name="Local Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="envFilePath" value="" />
-        <option name="envVars">
-          <list>
-            <DockerEnvVarImpl>
-              <option name="name" value="NGINX_CONFIG" />
-              <option name="value" value="nginx-dev.conf" />
-            </DockerEnvVarImpl>
-            <DockerEnvVarImpl>
-              <option name="name" value="HTTP_PORT_MAP" />
-              <option name="value" value="8000:8000" />
-            </DockerEnvVarImpl>
-            <DockerEnvVarImpl>
-              <option name="name" value="HTTPS_PORT_MAP" />
-              <option name="value" value="8443:8443" />
-            </DockerEnvVarImpl>
-          </list>
-        </option>
+        <option name="envFilePath" value="C:\Users\Jake\Repos\sites\junker.dev\deploy\docker-compose-local.env" />
         <option name="services">
           <list>
             <option value="nginx" />
