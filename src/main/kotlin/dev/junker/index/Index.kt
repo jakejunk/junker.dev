@@ -9,7 +9,7 @@ fun HTML.renderIndex() {
     }
     body {
         h1(classes = "page-title") {
-            +"junker.dev"
+            +"junker.dev is under construction :)"
         }
     }
 }
