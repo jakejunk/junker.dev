@@ -4,12 +4,25 @@ import kotlinx.html.*
 
 fun HTML.renderIndex() {
     head {
-        link(rel = "stylesheet", href = "/styles.css", type = "text/css")
+        meta(charset = "utf-8")
+        meta(content = "content-type") { httpEquiv = "text/html; charset=UTF-8" }
+        meta(content = "width=device-width, initial-scale=1.0") { name = "viewport" }
+        styleLink("/styles.css")
+
         title("Jake Junker")
     }
     body {
-        h1(classes = "page-title") {
-            +"junker.dev is under construction :)"
+        div(classes = "terminal") {
+            header {
+                + "junker.dev"
+            }
+            div(classes = "terminal-main") {
+                main {
+                    id = "main"
+
+                    +"Under construction :)"
+                }
+            }
         }
     }
 }
