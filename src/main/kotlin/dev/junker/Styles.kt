@@ -7,10 +7,12 @@ import io.ktor.server.response.*
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
-    BackgroundDark("#090C10"),
-    TerminalHeader("#11151C80"),
-    TerminalBackground("#11151C"),
+    BackgroundDark("#06070A"),
+    BackgroundMedium("#0B0E13"),
+    BackgroundLight("#11151C"),
+
     Primary("#1ABC9C"),
+    PrimaryBright("#54E8CA"),
     PrimaryText("#F0E7D8"),
     Highlight("#ED6A5A");
 
