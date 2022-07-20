@@ -63,15 +63,17 @@ fun CSSBuilder.renderIndexStyles() {
 
     rule(".terminal-main") {
         flexGrow = 1.0
-        padding(vertical = 2.rem, horizontal = LinearDimension("4ch"))
     }
 
     rule(".terminal-prompt") {
         backgroundColor = SiteColor.BackgroundDark.color
         borderRadius = LinearDimension("1ch")
-        width = 100.pct
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
-        marginBottom = LinearDimension("4ch")
+        margin(LinearDimension("1ch"))
+    }
+
+    rule(".terminal-output") {
+        padding(vertical = 2.rem, horizontal = LinearDimension("3ch"))
     }
 
     rule(".terminal-prompt:before") {

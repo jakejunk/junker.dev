@@ -1,5 +1,6 @@
 package dev.junker
 
+import dev.junker.about.renderAbout
 import dev.junker.index.renderIndex
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -10,6 +11,8 @@ import io.ktor.server.routing.*
 fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.webMain() {
+    install(IgnoreTrailingSlash)
+
     routing {
         static("/assets") {
             staticBasePackage = "static"
@@ -19,8 +22,13 @@ fun Application.webMain() {
         get("/styles.css") {
             call.respondCss { renderStyles() }
         }
+
         get("/") {
             call.respondHtml { renderIndex() }
+        }
+
+        get("/about") {
+            call.respondHtml { renderAbout() }
         }
     }
 }
