@@ -14,10 +14,7 @@ fun HTML.renderIndex() {
     body {
         div(classes = "terminal") {
             header {
-                div("site-logo") {
-                    div(classes = "site-logo-image")
-                    + "junker.dev"
-                }
+                div(classes = "site-logo-image")
             }
             div(classes = "terminal-main") {
                 main {

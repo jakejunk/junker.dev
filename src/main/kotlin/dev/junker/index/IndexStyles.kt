@@ -18,8 +18,7 @@ fun CSSBuilder.renderIndexStyles() {
     html {
         boxSizing = BoxSizing.borderBox
         color = SiteColor.PrimaryText.color
-        fontFamily = "monospace"
-        fontSize = 110.pct
+        fontFamily = "Lucida Console, monospace"
         height = 100.pct
     }
 
@@ -52,13 +51,6 @@ fun CSSBuilder.renderIndexStyles() {
         padding(vertical = 2.rem, horizontal = LinearDimension("4ch"))
     }
 
-    rule(".site-logo") {
-        alignItems = Align.center
-        display = Display.flex
-        flexDirection = FlexDirection.column
-        primaryTextGlow()
-    }
-
     rule(".site-logo-image") {
         backgroundImage = Image("url(/assets/images/16x16_logo_black.png)")
         backgroundSize = "contain"
@@ -66,7 +58,6 @@ fun CSSBuilder.renderIndexStyles() {
         filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
         height = LinearDimension("8ch")
         property("image-rendering", "pixelated")
-        marginBottom = 1.rem;
         width = LinearDimension("8ch")
     }
 
