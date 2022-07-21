@@ -13,8 +13,12 @@ fun HTML.renderAbout() {
     }
     body {
         div(classes = "terminal") {
-            header {
+            header(classes = "terminal-header") {
                 div(classes = "site-logo-image")
+                nav(classes = "terminal-nav") {
+                    a(href = "/", classes = "nav-link") { + "Home" }
+                    a(href = "/about", classes = "nav-link selected") { + "About" }
+                }
             }
             div(classes = "terminal-main") {
                 main {

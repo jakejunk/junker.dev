@@ -2,12 +2,28 @@ package dev.junker.index
 
 import dev.junker.SiteColor
 import kotlinx.css.*
+import kotlinx.css.properties.TextDecoration
 
 fun CSSBuilder.property(name: String, value: String) = put(name, value)
+
+fun CSSBuilder.flexColumn() {
+    display = Display.flex
+    flexDirection = FlexDirection.column
+}
 
 fun CSSBuilder.primaryTextGlow() {
     color = SiteColor.PrimaryBright.color
     property("text-shadow", "0 0 2ch ${SiteColor.Primary.color.value}")
+}
+
+fun CSSBuilder.beveledTerminalSurface() {
+    backgroundColor = SiteColor.BackgroundLight.color
+    borderTopColor = SiteColor.BorderTop.color
+    borderRightColor = SiteColor.BorderRight.color
+    borderBottomColor = SiteColor.BorderBottom.color
+    borderLeftColor = SiteColor.BorderLeft.color
+    borderStyle = BorderStyle.solid
+    borderWidth = 4.px
 }
 
 fun CSSBuilder.renderIndexStyles() {
@@ -24,16 +40,13 @@ fun CSSBuilder.renderIndexStyles() {
 
     body {
         backgroundColor = SiteColor.BackgroundDark.color
-        display = Display.flex
-        flexDirection = FlexDirection.column
+        flexColumn()
         height = 100.pct
         margin(0.px)
     }
 
     rule(".terminal") {
         alignSelf = Align.center
-        backgroundColor = SiteColor.BackgroundLight.color
-        borderRadius = 12.px
         display = Display.flex
         height = 100.pct
         margin(top = 48.px, bottom = 48.px)
@@ -42,13 +55,13 @@ fun CSSBuilder.renderIndexStyles() {
         width = 100.pct
     }
 
-    rule(".terminal > header") {
+    rule(".terminal-header") {
         alignItems = Align.center
-        borderRight = "solid 4px ${SiteColor.BackgroundMedium.color.value}"
-        display = Display.flex
-        flexDirection = FlexDirection.column
+        beveledTerminalSurface()
+        borderTopLeftRadius = LinearDimension("1ch")
+        borderBottomLeftRadius = LinearDimension("1ch")
+        flexColumn()
         height = 100.pct
-        padding(vertical = 2.rem, horizontal = LinearDimension("4ch"))
     }
 
     rule(".site-logo-image") {
@@ -59,9 +72,39 @@ fun CSSBuilder.renderIndexStyles() {
         height = LinearDimension("8ch")
         property("image-rendering", "pixelated")
         width = LinearDimension("8ch")
+        margin(2.rem, 2.rem, 4.rem, 2.rem)
+    }
+
+    rule(".terminal-nav") {
+        alignItems = Align.flexEnd
+        alignSelf = Align.flexEnd
+        flexColumn()
+        paddingLeft = 1.rem
+        width = 100.pct
+    }
+
+    rule(".nav-link") {
+        backgroundColor = SiteColor.BackgroundMedium.color
+        borderTopLeftRadius = LinearDimension("1ch")
+        borderBottomLeftRadius = LinearDimension("1ch")
+        color = SiteColor.PrimaryText.color
+        marginBottom = 1.rem
+        padding(vertical = 1.rem, LinearDimension("3ch"))
+        textDecoration = TextDecoration.none
+    }
+
+    rule(".nav-link:hover") {
+        backgroundColor = SiteColor.BackgroundDark.color
+    }
+
+    rule(".nav-link.selected") {
+        primaryTextGlow()
     }
 
     rule(".terminal-main") {
+        beveledTerminalSurface()
+        borderTopRightRadius = LinearDimension("1ch")
+        borderBottomRightRadius = LinearDimension("1ch")
         flexGrow = 1.0
     }
 

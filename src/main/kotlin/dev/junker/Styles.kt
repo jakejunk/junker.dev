@@ -11,6 +11,11 @@ enum class SiteColor(value: String) {
     BackgroundMedium("#0B0E13"),
     BackgroundLight("#11151C"),
 
+    BorderTop("#252F41"),
+    BorderRight("#0B0E13"),
+    BorderBottom("#07090D"),
+    BorderLeft("#181F2A"),
+
     Primary("#1ABC9C"),
     PrimaryBright("#54E8CA"),
     PrimaryText("#F0E7D8"),
