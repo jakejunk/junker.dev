@@ -69,11 +69,11 @@ fun CSSBuilder.renderIndexStyles() {
         backgroundColor = SiteColor.BackgroundDark.color
         borderRadius = LinearDimension("1ch")
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
-        margin(LinearDimension("1ch"))
+        margin(1.rem)
     }
 
     rule(".terminal-output") {
-        padding(vertical = 2.rem, horizontal = LinearDimension("3ch"))
+        padding(vertical = 2.rem, horizontal = 1.rem + LinearDimension("2ch"))
     }
 
     rule(".terminal-prompt:before") {
