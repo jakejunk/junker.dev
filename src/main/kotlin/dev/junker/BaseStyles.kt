@@ -1,32 +1,27 @@
-package dev.junker.index
+package dev.junker
 
-import dev.junker.SiteColor
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 
-fun CSSBuilder.property(name: String, value: String) = put(name, value)
+enum class SiteColor(value: String) {
+    BackgroundDark("#06070A"),
+    BackgroundMedium("#0B0E13"),
+    BackgroundLight("#11151C"),
 
-fun CSSBuilder.flexColumn() {
-    display = Display.flex
-    flexDirection = FlexDirection.column
+    BorderTop("#252F41"),
+    BorderRight("#0B0E13"),
+    BorderBottom("#07090D"),
+    BorderLeft("#181F2A"),
+
+    Primary("#1ABC9C"),
+    PrimaryBright("#54E8CA"),
+    PrimaryText("#F0E7D8"),
+    Highlight("#ED6A5A");
+
+    val color = Color(value)
 }
 
-fun CSSBuilder.primaryTextGlow() {
-    color = SiteColor.PrimaryBright.color
-    property("text-shadow", "0 0 2ch ${SiteColor.Primary.color.value}")
-}
-
-fun CSSBuilder.beveledTerminalSurface() {
-    backgroundColor = SiteColor.BackgroundLight.color
-    borderTopColor = SiteColor.BorderTop.color
-    borderRightColor = SiteColor.BorderRight.color
-    borderBottomColor = SiteColor.BorderBottom.color
-    borderLeftColor = SiteColor.BorderLeft.color
-    borderStyle = BorderStyle.solid
-    borderWidth = 4.px
-}
-
-fun CSSBuilder.renderIndexStyles() {
+fun CSSBuilder.renderBaseStyles() {
     rule("*, :after, :before") {
         boxSizing = BoxSizing.inherit
     }
@@ -125,3 +120,25 @@ fun CSSBuilder.renderIndexStyles() {
         primaryTextGlow()
     }
 }
+
+fun CSSBuilder.beveledTerminalSurface() {
+    backgroundColor = SiteColor.BackgroundLight.color
+    borderTopColor = SiteColor.BorderTop.color
+    borderRightColor = SiteColor.BorderRight.color
+    borderBottomColor = SiteColor.BorderBottom.color
+    borderLeftColor = SiteColor.BorderLeft.color
+    borderStyle = BorderStyle.solid
+    borderWidth = 4.px
+}
+
+fun CSSBuilder.flexColumn() {
+    display = Display.flex
+    flexDirection = FlexDirection.column
+}
+
+fun CSSBuilder.primaryTextGlow() {
+    color = SiteColor.PrimaryBright.color
+    property("text-shadow", "0 0 2ch ${SiteColor.Primary.color.value}")
+}
+
+fun CSSBuilder.property(name: String, value: String) = put(name, value)
