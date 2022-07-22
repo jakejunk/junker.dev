@@ -15,13 +15,16 @@ enum class SiteColor(value: String) {
 
     Primary("#1ABC9C"),
     PrimaryBright("#54E8CA"),
-    PrimaryText("#F0E7D8"),
-    Highlight("#ED6A5A");
+
+    Secondary("#ED6A5A"),
+    SecondaryBright("#F29488"),
+    
+    PrimaryText("#F0E7D8");
 
     val color = Color(value)
 }
 
-fun CSSBuilder.renderBaseStyles() {
+fun CSSBuilder.renderStyles() {
     rule("*, :after, :before") {
         boxSizing = BoxSizing.inherit
     }
@@ -68,6 +71,10 @@ fun CSSBuilder.renderBaseStyles() {
         property("image-rendering", "pixelated")
         width = LinearDimension("8ch")
         margin(2.rem, 2.rem, 4.rem, 2.rem)
+    }
+
+    rule(".site-logo-image.error") {
+        filter = "invert(60%) sepia(30%) saturate(645%) hue-rotate(318deg) brightness(106%) contrast(90%) drop-shadow(0px 0px 1ch ${SiteColor.Secondary.color.value})"
     }
 
     rule(".terminal-nav") {

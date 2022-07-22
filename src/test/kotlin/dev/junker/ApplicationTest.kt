@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 class ApplicationTest {
     @Test
     fun testIndex() = testApplication {
-        val expected = generateDocumentAsText(Location.Home) { +"Under construction :)" }
+        val expected = generateDocumentAsText(Page.Home)
         val response = client.get("/")
 
         assertEquals(HttpStatusCode.OK, response.status)
@@ -22,7 +22,7 @@ class ApplicationTest {
 
     @Test
     fun testAbout() = testApplication {
-        val expected = generateDocumentAsText(Location.About) { +"I'll tell you later." }
+        val expected = generateDocumentAsText(Page.About)
         val response = client.get("/about")
 
         assertEquals(HttpStatusCode.OK, response.status)
@@ -31,19 +31,15 @@ class ApplicationTest {
 
     @Test
     fun testAboutWithTrailingSlash() = testApplication {
-        val expected = generateDocumentAsText(Location.About) { +"I'll tell you later." }
+        val expected = generateDocumentAsText(Page.About)
         val response = client.get("/about/")
 
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(expected, response.bodyAsText())
     }
 
-    private inline fun generateDocumentAsText(location: Location, crossinline block: FlowContent.() -> Unit) =
+    private fun generateDocumentAsText(page: Page) =
         "<!DOCTYPE html>\n" + createHTML()
-            .html {
-                val template = BasePage(location)
-                template.content { block() }
-                with(template) { apply() }
-            }
+            .html { renderPage(page) }
             .toString()
 }

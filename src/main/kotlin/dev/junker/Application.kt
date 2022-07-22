@@ -5,15 +5,24 @@ import io.ktor.server.application.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.css.CSSBuilder
-import kotlinx.html.FlowContent
 
 fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.webMain() {
     install(IgnoreTrailingSlash)
+    install(StatusPages) {
+        exception<Throwable> { call, _ ->
+            call.renderErrorPage(Page.InternalServerError)
+        }
+
+        status(HttpStatusCode.NotFound) { call, _ ->
+            call.renderErrorPage(Page.NotFound)
+        }
+    }
 
     routing {
         static("/assets") {
@@ -22,27 +31,24 @@ fun Application.webMain() {
         }
 
         get("/styles.css") {
-            call.respondCss { renderBaseStyles() }
+            call.respondCss { renderStyles() }
         }
 
-        getPage(Location.Home) {
-            +"Under construction :)"
-        }
+        getContentPage(Page.Home)
+        getContentPage(Page.About)
+    }
+}
 
-        getPage(Location.About) {
-            +"I'll tell you later."
+private fun Routing.getContentPage(page: Page.Content) {
+    get(page.href) {
+        call.respondHtml {
+            renderPage(page)
         }
     }
 }
 
-private fun Routing.getPage(location: Location, block: FlowContent.() -> Unit) {
-    get(location.href) {
-        call.respondHtmlTemplate(BasePage(location)) {
-            content {
-                block()
-            }
-        }
-    }
+private suspend fun ApplicationCall.renderErrorPage(errorPage: Page.Error) {
+    this.respondHtml(status = errorPage.status) { renderPage(errorPage) }
 }
 
 private suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
