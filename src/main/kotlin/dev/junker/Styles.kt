@@ -48,7 +48,7 @@ fun CSSBuilder.renderStyles() {
         display = Display.flex
         height = 100.pct
         margin(top = 48.px, bottom = 48.px)
-        maxWidth = 1400.px
+        maxWidth = 1500.px
         overflow = Overflow.hidden
         width = 100.pct
     }
@@ -93,6 +93,7 @@ fun CSSBuilder.renderStyles() {
         marginBottom = 1.rem
         padding(vertical = 1.rem, LinearDimension("3ch"))
         textDecoration = TextDecoration.none
+        whiteSpace = WhiteSpace.nowrap
     }
 
     rule(".nav-link:hover") {
@@ -108,6 +109,28 @@ fun CSSBuilder.renderStyles() {
         borderTopRightRadius = LinearDimension("1ch")
         borderBottomRightRadius = LinearDimension("1ch")
         flexGrow = 1.0
+        overflowY = Overflow.auto
+        paddingBottom = 8.rem
+    }
+
+    // For Firefox
+    rule(".terminal-main") {
+        property("scrollbar-width", "thin")
+        property("scrollbar-color", "${SiteColor.BackgroundDark.color.value} transparent")
+    }
+
+    rule(".terminal-main::-webkit-scrollbar") {
+        width = LinearDimension("2ch")
+    }
+
+    rule(".terminal-main::-webkit-scrollbar-thumb") {
+        backgroundColor = SiteColor.BackgroundMedium.color
+        border = "solid 0.5ch ${SiteColor.BackgroundLight.color.value}"
+        borderRadius = LinearDimension("1ch")
+    }
+
+    rule(".terminal-main::-webkit-scrollbar-thumb:hover") {
+        backgroundColor = SiteColor.BackgroundDark.color
     }
 
     rule(".terminal-prompt") {
