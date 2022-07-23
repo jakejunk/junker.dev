@@ -9,9 +9,9 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         beveledTerminalSurface()
         flexColumn()
         alignItems = Align.center
-        borderTopLeftRadius = LinearDimension("1ch")
-        borderBottomLeftRadius = LinearDimension("1ch")
-        height = 100.pct
+        bottom = 0.px
+        position = Position.fixed
+        width = 100.pct
     }
 
     rule(".site-logo-image") {
@@ -30,20 +30,22 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     }
 
     rule(".terminal-nav") {
-        flexColumn()
-        alignItems = Align.flexEnd
         alignSelf = Align.flexEnd
-        marginTop = 2.rem
+        columnGap = ColumnGap("1ch")
+        display = Display.flex
+        flexWrap = FlexWrap.wrap
+        justifyContent = JustifyContent.center
+        marginBottom = 1.rem
         paddingLeft = 1.rem
+        paddingRight = 1.rem
+        rowGap = RowGap("1ch")
         width = 100.pct
     }
 
     rule(".nav-link") {
         backgroundColor = SiteColor.BackgroundMedium.color
-        borderTopLeftRadius = LinearDimension("1ch")
-        borderBottomLeftRadius = LinearDimension("1ch")
+        borderRadius = LinearDimension("1ch")
         color = SiteColor.PrimaryText.color
-        marginBottom = 1.rem
         padding(vertical = 1.rem, LinearDimension("3ch"))
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
@@ -56,8 +58,28 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     rule(".nav-link.selected") {
         primaryTextGlow()
     }
+}
 
+fun CSSBuilder.renderTerminalHeaderTabletStyles() {
     tabletOrLarger {
-        // TODO
+        rule(".terminal-header") {
+            borderTopLeftRadius = LinearDimension("1ch")
+            borderBottomLeftRadius = LinearDimension("1ch")
+            height = 100.pct
+            position = Position.static
+            width = LinearDimension.auto
+        }
+
+        rule(".terminal-nav") {
+            alignItems = Align.flexEnd
+            flexDirection = FlexDirection.column
+            margin(vertical = 2.rem)
+            paddingRight = 0.px
+        }
+
+        rule(".nav-link") {
+            borderTopRightRadius = 0.px
+            borderBottomRightRadius = 0.px
+        }
     }
 }

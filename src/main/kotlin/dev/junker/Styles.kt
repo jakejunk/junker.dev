@@ -1,7 +1,9 @@
 package dev.junker
 
 import dev.junker.components.renderTerminalHeaderStyles
+import dev.junker.components.renderTerminalHeaderTabletStyles
 import dev.junker.components.renderTerminalMainStyles
+import dev.junker.components.renderTerminalMainTabletStyles
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -55,6 +57,11 @@ fun CSSBuilder.renderStyles() {
 
     renderTerminalHeaderStyles()
     renderTerminalMainStyles()
+
+    // Make sure to render all query-dependent styles last.
+    // CSS DSL tries to get clever and combine things, changing around order.
+    renderTerminalHeaderTabletStyles()
+    renderTerminalMainTabletStyles()
 
     tabletOrLarger {
         rule(".terminal") {

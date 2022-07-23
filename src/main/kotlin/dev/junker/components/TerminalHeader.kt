@@ -19,12 +19,11 @@ fun DIV.renderTerminalHeader(page: Page) {
 
 private fun NAV.renderNavLinks(currentPage: Page) {
     listOf(Page.Home, Page.About).map {
-        a(
-            href = it.href,
-            classes = when (it) {
-                currentPage -> "nav-link selected"
-                else -> "nav-link"
-            }
-        ) { +it.name }
+        val navLinkClasses = when (it) {
+            currentPage -> "nav-link selected"
+            else -> "nav-link"
+        }
+
+        a(href = it.href, classes = navLinkClasses) { +it.name }
     }
 }
