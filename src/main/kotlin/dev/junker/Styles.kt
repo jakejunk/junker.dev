@@ -15,13 +15,16 @@ enum class SiteColor(value: String) {
 
     Primary("#1ABC9C"),
     PrimaryBright("#54E8CA"),
-    PrimaryText("#F0E7D8"),
-    Highlight("#ED6A5A");
+
+    Secondary("#ED6A5A"),
+    SecondaryBright("#F29488"),
+    
+    PrimaryText("#F0E7D8");
 
     val color = Color(value)
 }
 
-fun CSSBuilder.renderBaseStyles() {
+fun CSSBuilder.renderStyles() {
     rule("*, :after, :before") {
         boxSizing = BoxSizing.inherit
     }
@@ -45,7 +48,7 @@ fun CSSBuilder.renderBaseStyles() {
         display = Display.flex
         height = 100.pct
         margin(top = 48.px, bottom = 48.px)
-        maxWidth = 1400.px
+        maxWidth = 1500.px
         overflow = Overflow.hidden
         width = 100.pct
     }
@@ -70,6 +73,10 @@ fun CSSBuilder.renderBaseStyles() {
         margin(2.rem, 2.rem, 4.rem, 2.rem)
     }
 
+    rule(".site-logo-image.error") {
+        filter = "invert(60%) sepia(30%) saturate(645%) hue-rotate(318deg) brightness(106%) contrast(90%) drop-shadow(0px 0px 1ch ${SiteColor.Secondary.color.value})"
+    }
+
     rule(".terminal-nav") {
         alignItems = Align.flexEnd
         alignSelf = Align.flexEnd
@@ -86,6 +93,7 @@ fun CSSBuilder.renderBaseStyles() {
         marginBottom = 1.rem
         padding(vertical = 1.rem, LinearDimension("3ch"))
         textDecoration = TextDecoration.none
+        whiteSpace = WhiteSpace.nowrap
     }
 
     rule(".nav-link:hover") {
@@ -101,6 +109,28 @@ fun CSSBuilder.renderBaseStyles() {
         borderTopRightRadius = LinearDimension("1ch")
         borderBottomRightRadius = LinearDimension("1ch")
         flexGrow = 1.0
+        overflowY = Overflow.auto
+        paddingBottom = 8.rem
+    }
+
+    // For Firefox
+    rule(".terminal-main") {
+        property("scrollbar-width", "thin")
+        property("scrollbar-color", "${SiteColor.BackgroundDark.color.value} transparent")
+    }
+
+    rule(".terminal-main::-webkit-scrollbar") {
+        width = LinearDimension("2ch")
+    }
+
+    rule(".terminal-main::-webkit-scrollbar-thumb") {
+        backgroundColor = SiteColor.BackgroundMedium.color
+        border = "solid 0.5ch ${SiteColor.BackgroundLight.color.value}"
+        borderRadius = LinearDimension("1ch")
+    }
+
+    rule(".terminal-main::-webkit-scrollbar-thumb:hover") {
+        backgroundColor = SiteColor.BackgroundDark.color
     }
 
     rule(".terminal-prompt") {
