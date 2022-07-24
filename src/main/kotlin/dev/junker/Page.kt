@@ -1,5 +1,7 @@
 package dev.junker
 
+import dev.junker.components.renderTerminalHeader
+import dev.junker.components.renderTerminalMain
 import io.ktor.http.*
 import kotlinx.html.*
 
@@ -53,11 +55,6 @@ sealed interface Page {
 }
 
 fun HTML.renderPage(page: Page) {
-    val logoClasses = when (page) {
-        is Page.Error -> "site-logo-image error"
-        else -> "site-logo-image"
-    }
-
     head {
         meta(charset = "utf-8")
         meta(content = "content-type") { httpEquiv = "text/html; charset=UTF-8" }
@@ -68,42 +65,8 @@ fun HTML.renderPage(page: Page) {
     }
     body {
         div(classes = "terminal") {
-            header(classes = "terminal-header") {
-                div(classes = logoClasses)
-                nav(classes = "terminal-nav") {
-                    renderNavLinks(page)
-                }
-            }
-            div(classes = "terminal-main") {
-                main {
-                    id = "main"
-
-                    div("terminal-prompt") {
-                        when (page) {
-                            is Page.Content -> +"view ${page.href}"
-                            is Page.Error -> +""
-                        }
-                    }
-
-                    div("terminal-output") {
-                        with(page) { block() }
-                    }
-                }
-            }
+            renderTerminalHeader(page)
+            renderTerminalMain(page)
         }
-    }
-}
-
-private val mainPages = listOf(Page.Home, Page.About)
-
-private fun NAV.renderNavLinks(currentPage: Page) {
-    mainPages.map {
-        a(
-            href = it.href,
-            classes = when (it) {
-                currentPage -> "nav-link selected"
-                else -> "nav-link"
-            }
-        ) { +it.name }
     }
 }
