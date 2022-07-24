@@ -23,11 +23,22 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         transition("visibility", 300.ms)
     }
 
+    rule(".terminal-drawer-contents") {
+        flexColumn()
+        position = Position.fixed
+        bottom = 0.px
+        width = 100.pct
+        transform.translateY(100.pct)
+        transition("transform", 300.ms)
+        property("willChange", "transform")
+        pointerEvents = PointerEvents.auto
+    }
+
     rule(".terminal-drawer-button") {
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
         position = Position.absolute
-        top = (-4).rem
-        left = LinearDimension("2ch")
+        top = LinearDimension("-6ch") - 4.px
+        left = LinearDimension("2ch") + 4.px
         height = LinearDimension("4ch")
         width = LinearDimension("4ch")
         pointerEvents = PointerEvents.auto
@@ -37,14 +48,8 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     rule(".terminal-header") {
         beveledTerminalSurface()
         flexColumn()
+        flexGrow = 1.0
         alignItems = Align.center
-        bottom = 0.px
-        position = Position.fixed
-        width = 100.pct
-        transform.translateY(100.pct)
-        transition("transform", 300.ms)
-        property("willChange", "transform")
-        pointerEvents = PointerEvents.auto
     }
 
     rule(".terminal-drawer:focus-within > .terminal-drawer-bg") {
@@ -56,7 +61,7 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         pointerEvents = PointerEvents.none
     }
 
-    rule(".terminal-drawer:focus-within .terminal-header") {
+    rule(".terminal-drawer:focus-within .terminal-drawer-contents") {
         transform = Transforms.none
     }
 
@@ -124,6 +129,13 @@ fun CSSBuilder.renderTerminalHeaderTabletStyles() {
             width = LinearDimension.auto
         }
 
+        rule(".terminal-drawer-contents") {
+            position = Position.static
+            height = 100.pct
+            width = LinearDimension.auto
+            transform = Transforms.none
+        }
+
         rule(".terminal-drawer-button") {
             display = Display.none
         }
@@ -131,10 +143,6 @@ fun CSSBuilder.renderTerminalHeaderTabletStyles() {
         rule(".terminal-header") {
             borderTopLeftRadius = LinearDimension("1ch")
             borderBottomLeftRadius = LinearDimension("1ch")
-            height = 100.pct
-            position = Position.static
-            width = LinearDimension.auto
-            transform = Transforms.none
         }
 
         rule(".terminal-nav") {
