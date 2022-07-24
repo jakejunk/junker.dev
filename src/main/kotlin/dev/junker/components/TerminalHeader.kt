@@ -12,6 +12,7 @@ fun DIV.renderTerminalHeader(page: Page) {
     div(classes = "terminal-drawer") {
         div(classes = "terminal-drawer-bg")
         header(classes = "terminal-header") {
+            tabIndex = "0"
             div(classes = "terminal-drawer-button") { tabIndex = "0" }
             div(classes = logoClasses)
             nav(classes = "terminal-nav") {
