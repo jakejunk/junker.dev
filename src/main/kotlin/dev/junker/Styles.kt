@@ -1,9 +1,6 @@
 package dev.junker
 
-import dev.junker.components.renderTerminalHeaderStyles
-import dev.junker.components.renderTerminalHeaderTabletStyles
-import dev.junker.components.renderTerminalMainStyles
-import dev.junker.components.renderTerminalMainTabletStyles
+import dev.junker.components.*
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -55,11 +52,13 @@ fun CSSBuilder.renderStyles() {
         width = 100.pct
     }
 
+    renderTerminalDrawerStyles()
     renderTerminalHeaderStyles()
     renderTerminalMainStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
+    renderTerminalDrawerTabletStyles()
     renderTerminalHeaderTabletStyles()
     renderTerminalMainTabletStyles()
 
@@ -80,6 +79,14 @@ fun CSSBuilder.beveledTerminalSurface() {
     borderLeftColor = SiteColor.BorderLeft.color
     borderStyle = BorderStyle.solid
     borderWidth = 4.px
+}
+
+fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
+    backgroundImage = Image("url($url)")
+    backgroundSize = "contain"
+    backgroundRepeat = BackgroundRepeat.noRepeat
+    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
+    property("image-rendering", "pixelated")
 }
 
 fun CSSBuilder.flexColumn() {

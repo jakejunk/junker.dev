@@ -1,6 +1,6 @@
 package dev.junker
 
-import dev.junker.components.renderTerminalHeader
+import dev.junker.components.renderTerminalDrawer
 import dev.junker.components.renderTerminalMain
 import io.ktor.http.*
 import kotlinx.html.*
@@ -69,7 +69,7 @@ fun HTML.renderPage(page: Page) {
     }
     body {
         div(classes = "terminal") {
-            renderTerminalHeader(page)
+            renderTerminalDrawer(page)
             renderTerminalMain(page)
         }
     }

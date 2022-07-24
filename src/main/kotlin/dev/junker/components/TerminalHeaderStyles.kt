@@ -5,64 +5,11 @@ import kotlinx.css.*
 import kotlinx.css.properties.*
 
 fun CSSBuilder.renderTerminalHeaderStyles() {
-    rule(".terminal-drawer") {
-        position = Position.fixed
-        height = 100.vh
-        width = 100.vw
-        pointerEvents = PointerEvents.none
-    }
-
-    rule(".terminal-drawer-bg") {
-        position = Position.absolute
-        backgroundColor = SiteColor.BackgroundDark.color
-        height = 100.vh
-        width = 100.vw
-        opacity = 0
-        visibility = Visibility.hidden
-        transition("opacity", 300.ms)
-        transition("visibility", 300.ms)
-    }
-
-    rule(".terminal-drawer-contents") {
-        flexColumn()
-        position = Position.fixed
-        bottom = 0.px
-        width = 100.pct
-        transform.translateY(100.pct)
-        transition("transform", 300.ms)
-        property("willChange", "transform")
-        pointerEvents = PointerEvents.auto
-    }
-
-    rule(".terminal-drawer-button") {
-        glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
-        position = Position.absolute
-        top = LinearDimension("-6ch") - 4.px
-        left = LinearDimension("2ch") + 4.px
-        height = LinearDimension("4ch")
-        width = LinearDimension("4ch")
-        pointerEvents = PointerEvents.auto
-        property("touch-action", "manipulation")
-    }
-
     rule(".terminal-header") {
         beveledTerminalSurface()
         flexColumn()
         flexGrow = 1.0
         alignItems = Align.center
-    }
-
-    rule(".terminal-drawer:focus-within > .terminal-drawer-bg") {
-        opacity = 0.75
-        visibility = Visibility.visible
-    }
-
-    rule(".terminal-drawer:focus-within .terminal-drawer-button") {
-        pointerEvents = PointerEvents.none
-    }
-
-    rule(".terminal-drawer:focus-within .terminal-drawer-contents") {
-        transform = Transforms.none
     }
 
     rule(".site-logo-image") {
@@ -107,39 +54,8 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     }
 }
 
-private fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
-    backgroundImage = Image("url($url)")
-    backgroundSize = "contain"
-    backgroundRepeat = BackgroundRepeat.noRepeat
-    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
-    property("image-rendering", "pixelated")
-}
-
 fun CSSBuilder.renderTerminalHeaderTabletStyles() {
     tabletOrLarger {
-        rule(".terminal-drawer") {
-            position = Position.static
-            height = LinearDimension.auto
-            width = LinearDimension.auto
-            pointerEvents = PointerEvents.unset
-        }
-
-        rule(".terminal-drawer-bg") {
-            height = LinearDimension.auto
-            width = LinearDimension.auto
-        }
-
-        rule(".terminal-drawer-contents") {
-            position = Position.static
-            height = 100.pct
-            width = LinearDimension.auto
-            transform = Transforms.none
-        }
-
-        rule(".terminal-drawer-button") {
-            display = Display.none
-        }
-
         rule(".terminal-header") {
             borderTopLeftRadius = LinearDimension("1ch")
             borderBottomLeftRadius = LinearDimension("1ch")
