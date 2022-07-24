@@ -9,10 +9,14 @@ fun DIV.renderTerminalHeader(page: Page) {
         else -> "site-logo-image"
     }
 
-    header(classes = "terminal-header") {
-        div(classes = logoClasses)
-        nav(classes = "terminal-nav") {
-            renderNavLinks(page)
+    div(classes = "terminal-drawer") {
+        div(classes = "terminal-drawer-bg")
+        header(classes = "terminal-header") {
+            div(classes = "terminal-drawer-button") { tabIndex = "0" }
+            div(classes = logoClasses)
+            nav(classes = "terminal-nav") {
+                renderNavLinks(page)
+            }
         }
     }
 }
