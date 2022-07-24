@@ -19,26 +19,28 @@ sealed interface Page {
     sealed interface Content : Page {
         val href: String
         val name: String
+        val description: String
     }
 
     object InternalServerError : Error {
         override val title = "500 - Internal Server Error"
         override val block: FlowContent.() -> Unit = {
-            +"view: Something went wrong!"
+            +"view: Something went wrong."
         }
     }
 
     object NotFound : Error {
         override val title = "404 - Not Found"
         override val block: FlowContent.() -> Unit = {
-            +"view: Page not found"
+            +"view: Page not found."
         }
     }
 
     object Home : Content {
         override val title = "Jake Junker"
-        override val name = "Home"
+        override val name = "HOME"
         override val href = "/"
+        override val description = "Just a simple dev trying to make his way in the universe."
         override val block: FlowContent.() -> Unit = {
             +"Under construction :)"
         }
@@ -46,8 +48,9 @@ sealed interface Page {
 
     object About : Content {
         override val title = "About - ${Home.title}"
-        override val name = "About"
+        override val name = "ABOUT"
         override val href = "/about"
+        override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
         override val block: FlowContent.() -> Unit = {
             +"I'll tell you later."
         }
@@ -57,11 +60,12 @@ sealed interface Page {
 fun HTML.renderPage(page: Page) {
     head {
         meta(charset = "utf-8")
-        meta(content = "content-type") { httpEquiv = "text/html; charset=UTF-8" }
-        meta(content = "width=device-width, initial-scale=1.0") { name = "viewport" }
-        styleLink("/styles.css")
-
         title(page.title)
+        if (page is Page.Content) {
+            meta(name = "description", content = page.description)
+        }
+        meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
+        styleLink("/styles.css")
     }
     body {
         div(classes = "terminal") {
