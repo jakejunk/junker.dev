@@ -24,12 +24,12 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     }
 
     rule(".terminal-drawer-button") {
-        glowingPixelatedBackgroundImage("/assets/images/10x10_menu_black.png")
+        glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
         position = Position.absolute
-        top = LinearDimension("-8ch")
-        right = LinearDimension("2ch")
-        height = LinearDimension("5ch")
-        width = LinearDimension("5ch")
+        top = (-4).rem
+        left = LinearDimension("2ch")
+        height = LinearDimension("4ch")
+        width = LinearDimension("4ch")
         pointerEvents = PointerEvents.auto
         property("touch-action", "manipulation")
     }
@@ -88,7 +88,7 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         backgroundColor = SiteColor.BackgroundMedium.color
         borderRadius = LinearDimension("1ch")
         color = SiteColor.PrimaryText.color
-        padding(vertical = 1.rem, LinearDimension("3ch"))
+        padding(vertical = 1.rem, horizontal = LinearDimension("3ch"))
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
     }
@@ -138,15 +138,17 @@ fun CSSBuilder.renderTerminalHeaderTabletStyles() {
         }
 
         rule(".terminal-nav") {
-            alignItems = Align.flexEnd
+            alignItems = Align.stretch
             flexDirection = FlexDirection.column
             margin(vertical = 2.rem)
             paddingRight = 0.px
+            rowGap = RowGap("1rem")
         }
 
         rule(".nav-link") {
             borderTopRightRadius = 0.px
             borderBottomRightRadius = 0.px
+            padding(horizontal = LinearDimension("2ch"))
         }
     }
 }
