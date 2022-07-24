@@ -24,8 +24,8 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     }
 
     rule(".terminal-drawer-button") {
+        glowingPixelatedBackgroundImage("/assets/images/10x10_menu_black.png")
         position = Position.absolute
-        backgroundColor = Color.red
         top = LinearDimension("-8ch")
         right = LinearDimension("2ch")
         height = LinearDimension("5ch")
@@ -61,12 +61,8 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     }
 
     rule(".site-logo-image") {
-        backgroundImage = Image("url(/assets/images/16x16_logo_black.png)")
-        backgroundSize = "contain"
-        backgroundRepeat = BackgroundRepeat.noRepeat
-        filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
+        glowingPixelatedBackgroundImage("/assets/images/16x16_logo_black.png")
         height = LinearDimension("8ch")
-        property("image-rendering", "pixelated")
         width = LinearDimension("8ch")
         margin(2.rem, 2.rem, 2.rem, 2.rem)
     }
@@ -104,6 +100,14 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     rule(".nav-link.selected") {
         primaryTextGlow()
     }
+}
+
+private fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
+    backgroundImage = Image("url($url)")
+    backgroundSize = "contain"
+    backgroundRepeat = BackgroundRepeat.noRepeat
+    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
+    property("image-rendering", "pixelated")
 }
 
 fun CSSBuilder.renderTerminalHeaderTabletStyles() {
