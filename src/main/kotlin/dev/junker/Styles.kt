@@ -1,9 +1,6 @@
 package dev.junker
 
-import dev.junker.components.renderTerminalHeaderStyles
-import dev.junker.components.renderTerminalHeaderTabletStyles
-import dev.junker.components.renderTerminalMainStyles
-import dev.junker.components.renderTerminalMainTabletStyles
+import dev.junker.components.*
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -22,7 +19,8 @@ enum class SiteColor(value: String) {
     Secondary("#ED6A5A"),
     SecondaryBright("#F29488"),
     
-    PrimaryText("#F0E7D8");
+    PrimaryText("#F0E7D8"),
+    SubtleText("#637081");
 
     val color = Color(value)
 }
@@ -55,12 +53,16 @@ fun CSSBuilder.renderStyles() {
         width = 100.pct
     }
 
+    renderTerminalDrawerStyles()
     renderTerminalHeaderStyles()
+    renderTerminalFooterStyles()
     renderTerminalMainStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
+    renderTerminalDrawerTabletStyles()
     renderTerminalHeaderTabletStyles()
+    renderTerminalFooterTabletStyles()
     renderTerminalMainTabletStyles()
 
     tabletOrLarger {
@@ -80,6 +82,14 @@ fun CSSBuilder.beveledTerminalSurface() {
     borderLeftColor = SiteColor.BorderLeft.color
     borderStyle = BorderStyle.solid
     borderWidth = 4.px
+}
+
+fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
+    backgroundImage = Image("url($url)")
+    backgroundSize = "contain"
+    backgroundRepeat = BackgroundRepeat.noRepeat
+    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
+    property("image-rendering", "pixelated")
 }
 
 fun CSSBuilder.flexColumn() {
