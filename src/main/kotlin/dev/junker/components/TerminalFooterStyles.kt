@@ -29,7 +29,7 @@ fun CSSBuilder.renderTerminalFooterStyles() {
 fun CSSBuilder.renderTerminalFooterTabletStyles() {
     tabletOrLarger {
         rule(".terminal-footer") {
-            borderBottomLeftRadius = LinearDimension("1ch")
+            borderBottomLeftRadius = 1.rem
             flexDirection = FlexDirection.column
         }
 

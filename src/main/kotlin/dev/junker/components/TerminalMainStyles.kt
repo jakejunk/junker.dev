@@ -32,8 +32,8 @@ fun CSSBuilder.renderTerminalMainStyles() {
 fun CSSBuilder.renderTerminalMainTabletStyles() {
     tabletOrLarger {
         rule(".terminal-main") {
-            borderTopRightRadius = LinearDimension("1ch")
-            borderBottomRightRadius = LinearDimension("1ch")
+            borderTopRightRadius = 1.rem
+            borderBottomRightRadius = 1.rem
         }
 
         // For Firefox
