@@ -19,7 +19,8 @@ enum class SiteColor(value: String) {
     Secondary("#ED6A5A"),
     SecondaryBright("#F29488"),
     
-    PrimaryText("#F0E7D8");
+    PrimaryText("#F0E7D8"),
+    SubtleText("#637081");
 
     val color = Color(value)
 }
@@ -54,12 +55,14 @@ fun CSSBuilder.renderStyles() {
 
     renderTerminalDrawerStyles()
     renderTerminalHeaderStyles()
+    renderTerminalFooterStyles()
     renderTerminalMainStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
     renderTerminalDrawerTabletStyles()
     renderTerminalHeaderTabletStyles()
+    renderTerminalFooterTabletStyles()
     renderTerminalMainTabletStyles()
 
     tabletOrLarger {

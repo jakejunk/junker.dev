@@ -58,7 +58,6 @@ fun CSSBuilder.renderTerminalHeaderTabletStyles() {
     tabletOrLarger {
         rule(".terminal-header") {
             borderTopLeftRadius = LinearDimension("1ch")
-            borderBottomLeftRadius = LinearDimension("1ch")
         }
 
         rule(".terminal-nav") {

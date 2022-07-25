@@ -10,6 +10,7 @@ fun DIV.renderTerminalDrawer(page: Page) {
             tabIndex = "0"
             div(classes = "terminal-drawer-button") { tabIndex = "0" }
             renderTerminalHeader(page)
+            renderTerminalFooter()
         }
     }
 }
