@@ -63,7 +63,7 @@ fun CSSBuilder.renderTerminalHeaderTabletStyles() {
         rule(".terminal-nav") {
             alignItems = Align.stretch
             flexDirection = FlexDirection.column
-            margin(vertical = 2.rem)
+            margin(top = 1.rem, bottom = 2.rem)
             paddingRight = 0.px
             rowGap = RowGap("1rem")
         }

@@ -25,9 +25,13 @@ fun Application.webMain() {
     }
 
     routing {
-        static("/assets") {
+        static("/") {
             staticBasePackage = "static"
-            static("images") { resources("images") }
+
+            resources("favicon")
+            static("/assets") {
+                static("images") { resources("images") }
+            }
         }
 
         get("/styles.css") {

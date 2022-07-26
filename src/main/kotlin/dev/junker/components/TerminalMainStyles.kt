@@ -5,7 +5,7 @@ import kotlinx.css.*
 
 fun CSSBuilder.renderTerminalMainStyles() {
     rule(".terminal-main") {
-        beveledTerminalSurface()
+        backgroundColor = SiteColor.BackgroundLight.color
         flexGrow = 1.0
         overflowY = Overflow.auto
         paddingBottom = 8.rem
@@ -32,6 +32,7 @@ fun CSSBuilder.renderTerminalMainStyles() {
 fun CSSBuilder.renderTerminalMainTabletStyles() {
     tabletOrLarger {
         rule(".terminal-main") {
+            beveledTerminalSurface()
             borderTopRightRadius = 1.rem
             borderBottomRightRadius = 1.rem
         }
