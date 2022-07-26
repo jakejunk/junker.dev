@@ -33,7 +33,7 @@ fun CSSBuilder.renderStyles() {
     html {
         boxSizing = BoxSizing.borderBox
         color = SiteColor.PrimaryText.color
-        fontFamily = "Lucida Console, monospace"
+        fontFamily = "Source Code Pro, Courier New, Courier, monospace"
         height = 100.pct
     }
 

@@ -40,8 +40,8 @@ fun CSSBuilder.renderTerminalDrawerStyles() {
     rule(".terminal-drawer-button") {
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
         position = Position.absolute
-        top = LinearDimension("-6ch") - 4.px
-        left = LinearDimension("2ch") + 4.px
+        top = LinearDimension("-7ch")
+        left = LinearDimension("3ch")
         height = LinearDimension("4ch")
         width = LinearDimension("4ch")
         pointerEvents = PointerEvents.auto
