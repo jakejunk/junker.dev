@@ -1,29 +1,29 @@
-package dev.junker.components
+package dev.junker.components.drawer
 
 import dev.junker.*
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
-fun CSSBuilder.renderTerminalHeaderStyles() {
-    rule(".terminal-header") {
+fun CSSBuilder.renderHeaderStyles() {
+    rule(drawerHeader.css) {
         beveledTerminalSurface()
         flexColumn()
         flexGrow = 1.0
         alignItems = Align.center
     }
 
-    rule(".site-logo-image") {
+    rule(siteLogo.css) {
         glowingPixelatedBackgroundImage("/assets/images/16x16_logo_black.png")
         height = LinearDimension("8ch")
         width = LinearDimension("8ch")
         margin(2.rem, 2.rem, 2.rem, 2.rem)
     }
 
-    rule(".site-logo-image.error") {
+    rule("${siteLogo.css}${error.css}") {
         filter = "invert(60%) sepia(30%) saturate(645%) hue-rotate(318deg) brightness(106%) contrast(90%) drop-shadow(0px 0px 1ch ${SiteColor.Secondary.color.value})"
     }
 
-    rule(".terminal-nav") {
+    rule(headerNav.css) {
         alignSelf = Align.flexEnd
         columnGap = ColumnGap("1ch")
         display = Display.flex
@@ -36,7 +36,7 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         width = 100.pct
     }
 
-    rule(".nav-link") {
+    rule(navLink.css) {
         backgroundColor = SiteColor.BackgroundMedium.color
         borderRadius = LinearDimension("1ch")
         color = SiteColor.PrimaryText.color
@@ -45,22 +45,22 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         whiteSpace = WhiteSpace.nowrap
     }
 
-    rule(".nav-link:hover") {
+    rule("${navLink.css}:hover") {
         backgroundColor = SiteColor.BackgroundDark.color
     }
 
-    rule(".nav-link.selected") {
+    rule("${navLink.css}.selected") {
         primaryTextGlow()
     }
 }
 
-fun CSSBuilder.renderTerminalHeaderTabletStyles() {
+fun CSSBuilder.renderHeaderTabletStyles() {
     tabletOrLarger {
-        rule(".terminal-header") {
+        rule(drawerHeader.css) {
             borderTopLeftRadius = 1.rem
         }
 
-        rule(".terminal-nav") {
+        rule(headerNav.css) {
             alignItems = Align.stretch
             flexDirection = FlexDirection.column
             margin(top = 1.rem, bottom = 2.rem)
@@ -68,7 +68,7 @@ fun CSSBuilder.renderTerminalHeaderTabletStyles() {
             rowGap = RowGap("1rem")
         }
 
-        rule(".nav-link") {
+        rule(navLink.css) {
             borderTopRightRadius = 0.px
             borderBottomRightRadius = 0.px
             padding(horizontal = LinearDimension("2ch"))

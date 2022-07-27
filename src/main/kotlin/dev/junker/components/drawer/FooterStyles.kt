@@ -1,39 +1,40 @@
-package dev.junker.components
+package dev.junker.components.drawer
 
 import dev.junker.*
 import kotlinx.css.*
 
-fun CSSBuilder.renderTerminalFooterStyles() {
-    rule(".terminal-footer") {
+fun CSSBuilder.renderFooterStyles() {
+    rule(drawerFooter.css) {
         beveledTerminalSurface()
         display = Display.flex
+        alignItems = Align.baseline
         justifyContent = JustifyContent.spaceBetween
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
     }
 
-    rule(".totally-real-status-indicator") {
+    rule(statusIndicator.css) {
         engravedText()
     }
 
-    rule(".totally-real-status-indicator:before") {
+    rule("${statusIndicator.css}:before") {
         content = "● ".quoted
         color = SiteColor.SecondaryBright.color
         property("text-shadow", "0 0 2ch ${SiteColor.Secondary.color.value}")
     }
 
-    rule(".copyright") {
+    rule(copyright.css) {
         color = SiteColor.SubtleText.color
     }
 }
 
-fun CSSBuilder.renderTerminalFooterTabletStyles() {
+fun CSSBuilder.renderFooterTabletStyles() {
     tabletOrLarger {
-        rule(".terminal-footer") {
+        rule(drawerFooter.css) {
             borderBottomLeftRadius = 1.rem
             flexDirection = FlexDirection.column
         }
 
-        rule(".copyright") {
+        rule(copyright.css) {
             marginTop = 2.rem
         }
     }
