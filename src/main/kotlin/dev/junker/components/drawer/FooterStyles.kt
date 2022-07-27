@@ -1,10 +1,10 @@
-package dev.junker.components
+package dev.junker.components.drawer
 
 import dev.junker.*
 import kotlinx.css.*
 
-fun CSSBuilder.renderTerminalFooterStyles() {
-    rule(".terminal-footer") {
+fun CSSBuilder.renderFooterStyles() {
+    rule(".drawer-footer") {
         beveledTerminalSurface()
         display = Display.flex
         justifyContent = JustifyContent.spaceBetween
@@ -26,9 +26,9 @@ fun CSSBuilder.renderTerminalFooterStyles() {
     }
 }
 
-fun CSSBuilder.renderTerminalFooterTabletStyles() {
+fun CSSBuilder.renderFooterTabletStyles() {
     tabletOrLarger {
-        rule(".terminal-footer") {
+        rule(".drawer-footer") {
             borderBottomLeftRadius = 1.rem
             flexDirection = FlexDirection.column
         }

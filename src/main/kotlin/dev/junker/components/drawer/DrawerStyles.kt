@@ -1,4 +1,4 @@
-package dev.junker.components
+package dev.junker.components.drawer
 
 import dev.junker.*
 import kotlinx.css.*
@@ -7,15 +7,15 @@ import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
 import kotlinx.css.properties.translateY
 
-fun CSSBuilder.renderTerminalDrawerStyles() {
-    rule(".terminal-drawer") {
+fun CSSBuilder.renderDrawerStyles() {
+    rule(".drawer") {
         position = Position.fixed
         height = 100.vh
         width = 100.vw
         pointerEvents = PointerEvents.none
     }
 
-    rule(".terminal-drawer-bg") {
+    rule(".drawer-bg") {
         position = Position.absolute
         backgroundColor = SiteColor.BackgroundDark.color
         height = 100.vh
@@ -26,7 +26,7 @@ fun CSSBuilder.renderTerminalDrawerStyles() {
         transition("visibility", 300.ms)
     }
 
-    rule(".terminal-drawer-contents") {
+    rule(".drawer-contents") {
         flexColumn()
         position = Position.fixed
         bottom = 0.px
@@ -37,7 +37,7 @@ fun CSSBuilder.renderTerminalDrawerStyles() {
         pointerEvents = PointerEvents.auto
     }
 
-    rule(".terminal-drawer-button") {
+    rule(".drawer-button") {
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
         position = Position.absolute
         top = LinearDimension("-7ch")
@@ -48,42 +48,42 @@ fun CSSBuilder.renderTerminalDrawerStyles() {
         property("touch-action", "manipulation")
     }
 
-    rule(".terminal-drawer:focus-within > .terminal-drawer-bg") {
+    rule(".drawer:focus-within > .drawer-bg") {
         opacity = 0.75
         visibility = Visibility.visible
     }
 
-    rule(".terminal-drawer:focus-within .terminal-drawer-button") {
+    rule(".drawer:focus-within .drawer-button") {
         pointerEvents = PointerEvents.none
     }
 
-    rule(".terminal-drawer:focus-within .terminal-drawer-contents") {
+    rule(".drawer:focus-within .drawer-contents") {
         transform = Transforms.none
     }
 }
 
-fun CSSBuilder.renderTerminalDrawerTabletStyles() {
+fun CSSBuilder.renderDrawerTabletStyles() {
     tabletOrLarger {
-        rule(".terminal-drawer") {
+        rule(".drawer") {
             position = Position.static
             height = LinearDimension.auto
             width = LinearDimension.auto
             pointerEvents = PointerEvents.unset
         }
 
-        rule(".terminal-drawer-bg") {
+        rule(".drawer-bg") {
             height = LinearDimension.auto
             width = LinearDimension.auto
         }
 
-        rule(".terminal-drawer-contents") {
+        rule(".drawer-contents") {
             position = Position.static
             height = 100.pct
             width = LinearDimension.auto
             transform = Transforms.none
         }
 
-        rule(".terminal-drawer-button") {
+        rule(".drawer-button") {
             display = Display.none
         }
     }

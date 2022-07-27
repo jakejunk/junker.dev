@@ -1,11 +1,11 @@
-package dev.junker.components
+package dev.junker.components.drawer
 
 import dev.junker.*
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
-fun CSSBuilder.renderTerminalHeaderStyles() {
-    rule(".terminal-header") {
+fun CSSBuilder.renderHeaderStyles() {
+    rule(".drawer-header") {
         beveledTerminalSurface()
         flexColumn()
         flexGrow = 1.0
@@ -23,7 +23,7 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
         filter = "invert(60%) sepia(30%) saturate(645%) hue-rotate(318deg) brightness(106%) contrast(90%) drop-shadow(0px 0px 1ch ${SiteColor.Secondary.color.value})"
     }
 
-    rule(".terminal-nav") {
+    rule(".header-nav") {
         alignSelf = Align.flexEnd
         columnGap = ColumnGap("1ch")
         display = Display.flex
@@ -54,13 +54,13 @@ fun CSSBuilder.renderTerminalHeaderStyles() {
     }
 }
 
-fun CSSBuilder.renderTerminalHeaderTabletStyles() {
+fun CSSBuilder.renderHeaderTabletStyles() {
     tabletOrLarger {
-        rule(".terminal-header") {
+        rule(".drawer-header") {
             borderTopLeftRadius = 1.rem
         }
 
-        rule(".terminal-nav") {
+        rule(".header-nav") {
             alignItems = Align.stretch
             flexDirection = FlexDirection.column
             margin(top = 1.rem, bottom = 2.rem)

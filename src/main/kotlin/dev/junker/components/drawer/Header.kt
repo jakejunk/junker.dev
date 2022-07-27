@@ -1,17 +1,17 @@
-package dev.junker.components
+package dev.junker.components.drawer
 
 import dev.junker.Page
 import kotlinx.html.*
 
-fun DIV.renderTerminalHeader(page: Page) {
+fun DIV.renderHeader(page: Page) {
     val logoClasses = when (page) {
         is Page.Error -> "site-logo-image error"
         else -> "site-logo-image"
     }
 
-    header(classes = "terminal-header") {
+    header(classes = "drawer-header") {
         div(classes = logoClasses)
-        nav(classes = "terminal-nav") {
+        nav(classes = "header-nav") {
             renderNavLinks(page)
         }
     }

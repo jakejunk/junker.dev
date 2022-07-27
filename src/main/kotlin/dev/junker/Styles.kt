@@ -1,6 +1,7 @@
 package dev.junker
 
 import dev.junker.components.*
+import dev.junker.components.drawer.*
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -53,16 +54,16 @@ fun CSSBuilder.renderStyles() {
         width = 100.pct
     }
 
-    renderTerminalDrawerStyles()
-    renderTerminalHeaderStyles()
-    renderTerminalFooterStyles()
+    renderDrawerStyles()
+    renderHeaderStyles()
+    renderFooterStyles()
     renderTerminalMainStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
-    renderTerminalDrawerTabletStyles()
-    renderTerminalHeaderTabletStyles()
-    renderTerminalFooterTabletStyles()
+    renderDrawerTabletStyles()
+    renderHeaderTabletStyles()
+    renderFooterTabletStyles()
     renderTerminalMainTabletStyles()
 
     tabletOrLarger {

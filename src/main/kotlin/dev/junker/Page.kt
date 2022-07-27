@@ -1,6 +1,6 @@
 package dev.junker
 
-import dev.junker.components.renderTerminalDrawer
+import dev.junker.components.drawer.renderDrawer
 import dev.junker.components.renderTerminalMain
 import io.ktor.http.*
 import kotlinx.html.*
@@ -71,7 +71,7 @@ fun HTML.renderPage(page: Page) {
     }
     body {
         div(classes = "terminal") {
-            renderTerminalDrawer(page)
+            renderDrawer(page)
             renderTerminalMain(page)
         }
     }
@@ -92,5 +92,3 @@ private fun HEAD.renderFontStuff() {
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
     styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap")
 }
-
-
