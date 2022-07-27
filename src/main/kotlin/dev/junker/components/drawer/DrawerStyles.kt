@@ -8,14 +8,14 @@ import kotlinx.css.properties.transition
 import kotlinx.css.properties.translateY
 
 fun CSSBuilder.renderDrawerStyles() {
-    rule(".drawer") {
+    rule(drawer.css) {
         position = Position.fixed
         height = 100.vh
         width = 100.vw
         pointerEvents = PointerEvents.none
     }
 
-    rule(".drawer-bg") {
+    rule(drawerBackground.css) {
         position = Position.absolute
         backgroundColor = SiteColor.BackgroundDark.color
         height = 100.vh
@@ -26,7 +26,7 @@ fun CSSBuilder.renderDrawerStyles() {
         transition("visibility", 300.ms)
     }
 
-    rule(".drawer-contents") {
+    rule(drawerContents.css) {
         flexColumn()
         position = Position.fixed
         bottom = 0.px
@@ -37,53 +37,53 @@ fun CSSBuilder.renderDrawerStyles() {
         pointerEvents = PointerEvents.auto
     }
 
-    rule(".drawer-button") {
+    rule(drawerButton.css) {
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
         position = Position.absolute
-        top = LinearDimension("-7ch")
-        left = LinearDimension("3ch")
+        top = LinearDimension("-6ch")
+        left = LinearDimension("2ch")
         height = LinearDimension("4ch")
         width = LinearDimension("4ch")
         pointerEvents = PointerEvents.auto
         property("touch-action", "manipulation")
     }
 
-    rule(".drawer:focus-within > .drawer-bg") {
+    rule("${drawer.css}:focus-within ${drawerBackground.css}") {
         opacity = 0.75
         visibility = Visibility.visible
     }
 
-    rule(".drawer:focus-within .drawer-button") {
+    rule("${drawer.css}:focus-within ${drawerButton.css}") {
         pointerEvents = PointerEvents.none
     }
 
-    rule(".drawer:focus-within .drawer-contents") {
+    rule("${drawer.css}:focus-within ${drawerContents.css}") {
         transform = Transforms.none
     }
 }
 
 fun CSSBuilder.renderDrawerTabletStyles() {
     tabletOrLarger {
-        rule(".drawer") {
+        rule(drawer.css) {
             position = Position.static
             height = LinearDimension.auto
             width = LinearDimension.auto
             pointerEvents = PointerEvents.unset
         }
 
-        rule(".drawer-bg") {
+        rule(drawerBackground.css) {
             height = LinearDimension.auto
             width = LinearDimension.auto
         }
 
-        rule(".drawer-contents") {
+        rule(drawerContents.css) {
             position = Position.static
             height = 100.pct
             width = LinearDimension.auto
             transform = Transforms.none
         }
 
-        rule(".drawer-button") {
+        rule(drawerButton.css) {
             display = Display.none
         }
     }
