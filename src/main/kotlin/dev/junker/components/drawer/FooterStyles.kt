@@ -24,6 +24,7 @@ fun CSSBuilder.renderFooterStyles() {
 
     rule(copyright.css) {
         color = SiteColor.SubtleText.color
+        whiteSpace = WhiteSpace.nowrap
     }
 }
 

@@ -52,7 +52,21 @@ sealed interface Page {
         override val href = "/about"
         override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
         override val block: FlowContent.() -> Unit = {
-            +"I'll tell you later."
+            h1(classes = "heading") { +"About me" }
+            p {
+                +"I'm Jake, a software engineer that rarely completes personal projects."
+            }
+            p {
+                +"Like almost every other developer on this planet, the siren call of game development got me to where I am today; writing Java 8 Spring Boot applications professionally. "
+                +"On my own time, I tend to overcomplicate projects for the fun of it. "
+                +"Websites, game engines, and programming languages are just some of the things I enjoy hand-rolled."
+            }
+            p {
+                +"It's not all about computers, though! "
+                +"I balance this tech-heavy part of my life with a healthy serving of sports, hiking, and traveling. "
+                +"I also enjoy trying to learn new languages; as in actual, human languages. "
+                +"Maybe someday I'll actually get good at one."
+            }
         }
     }
 }
@@ -91,4 +105,5 @@ private fun HEAD.renderFontStuff() {
     link(rel = "preconnect", href = "https://fonts.googleapis.com")
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
     styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap")
+    styleLink("https://fonts.googleapis.com/css2?family=Montserrat&display=swap")
 }

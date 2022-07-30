@@ -10,6 +10,7 @@ import kotlinx.html.main
 val terminalMain = "terminal-main".asClass()
 val terminalPrompt = "terminal-prompt".asClass()
 val terminalOutput = "terminal-output".asClass()
+val terminalOutputContent = "terminal-output-content".asClass()
 
 fun DIV.renderTerminalMain(page: Page) {
     div(classes = terminalMain.className) {
@@ -24,7 +25,9 @@ fun DIV.renderTerminalMain(page: Page) {
             }
 
             div(classes = terminalOutput.className) {
-                with(page) { block() }
+                div(classes = terminalOutputContent.className) {
+                    with(page) { block() }
+                }
             }
         }
     }

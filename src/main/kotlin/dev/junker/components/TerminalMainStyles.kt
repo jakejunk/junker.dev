@@ -2,6 +2,7 @@ package dev.junker.components
 
 import dev.junker.*
 import kotlinx.css.*
+import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderTerminalMainStyles() {
     rule(terminalMain.css) {
@@ -26,6 +27,26 @@ fun CSSBuilder.renderTerminalMainStyles() {
 
     rule(terminalOutput.css) {
         padding(vertical = 2.rem, horizontal = LinearDimension("2ch"))
+    }
+
+    rule(terminalOutputContent.css) {
+        fontFamily = "Montserrat, serif"
+        lineHeight = 1.75.rem.lh
+    }
+
+    rule(".heading") {
+        primaryTextGlow()
+        position = Position.relative
+        fontWeight = FontWeight.normal
+        margin(vertical = 2.rem, horizontal = 1.5.rem)
+    }
+
+    rule(".heading:before") {
+        position = Position.absolute
+        left = (-1.5).rem
+        content = "#".quoted
+        fontSize = 4.rem
+        opacity = 0.25
     }
 }
 
