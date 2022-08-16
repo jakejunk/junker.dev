@@ -59,16 +59,21 @@ sealed interface Page {
                 +"I'm Jake, a software engineer that rarely completes personal projects."
             }
             p {
-                +"From the moment I wrote my first line of XNA code, I knew that I wanted to develop video games for a living. "
-                +"That experience is what got me to where I am today—writing Java 8 Spring Boot applications to pay the bills. "
-                +"Outside of work, I enjoy starting side projects and overcomplicating them. "
+                +"From the moment I wrote my first line of "
+                a(href = "https://en.wikipedia.org/wiki/Microsoft_XNA") { +"XNA"  }
+                +", I knew that I wanted to develop video games for a living. "
+                +"That experience is what got me to where I am today—professionally writing Spring Boot applications in Java 8. "
+                +"Outside of work, I enjoy learning new things by starting projects and overcomplicating them. "
                 +"Websites, game engines, and programming languages are just some of the things I enjoy hand-rolled."
             }
             p {
-                +"But it's not all about the computers! "
+                +"But it's not all about computers! "
                 +"All the tech is balanced with a healthy serving of sports, hiking, and traveling. "
                 +"I also enjoy trying to learn actual, human languages. "
-                +"Someday, I'll even get good at one. Irgendwann mal!"
+                +"Someday, I'll even get good at one. "
+                em {
+                    +"Vielleicht eines Tages."
+                }
             }
         }
     }

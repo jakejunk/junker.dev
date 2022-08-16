@@ -5,7 +5,7 @@ import kotlinx.css.*
 
 fun CSSBuilder.renderFooterStyles() {
     rule(mainFooter.css) {
-        backgroundColor = SiteColor.ButtonColor.color
+        borderTop = "solid 2px ${SiteColor.BackgroundLight.color.value}"
         display = Display.flex
         justifyContent = JustifyContent.center
         paddingBottom = LinearDimension("8ch")
@@ -16,7 +16,7 @@ fun CSSBuilder.renderFooterStyles() {
         alignItems = Align.baseline
         justifyContent = JustifyContent.spaceBetween
         width = 100.pct
-        maxWidth = 900.px
+        maxWidth = 1000.px
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
     }
 
@@ -40,7 +40,7 @@ fun CSSBuilder.renderFooterStyles() {
 fun CSSBuilder.renderFooterTabletStyles() {
     tabletOrLarger {
         rule(mainFooter.css) {
-            backgroundColor = Color.unset
+            borderTop = "none"
             paddingBottom = 0.px
         }
     }

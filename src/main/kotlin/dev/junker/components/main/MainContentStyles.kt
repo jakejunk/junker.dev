@@ -61,6 +61,14 @@ fun CSSBuilder.renderMainContentStyles() {
         content = "/".quoted
         color = SiteColor.PrimaryText.color
     }
+
+    rule("a") {
+        primaryTextGlow()
+    }
+
+    rule("em") {
+        color = SiteColor.SubtleText.color
+    }
 }
 
 fun CSSBuilder.renderMainContentTabletStyles() {
