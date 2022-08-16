@@ -34,6 +34,6 @@ private fun NAV.renderNavLinks(currentPage: Page) {
             else -> navLink.className
         }
 
-        a(href = it.href, classes = navLinkClasses) { +it.name }
+        a(href = it.slug, classes = navLinkClasses) { +it.name }
     }
 }

@@ -1,4 +1,4 @@
-package dev.junker.components.drawer
+package dev.junker.components.footer
 
 import dev.junker.*
 import kotlinx.css.*

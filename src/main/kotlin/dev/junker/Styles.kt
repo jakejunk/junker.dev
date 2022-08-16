@@ -1,7 +1,10 @@
 package dev.junker
 
-import dev.junker.components.*
 import dev.junker.components.drawer.*
+import dev.junker.components.footer.renderFooterStyles
+import dev.junker.components.footer.renderFooterTabletStyles
+import dev.junker.components.main.renderMainContentStyles
+import dev.junker.components.main.renderMainContentTabletStyles
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -41,14 +44,14 @@ fun CSSBuilder.renderStyles() {
     renderDrawerStyles()
     renderHeaderStyles()
     renderFooterStyles()
-    renderTerminalMainStyles()
+    renderMainContentStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
     renderDrawerTabletStyles()
     renderHeaderTabletStyles()
     renderFooterTabletStyles()
-    renderTerminalMainTabletStyles()
+    renderMainContentTabletStyles()
 }
 
 fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)

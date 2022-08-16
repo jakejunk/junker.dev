@@ -1,10 +1,10 @@
-package dev.junker.components
+package dev.junker.components.main
 
 import dev.junker.*
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
-fun CSSBuilder.renderTerminalMainStyles() {
+fun CSSBuilder.renderMainContentStyles() {
     rule(mainContentContainer.css) {
         flexGrow = 1.0
         paddingBottom = 8.rem
@@ -63,7 +63,7 @@ fun CSSBuilder.renderTerminalMainStyles() {
     }
 }
 
-fun CSSBuilder.renderTerminalMainTabletStyles() {
+fun CSSBuilder.renderMainContentTabletStyles() {
     tabletOrLarger {
         rule(mainContentContainer.css) {
             display = Display.flex

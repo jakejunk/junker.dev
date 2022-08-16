@@ -1,4 +1,4 @@
-package dev.junker.components
+package dev.junker.components.main
 
 import dev.junker.Page
 import dev.junker.util.asClass
@@ -10,14 +10,14 @@ val terminalPrompt = "terminal-prompt".asClass()
 val terminalOutputContainer = "terminal-output-container".asClass()
 val terminalOutput = "terminal-output".asClass()
 
-fun BODY.renderTerminalMain(page: Page) {
+fun BODY.renderMainContent(page: Page) {
     div(classes = mainContentContainer.className) {
         main(classes = mainContent.className) {
             id = "main"
 
             div(classes = terminalPrompt.className) {
                 when (page) {
-                    is Page.Content -> +"view ${page.href}"
+                    is Page.Content -> +"view ${page.slug}"
                     is Page.Error -> +""
                 }
             }

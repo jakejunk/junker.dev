@@ -44,7 +44,7 @@ fun Application.webMain() {
 }
 
 private fun Routing.getContentPage(page: Page.Content) {
-    get(page.href) {
+    get(page.slug) {
         call.respondHtml {
             renderPage(page)
         }

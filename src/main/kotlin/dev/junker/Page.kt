@@ -1,8 +1,8 @@
 package dev.junker
 
 import dev.junker.components.drawer.renderDrawer
-import dev.junker.components.drawer.renderFooter
-import dev.junker.components.renderTerminalMain
+import dev.junker.components.footer.renderFooter
+import dev.junker.components.main.renderMainContent
 import io.ktor.http.*
 import kotlinx.html.*
 
@@ -18,7 +18,7 @@ sealed interface Page {
     }
 
     sealed interface Content : Page {
-        val href: String
+        val slug: String
         val name: String
         val description: String
     }
@@ -40,7 +40,7 @@ sealed interface Page {
     object Home : Content {
         override val title = "Jake Junker"
         override val name = "junker.dev"
-        override val href = "/"
+        override val slug = "/"
         override val description = "Just a simple dev trying to make his way in the universe."
         override val block: FlowContent.() -> Unit = {
             +"Under construction :)"
@@ -50,7 +50,7 @@ sealed interface Page {
     object About : Content {
         override val title = "About - ${Home.title}"
         override val name = "/about"
-        override val href = "/about"
+        override val slug = "/about"
         override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
         override val block: FlowContent.() -> Unit = {
             h1(classes = "heading") { +"about" }
@@ -88,7 +88,7 @@ fun HTML.renderPage(page: Page) {
     }
     body {
         renderDrawer(page)
-        renderTerminalMain(page)
+        renderMainContent(page)
         renderFooter()
     }
 }
