@@ -7,10 +7,10 @@ import kotlinx.css.*
 enum class SiteColor(value: String) {
     BackgroundDark("#06070A"),
     BackgroundMedium("#0B0E13"),
-    BackgroundLight("#11151C"),
+    BackgroundLight("#11151E"),
 
     BorderTop("#252F41"),
-    BorderRight("#0B0E13"),
+    BorderRight("#07090D"),
     BorderBottom("#07090D"),
     BorderLeft("#181F2A"),
 
@@ -39,7 +39,7 @@ fun CSSBuilder.renderStyles() {
     }
 
     body {
-        backgroundColor = SiteColor.BackgroundDark.color
+        backgroundColor = SiteColor.BackgroundMedium.color
         flexColumn()
         height = 100.pct
         margin(0.px)
@@ -82,7 +82,7 @@ fun CSSBuilder.beveledTerminalSurface() {
     borderBottomColor = SiteColor.BorderBottom.color
     borderLeftColor = SiteColor.BorderLeft.color
     borderStyle = BorderStyle.solid
-    borderWidth = 4.px
+    borderWidth = 3.px
 }
 
 fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {

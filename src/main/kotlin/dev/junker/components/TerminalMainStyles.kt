@@ -30,22 +30,18 @@ fun CSSBuilder.renderTerminalMainStyles() {
     }
 
     rule(terminalOutputContent.css) {
-        fontFamily = "Montserrat, serif"
+        fontFamily = "Work Sans, sans-serif"
         lineHeight = 1.75.rem.lh
     }
 
     rule(".heading") {
         primaryTextGlow()
-        position = Position.relative
         fontWeight = FontWeight.normal
-        margin(vertical = 2.rem, horizontal = 1.5.rem)
+        margin(vertical = 2.rem)
     }
 
     rule(".heading:before") {
-        position = Position.absolute
-        left = (-1.5).rem
         content = "#".quoted
-        fontSize = 4.rem
         opacity = 0.25
     }
 }
