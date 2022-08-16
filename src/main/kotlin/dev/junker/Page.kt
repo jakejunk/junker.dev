@@ -1,7 +1,8 @@
 package dev.junker
 
 import dev.junker.components.drawer.renderDrawer
-import dev.junker.components.renderTerminalMain
+import dev.junker.components.footer.renderFooter
+import dev.junker.components.main.renderMainContent
 import io.ktor.http.*
 import kotlinx.html.*
 
@@ -17,7 +18,7 @@ sealed interface Page {
     }
 
     sealed interface Content : Page {
-        val href: String
+        val slug: String
         val name: String
         val description: String
     }
@@ -39,7 +40,7 @@ sealed interface Page {
     object Home : Content {
         override val title = "Jake Junker"
         override val name = "junker.dev"
-        override val href = "/"
+        override val slug = "/"
         override val description = "Just a simple dev trying to make his way in the universe."
         override val block: FlowContent.() -> Unit = {
             +"Under construction :)"
@@ -49,10 +50,31 @@ sealed interface Page {
     object About : Content {
         override val title = "About - ${Home.title}"
         override val name = "/about"
-        override val href = "/about"
+        override val slug = "/about"
         override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
         override val block: FlowContent.() -> Unit = {
-            +"I'll tell you later."
+            h1(classes = "heading") { +"about" }
+            h2(classes = "heading") { +"about-me" }
+            p {
+                +"I'm Jake, a software engineer that rarely completes personal projects."
+            }
+            p {
+                +"From the moment I wrote my first line of "
+                a(href = "https://en.wikipedia.org/wiki/Microsoft_XNA") { +"XNA"  }
+                +", I knew that I wanted to develop video games for a living. "
+                +"That experience is what got me to where I am today—professionally writing Spring Boot applications in Java 8. "
+                +"Outside of work, I enjoy learning new things by starting projects and overcomplicating them. "
+                +"Websites, game engines, and programming languages are just some of the things I enjoy hand-rolled."
+            }
+            p {
+                +"But it's not all about computers! "
+                +"All the tech is balanced with a healthy serving of sports, hiking, and traveling. "
+                +"I also enjoy trying to learn actual, human languages. "
+                +"Someday, I'll even get good at one. "
+                em {
+                    +"Vielleicht eines Tages."
+                }
+            }
         }
     }
 }
@@ -70,10 +92,9 @@ fun HTML.renderPage(page: Page) {
         styleLink("/styles.css")
     }
     body {
-        div(classes = "terminal") {
-            renderDrawer(page)
-            renderTerminalMain(page)
-        }
+        renderDrawer(page)
+        renderMainContent(page)
+        renderFooter()
     }
 }
 
@@ -90,5 +111,6 @@ private fun HEAD.renderFaviconStuff() {
 private fun HEAD.renderFontStuff() {
     link(rel = "preconnect", href = "https://fonts.googleapis.com")
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
-    styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap")
+    styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;700&display=swap")
+    styleLink("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap")
 }
