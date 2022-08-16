@@ -8,7 +8,7 @@ import kotlinx.css.properties.transition
 import kotlinx.css.properties.translateY
 
 fun CSSBuilder.renderDrawerStyles() {
-    rule(drawer.css) {
+    rule(drawerContainer.css) {
         position = Position.fixed
         height = 100.vh
         width = 100.vw
@@ -16,8 +16,8 @@ fun CSSBuilder.renderDrawerStyles() {
     }
 
     rule(drawerBackground.css) {
-        position = Position.absolute
         backgroundColor = SiteColor.BackgroundDark.color
+        position = Position.absolute
         height = 100.vh
         width = 100.vw
         opacity = 0
@@ -26,7 +26,9 @@ fun CSSBuilder.renderDrawerStyles() {
         transition("visibility", 300.ms)
     }
 
-    rule(drawerContents.css) {
+    rule(drawer.css) {
+        backgroundColor = SiteColor.BackgroundMedium.color
+        borderTop = "solid 2px ${SiteColor.BackgroundLight.color.value}"
         flexColumn()
         position = Position.fixed
         bottom = 0.px
@@ -48,23 +50,23 @@ fun CSSBuilder.renderDrawerStyles() {
         property("touch-action", "manipulation")
     }
 
-    rule("${drawer.css}:focus-within ${drawerBackground.css}") {
+    rule("${drawerContainer.css}:focus-within ${drawerBackground.css}") {
         opacity = 0.75
         visibility = Visibility.visible
     }
 
-    rule("${drawer.css}:focus-within ${drawerButton.css}") {
+    rule("${drawerContainer.css}:focus-within ${drawerButton.css}") {
         pointerEvents = PointerEvents.none
     }
 
-    rule("${drawer.css}:focus-within ${drawerContents.css}") {
+    rule("${drawerContainer.css}:focus-within ${drawer.css}") {
         transform = Transforms.none
     }
 }
 
 fun CSSBuilder.renderDrawerTabletStyles() {
     tabletOrLarger {
-        rule(drawer.css) {
+        rule(drawerContainer.css) {
             position = Position.static
             height = LinearDimension.auto
             width = LinearDimension.auto
@@ -76,7 +78,10 @@ fun CSSBuilder.renderDrawerTabletStyles() {
             width = LinearDimension.auto
         }
 
-        rule(drawerContents.css) {
+        rule(drawer.css) {
+            borderTop = "none"
+            borderBottom = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+            alignItems = Align.center
             position = Position.static
             height = 100.pct
             width = LinearDimension.auto
