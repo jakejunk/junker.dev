@@ -2,17 +2,14 @@ package dev.junker.components
 
 import dev.junker.Page
 import dev.junker.util.asClass
-import kotlinx.html.DIV
-import kotlinx.html.div
-import kotlinx.html.id
-import kotlinx.html.main
+import kotlinx.html.*
 
 val terminalMain = "terminal-main".asClass()
 val terminalPrompt = "terminal-prompt".asClass()
 val terminalOutput = "terminal-output".asClass()
 val terminalOutputContent = "terminal-output-content".asClass()
 
-fun DIV.renderTerminalMain(page: Page) {
+fun BODY.renderTerminalMain(page: Page) {
     div(classes = terminalMain.className) {
         main {
             id = "main"

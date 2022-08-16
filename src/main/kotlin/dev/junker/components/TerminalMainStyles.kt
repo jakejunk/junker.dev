@@ -6,7 +6,6 @@ import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderTerminalMainStyles() {
     rule(terminalMain.css) {
-        backgroundColor = SiteColor.BackgroundLight.color
         flexGrow = 1.0
         overflowY = Overflow.auto
         paddingBottom = 8.rem
@@ -49,9 +48,8 @@ fun CSSBuilder.renderTerminalMainStyles() {
 fun CSSBuilder.renderTerminalMainTabletStyles() {
     tabletOrLarger {
         rule(terminalMain.css) {
-            beveledTerminalSurface()
-            borderTopRightRadius = 1.rem
-            borderBottomRightRadius = 1.rem
+//            borderTopRightRadius = 1.rem
+//            borderBottomRightRadius = 1.rem
         }
 
         // For Firefox

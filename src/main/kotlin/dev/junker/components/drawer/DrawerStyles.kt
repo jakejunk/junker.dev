@@ -77,6 +77,8 @@ fun CSSBuilder.renderDrawerTabletStyles() {
         }
 
         rule(drawerContents.css) {
+            borderBottom = "solid 3px ${SiteColor.BackgroundMedium.color.value}"
+            alignItems = Align.center
             position = Position.static
             height = 100.pct
             width = LinearDimension.auto

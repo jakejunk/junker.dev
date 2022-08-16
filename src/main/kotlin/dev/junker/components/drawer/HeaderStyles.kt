@@ -5,18 +5,17 @@ import kotlinx.css.*
 import kotlinx.css.properties.*
 
 fun CSSBuilder.renderHeaderStyles() {
-    rule(drawerHeader.css) {
-        beveledTerminalSurface()
-        flexColumn()
+    rule(mainHeader.css) {
+        display = Display.flex
         flexGrow = 1.0
         alignItems = Align.center
     }
 
     rule(siteLogo.css) {
         glowingPixelatedBackgroundImage("/assets/images/16x16_logo_black.png")
-        height = LinearDimension("8ch")
-        width = LinearDimension("8ch")
-        margin(2.rem, 2.rem, 2.rem, 2.rem)
+        height = 64.px
+        width = 64.px
+        margin(24.px)
     }
 
     rule("${siteLogo.css}${error.css}") {
@@ -24,14 +23,9 @@ fun CSSBuilder.renderHeaderStyles() {
     }
 
     rule(headerNav.css) {
-        alignSelf = Align.flexEnd
         columnGap = ColumnGap("1ch")
         display = Display.flex
         flexWrap = FlexWrap.wrap
-        justifyContent = JustifyContent.center
-        marginBottom = 1.rem
-        paddingLeft = 1.rem
-        paddingRight = 1.rem
         rowGap = RowGap("1ch")
         width = 100.pct
     }
@@ -56,21 +50,18 @@ fun CSSBuilder.renderHeaderStyles() {
 
 fun CSSBuilder.renderHeaderTabletStyles() {
     tabletOrLarger {
-        rule(drawerHeader.css) {
-            borderTopLeftRadius = 1.rem
+        rule(mainHeader.css) {
+            justifyContent = JustifyContent.spaceBetween
+            width = 100.pct
+            maxWidth = 1300.px
         }
 
         rule(headerNav.css) {
-            alignItems = Align.stretch
-            flexDirection = FlexDirection.column
-            margin(top = 1.rem, bottom = 2.rem)
-            paddingRight = 0.px
             rowGap = RowGap("1rem")
+            width = LinearDimension.auto
         }
 
         rule(navLink.css) {
-            borderTopRightRadius = 0.px
-            borderBottomRightRadius = 0.px
             padding(horizontal = LinearDimension("2ch"))
         }
     }

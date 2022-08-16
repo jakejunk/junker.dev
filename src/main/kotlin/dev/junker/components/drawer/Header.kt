@@ -4,7 +4,7 @@ import dev.junker.Page
 import dev.junker.util.asClass
 import kotlinx.html.*
 
-val drawerHeader = "drawer-header".asClass()
+val mainHeader = "main-header".asClass()
 val headerNav = "header-nav".asClass()
 val siteLogo = "site-logo".asClass()
 val error = "error".asClass()
@@ -12,7 +12,7 @@ val navLink = "nav-link".asClass()
 val selected = "selected".asClass()
 
 fun DIV.renderHeader(page: Page) {
-    header(classes = drawerHeader.className) {
+    header(classes = mainHeader.className) {
         renderSiteLogo(page)
         nav(classes = headerNav.className) {
             renderNavLinks(page)

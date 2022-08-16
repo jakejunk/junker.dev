@@ -39,19 +39,10 @@ fun CSSBuilder.renderStyles() {
     }
 
     body {
-        backgroundColor = SiteColor.BackgroundMedium.color
+        backgroundColor = SiteColor.BackgroundLight.color
         flexColumn()
         height = 100.pct
         margin(0.px)
-    }
-
-    rule(".terminal") {
-        alignSelf = Align.center
-        display = Display.flex
-        height = 100.pct
-        maxWidth = 1500.px
-        overflow = Overflow.hidden
-        width = 100.pct
     }
 
     renderDrawerStyles()

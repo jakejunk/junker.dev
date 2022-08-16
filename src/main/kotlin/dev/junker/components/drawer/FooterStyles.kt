@@ -5,7 +5,7 @@ import kotlinx.css.*
 
 fun CSSBuilder.renderFooterStyles() {
     rule(drawerFooter.css) {
-        beveledTerminalSurface()
+        backgroundColor = SiteColor.BackgroundMedium.color
         display = Display.flex
         alignItems = Align.baseline
         justifyContent = JustifyContent.spaceBetween
@@ -31,12 +31,12 @@ fun CSSBuilder.renderFooterStyles() {
 fun CSSBuilder.renderFooterTabletStyles() {
     tabletOrLarger {
         rule(drawerFooter.css) {
-            borderBottomLeftRadius = 1.rem
-            flexDirection = FlexDirection.column
+//            borderBottomLeftRadius = 1.rem
+//            flexDirection = FlexDirection.column
         }
 
         rule(copyright.css) {
-            marginTop = 2.rem
+//            marginTop = 2.rem
         }
     }
 }
