@@ -53,7 +53,8 @@ sealed interface Page {
         override val href = "/about"
         override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
         override val block: FlowContent.() -> Unit = {
-            h1(classes = "heading") { +"about-me" }
+            h1(classes = "heading") { +"about" }
+            h2(classes = "heading") { +"about-me" }
             p {
                 +"I'm Jake, a software engineer that rarely completes personal projects."
             }
@@ -65,9 +66,9 @@ sealed interface Page {
             }
             p {
                 +"But it's not all about the computers! "
-                +"I balance this tech-heavy part of my life with a healthy serving of sports, hiking, and traveling. "
+                +"All the tech is balanced with a healthy serving of sports, hiking, and traveling. "
                 +"I also enjoy trying to learn actual, human languages. "
-                +"Someday, I'll actually get good at one. Irgendwann mal!"
+                +"Someday, I'll even get good at one. Irgendwann mal!"
             }
         }
     }
@@ -105,6 +106,6 @@ private fun HEAD.renderFaviconStuff() {
 private fun HEAD.renderFontStuff() {
     link(rel = "preconnect", href = "https://fonts.googleapis.com")
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
-    styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap")
+    styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;700&display=swap")
     styleLink("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap")
 }

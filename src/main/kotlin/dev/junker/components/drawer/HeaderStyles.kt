@@ -7,6 +7,7 @@ import kotlinx.css.properties.*
 fun CSSBuilder.renderHeaderStyles() {
     rule(mainHeader.css) {
         display = Display.flex
+        flexDirection = FlexDirection.column
         flexGrow = 1.0
         alignItems = Align.center
     }
@@ -26,12 +27,14 @@ fun CSSBuilder.renderHeaderStyles() {
         columnGap = ColumnGap("1ch")
         display = Display.flex
         flexWrap = FlexWrap.wrap
+        justifyContent = JustifyContent.center
         rowGap = RowGap("1ch")
         width = 100.pct
+        padding(left = 24.px, right = 24.px, bottom = 24.px)
     }
 
     rule(navLink.css) {
-        backgroundColor = SiteColor.BackgroundMedium.color
+        backgroundColor = SiteColor.ButtonColor.color
         borderRadius = LinearDimension("1ch")
         color = SiteColor.PrimaryText.color
         padding(vertical = 1.rem, horizontal = LinearDimension("3ch"))
@@ -51,6 +54,7 @@ fun CSSBuilder.renderHeaderStyles() {
 fun CSSBuilder.renderHeaderTabletStyles() {
     tabletOrLarger {
         rule(mainHeader.css) {
+            flexDirection = FlexDirection.row
             justifyContent = JustifyContent.spaceBetween
             width = 100.pct
             maxWidth = 1300.px
@@ -59,6 +63,7 @@ fun CSSBuilder.renderHeaderTabletStyles() {
         rule(headerNav.css) {
             rowGap = RowGap("1rem")
             width = LinearDimension.auto
+            padding(24.px)
         }
 
         rule(navLink.css) {

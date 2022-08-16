@@ -4,14 +4,15 @@ import dev.junker.Page
 import dev.junker.util.asClass
 import kotlinx.html.*
 
-val terminalMain = "terminal-main".asClass()
+val mainContentContainer = "main-content-container".asClass()
+val mainContent = "main-content".asClass()
 val terminalPrompt = "terminal-prompt".asClass()
+val terminalOutputContainer = "terminal-output-container".asClass()
 val terminalOutput = "terminal-output".asClass()
-val terminalOutputContent = "terminal-output-content".asClass()
 
 fun BODY.renderTerminalMain(page: Page) {
-    div(classes = terminalMain.className) {
-        main {
+    div(classes = mainContentContainer.className) {
+        main(classes = mainContent.className) {
             id = "main"
 
             div(classes = terminalPrompt.className) {
@@ -21,8 +22,8 @@ fun BODY.renderTerminalMain(page: Page) {
                 }
             }
 
-            div(classes = terminalOutput.className) {
-                div(classes = terminalOutputContent.className) {
+            div(classes = terminalOutputContainer.className) {
+                div(classes = terminalOutput.className) {
                     with(page) { block() }
                 }
             }

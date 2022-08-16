@@ -6,22 +6,15 @@ import kotlinx.css.*
 
 enum class SiteColor(value: String) {
     BackgroundDark("#06070A"),
-    BackgroundMedium("#0B0E13"),
-    BackgroundLight("#11151E"),
-
-    BorderTop("#252F41"),
-    BorderRight("#07090D"),
-    BorderBottom("#07090D"),
-    BorderLeft("#181F2A"),
-
+    BackgroundMedium("#1D2434"),
+    BackgroundLight("#2E3952"),
+    ButtonColor("#161B27"),
     Primary("#1ABC9C"),
     PrimaryBright("#54E8CA"),
-
     Secondary("#ED6A5A"),
     SecondaryBright("#F29488"),
-    
     PrimaryText("#F0E7D8"),
-    SubtleText("#637081");
+    SubtleText("#798BB4");
 
     val color = Color(value)
 }
@@ -32,14 +25,14 @@ fun CSSBuilder.renderStyles() {
     }
 
     html {
-        boxSizing = BoxSizing.borderBox
-        color = SiteColor.PrimaryText.color
         fontFamily = "Source Code Pro, Courier New, Courier, monospace"
+        backgroundColor = SiteColor.BackgroundMedium.color
+        color = SiteColor.PrimaryText.color
+        boxSizing = BoxSizing.borderBox
         height = 100.pct
     }
 
     body {
-        backgroundColor = SiteColor.BackgroundLight.color
         flexColumn()
         height = 100.pct
         margin(0.px)
@@ -56,25 +49,9 @@ fun CSSBuilder.renderStyles() {
     renderHeaderTabletStyles()
     renderFooterTabletStyles()
     renderTerminalMainTabletStyles()
-
-    tabletOrLarger {
-        rule(".terminal") {
-            margin(top = 48.px, bottom = 48.px)
-        }
-    }
 }
 
 fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
-
-fun CSSBuilder.beveledTerminalSurface() {
-    backgroundColor = SiteColor.BackgroundLight.color
-    borderTopColor = SiteColor.BorderTop.color
-    borderRightColor = SiteColor.BorderRight.color
-    borderBottomColor = SiteColor.BorderBottom.color
-    borderLeftColor = SiteColor.BorderLeft.color
-    borderStyle = BorderStyle.solid
-    borderWidth = 3.px
-}
 
 fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
     backgroundImage = Image("url($url)")
