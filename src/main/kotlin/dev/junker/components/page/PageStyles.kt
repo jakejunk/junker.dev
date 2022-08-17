@@ -5,7 +5,7 @@ import kotlinx.css.*
 import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderPageStyles() {
-    rule(".heading") {
+    rule("h1, h2") {
         monospaceFont()
         primaryTextGlow()
         fontWeight = FontWeight.lighter
@@ -13,22 +13,30 @@ fun CSSBuilder.renderPageStyles() {
         margin(vertical = 2.rem)
     }
 
-    rule("h2.heading") {
-        textAlign = TextAlign.center
-    }
-
-    rule("h2.heading:before") {
-        content = "#".quoted
-        color = SiteColor.PrimaryText.color
-    }
-
-    rule("h1.heading") {
+    rule("h1") {
         fontSize = 2.rem
         textAlign = TextAlign.center
     }
 
-    rule("h1.heading:before") {
+    rule("h1:before") {
         content = "/".quoted
+        color = SiteColor.PrimaryText.color
+    }
+
+    rule("h1.error") {
+        secondaryTextGlow()
+    }
+
+    rule("h1.error:before") {
+        content = "!".quoted
+    }
+
+    rule("h2") {
+        textAlign = TextAlign.center
+    }
+
+    rule("h2:before") {
+        content = "#".quoted
         color = SiteColor.PrimaryText.color
     }
 
@@ -62,12 +70,12 @@ fun CSSBuilder.renderPageStyles() {
 
 fun CSSBuilder.renderPageTabletStyles() {
     tabletOrLarger {
-        rule("h1.heading") {
+        rule("h1") {
             fontSize = 3.rem
             textAlign = TextAlign.center
         }
 
-        rule("h2.heading") {
+        rule("h2") {
             fontSize = 2.rem
             textAlign = TextAlign.left
         }

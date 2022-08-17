@@ -85,4 +85,9 @@ fun CSSBuilder.primaryTextGlow() {
     property("text-shadow", "0 0 8px ${SiteColor.Primary.color.value}")
 }
 
+fun CSSBuilder.secondaryTextGlow() {
+    color = SiteColor.SecondaryBright.color
+    property("text-shadow", "0 0 8px ${SiteColor.Secondary.color.value}")
+}
+
 fun CSSBuilder.property(name: String, value: String) = put(name, value)

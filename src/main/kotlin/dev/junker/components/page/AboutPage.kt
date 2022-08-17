@@ -8,10 +8,10 @@ object AboutPage : Page.Content {
     override val slug = "/about"
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
     override val block: FlowContent.() -> Unit = {
-        h1(classes = "heading") { +"about" }
+        h1 { +"about" }
 
         section {
-            h2(classes = "heading") { +"about-me" }
+            h2 { +"about-me" }
             p {
                 +"I'm Jake, and I'm a professional software engineer."
             }
@@ -38,7 +38,7 @@ object AboutPage : Page.Content {
         hr()
 
         section {
-            h2(classes = "heading") { +"about-this-site" }
+            h2 { +"about-this-site" }
             p {
                 +"This site is all about fun, learning, and embracing not-invented-here syndrome. "
                 +"The stack is fairly straightforward: a "
