@@ -1,6 +1,8 @@
 package dev.junker.components.drawer
 
-import dev.junker.Page
+import dev.junker.components.page.AboutPage
+import dev.junker.components.page.HomePage
+import dev.junker.components.page.Page
 import dev.junker.util.asClass
 import kotlinx.html.*
 
@@ -28,7 +30,7 @@ private fun HEADER.renderSiteLogo(page: Page) {
 }
 
 private fun NAV.renderNavLinks(currentPage: Page) {
-    listOf(Page.Home, Page.About).map {
+    listOf(HomePage, AboutPage).map {
         val navLinkClasses = when (it) {
             currentPage -> "${navLink.className} ${selected.className}"
             else -> navLink.className

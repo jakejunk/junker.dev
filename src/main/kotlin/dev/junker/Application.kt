@@ -1,5 +1,8 @@
 package dev.junker
 
+import dev.junker.components.page.*
+import dev.junker.components.renderWebPage
+import dev.junker.components.renderWebPageStyles
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -16,11 +19,11 @@ fun Application.webMain() {
     install(IgnoreTrailingSlash)
     install(StatusPages) {
         exception<Throwable> { call, _ ->
-            call.renderErrorPage(Page.InternalServerError)
+            call.renderErrorPage(InternalServerErrorPage)
         }
 
         status(HttpStatusCode.NotFound) { call, _ ->
-            call.renderErrorPage(Page.NotFound)
+            call.renderErrorPage(NotFoundPage)
         }
     }
 
@@ -35,24 +38,24 @@ fun Application.webMain() {
         }
 
         get("/styles.css") {
-            call.respondCss { renderStyles() }
+            call.respondCss { renderWebPageStyles() }
         }
 
-        getContentPage(Page.Home)
-        getContentPage(Page.About)
+        getContentPage(HomePage)
+        getContentPage(AboutPage)
     }
 }
 
 private fun Routing.getContentPage(page: Page.Content) {
     get(page.slug) {
         call.respondHtml {
-            renderPage(page)
+            renderWebPage(page)
         }
     }
 }
 
 private suspend fun ApplicationCall.renderErrorPage(errorPage: Page.Error) {
-    this.respondHtml(status = errorPage.status) { renderPage(errorPage) }
+    this.respondHtml(status = errorPage.status) { renderWebPage(errorPage) }
 }
 
 private suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {

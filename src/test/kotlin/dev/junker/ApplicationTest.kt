@@ -1,5 +1,7 @@
 package dev.junker
 
+import dev.junker.components.page.*
+import dev.junker.components.renderWebPage
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -13,7 +15,7 @@ import kotlin.test.assertEquals
 class ApplicationTest {
     @Test
     fun testIndex() = testApplication {
-        val expected = generateDocumentAsText(Page.Home)
+        val expected = generateDocumentAsText(HomePage)
         val response = client.get("/")
 
         assertEquals(HttpStatusCode.OK, response.status)
@@ -22,7 +24,7 @@ class ApplicationTest {
 
     @Test
     fun testAbout() = testApplication {
-        val expected = generateDocumentAsText(Page.About)
+        val expected = generateDocumentAsText(AboutPage)
         val response = client.get("/about")
 
         assertEquals(HttpStatusCode.OK, response.status)
@@ -31,7 +33,7 @@ class ApplicationTest {
 
     @Test
     fun testAboutWithTrailingSlash() = testApplication {
-        val expected = generateDocumentAsText(Page.About)
+        val expected = generateDocumentAsText(AboutPage)
         val response = client.get("/about/")
 
         assertEquals(HttpStatusCode.OK, response.status)
@@ -40,7 +42,7 @@ class ApplicationTest {
 
     @Test
     fun testNotFound() = testApplication {
-        val expected = generateDocumentAsText(Page.NotFound)
+        val expected = generateDocumentAsText(NotFoundPage)
         val response = client.get("/totalAbsoluteNonsense/")
 
         assertEquals(HttpStatusCode.NotFound, response.status)
@@ -55,7 +57,7 @@ class ApplicationTest {
             }
         }
 
-        val expected = generateDocumentAsText(Page.InternalServerError)
+        val expected = generateDocumentAsText(InternalServerErrorPage)
         val response = client.get("/broken")
 
         assertEquals(HttpStatusCode.InternalServerError, response.status)
@@ -64,6 +66,6 @@ class ApplicationTest {
 
     private fun generateDocumentAsText(page: Page) =
         "<!DOCTYPE html>\n" + createHTML()
-            .html { renderPage(page) }
+            .html { renderWebPage(page) }
             .toString()
 }

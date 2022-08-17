@@ -1,6 +1,7 @@
 package dev.junker.components.main
 
-import dev.junker.*
+import dev.junker.components.*
+import dev.junker.components.page.*
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
@@ -29,45 +30,13 @@ fun CSSBuilder.renderMainContentStyles() {
     }
 
     rule(terminalOutputContainer.css) {
-        padding(vertical = 2.rem, horizontal = LinearDimension("2ch"))
+        padding(1.rem)
     }
 
-    rule("${terminalOutput.css} p") {
+    rule(terminalOutput.css) {
         fontFamily = "Work Sans, sans-serif"
-        lineHeight = 1.75.rem.lh
-    }
-
-    rule(".heading") {
-        primaryTextGlow()
         fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
-        margin(vertical = 2.rem)
-    }
-
-    rule("h2.heading") {
-        textAlign = TextAlign.center
-    }
-
-    rule("h2.heading:before") {
-        content = "#".quoted
-        color = SiteColor.PrimaryText.color
-    }
-
-    rule("h1.heading") {
-        textAlign = TextAlign.center
-    }
-
-    rule("h1.heading:before") {
-        content = "/".quoted
-        color = SiteColor.PrimaryText.color
-    }
-
-    rule("a") {
-        primaryTextGlow()
-    }
-
-    rule("em") {
-        color = SiteColor.SubtleText.color
     }
 }
 
@@ -84,16 +53,7 @@ fun CSSBuilder.renderMainContentTabletStyles() {
         }
 
         rule(terminalOutputContainer.css) {
-            padding(vertical = 2.rem, horizontal = 1.rem + LinearDimension("2ch"))
-        }
-
-        rule("h1.heading") {
-            fontSize = 3.rem
-            textAlign = TextAlign.initial
-        }
-
-        rule("h2.heading") {
-            fontSize = 2.rem
+            padding(2.rem)
         }
     }
 }

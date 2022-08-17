@@ -1,10 +1,12 @@
-package dev.junker
+package dev.junker.components
 
 import dev.junker.components.drawer.*
 import dev.junker.components.footer.renderFooterStyles
 import dev.junker.components.footer.renderFooterTabletStyles
 import dev.junker.components.main.renderMainContentStyles
 import dev.junker.components.main.renderMainContentTabletStyles
+import dev.junker.components.page.renderPageStyles
+import dev.junker.components.page.renderPageTabletStyles
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -22,29 +24,33 @@ enum class SiteColor(value: String) {
     val color = Color(value)
 }
 
-fun CSSBuilder.renderStyles() {
+val light2pxBorder = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+
+fun CSSBuilder.renderWebPageStyles() {
     rule("*, :after, :before") {
         boxSizing = BoxSizing.inherit
     }
 
     html {
-        fontFamily = "Source Code Pro, Courier New, Courier, monospace"
+        monospaceFont()
         backgroundColor = SiteColor.BackgroundMedium.color
         color = SiteColor.PrimaryText.color
         boxSizing = BoxSizing.borderBox
         height = 100.pct
+        overflowX = Overflow.hidden
     }
 
     body {
         flexColumn()
         height = 100.pct
-        margin(0.px)
+        margin(top = 0.px, right = 100.pct - 100.vw, bottom = 0.px, left = 0.px)
     }
 
     renderDrawerStyles()
     renderHeaderStyles()
     renderFooterStyles()
     renderMainContentStyles()
+    renderPageStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
@@ -52,9 +58,14 @@ fun CSSBuilder.renderStyles() {
     renderHeaderTabletStyles()
     renderFooterTabletStyles()
     renderMainContentTabletStyles()
+    renderPageTabletStyles()
 }
 
 fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
+
+fun CSSBuilder.monospaceFont() {
+    fontFamily = "Source Code Pro, Courier New, Courier, monospace"
+}
 
 fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
     backgroundImage = Image("url($url)")
@@ -71,7 +82,12 @@ fun CSSBuilder.flexColumn() {
 
 fun CSSBuilder.primaryTextGlow() {
     color = SiteColor.PrimaryBright.color
-    property("text-shadow", "0 0 2ch ${SiteColor.Primary.color.value}")
+    property("text-shadow", "0 0 8px ${SiteColor.Primary.color.value}")
+}
+
+fun CSSBuilder.secondaryTextGlow() {
+    color = SiteColor.SecondaryBright.color
+    property("text-shadow", "0 0 8px ${SiteColor.Secondary.color.value}")
 }
 
 fun CSSBuilder.property(name: String, value: String) = put(name, value)

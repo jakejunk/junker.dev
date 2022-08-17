@@ -1,11 +1,14 @@
 package dev.junker.components.footer
 
-import dev.junker.*
+import dev.junker.components.SiteColor
+import dev.junker.components.light2pxBorder
+import dev.junker.components.property
+import dev.junker.components.tabletOrLarger
 import kotlinx.css.*
 
 fun CSSBuilder.renderFooterStyles() {
     rule(mainFooter.css) {
-        borderTop = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+        borderTop = light2pxBorder
         display = Display.flex
         justifyContent = JustifyContent.center
         paddingBottom = LinearDimension("8ch")
@@ -15,8 +18,8 @@ fun CSSBuilder.renderFooterStyles() {
         display = Display.flex
         alignItems = Align.baseline
         justifyContent = JustifyContent.spaceBetween
-        width = 100.pct
         maxWidth = 1000.px
+        width = 100.pct
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
     }
 

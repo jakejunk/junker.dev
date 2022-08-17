@@ -1,22 +1,25 @@
 package dev.junker.components.drawer
 
-import dev.junker.*
+import dev.junker.components.SiteColor
+import dev.junker.components.glowingPixelatedBackgroundImage
+import dev.junker.components.primaryTextGlow
+import dev.junker.components.tabletOrLarger
 import kotlinx.css.*
-import kotlinx.css.properties.*
+import kotlinx.css.properties.TextDecoration
 
 fun CSSBuilder.renderHeaderStyles() {
     rule(mainHeader.css) {
         display = Display.flex
+        alignItems = Align.center
         flexDirection = FlexDirection.column
         flexGrow = 1.0
-        alignItems = Align.center
     }
 
     rule(siteLogo.css) {
         glowingPixelatedBackgroundImage("/assets/images/16x16_logo_black.png")
+        margin(24.px)
         height = 64.px
         width = 64.px
-        margin(24.px)
     }
 
     rule("${siteLogo.css}${error.css}") {
@@ -24,10 +27,10 @@ fun CSSBuilder.renderHeaderStyles() {
     }
 
     rule(headerNav.css) {
-        columnGap = ColumnGap("1ch")
         display = Display.flex
-        flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.center
+        flexWrap = FlexWrap.wrap
+        columnGap = ColumnGap("1ch")
         rowGap = RowGap("1ch")
         width = 100.pct
         padding(left = 24.px, right = 24.px, bottom = 24.px)
@@ -35,8 +38,8 @@ fun CSSBuilder.renderHeaderStyles() {
 
     rule(navLink.css) {
         backgroundColor = SiteColor.ButtonColor.color
-        borderRadius = LinearDimension("1ch")
         color = SiteColor.PrimaryText.color
+        borderRadius = LinearDimension("1ch")
         padding(vertical = 1.rem, horizontal = LinearDimension("3ch"))
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
@@ -56,8 +59,8 @@ fun CSSBuilder.renderHeaderTabletStyles() {
         rule(mainHeader.css) {
             flexDirection = FlexDirection.row
             justifyContent = JustifyContent.spaceBetween
-            width = 100.pct
             maxWidth = 1300.px
+            width = 100.pct
         }
 
         rule(headerNav.css) {
