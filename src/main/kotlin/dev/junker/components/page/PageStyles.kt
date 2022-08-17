@@ -66,6 +66,37 @@ fun CSSBuilder.renderPageStyles() {
         color = SiteColor.SubtleText.color
         fontStyle = FontStyle.italic
     }
+
+    rule(".ascii-banner-container") {
+        display = Display.flex
+        flexWrap = FlexWrap.wrap
+        justifyContent = JustifyContent.center
+        overflowX = Overflow.hidden
+    }
+
+    rule(".ascii-banner-group") {
+        display = Display.flex
+    }
+
+    rule(".ascii-banner") {
+        monospaceFont()
+        fontSize = 2.25.vw
+        lineHeight = 2.8.vw.lh
+        fontWeight = FontWeight.normal
+        whiteSpace = WhiteSpace.pre
+    }
+
+    rule(".ascii-banner.junker") {
+        primaryTextGlow()
+    }
+
+    rule(".ascii-banner.dot") {
+        secondaryTextGlow()
+    }
+
+    rule(".ascii-banner.dev") {
+        color = SiteColor.PrimaryText.color
+    }
 }
 
 fun CSSBuilder.renderPageTabletStyles() {
@@ -78,6 +109,11 @@ fun CSSBuilder.renderPageTabletStyles() {
         rule("h2") {
             fontSize = 2.rem
             textAlign = TextAlign.left
+        }
+
+        rule(".ascii-banner") {
+            fontSize = LinearDimension.inherit
+            lineHeight = 1.25.rem.lh
         }
     }
 }
