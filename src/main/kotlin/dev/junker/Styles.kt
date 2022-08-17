@@ -33,12 +33,13 @@ fun CSSBuilder.renderStyles() {
         color = SiteColor.PrimaryText.color
         boxSizing = BoxSizing.borderBox
         height = 100.pct
+        overflowX = Overflow.hidden
     }
 
     body {
         flexColumn()
         height = 100.pct
-        margin(0.px)
+        margin(top = 0.px, right = 100.pct - 100.vw, bottom = 0.px, left = 0.px)
     }
 
     renderDrawerStyles()

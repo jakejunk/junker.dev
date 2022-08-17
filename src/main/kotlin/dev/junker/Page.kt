@@ -85,9 +85,8 @@ sealed interface Page {
             section {
                 h2(classes = "heading") { +"about-this-site" }
                 p {
-                    +"This site is all about fun, learning, and embracing "
-                    a(href = "https://en.wikipedia.org/wiki/Not_invented_here") { +"not-invented-here syndrome" }
-                    +". The stack is fairly straightforward: a "
+                    +"This site is all about fun, learning, and embracing not-invented-here syndrome. "
+                    +"The stack is fairly straightforward: a "
                     a(href = "https://www.digitalocean.com/products/droplets") { +"Droplet" }
                     +" for hosting, and "
                     a(href = "https://ktor.io/") { +"Ktor" }
@@ -97,8 +96,8 @@ sealed interface Page {
                     +"In the spirit of learning, this site will attempt to follow a few guidelines:"
                     ul {
                         li {
-                            a(href = "https://en.wikipedia.org/wiki/Progressive_enhancement") { +"Progressive enhancement" }
-                            +" is the name of the game. This site should not require scripting in order to function."
+                            +"Progressive enhancement is the name of the game. "
+                            +"This site should not require scripting in order to function."
                         }
                         li {
                             +"This site should aim for "
@@ -114,7 +113,7 @@ sealed interface Page {
             section(classes = "footnotes") {
                 p {
                     sup { +"1" }
-                    +"But first, I have to invent the universe."
+                    +"But first, I must invent the universe."
                 }
             }
         }
@@ -122,6 +121,7 @@ sealed interface Page {
 }
 
 fun HTML.renderPage(page: Page) {
+    lang = "en-US"
     head {
         meta(charset = "utf-8")
         title(page.title)

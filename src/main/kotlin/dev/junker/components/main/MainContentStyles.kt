@@ -29,7 +29,7 @@ fun CSSBuilder.renderMainContentStyles() {
     }
 
     rule(terminalOutputContainer.css) {
-        padding(vertical = 2.rem, horizontal = LinearDimension("2ch"))
+        padding(1.rem)
     }
 
     rule(terminalOutput.css) {
@@ -56,6 +56,7 @@ fun CSSBuilder.renderMainContentStyles() {
     }
 
     rule("h1.heading") {
+        fontSize = 2.rem
         textAlign = TextAlign.center
     }
 
@@ -105,7 +106,7 @@ fun CSSBuilder.renderMainContentTabletStyles() {
         }
 
         rule(terminalOutputContainer.css) {
-            padding(vertical = 2.rem, horizontal = 1.rem + LinearDimension("2ch"))
+            padding(2.rem)
         }
 
         rule("h1.heading") {
