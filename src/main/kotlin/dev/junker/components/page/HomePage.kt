@@ -9,6 +9,7 @@ object HomePage : Page.Content {
     override val description = "Just a simple dev trying to make his way in the universe."
     override val block: FlowContent.() -> Unit = {
         renderAsciiBanner()
+        hr()
     }
 
     private fun FlowContent.renderAsciiBanner() {
@@ -50,7 +51,7 @@ object HomePage : Page.Content {
                         d88' `888  d88' `88b  `88.  .8' 
                         888   888  888ooo888   `88..8'  
                         888   888  888    .o    `888'   
-                        `Y8bod88P" `Y8bod8P'     `8'        
+                        `Y8bod88P" `Y8bod8P'     `8'    
                     """.trimIndent()
                 }
             }
