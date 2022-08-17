@@ -1,6 +1,7 @@
 package dev.junker.components.main
 
-import dev.junker.Page
+import dev.junker.components.page.Page
+import dev.junker.components.page.renderPage
 import dev.junker.util.asClass
 import kotlinx.html.*
 
@@ -24,7 +25,7 @@ fun BODY.renderMainContent(page: Page) {
 
             div(classes = terminalOutputContainer.className) {
                 article(classes = terminalOutput.className) {
-                    with(page) { block() }
+                    renderPage(page)
                 }
             }
         }

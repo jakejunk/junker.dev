@@ -1,6 +1,6 @@
 package dev.junker.components.drawer
 
-import dev.junker.*
+import dev.junker.components.*
 import kotlinx.css.*
 import kotlinx.css.properties.Transforms
 import kotlinx.css.properties.ms
@@ -9,10 +9,10 @@ import kotlinx.css.properties.translateY
 
 fun CSSBuilder.renderDrawerStyles() {
     rule(drawerContainer.css) {
+        pointerEvents = PointerEvents.none
         position = Position.fixed
         height = 100.vh
         width = 100.vw
-        pointerEvents = PointerEvents.none
     }
 
     rule(drawerBackground.css) {
@@ -27,27 +27,27 @@ fun CSSBuilder.renderDrawerStyles() {
     }
 
     rule(drawer.css) {
+        pointerEvents = PointerEvents.auto
+        borderTop = light2pxBorder
         backgroundColor = SiteColor.BackgroundMedium.color
-        borderTop = "solid 2px ${SiteColor.BackgroundLight.color.value}"
-        flexColumn()
         position = Position.fixed
         bottom = 0.px
         width = 100.pct
+        flexColumn()
         transform.translateY(100.pct)
         transition("transform", 300.ms)
         property("willChange", "transform")
-        pointerEvents = PointerEvents.auto
     }
 
     rule(drawerButton.css) {
+        pointerEvents = PointerEvents.auto
+        property("touch-action", "manipulation")
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
         position = Position.absolute
         top = LinearDimension("-6ch")
         left = LinearDimension("2ch")
         height = LinearDimension("4ch")
         width = LinearDimension("4ch")
-        pointerEvents = PointerEvents.auto
-        property("touch-action", "manipulation")
     }
 
     rule("${drawerContainer.css}:focus-within ${drawerBackground.css}") {
@@ -67,10 +67,10 @@ fun CSSBuilder.renderDrawerStyles() {
 fun CSSBuilder.renderDrawerTabletStyles() {
     tabletOrLarger {
         rule(drawerContainer.css) {
+            pointerEvents = PointerEvents.unset
             position = Position.static
             height = LinearDimension.auto
             width = LinearDimension.auto
-            pointerEvents = PointerEvents.unset
         }
 
         rule(drawerBackground.css) {

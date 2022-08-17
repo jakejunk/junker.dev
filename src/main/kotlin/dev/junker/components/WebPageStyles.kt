@@ -1,10 +1,12 @@
-package dev.junker
+package dev.junker.components
 
 import dev.junker.components.drawer.*
 import dev.junker.components.footer.renderFooterStyles
 import dev.junker.components.footer.renderFooterTabletStyles
 import dev.junker.components.main.renderMainContentStyles
 import dev.junker.components.main.renderMainContentTabletStyles
+import dev.junker.components.page.renderPageStyles
+import dev.junker.components.page.renderPageTabletStyles
 import kotlinx.css.*
 
 enum class SiteColor(value: String) {
@@ -22,7 +24,9 @@ enum class SiteColor(value: String) {
     val color = Color(value)
 }
 
-fun CSSBuilder.renderStyles() {
+val light2pxBorder = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+
+fun CSSBuilder.renderWebPageStyles() {
     rule("*, :after, :before") {
         boxSizing = BoxSizing.inherit
     }
@@ -46,6 +50,7 @@ fun CSSBuilder.renderStyles() {
     renderHeaderStyles()
     renderFooterStyles()
     renderMainContentStyles()
+    renderPageStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
@@ -53,13 +58,14 @@ fun CSSBuilder.renderStyles() {
     renderHeaderTabletStyles()
     renderFooterTabletStyles()
     renderMainContentTabletStyles()
+    renderPageTabletStyles()
 }
+
+fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
 
 fun CSSBuilder.monospaceFont() {
     fontFamily = "Source Code Pro, Courier New, Courier, monospace"
 }
-
-fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
 
 fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
     backgroundImage = Image("url($url)")
