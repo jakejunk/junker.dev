@@ -23,7 +23,7 @@ fun BODY.renderMainContent(page: Page) {
             }
 
             div(classes = terminalOutputContainer.className) {
-                div(classes = terminalOutput.className) {
+                article(classes = terminalOutput.className) {
                     with(page) { block() }
                 }
             }

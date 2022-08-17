@@ -32,12 +32,14 @@ fun CSSBuilder.renderMainContentStyles() {
         padding(vertical = 2.rem, horizontal = LinearDimension("2ch"))
     }
 
-    rule("${terminalOutput.css} p") {
+    rule(terminalOutput.css) {
         fontFamily = "Work Sans, sans-serif"
+        fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
     }
 
     rule(".heading") {
+        monospaceFont()
         primaryTextGlow()
         fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
@@ -64,10 +66,29 @@ fun CSSBuilder.renderMainContentStyles() {
 
     rule("a") {
         primaryTextGlow()
+        property("text-decoration-thickness", "from-font")
     }
 
-    rule("em") {
+    rule("i") {
         color = SiteColor.SubtleText.color
+    }
+
+    rule("hr") {
+        backgroundColor = SiteColor.BackgroundLight.color
+        borderColor = SiteColor.BackgroundLight.color
+        borderStyle = BorderStyle.solid
+        maxWidth = 128.px
+        height = 2.px
+        margin(vertical = 3.rem, horizontal = LinearDimension.auto)
+    }
+
+    rule("sup") {
+        lineHeight = 0.rem.lh
+    }
+
+    rule(".footnotes") {
+        color = SiteColor.SubtleText.color
+        fontStyle = FontStyle.italic
     }
 }
 
@@ -89,11 +110,12 @@ fun CSSBuilder.renderMainContentTabletStyles() {
 
         rule("h1.heading") {
             fontSize = 3.rem
-            textAlign = TextAlign.initial
+            textAlign = TextAlign.center
         }
 
         rule("h2.heading") {
             fontSize = 2.rem
+            textAlign = TextAlign.left
         }
     }
 }

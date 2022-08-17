@@ -28,7 +28,7 @@ fun CSSBuilder.renderStyles() {
     }
 
     html {
-        fontFamily = "Source Code Pro, Courier New, Courier, monospace"
+        monospaceFont()
         backgroundColor = SiteColor.BackgroundMedium.color
         color = SiteColor.PrimaryText.color
         boxSizing = BoxSizing.borderBox
@@ -54,6 +54,10 @@ fun CSSBuilder.renderStyles() {
     renderMainContentTabletStyles()
 }
 
+fun CSSBuilder.monospaceFont() {
+    fontFamily = "Source Code Pro, Courier New, Courier, monospace"
+}
+
 fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
 
 fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
@@ -71,7 +75,7 @@ fun CSSBuilder.flexColumn() {
 
 fun CSSBuilder.primaryTextGlow() {
     color = SiteColor.PrimaryBright.color
-    property("text-shadow", "0 0 2ch ${SiteColor.Primary.color.value}")
+    property("text-shadow", "0 0 8px ${SiteColor.Primary.color.value}")
 }
 
 fun CSSBuilder.property(name: String, value: String) = put(name, value)
