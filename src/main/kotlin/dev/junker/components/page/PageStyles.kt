@@ -14,7 +14,7 @@ fun CSSBuilder.renderPageStyles() {
         margin(vertical = 2.rem)
     }
 
-    rule("h1") {
+    h1 {
         fontSize = 2.rem
         textAlign = TextAlign.center
     }
@@ -32,7 +32,7 @@ fun CSSBuilder.renderPageStyles() {
         content = "!".quoted
     }
 
-    rule("h2") {
+    h2 {
         textAlign = TextAlign.center
     }
 
@@ -41,16 +41,16 @@ fun CSSBuilder.renderPageStyles() {
         color = SiteColor.PrimaryText.color
     }
 
-    rule("a") {
+    a {
         primaryTextGlow()
         property("text-decoration-thickness", "from-font")
     }
 
-    rule("i") {
+    i {
         color = SiteColor.SubtleText.color
     }
 
-    rule("hr") {
+    hr {
         backgroundColor = SiteColor.BackgroundLight.color
         borderColor = SiteColor.BackgroundLight.color
         borderStyle = BorderStyle.solid
@@ -59,7 +59,7 @@ fun CSSBuilder.renderPageStyles() {
         margin(vertical = 3.rem, horizontal = LinearDimension.auto)
     }
 
-    rule("sup") {
+    sup {
         lineHeight = 0.rem.lh
     }
 
