@@ -1,9 +1,6 @@
 package dev.junker.components.drawer
 
-import dev.junker.components.SiteColor
-import dev.junker.components.glowingPixelatedBackgroundImage
-import dev.junker.components.primaryTextGlow
-import dev.junker.components.tabletOrLarger
+import dev.junker.components.*
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 
@@ -41,6 +38,7 @@ fun CSSBuilder.renderHeaderStyles() {
         color = SiteColor.PrimaryText.color
         borderRadius = LinearDimension("1ch")
         padding(vertical = 1.rem, horizontal = LinearDimension("3ch"))
+        property("text-shadow", "none")
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
     }

@@ -1,6 +1,7 @@
 package dev.junker.components.footer
 
 import dev.junker.components.SiteColor
+import dev.junker.components.drawer.drawerButtonHeight
 import dev.junker.components.light2pxBorder
 import dev.junker.components.property
 import dev.junker.components.tabletOrLarger
@@ -11,7 +12,7 @@ fun CSSBuilder.renderFooterStyles() {
         borderTop = light2pxBorder
         display = Display.flex
         justifyContent = JustifyContent.center
-        paddingBottom = LinearDimension("8ch")
+        paddingBottom = 3.rem + drawerButtonHeight
     }
 
     rule(footerContent.css) {

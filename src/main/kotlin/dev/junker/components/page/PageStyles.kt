@@ -2,6 +2,7 @@ package dev.junker.components.page
 
 import dev.junker.components.*
 import kotlinx.css.*
+import kotlinx.css.Float
 import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderPageStyles() {
@@ -13,7 +14,7 @@ fun CSSBuilder.renderPageStyles() {
         margin(vertical = 2.rem)
     }
 
-    rule("h1") {
+    h1 {
         fontSize = 2.rem
         textAlign = TextAlign.center
     }
@@ -31,7 +32,7 @@ fun CSSBuilder.renderPageStyles() {
         content = "!".quoted
     }
 
-    rule("h2") {
+    h2 {
         textAlign = TextAlign.center
     }
 
@@ -40,16 +41,16 @@ fun CSSBuilder.renderPageStyles() {
         color = SiteColor.PrimaryText.color
     }
 
-    rule("a") {
+    a {
         primaryTextGlow()
         property("text-decoration-thickness", "from-font")
     }
 
-    rule("i") {
+    i {
         color = SiteColor.SubtleText.color
     }
 
-    rule("hr") {
+    hr {
         backgroundColor = SiteColor.BackgroundLight.color
         borderColor = SiteColor.BackgroundLight.color
         borderStyle = BorderStyle.solid
@@ -58,7 +59,7 @@ fun CSSBuilder.renderPageStyles() {
         margin(vertical = 3.rem, horizontal = LinearDimension.auto)
     }
 
-    rule("sup") {
+    sup {
         lineHeight = 0.rem.lh
     }
 
@@ -97,6 +98,16 @@ fun CSSBuilder.renderPageStyles() {
     rule(".ascii-banner.dev") {
         color = SiteColor.PrimaryText.color
     }
+
+    rule(".img-right") {
+        filter = "saturate(0.8)"
+        display = Display.block
+        border = light2pxBorder
+        borderRadius = 1.rem
+        width = 200.px
+        padding(8.px)
+        margin(left = LinearDimension.auto, right = LinearDimension.auto, top = 0.px, bottom = 2.rem)
+    }
 }
 
 fun CSSBuilder.renderPageTabletStyles() {
@@ -114,6 +125,12 @@ fun CSSBuilder.renderPageTabletStyles() {
         rule(".ascii-banner") {
             fontSize = LinearDimension.inherit
             lineHeight = 1.25.rem.lh
+        }
+
+        rule(".img-right") {
+            width = 256.px
+            float = Float.right
+            marginLeft = 2.rem
         }
     }
 }
