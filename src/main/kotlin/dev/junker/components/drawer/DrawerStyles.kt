@@ -1,11 +1,14 @@
 package dev.junker.components.drawer
 
 import dev.junker.components.*
+import dev.junker.components.main.mainContentContainer
 import kotlinx.css.*
 import kotlinx.css.properties.Transforms
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
 import kotlinx.css.properties.translateY
+
+val drawerButtonHeight = 32.px
 
 fun CSSBuilder.renderDrawerStyles() {
     rule(drawerContainer.css) {
@@ -43,11 +46,13 @@ fun CSSBuilder.renderDrawerStyles() {
         pointerEvents = PointerEvents.auto
         property("touch-action", "manipulation")
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
+        backgroundColor = Color.transparent
+        border = "none"
         position = Position.absolute
-        top = LinearDimension("-6ch")
-        left = LinearDimension("2ch")
-        height = LinearDimension("4ch")
-        width = LinearDimension("4ch")
+        top = (-34).px - 1.5.rem
+        left = 50.pct - 16.px
+        height = drawerButtonHeight
+        width = drawerButtonHeight
     }
 
     rule("${drawerContainer.css}:focus-within ${drawerBackground.css}") {
@@ -56,6 +61,10 @@ fun CSSBuilder.renderDrawerStyles() {
     }
 
     rule("${drawerContainer.css}:focus-within ${drawerButton.css}") {
+        pointerEvents = PointerEvents.none
+    }
+
+    rule("${drawerContainer.css}:focus-within + ${mainContentContainer.css}") {
         pointerEvents = PointerEvents.none
     }
 

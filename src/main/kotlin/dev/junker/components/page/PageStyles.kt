@@ -2,6 +2,7 @@ package dev.junker.components.page
 
 import dev.junker.components.*
 import kotlinx.css.*
+import kotlinx.css.Float
 import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderPageStyles() {
@@ -97,6 +98,16 @@ fun CSSBuilder.renderPageStyles() {
     rule(".ascii-banner.dev") {
         color = SiteColor.PrimaryText.color
     }
+
+    rule(".img-right") {
+        filter = "saturate(0.8)"
+        display = Display.block
+        border = light2pxBorder
+        borderRadius = 1.rem
+        width = 200.px
+        padding(8.px)
+        margin(left = LinearDimension.auto, right = LinearDimension.auto, top = 0.px, bottom = 2.rem)
+    }
 }
 
 fun CSSBuilder.renderPageTabletStyles() {
@@ -114,6 +125,12 @@ fun CSSBuilder.renderPageTabletStyles() {
         rule(".ascii-banner") {
             fontSize = LinearDimension.inherit
             lineHeight = 1.25.rem.lh
+        }
+
+        rule(".img-right") {
+            width = 256.px
+            float = Float.right
+            marginLeft = 2.rem
         }
     }
 }
