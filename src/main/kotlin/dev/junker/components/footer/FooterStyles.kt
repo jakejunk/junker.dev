@@ -8,14 +8,14 @@ import dev.junker.components.tabletOrLarger
 import kotlinx.css.*
 
 fun CSSBuilder.renderFooterStyles() {
-    rule(mainFooter.css) {
+    rule(mainFooter.selector) {
         borderTop = light2pxBorder
         display = Display.flex
         justifyContent = JustifyContent.center
         paddingBottom = 3.rem + drawerButtonHeight
     }
 
-    rule(footerContent.css) {
+    rule(footerContent.selector) {
         display = Display.flex
         alignItems = Align.baseline
         justifyContent = JustifyContent.spaceBetween
@@ -24,18 +24,18 @@ fun CSSBuilder.renderFooterStyles() {
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
     }
 
-    rule(statusIndicator.css) {
+    rule(statusIndicator.selector) {
         color = SiteColor.SubtleText.color
         whiteSpace = WhiteSpace.nowrap
     }
 
-    rule("${statusIndicator.css}:before") {
+    rule("${statusIndicator.selector}:before") {
         content = "● ".quoted
         color = SiteColor.SecondaryBright.color
         property("text-shadow", "0 0 2ch ${SiteColor.Secondary.color.value}")
     }
 
-    rule(copyright.css) {
+    rule(copyright.selector) {
         color = SiteColor.SubtleText.color
         whiteSpace = WhiteSpace.nowrap
     }
@@ -43,7 +43,7 @@ fun CSSBuilder.renderFooterStyles() {
 
 fun CSSBuilder.renderFooterTabletStyles() {
     tabletOrLarger {
-        rule(mainFooter.css) {
+        rule(mainFooter.selector) {
             borderTop = "none"
             paddingBottom = 0.px
         }

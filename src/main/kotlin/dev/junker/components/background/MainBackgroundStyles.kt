@@ -6,7 +6,7 @@ import kotlinx.css.CSSBuilder
 import kotlinx.css.*
 
 fun CSSBuilder.renderBackgroundStyles() {
-    rule(mainBackground.css) {
+    rule(mainBackground.selector) {
         pixelatedBackgroundImage("assets/images/256x128_bg.png", BackgroundRepeat.repeatX)
         backgroundPosition = "center bottom"
         bottom = 0.px
