@@ -4,12 +4,16 @@ import dev.junker.components.drawer.renderDrawer
 import dev.junker.components.footer.renderFooter
 import dev.junker.components.main.renderMainContent
 import dev.junker.components.page.Page
+import dev.junker.util.asClass
 import kotlinx.html.*
+
+val mainBackground = "main-background".asClass()
 
 fun HTML.renderWebPage(page: Page) {
     lang = "en-US"
     renderHead(page)
     body {
+        div(classes = mainBackground.className)
         renderDrawer(page)
         renderMainContent(page)
         renderFooter()

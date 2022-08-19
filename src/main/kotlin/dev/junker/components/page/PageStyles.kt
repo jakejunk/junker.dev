@@ -100,11 +100,11 @@ fun CSSBuilder.renderPageStyles() {
     }
 
     rule(".img-right") {
-        filter = "saturate(0.8)"
         display = Display.block
         border = light2pxBorder
         borderRadius = 1.rem
         width = 200.px
+        height = 200.px
         padding(8.px)
         margin(left = LinearDimension.auto, right = LinearDimension.auto, top = 0.px, bottom = 2.rem)
     }
@@ -129,6 +129,7 @@ fun CSSBuilder.renderPageTabletStyles() {
 
         rule(".img-right") {
             width = 256.px
+            height = 256.px
             float = Float.right
             marginLeft = 2.rem
         }
