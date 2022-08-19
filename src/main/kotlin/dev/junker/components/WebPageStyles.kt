@@ -1,5 +1,6 @@
 package dev.junker.components
 
+import dev.junker.components.background.renderBackgroundStyles
 import dev.junker.components.drawer.*
 import dev.junker.components.footer.renderFooterStyles
 import dev.junker.components.footer.renderFooterTabletStyles
@@ -46,6 +47,7 @@ fun CSSBuilder.renderWebPageStyles() {
         margin(top = 0.px, right = 100.pct - 100.vw, bottom = 0.px, left = 0.px)
     }
 
+    renderBackgroundStyles()
     renderDrawerStyles()
     renderHeaderStyles()
     renderFooterStyles()
@@ -68,10 +70,14 @@ fun CSSBuilder.monospaceFont() {
 }
 
 fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
+    pixelatedBackgroundImage(url, BackgroundRepeat.noRepeat)
+    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
+}
+
+fun CSSBuilder.pixelatedBackgroundImage(url: String, repeat: BackgroundRepeat) {
     backgroundImage = Image("url($url)")
     backgroundSize = "contain"
-    backgroundRepeat = BackgroundRepeat.noRepeat
-    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
+    backgroundRepeat = repeat
     property("image-rendering", "pixelated")
 }
 
