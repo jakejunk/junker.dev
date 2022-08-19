@@ -29,10 +29,14 @@ fun CSSBuilder.renderFooterStyles() {
         whiteSpace = WhiteSpace.nowrap
     }
 
-    rule("${statusIndicator.selector}:before") {
+    rule("${statusIndicator.selector}::before") {
         content = "● ".quoted
         color = SiteColor.SecondaryBright.color
         property("text-shadow", "0 0 2ch ${SiteColor.Secondary.color.value}")
+    }
+
+    rule("${statusIndicator.selector}::after") {
+        property("content", "attr(data-label)")
     }
 
     rule(copyright.selector) {

@@ -12,7 +12,7 @@ object AboutPage : Page.Content {
 
         section {
             h2 { +"about-me" }
-            img(classes = "img-right", alt = "Headshot of Jake", src = "assets/images/500x500_headshot.jpg")
+            img(classes = "img-right", alt = "Headshot of Jake", src = "/assets/images/500x500_headshot.jpg")
             p {
                 +"I'm Jake, and I'm a professional software engineer."
             }
