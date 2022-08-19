@@ -1,7 +1,7 @@
 package dev.junker.components.drawer
 
 import dev.junker.components.*
-import dev.junker.components.main.mainContentContainer
+import dev.junker.components.main.mainContainer
 import kotlinx.css.*
 import kotlinx.css.properties.Transforms
 import kotlinx.css.properties.ms
@@ -64,7 +64,7 @@ fun CSSBuilder.renderDrawerStyles() {
         pointerEvents = PointerEvents.none
     }
 
-    rule("${drawerContainer.selector}:focus-within + ${mainContentContainer.selector}") {
+    rule("${drawerContainer.selector}:focus-within + ${mainContainer.selector}") {
         pointerEvents = PointerEvents.none
     }
 

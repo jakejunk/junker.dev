@@ -5,7 +5,7 @@ import kotlinx.css.*
 import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderMainContentStyles() {
-    rule(mainContentContainer.selector) {
+    rule(mainContainer.selector) {
         flexGrow = 1.0
         paddingBottom = 8.rem
         wordBreak = WordBreak.breakWord
@@ -28,11 +28,11 @@ fun CSSBuilder.renderMainContentStyles() {
         primaryTextGlow()
     }
 
-    rule(terminalOutputContainer.selector) {
+    rule(outputContainer.selector) {
         padding(1.rem)
     }
 
-    rule(terminalOutput.selector) {
+    rule(output.selector) {
         fontFamily = "Work Sans, sans-serif"
         fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
@@ -41,7 +41,7 @@ fun CSSBuilder.renderMainContentStyles() {
 
 fun CSSBuilder.renderMainContentTabletStyles() {
     tabletOrLarger {
-        rule(mainContentContainer.selector) {
+        rule(mainContainer.selector) {
             display = Display.flex
             justifyContent = JustifyContent.center
         }
@@ -51,7 +51,7 @@ fun CSSBuilder.renderMainContentTabletStyles() {
             margin(1.rem)
         }
 
-        rule(terminalOutputContainer.selector) {
+        rule(outputContainer.selector) {
             padding(2.rem)
         }
     }
