@@ -9,6 +9,8 @@ import dev.junker.components.main.renderMainContentTabletStyles
 import dev.junker.components.page.renderPageStyles
 import dev.junker.components.page.renderPageTabletStyles
 import kotlinx.css.*
+import kotlinx.css.properties.TextDecoration
+import kotlinx.css.properties.translateY
 
 enum class SiteColor(value: String) {
     BackgroundDark("#06070A"),
@@ -45,6 +47,28 @@ fun CSSBuilder.renderWebPageStyles() {
         flexColumn()
         height = 100.pct
         margin(top = 0.px, right = 100.pct - 100.vw, bottom = 0.px, left = 0.px)
+    }
+
+    rule(skipLink.selector) {
+        position = Position.absolute
+        zIndex = 1
+        alignSelf = Align.center
+        transform.translateY((-100).pct)
+        backgroundColor = SiteColor.ButtonColor.color
+        borderBottomLeftRadius = 9.px
+        borderBottomRightRadius = 9.px
+        secondaryTextGlow()
+        textDecoration = TextDecoration.none
+        padding(1.rem)
+    }
+
+    rule("${skipLink.selector}::before") {
+        content = "↯ ".quoted
+        fontWeight = FontWeight.bold
+    }
+
+    rule("${skipLink.selector}:focus") {
+        transform.translateY(0.px)
     }
 
     renderBackgroundStyles()

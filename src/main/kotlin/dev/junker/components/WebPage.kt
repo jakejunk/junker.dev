@@ -2,18 +2,21 @@ package dev.junker.components
 
 import dev.junker.components.drawer.renderDrawer
 import dev.junker.components.footer.renderFooter
+import dev.junker.components.main.mainContent
 import dev.junker.components.main.renderMainContent
 import dev.junker.components.page.Page
 import dev.junker.util.asClass
 import kotlinx.html.*
 
 val mainBackground = "main-background".asClass()
+val skipLink = "skip-link".asClass()
 
 fun HTML.renderWebPage(page: Page) {
     lang = "en-US"
     renderHead(page)
     body {
         div(classes = mainBackground.className)
+        renderSkipLink()
         renderDrawer(page)
         renderMainContent(page)
         renderFooter()
@@ -49,4 +52,10 @@ private fun HEAD.renderFontStuff() {
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
     styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;700&display=swap")
     styleLink("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap")
+}
+
+fun BODY.renderSkipLink() {
+    a(classes = skipLink.className, href = mainContent.selector) {
+        +"Skip to content"
+    }
 }

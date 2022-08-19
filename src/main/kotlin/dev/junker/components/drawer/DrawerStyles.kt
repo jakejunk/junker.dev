@@ -11,14 +11,14 @@ import kotlinx.css.properties.translateY
 val drawerButtonHeight = 32.px
 
 fun CSSBuilder.renderDrawerStyles() {
-    rule(drawerContainer.css) {
+    rule(drawerContainer.selector) {
         pointerEvents = PointerEvents.none
         position = Position.fixed
         height = 100.vh
         width = 100.vw
     }
 
-    rule(drawerBackground.css) {
+    rule(drawerBackground.selector) {
         backgroundColor = SiteColor.BackgroundDark.color
         position = Position.absolute
         height = 100.vh
@@ -29,7 +29,7 @@ fun CSSBuilder.renderDrawerStyles() {
         transition("visibility", 300.ms)
     }
 
-    rule(drawer.css) {
+    rule(drawer.selector) {
         pointerEvents = PointerEvents.auto
         borderTop = light2pxBorder
         backgroundColor = SiteColor.BackgroundMedium.color
@@ -42,7 +42,7 @@ fun CSSBuilder.renderDrawerStyles() {
         property("willChange", "transform")
     }
 
-    rule(drawerButton.css) {
+    rule(drawerButton.selector) {
         pointerEvents = PointerEvents.auto
         property("touch-action", "manipulation")
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
@@ -55,39 +55,39 @@ fun CSSBuilder.renderDrawerStyles() {
         width = drawerButtonHeight
     }
 
-    rule("${drawerContainer.css}:focus-within ${drawerBackground.css}") {
+    rule("${drawerContainer.selector}:focus-within ${drawerBackground.selector}") {
         opacity = 0.75
         visibility = Visibility.visible
     }
 
-    rule("${drawerContainer.css}:focus-within ${drawerButton.css}") {
+    rule("${drawerContainer.selector}:focus-within ${drawerButton.selector}") {
         pointerEvents = PointerEvents.none
     }
 
-    rule("${drawerContainer.css}:focus-within + ${mainContentContainer.css}") {
+    rule("${drawerContainer.selector}:focus-within + ${mainContentContainer.selector}") {
         pointerEvents = PointerEvents.none
     }
 
-    rule("${drawerContainer.css}:focus-within ${drawer.css}") {
+    rule("${drawerContainer.selector}:focus-within ${drawer.selector}") {
         transform = Transforms.none
     }
 }
 
 fun CSSBuilder.renderDrawerTabletStyles() {
     tabletOrLarger {
-        rule(drawerContainer.css) {
+        rule(drawerContainer.selector) {
             pointerEvents = PointerEvents.unset
             position = Position.static
             height = LinearDimension.auto
             width = LinearDimension.auto
         }
 
-        rule(drawerBackground.css) {
+        rule(drawerBackground.selector) {
             height = LinearDimension.auto
             width = LinearDimension.auto
         }
 
-        rule(drawer.css) {
+        rule(drawer.selector) {
             borderTop = "none"
             borderBottom = "solid 2px ${SiteColor.BackgroundLight.color.value}"
             alignItems = Align.center
@@ -97,7 +97,7 @@ fun CSSBuilder.renderDrawerTabletStyles() {
             transform = Transforms.none
         }
 
-        rule(drawerButton.css) {
+        rule(drawerButton.selector) {
             display = Display.none
         }
     }
