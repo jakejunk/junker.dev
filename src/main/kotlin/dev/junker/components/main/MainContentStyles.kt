@@ -47,7 +47,7 @@ fun CSSBuilder.renderMainContentTabletStyles() {
         }
 
         rule(terminalPrompt.selector) {
-            borderRadius = LinearDimension("1ch")
+            borderRadius = cornerRadius
             margin(1.rem)
         }
 

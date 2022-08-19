@@ -28,6 +28,8 @@ enum class SiteColor(value: String) {
 }
 
 val light2pxBorder = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+val cornerRadius = 9.px
+val cornerRadiusRounder = 16.px
 
 fun CSSBuilder.renderWebPageStyles() {
     rule("*, :after, :before") {
@@ -55,8 +57,8 @@ fun CSSBuilder.renderWebPageStyles() {
         alignSelf = Align.center
         transform.translateY((-100).pct)
         backgroundColor = SiteColor.ButtonColor.color
-        borderBottomLeftRadius = 9.px
-        borderBottomRightRadius = 9.px
+        borderBottomLeftRadius = cornerRadius
+        borderBottomRightRadius = cornerRadius
         secondaryTextGlow()
         textDecoration = TextDecoration.none
         padding(1.rem)

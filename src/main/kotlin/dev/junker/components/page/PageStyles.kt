@@ -102,7 +102,7 @@ fun CSSBuilder.renderPageStyles() {
     rule(".img-right") {
         display = Display.block
         border = light2pxBorder
-        borderRadius = 1.rem
+        borderRadius = cornerRadiusRounder
         width = 200.px
         height = 200.px
         padding(8.px)

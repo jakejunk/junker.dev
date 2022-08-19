@@ -36,7 +36,7 @@ fun CSSBuilder.renderHeaderStyles() {
     rule(navLink.selector) {
         backgroundColor = SiteColor.ButtonColor.color
         color = SiteColor.PrimaryText.color
-        borderRadius = LinearDimension("1ch")
+        borderRadius = cornerRadius
         padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
         property("text-shadow", "none")
         textDecoration = TextDecoration.none
