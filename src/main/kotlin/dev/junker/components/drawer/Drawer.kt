@@ -16,7 +16,7 @@ fun BODY.renderDrawer(page: Page) {
     div(classes = drawerContainer.className) {
         div(classes = drawerBackground.className)
         div(classes = drawer.className) {
-            tabIndex = "0"
+            tabIndex = "-1"
             button(classes = drawerButton.className)
             renderHeader(page)
         }
