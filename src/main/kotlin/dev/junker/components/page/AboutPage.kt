@@ -12,7 +12,7 @@ object AboutPage : Page.Content {
 
         section {
             h2 { +"about-me" }
-            img(classes = "img-right", alt = "Headshot of Jake", src = "assets/images/500x500_headshot.jpg")
+            img(classes = "img-right", alt = "Headshot of Jake", src = "/assets/images/500x500_headshot.jpg")
             p {
                 +"I'm Jake, and I'm a professional software engineer."
             }
@@ -20,13 +20,13 @@ object AboutPage : Page.Content {
                 +"From the moment I wrote my first line of "
                 a(href = "https://en.wikipedia.org/wiki/Microsoft_XNA") { +"XNA"  }
                 +", I knew that I wanted to develop video games for a living. "
-                +"That experience is what got me to where I am today—professionally writing Spring Boot applications in Java 8. "
+                +"This aspiration is what got me to where I am today—professionally writing Spring Boot applications in Java 8. "
                 +"Outside of work, I enjoy learning new things by starting projects and overcomplicating them. "
                 +"Websites, game engines, and programming languages are just some of the things I enjoy hand-rolled."
             }
             p {
                 +"But it's not all about computers! "
-                +"All the tech is balanced with a healthy serving of sports, hiking, and traveling. "
+                +"All the tech is balanced with a good amount of sports, hiking, and traveling. "
                 +"I also enjoy trying to learn actual, human languages. "
                 +"Someday, I'll even get good at one. "
                 i {
