@@ -1,11 +1,9 @@
 package dev.junker.components.footer
 
-import dev.junker.components.SiteColor
+import dev.junker.components.*
 import dev.junker.components.drawer.drawerButtonHeight
-import dev.junker.components.light2pxBorder
-import dev.junker.components.property
-import dev.junker.components.tabletOrLarger
 import kotlinx.css.*
+import kotlinx.css.properties.BoxShadow
 
 fun CSSBuilder.renderFooterStyles() {
     rule(mainFooter.selector) {
@@ -21,22 +19,25 @@ fun CSSBuilder.renderFooterStyles() {
         justifyContent = JustifyContent.spaceBetween
         maxWidth = 1000.px
         width = 100.pct
-        padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
+        padding(vertical = 1.rem, horizontal = 2.ch)
     }
 
     rule(statusIndicator.selector) {
+        alignItems = Align.baseline
         color = SiteColor.SubtleText.color
+        display = Display.inlineFlex
         whiteSpace = WhiteSpace.nowrap
     }
 
     rule("${statusIndicator.selector}::before") {
-        content = "● ".quoted
-        color = SiteColor.SecondaryBright.color
-        property("text-shadow", "0 0 2ch ${SiteColor.Secondary.color.value}")
-    }
-
-    rule("${statusIndicator.selector}::after") {
-        property("content", "attr(data-label)")
+        backgroundColor = SiteColor.SecondaryBright.color
+        borderRadius = 1.em
+        boxShadow += BoxShadow(false, 0.px, 0.px, 2.ch, 0.px, SiteColor.Secondary.color)
+        content = "".quoted
+        display = Display.inlineBlock
+        height = 1.ch
+        marginRight = 1.ch
+        width = 1.ch
     }
 
     rule(copyright.selector) {

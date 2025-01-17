@@ -37,7 +37,7 @@ fun CSSBuilder.renderHeaderStyles() {
         backgroundColor = SiteColor.ButtonColor.color
         color = SiteColor.PrimaryText.color
         borderRadius = cornerRadius
-        padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
+        padding(vertical = 1.rem, horizontal = 2.ch)
         property("text-shadow", "none")
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
