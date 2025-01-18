@@ -27,7 +27,7 @@ object AboutPage : Page.Content {
                 +"Websites, game engines, and compilers are just some of the things I enjoy tinkering with."
             }
             p {
-                +"Along with my digital projects, "
+                +"On top of my digital projects, "
                 +"I try to stay balanced with a good amount of sports, hiking, and traveling. "
                 +"I also enjoy trying to learn actual, human languages. "
                 +"Someday, I'll even get good at one. "
