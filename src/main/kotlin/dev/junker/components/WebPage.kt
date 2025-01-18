@@ -12,18 +12,12 @@ val mainBackground = "main-background".asClass()
 val skipLink = "skip-link".asClass()
 
 fun HTML.renderWebPage(page: Page) {
-    lang = "en-US"
     renderHead(page)
-    body {
-        div(classes = mainBackground.className)
-        renderSkipLink()
-        renderDrawer(page)
-        renderMainContent(page)
-        renderFooter()
-    }
+    renderBody(page)
 }
 
 private fun HTML.renderHead(page: Page) {
+    lang = "en-US"
     head {
         meta(charset = "utf-8")
         title(page.title)
@@ -52,6 +46,16 @@ private fun HEAD.renderFontStuff() {
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
     styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;700&display=swap")
     styleLink("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap")
+}
+
+private fun HTML.renderBody(page: Page) {
+    body {
+        div(classes = mainBackground.className)
+        renderSkipLink()
+        renderDrawer(page)
+        renderMainContent(page)
+        renderFooter()
+    }
 }
 
 fun BODY.renderSkipLink() {

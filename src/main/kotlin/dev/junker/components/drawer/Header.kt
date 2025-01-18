@@ -23,7 +23,7 @@ fun DIV.renderHeader(page: Page) {
 }
 
 private fun HEADER.renderSiteLogo(page: Page) {
-    div(classes = when (page) {
+    a(href = HomePage.slug, classes = when (page) {
         is Page.Error -> "${siteLogo.className} ${error.className}"
         else -> siteLogo.className
     })

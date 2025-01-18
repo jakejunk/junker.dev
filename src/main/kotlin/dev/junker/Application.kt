@@ -2,21 +2,46 @@ package dev.junker
 
 import dev.junker.components.page.*
 import dev.junker.components.renderWebPage
-import dev.junker.components.renderWebPageStyles
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
-import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.css.CSSBuilder
 
 fun main(args: Array<String>) = EngineMain.main(args)
 
+private val contentSecurityPolicy =
+    listOf(
+        "default-src 'none'",
+        "base-uri 'self'",
+        "connect-src 'self'",
+        "font-src 'self' https://fonts.gstatic.com",
+        "form-action 'self'",
+        "frame-ancestors 'self'",
+        "img-src 'self'",
+        "manifest-src 'self'",
+        "script-src 'self'",
+        "style-src 'self' https://fonts.googleapis.com",
+    )
+    .joinToString("; ")
+
 fun Application.webMain() {
     install(IgnoreTrailingSlash)
+    // TODO: Forwarded headers
+    install(DefaultHeaders) {
+        HttpHeaders
+        header("Content-Security-Policy", contentSecurityPolicy)
+        header("Cross-Origin-Embedder-Policy", "require-corp")
+        header("Cross-Origin-Opener-Policy", "same-origin")
+        header("Cross-Origin-Resource-Policy", "same-site")
+        header("Permission-Policy", "interest-cohort=()")
+        header("Referrer-Policy", "strict-origin-when-cross-origin")
+        header(HttpHeaders.Server, "app")
+        header("X-Content-Type-Options", "nosniff")
+        header("X-Frame-Options", "SAMEORIGIN")
+    }
     install(StatusPages) {
         exception<Throwable> { call, _ ->
             call.renderErrorPage(InternalServerErrorPage)
@@ -27,37 +52,11 @@ fun Application.webMain() {
         }
     }
 
-    routing {
-        static("/") {
-            staticBasePackage = "static"
-
-            resources("favicon")
-            static("/assets") {
-                static("images") { resources("images") }
-            }
-        }
-
-        get("/styles.css") {
-            call.respondCss { renderWebPageStyles() }
-        }
-
-        getContentPage(HomePage)
-        getContentPage(AboutPage)
-    }
-}
-
-private fun Routing.getContentPage(page: Page.Content) {
-    get(page.slug) {
-        call.respondHtml {
-            renderWebPage(page)
-        }
-    }
+    routing { routes() }
 }
 
 private suspend fun ApplicationCall.renderErrorPage(errorPage: Page.Error) {
-    this.respondHtml(status = errorPage.status) { renderWebPage(errorPage) }
-}
-
-private suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
+    respondHtml(status = errorPage.status) {
+        renderWebPage(errorPage)
+    }
 }

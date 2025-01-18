@@ -18,13 +18,13 @@ fun CSSBuilder.renderMainContentStyles() {
 
     rule(terminalPrompt.selector) {
         backgroundColor = SiteColor.BackgroundLight.color
-        padding(vertical = 1.rem, horizontal = LinearDimension("2ch"))
+        padding(vertical = 1.rem, horizontal = 2.ch)
         marginBottom = 1.rem
     }
 
     rule("${terminalPrompt.selector}:before") {
         content = ">".quoted
-        paddingRight = LinearDimension("1ch")
+        paddingRight = 1.ch
         primaryTextGlow()
     }
 
