@@ -46,27 +46,28 @@ data object AboutPage : Page.Content {
         section {
             h2 { +"about-this-site" }
             p {
-                +"This site is all about fun, learning, and embracing not-invented-here syndrome. "
-                +"The stack is fairly straightforward: a "
+                +"This site is a journey, not a destination. "
+                +"There is no 1.0 release or monetization scheme in the works; trying new things is the only plan. "
+                +"It's my scratchpad and canvas, powered by a fairly straightforward stack: a "
                 externalLink("Droplet", dropletsLink)
                 +" for hosting, and "
                 externalLink("Ktor", ktorLink)
                 +" for the server. Everything else will be made from scratch"
                 sup { +"1" }
-                +". "
+                +"."
+            }
+            p {
                 +"In the spirit of learning, this site will attempt to follow a few guidelines:"
                 ul {
                     li {
-                        +"Progressive enhancement is the name of the game. "
-                        +"This site should not require scripting in order to function."
+                        +"Scripting should not be required for anything essential (i.e. progressive enhancement)."
                     }
                     li {
-                        +"This site should aim for "
-                        externalLink("AA WCAG compliance", wcagLink)
-                        +"."
+                        externalLink("AA WCAG", wcagLink)
+                        +" compliance is desired."
                     }
                     li {
-                        +"No matter what happens, make sure to have fun. \uD83D\uDE0A"
+                        +"Keep trying new things, and have fun. \uD83D\uDE0A"
                     }
                 }
             }
