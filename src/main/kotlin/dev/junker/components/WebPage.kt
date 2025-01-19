@@ -5,11 +5,13 @@ import dev.junker.components.footer.renderFooter
 import dev.junker.components.main.mainContent
 import dev.junker.components.main.renderMainContent
 import dev.junker.components.page.Page
+import dev.junker.stylesRoute
 import dev.junker.util.asClass
 import kotlinx.html.*
 
 val mainBackground = "main-background".asClass()
 val skipLink = "skip-link".asClass()
+val externalLink = "external-link".asClass()
 
 fun HTML.renderWebPage(page: Page) {
     renderHead(page)
@@ -27,7 +29,7 @@ private fun HTML.renderHead(page: Page) {
         meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
         renderFaviconStuff()
         renderFontStuff()
-        styleLink("/styles.css")
+        styleLink(stylesRoute)
     }
 }
 
@@ -62,4 +64,8 @@ fun BODY.renderSkipLink() {
     a(classes = skipLink.className, href = mainContent.selector) {
         +"Skip to content"
     }
+}
+
+fun FlowOrInteractiveOrPhrasingContent.externalLink(text: String, href: String) {
+    a(classes = externalLink.className, href = href) { +text }
 }

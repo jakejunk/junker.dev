@@ -15,11 +15,11 @@ fun CSSBuilder.renderPageStyles() {
     }
 
     h1 {
-        fontSize = 2.rem
+        fontSize = 2.5.rem
         textAlign = TextAlign.center
     }
 
-    rule("h1:before") {
+    rule("h1::before") {
         content = "/".quoted
         color = SiteColor.PrimaryText.color
     }
@@ -28,7 +28,7 @@ fun CSSBuilder.renderPageStyles() {
         secondaryTextGlow()
     }
 
-    rule("h1.error:before") {
+    rule("h1.error::before") {
         content = "!".quoted
     }
 
@@ -36,7 +36,7 @@ fun CSSBuilder.renderPageStyles() {
         textAlign = TextAlign.center
     }
 
-    rule("h2:before") {
+    rule("h2::before") {
         content = "#".quoted
         color = SiteColor.PrimaryText.color
     }
@@ -44,6 +44,22 @@ fun CSSBuilder.renderPageStyles() {
     a {
         primaryTextGlow()
         property("text-decoration-thickness", "from-font")
+    }
+
+    rule("${externalLink.selector}::after") {
+        content = " 🡵".quoted
+        fontSize = 0.75.rem
+        lineHeight = 0.rem.lh
+        verticalAlign = VerticalAlign.`super`
+    }
+
+    sup {
+        lineHeight = 0.rem.lh
+    }
+
+    rule(".footnotes") {
+        color = SiteColor.SubtleText.color
+        fontStyle = FontStyle.italic
     }
 
     i {
@@ -59,19 +75,11 @@ fun CSSBuilder.renderPageStyles() {
         margin(vertical = 3.rem, horizontal = LinearDimension.auto)
     }
 
-    sup {
-        lineHeight = 0.rem.lh
-    }
-
-    rule(".footnotes") {
-        color = SiteColor.SubtleText.color
-        fontStyle = FontStyle.italic
-    }
-
     rule(".ascii-banner-container") {
         display = Display.flex
         flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.center
+        marginTop = 1.rem
         overflowX = Overflow.hidden
     }
 

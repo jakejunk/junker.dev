@@ -13,17 +13,13 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.css.CSSBuilder
 
+const val stylesRoute = "/styles.css"
+
 fun Routing.routes() {
-    static("/") {
-        staticBasePackage = "static"
+    staticResources("/", "/static/favicon")
+    staticResources("/assets", "/static")
 
-        resources("favicon")
-        static("/assets") {
-            static("images") { resources("images") }
-        }
-    }
-
-    get("/styles.css") {
+    get(stylesRoute) {
         call.respondCss { renderWebPageStyles() }
     }
 

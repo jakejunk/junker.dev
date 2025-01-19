@@ -62,9 +62,15 @@ fun CSSBuilder.renderHeaderTabletStyles() {
         }
 
         rule(headerNav.selector) {
+            alignSelf = Align.flexEnd
             rowGap = RowGap("1rem")
             width = LinearDimension.auto
-            padding(24.px)
+            padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
+        }
+
+        rule(navLink.selector) {
+            borderBottomLeftRadius = 0.px
+            borderBottomRightRadius = 0.px
         }
     }
 }

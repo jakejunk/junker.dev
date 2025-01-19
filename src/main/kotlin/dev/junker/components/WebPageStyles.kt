@@ -17,7 +17,7 @@ val cornerRadius = 9.px
 val cornerRadiusRounder = 16.px
 
 fun CSSBuilder.renderWebPageStyles() {
-    rule("*, :after, :before") {
+    rule("*, ::after, ::before") {
         boxSizing = BoxSizing.inherit
     }
 
@@ -107,12 +107,6 @@ fun CSSBuilder.secondaryTextGlow() {
     property("text-shadow", "0 0 8px ${SiteColor.Secondary.color.value}")
 }
 
-val Int.ch get() = LinearDimension("${this}ch")
-
 fun CSSBuilder.property(name: String, value: String) = put(name, value)
 
-fun CSSBuilder.getProperty(name: String): String? = declarations[name] as? String
-
-var CSSBuilder.contentFromAttribute: String
-    get() = getProperty("content") ?: ""
-    set(value) = property("content", "attr($value)")
+val Number.ch get() = LinearDimension("${this}ch")
