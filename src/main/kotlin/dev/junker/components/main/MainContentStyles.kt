@@ -19,7 +19,6 @@ fun CSSBuilder.renderMainContentStyles() {
     rule(terminalPrompt.selector) {
         backgroundColor = SiteColor.BackgroundLight.color
         padding(vertical = 1.rem, horizontal = 2.ch)
-        marginBottom = 1.rem
     }
 
     rule("${terminalPrompt.selector}:before") {

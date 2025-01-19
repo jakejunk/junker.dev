@@ -1,8 +1,9 @@
 package dev.junker.components.page
 
+import dev.junker.components.externalLink
 import kotlinx.html.*
 
-object AboutPage : Page.Content {
+data object AboutPage : Page.Content {
     override val title = "About - ${HomePage.title}"
     override val name = "/about"
     override val slug = "/about"
@@ -18,7 +19,7 @@ object AboutPage : Page.Content {
             }
             p {
                 +"From the moment I wrote my first line of "
-                a(href = xnaWikipediaLink) { +"XNA" }
+                externalLink("XNA", xnaWikipediaLink)
                 +", I knew that I wanted to develop video games for a living. "
                 +"This aspiration got me to where I am today—writing Spring Boot applications for large corporations"
                 a(href = missionAccomplishedLink) { +"." }
@@ -31,6 +32,8 @@ object AboutPage : Page.Content {
                 +"I try to stay balanced with a good amount of sports, hiking, and traveling. "
                 +"I also enjoy trying to learn actual, human languages. "
                 +"Someday, I'll even get good at one. "
+            }
+            p {
                 i {
                     lang = "de"
                     +"Vielleicht eines Tages."
@@ -45,9 +48,9 @@ object AboutPage : Page.Content {
             p {
                 +"This site is all about fun, learning, and embracing not-invented-here syndrome. "
                 +"The stack is fairly straightforward: a "
-                a(href = dropletsLink) { +"Droplet" }
+                externalLink("Droplet", dropletsLink)
                 +" for hosting, and "
-                a(href = ktorLink) { +"Ktor" }
+                externalLink("Ktor", ktorLink)
                 +" for the server. Everything else will be made from scratch"
                 sup { +"1" }
                 +". "
@@ -59,7 +62,7 @@ object AboutPage : Page.Content {
                     }
                     li {
                         +"This site should aim for "
-                        a(href = wcagLink) { +"AA WCAG compliance" }
+                        externalLink("AA WCAG compliance", wcagLink)
                         +"."
                     }
                     li {

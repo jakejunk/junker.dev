@@ -2,7 +2,7 @@ package dev.junker.components.page
 
 import kotlinx.html.*
 
-object HomePage : Page.Content {
+data object HomePage : Page.Content {
     override val title = "Jake Junker"
     override val name = "junker.dev"
     override val slug = "/"

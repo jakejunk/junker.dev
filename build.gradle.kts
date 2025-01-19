@@ -4,7 +4,7 @@ val logbackVersion: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.7.0"
+    kotlin("jvm") version "2.0.20"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -32,6 +32,12 @@ dependencies {
     implementation("org.jetbrains:kotlin-css-jvm:1.0.0-pre.129-kotlin-1.4.20")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    constraints {
+        implementation("io.netty:netty-common:4.1.115.Final") {
+            because("GHSA-xq3w-v528-46rv")
+        }
+    }
 }
