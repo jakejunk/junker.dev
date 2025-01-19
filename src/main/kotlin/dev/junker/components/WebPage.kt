@@ -12,6 +12,7 @@ import kotlinx.html.*
 val mainBackground = "main-background".asClass()
 val skipLink = "skip-link".asClass()
 val externalLink = "external-link".asClass()
+val inlineCode = "inline-code".asClass()
 
 fun HTML.renderWebPage(page: Page) {
     renderHead(page)

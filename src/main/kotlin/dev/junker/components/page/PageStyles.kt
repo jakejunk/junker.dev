@@ -3,6 +3,7 @@ package dev.junker.components.page
 import dev.junker.components.*
 import kotlinx.css.*
 import kotlinx.css.Float
+import kotlinx.css.properties.LineHeight
 import kotlinx.css.properties.lh
 
 fun CSSBuilder.renderPageStyles() {
@@ -114,6 +115,14 @@ fun CSSBuilder.renderPageStyles() {
         height = 200.px
         padding(8.px)
         margin(left = LinearDimension.auto, right = LinearDimension.auto, top = 0.px, bottom = 2.rem)
+    }
+
+    rule("code${inlineCode.selector}") {
+        monospaceFont()
+        backgroundColor = SiteColor.BackgroundLight.color
+        borderRadius = 3.px
+        lineHeight = LineHeight.inherit
+        padding(2.px, 6.px)
     }
 }
 

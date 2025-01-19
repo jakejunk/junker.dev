@@ -20,8 +20,8 @@ data object AboutPage : Page.Content {
             p {
                 +"From the moment I wrote my first line of "
                 externalLink("XNA", xnaWikipediaLink)
-                +", I knew that I wanted to develop video games for a living. "
-                +"This aspiration got me to where I am today—writing Spring Boot applications for large corporations"
+                +" in high school computer science, I knew that I wanted to develop video games for a living. "
+                +"This aspiration led me to where I am today—writing Spring Boot applications for large corporations"
                 a(href = missionAccomplishedLink) { +"." }
                 + " "
                 +"Outside of work, I enjoy learning new things by starting projects and overcomplicating them. "
@@ -47,8 +47,10 @@ data object AboutPage : Page.Content {
             h2 { +"about-this-site" }
             p {
                 +"This site is a journey, not a destination. "
-                +"There is no 1.0 release or monetization scheme in the works; trying new things is the only plan. "
-                +"It's my scratchpad and canvas, powered by a fairly straightforward stack: a "
+                +"There is no "
+                code("inline-code") { +"1.0" }
+                +" release or monetization scheme in the works; trying new things is the only plan. "
+                +"It's my notepad and canvas, powered by a fairly straightforward stack: a "
                 externalLink("Droplet", dropletsLink)
                 +" for hosting, and "
                 externalLink("Ktor", ktorLink)
@@ -57,7 +59,7 @@ data object AboutPage : Page.Content {
                 +"."
             }
             p {
-                +"In the spirit of learning, this site will attempt to follow a few guidelines:"
+                +"In the spirit of learning, this site will attempt to follow a few guiding principles:"
                 ul {
                     li {
                         +"Scripting should not be required for anything essential (i.e. progressive enhancement)."
@@ -67,7 +69,7 @@ data object AboutPage : Page.Content {
                         +" compliance is desired."
                     }
                     li {
-                        +"Keep trying new things, and have fun. \uD83D\uDE0A"
+                        +"Never stop experimenting or having fun. \uD83D\uDE0A"
                     }
                 }
             }
