@@ -47,8 +47,7 @@ fun CSSBuilder.renderPageStyles() {
     }
 
     rule("${externalLink.selector}::after") {
-        content = " 🡵".quoted
-        fontSize = 0.75.rem
+        content = " ↗".quoted
         lineHeight = 0.rem.lh
         verticalAlign = VerticalAlign.`super`
     }
