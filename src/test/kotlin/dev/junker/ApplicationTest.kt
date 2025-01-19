@@ -15,6 +15,8 @@ import kotlin.test.assertEquals
 class ApplicationTest {
     @Test
     fun testIndex() = testApplication {
+        application { webMain() }
+
         val expected = generateDocumentAsText(HomePage)
         val response = client.get("/")
 
@@ -24,6 +26,8 @@ class ApplicationTest {
 
     @Test
     fun testAbout() = testApplication {
+        application { webMain() }
+
         val expected = generateDocumentAsText(AboutPage)
         val response = client.get("/about")
 
@@ -33,6 +37,8 @@ class ApplicationTest {
 
     @Test
     fun testAboutWithTrailingSlash() = testApplication {
+        application { webMain() }
+
         val expected = generateDocumentAsText(AboutPage)
         val response = client.get("/about/")
 
@@ -42,6 +48,8 @@ class ApplicationTest {
 
     @Test
     fun testNotFound() = testApplication {
+        application { webMain() }
+
         val expected = generateDocumentAsText(NotFoundPage)
         val response = client.get("/totalAbsoluteNonsense/")
 
@@ -51,6 +59,8 @@ class ApplicationTest {
 
     @Test
     fun testInternalServerError() = testApplication {
+        application { webMain() }
+
         routing {
             get("/broken") {
                 throw RuntimeException()
