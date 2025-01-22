@@ -17,27 +17,26 @@ data object AboutPage : Page.Content {
             h2 { +"about-me" }
             img(classes = "img-right", alt = "Headshot of Jake", src = "/assets/images/500x500_headshot.jpg")
             p {
-                +"I'm Jake, and I write code every so often."
+                +"I'm Jake, and I think computers are pretty neat."
             }
             p {
                 +"From the moment I wrote my first line of "
                 externalLink("XNA", xnaWikipediaLink)
                 +" in high school computer science, I knew that I wanted to develop video games for a living. "
-                +"That dream got me to where I am today—building Spring Boot applications for large companies"
+                +"That dream made me who I am today—a software engineer building "
+                externalLink("CRUD", crudWikipediaLink)
+                +" applications for large companies"
                 hiddenLink(".", missionAccomplishedLink)
                 + " "
-                +"Outside of work, I enjoy starting new projects and churning through the fun parts "
-                +"in the name of learning new things. "
+                +"Outside of work, I enjoy churning through the fun parts of new projects in the name of learning. "
                 a(href = slug) { +"Websites" }
-                +", game engines, and compilers are just some of the things I enjoy tinkering with."
+                +", game engines, and compilers are just some of the technologies I love tinkering with."
             }
             p {
                 +"On top of my digital projects, "
                 +"I try to stay balanced with a good amount of sports, hiking, and traveling. "
                 +"I also enjoy trying to learn actual, human languages. "
                 +"Someday, I'll even get good at one. "
-            }
-            p {
                 i {
                     lang = "de"
                     +"Vielleicht eines Tages."
@@ -91,6 +90,7 @@ data object AboutPage : Page.Content {
 }
 
 private const val xnaWikipediaLink = "https://en.wikipedia.org/wiki/Microsoft_XNA"
+private const val crudWikipediaLink = "https://en.wikipedia.org/wiki/Create,_read,_update_and_delete"
 private const val missionAccomplishedLink = "https://upload.wikimedia.org/wikipedia/commons/b/b5/Mission_Accomplished_banner_on_the_USS_Abraham_Lincoln_%28CVN-72%29_%281%29.jpg"
 private const val dropletsLink = "https://www.digitalocean.com/products/droplets"
 private const val ktorLink = "https://ktor.io/"

@@ -21,7 +21,8 @@ fun CSSBuilder.siteStyles() {
         backgroundColor = SiteColor.BackgroundMedium.color
         color = SiteColor.PrimaryText.color
         boxSizing = BoxSizing.borderBox
-        height = 100.pct
+        // HACK: How to store multiple values for a property
+        declarations["height"] = "100vh; height: 100dvh"
         overflowX = Overflow.hidden
     }
 

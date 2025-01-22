@@ -171,3 +171,5 @@ fun CSSBuilder.textWithShadow(textColor: Color, value: String) {
 }
 
 val Number.ch get() = LinearDimension("${this}ch")
+
+val Number.dvh: LinearDimension get() = LinearDimension("${this}dvh")
