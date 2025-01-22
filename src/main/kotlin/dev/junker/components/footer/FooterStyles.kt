@@ -1,11 +1,13 @@
 package dev.junker.components.footer
 
-import dev.junker.components.*
+import dev.junker.components.SiteColor
 import dev.junker.components.drawer.drawerButtonHeight
+import dev.junker.components.general.ch
+import dev.junker.components.general.light2pxBorder
 import kotlinx.css.*
 import kotlinx.css.properties.BoxShadow
 
-fun CSSBuilder.renderFooterStyles() {
+fun CSSBuilder.footerStyles() {
     rule(mainFooter.selector) {
         borderTop = light2pxBorder
         display = Display.flex
@@ -46,11 +48,9 @@ fun CSSBuilder.renderFooterStyles() {
     }
 }
 
-fun CSSBuilder.renderFooterTabletStyles() {
-    tabletOrLarger {
-        rule(mainFooter.selector) {
-            borderTop = "none"
-            paddingBottom = 0.px
-        }
+fun CSSBuilder.footerTabletStyles() {
+    rule(mainFooter.selector) {
+        borderTop = "none"
+        paddingBottom = 0.px
     }
 }

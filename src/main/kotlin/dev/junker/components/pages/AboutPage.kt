@@ -1,6 +1,8 @@
-package dev.junker.components.page
+package dev.junker.components.pages
 
-import dev.junker.components.externalLink
+import dev.junker.components.general.externalLink
+import dev.junker.components.general.hiddenLink
+import dev.junker.components.general.inlineCode
 import kotlinx.html.*
 
 data object AboutPage : Page.Content {
@@ -8,7 +10,7 @@ data object AboutPage : Page.Content {
     override val name = "/about"
     override val slug = "/about"
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
-    override val block: FlowContent.() -> Unit = {
+    override val content: FlowContent.() -> Unit = {
         h1 { +"about" }
 
         section {
@@ -22,7 +24,7 @@ data object AboutPage : Page.Content {
                 externalLink("XNA", xnaWikipediaLink)
                 +" in high school computer science, I knew that I wanted to develop video games for a living. "
                 +"This aspiration led me to where I am today—writing Spring Boot applications for large corporations"
-                a(href = missionAccomplishedLink) { +"." }
+                hiddenLink(".", missionAccomplishedLink)
                 + " "
                 +"Outside of work, I enjoy learning new things by starting projects and overcomplicating them. "
                 +"Websites, game engines, and compilers are just some of the things I enjoy tinkering with."
@@ -48,7 +50,7 @@ data object AboutPage : Page.Content {
             p {
                 +"This site is a journey, not a destination. "
                 +"There is no "
-                code("inline-code") { +"1.0" }
+                inlineCode("1.0")
                 +" release or monetization scheme in the works; trying new things is the only plan. "
                 +"It's my notepad and canvas, powered by a fairly straightforward stack: a "
                 externalLink("Droplet", dropletsLink)
@@ -83,6 +85,7 @@ data object AboutPage : Page.Content {
             }
         }
     }
+
 }
 
 private const val xnaWikipediaLink = "https://en.wikipedia.org/wiki/Microsoft_XNA"

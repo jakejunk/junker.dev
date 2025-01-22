@@ -1,10 +1,11 @@
 package dev.junker.components.drawer
 
 import dev.junker.components.*
+import dev.junker.components.general.*
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 
-fun CSSBuilder.renderHeaderStyles() {
+fun CSSBuilder.headerStyles() {
     rule(mainHeader.selector) {
         display = Display.flex
         alignItems = Align.center
@@ -35,10 +36,9 @@ fun CSSBuilder.renderHeaderStyles() {
 
     rule(navLink.selector) {
         backgroundColor = SiteColor.ButtonColor.color
-        color = SiteColor.PrimaryText.color
         borderRadius = cornerRadius
         padding(vertical = 1.rem, horizontal = 2.ch)
-        property("text-shadow", "none")
+        textWithShadow(SiteColor.PrimaryText.color, "none")
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
     }
@@ -52,25 +52,23 @@ fun CSSBuilder.renderHeaderStyles() {
     }
 }
 
-fun CSSBuilder.renderHeaderTabletStyles() {
-    tabletOrLarger {
-        rule(mainHeader.selector) {
-            flexDirection = FlexDirection.row
-            justifyContent = JustifyContent.spaceBetween
-            maxWidth = 1300.px
-            width = 100.pct
-        }
+fun CSSBuilder.headerTabletStyles() {
+    rule(mainHeader.selector) {
+        flexDirection = FlexDirection.row
+        justifyContent = JustifyContent.spaceBetween
+        maxWidth = 1300.px
+        width = 100.pct
+    }
 
-        rule(headerNav.selector) {
-            alignSelf = Align.flexEnd
-            rowGap = RowGap("1rem")
-            width = LinearDimension.auto
-            padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
-        }
+    rule(headerNav.selector) {
+        alignSelf = Align.flexEnd
+        rowGap = RowGap("1rem")
+        width = LinearDimension.auto
+        padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
+    }
 
-        rule(navLink.selector) {
-            borderBottomLeftRadius = 0.px
-            borderBottomRightRadius = 0.px
-        }
+    rule(navLink.selector) {
+        borderBottomLeftRadius = 0.px
+        borderBottomRightRadius = 0.px
     }
 }

@@ -1,10 +1,13 @@
 package dev.junker.components.main
 
-import dev.junker.components.*
+import dev.junker.components.SiteColor
+import dev.junker.components.general.ch
+import dev.junker.components.general.cornerRadius
+import dev.junker.components.general.primaryTextGlow
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
-fun CSSBuilder.renderMainContentStyles() {
+fun CSSBuilder.mainContentStyles() {
     rule(mainContainer.selector) {
         flexGrow = 1.0
         paddingBottom = 8.rem
@@ -38,20 +41,18 @@ fun CSSBuilder.renderMainContentStyles() {
     }
 }
 
-fun CSSBuilder.renderMainContentTabletStyles() {
-    tabletOrLarger {
-        rule(mainContainer.selector) {
-            display = Display.flex
-            justifyContent = JustifyContent.center
-        }
+fun CSSBuilder.mainContentTabletStyles() {
+    rule(mainContainer.selector) {
+        display = Display.flex
+        justifyContent = JustifyContent.center
+    }
 
-        rule(terminalPrompt.selector) {
-            borderRadius = cornerRadius
-            margin(1.rem)
-        }
+    rule(terminalPrompt.selector) {
+        borderRadius = cornerRadius
+        margin(1.rem)
+    }
 
-        rule(outputContainer.selector) {
-            padding(2.rem)
-        }
+    rule(outputContainer.selector) {
+        padding(2.rem)
     }
 }

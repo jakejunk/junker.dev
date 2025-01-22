@@ -1,6 +1,7 @@
 package dev.junker.components.drawer
 
 import dev.junker.components.*
+import dev.junker.components.general.*
 import dev.junker.components.main.mainContainer
 import kotlinx.css.*
 import kotlinx.css.properties.Transforms
@@ -10,7 +11,7 @@ import kotlinx.css.properties.translateY
 
 val drawerButtonHeight = 32.px
 
-fun CSSBuilder.renderDrawerStyles() {
+fun CSSBuilder.drawerStyles() {
     rule(drawerContainer.selector) {
         pointerEvents = PointerEvents.none
         position = Position.fixed
@@ -73,32 +74,30 @@ fun CSSBuilder.renderDrawerStyles() {
     }
 }
 
-fun CSSBuilder.renderDrawerTabletStyles() {
-    tabletOrLarger {
-        rule(drawerContainer.selector) {
-            pointerEvents = PointerEvents.unset
-            position = Position.static
-            height = LinearDimension.auto
-            width = LinearDimension.auto
-        }
+fun CSSBuilder.drawerTabletStyles() {
+    rule(drawerContainer.selector) {
+        pointerEvents = PointerEvents.unset
+        position = Position.static
+        height = LinearDimension.auto
+        width = LinearDimension.auto
+    }
 
-        rule(drawerBackground.selector) {
-            height = LinearDimension.auto
-            width = LinearDimension.auto
-        }
+    rule(drawerBackground.selector) {
+        height = LinearDimension.auto
+        width = LinearDimension.auto
+    }
 
-        rule(drawer.selector) {
-            borderTop = "none"
-            borderBottom = "solid 2px ${SiteColor.BackgroundLight.color.value}"
-            alignItems = Align.center
-            position = Position.static
-            height = 100.pct
-            width = LinearDimension.auto
-            transform = Transforms.none
-        }
+    rule(drawer.selector) {
+        borderTop = "none"
+        borderBottom = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+        alignItems = Align.center
+        position = Position.static
+        height = 100.pct
+        width = LinearDimension.auto
+        transform = Transforms.none
+    }
 
-        rule(drawerButton.selector) {
-            display = Display.none
-        }
+    rule(drawerButton.selector) {
+        display = Display.none
     }
 }
