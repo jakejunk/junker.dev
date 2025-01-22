@@ -17,17 +17,19 @@ data object AboutPage : Page.Content {
             h2 { +"about-me" }
             img(classes = "img-right", alt = "Headshot of Jake", src = "/assets/images/500x500_headshot.jpg")
             p {
-                +"I'm Jake, and I'm a professional software engineer."
+                +"I'm Jake, and I write code every so often."
             }
             p {
                 +"From the moment I wrote my first line of "
                 externalLink("XNA", xnaWikipediaLink)
                 +" in high school computer science, I knew that I wanted to develop video games for a living. "
-                +"This aspiration led me to where I am today—writing Spring Boot applications for large corporations"
+                +"That dream got me to where I am today—building Spring Boot applications for large companies"
                 hiddenLink(".", missionAccomplishedLink)
                 + " "
-                +"Outside of work, I enjoy learning new things by starting projects and overcomplicating them. "
-                +"Websites, game engines, and compilers are just some of the things I enjoy tinkering with."
+                +"Outside of work, I enjoy starting new projects and churning through the fun parts "
+                +"in the name of learning new things. "
+                a(href = slug) { +"Websites" }
+                +", game engines, and compilers are just some of the things I enjoy tinkering with."
             }
             p {
                 +"On top of my digital projects, "
@@ -61,7 +63,7 @@ data object AboutPage : Page.Content {
                 +"."
             }
             p {
-                +"In the spirit of learning, this site will attempt to follow a few guiding principles:"
+                +"This site will attempt to follow a few guiding principles:"
                 ul {
                     li {
                         +"Scripting should not be required for anything essential (i.e. progressive enhancement)."
