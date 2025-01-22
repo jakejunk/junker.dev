@@ -1,24 +1,16 @@
 package dev.junker.components
 
-import dev.junker.components.drawer.renderDrawer
-import dev.junker.components.footer.renderFooter
-import dev.junker.components.main.mainContent
-import dev.junker.components.main.renderMainContent
-import dev.junker.components.page.Page
+import dev.junker.components.pages.Page
+import dev.junker.components.pages.page
 import dev.junker.stylesRoute
-import dev.junker.util.asClass
 import kotlinx.html.*
 
-val mainBackground = "main-background".asClass()
-val skipLink = "skip-link".asClass()
-val externalLink = "external-link".asClass()
-
-fun HTML.renderWebPage(page: Page) {
-    renderHead(page)
-    renderBody(page)
+fun HTML.site(page: Page) {
+    head(page)
+    page(page)
 }
 
-private fun HTML.renderHead(page: Page) {
+private fun HTML.head(page: Page) {
     lang = "en-US"
     head {
         meta(charset = "utf-8")
@@ -27,13 +19,13 @@ private fun HTML.renderHead(page: Page) {
             meta(name = "description", content = page.description)
         }
         meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
-        renderFaviconStuff()
-        renderFontStuff()
+        faviconStuff()
+        fontStuff()
         styleLink(stylesRoute)
     }
 }
 
-private fun HEAD.renderFaviconStuff() {
+private fun HEAD.faviconStuff() {
     meta(name = "msapplication-TileColor", content = "#1abc9c")
     meta(name = "theme-color", content = "#1abc9c")
     link(rel="apple-touch-icon", href="/apple-touch-icon.png") { sizes = "180x180" }
@@ -43,29 +35,9 @@ private fun HEAD.renderFaviconStuff() {
     link(rel="mask-icon", href="/safari-pinned-tab.svg") { attributes["color"] = "#1abc9c" }
 }
 
-private fun HEAD.renderFontStuff() {
+private fun HEAD.fontStuff() {
     link(rel = "preconnect", href = "https://fonts.googleapis.com")
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
     styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;700&display=swap")
     styleLink("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap")
-}
-
-private fun HTML.renderBody(page: Page) {
-    body {
-        div(classes = mainBackground.className)
-        renderSkipLink()
-        renderDrawer(page)
-        renderMainContent(page)
-        renderFooter()
-    }
-}
-
-fun BODY.renderSkipLink() {
-    a(classes = skipLink.className, href = mainContent.selector) {
-        +"Skip to content"
-    }
-}
-
-fun FlowOrInteractiveOrPhrasingContent.externalLink(text: String, href: String) {
-    a(classes = externalLink.className, href = href) { +text }
 }

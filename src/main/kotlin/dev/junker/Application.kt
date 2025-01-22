@@ -1,7 +1,7 @@
 package dev.junker
 
-import dev.junker.components.page.*
-import dev.junker.components.renderWebPage
+import dev.junker.components.pages.*
+import dev.junker.components.site
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -44,19 +44,19 @@ fun Application.webMain() {
     }
     install(StatusPages) {
         exception<Throwable> { call, _ ->
-            call.renderErrorPage(InternalServerErrorPage)
+            call.errorPage(InternalServerErrorPage)
         }
 
         status(HttpStatusCode.NotFound) { call, _ ->
-            call.renderErrorPage(NotFoundPage)
+            call.errorPage(NotFoundPage)
         }
     }
 
     routing { routes() }
 }
 
-private suspend fun ApplicationCall.renderErrorPage(errorPage: Page.Error) {
+private suspend fun ApplicationCall.errorPage(errorPage: Page.Error) {
     respondHtml(status = errorPage.status) {
-        renderWebPage(errorPage)
+        site(errorPage)
     }
 }

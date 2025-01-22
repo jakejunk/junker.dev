@@ -9,7 +9,7 @@ val footerContent = "footer-content".asClass()
 val statusIndicator = "totally-real-status-indicator".asClass()
 val copyright = "copyright".asClass()
 
-fun BODY.renderFooter() {
+fun BODY.footer() {
     footer(classes = mainFooter.className) {
         div(classes = footerContent.className) {
             small(classes = copyright.className) { +"©${Year.now()} Jake Junker" }

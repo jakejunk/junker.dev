@@ -1,10 +1,10 @@
 package dev.junker
 
-import dev.junker.components.page.AboutPage
-import dev.junker.components.page.HomePage
-import dev.junker.components.page.Page
-import dev.junker.components.renderWebPage
-import dev.junker.components.renderWebPageStyles
+import dev.junker.components.pages.AboutPage
+import dev.junker.components.pages.HomePage
+import dev.junker.components.pages.Page
+import dev.junker.components.site
+import dev.junker.components.siteStyles
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -20,17 +20,17 @@ fun Routing.routes() {
     staticResources("/assets", "/static")
 
     get(stylesRoute) {
-        call.respondCss { renderWebPageStyles() }
+        call.respondCss { siteStyles() }
     }
 
-    getContentPage(HomePage)
-    getContentPage(AboutPage)
+    contentPage(HomePage)
+    contentPage(AboutPage)
 }
 
-private fun Routing.getContentPage(page: Page.Content) {
+private fun Routing.contentPage(page: Page.Content) {
     get(page.slug) {
         call.respondHtml {
-            renderWebPage(page)
+            site(page)
         }
     }
 }

@@ -1,7 +1,7 @@
 package dev.junker
 
-import dev.junker.components.page.*
-import dev.junker.components.renderWebPage
+import dev.junker.components.pages.*
+import dev.junker.components.site
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -76,6 +76,6 @@ class ApplicationTest {
 
     private fun generateDocumentAsText(page: Page) =
         "<!DOCTYPE html>\n" + createHTML()
-            .html { renderWebPage(page) }
+            .html { site(page) }
             .toString()
 }
