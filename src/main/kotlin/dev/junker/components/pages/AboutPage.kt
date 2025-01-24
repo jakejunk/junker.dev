@@ -11,8 +11,6 @@ data object AboutPage : Page.Content {
     override val slug = "/about"
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
     override val content: FlowContent.() -> Unit = {
-        h1 { +"about" }
-
         section {
             h2 { +"about-me" }
             img(classes = "img-right", alt = "Headshot of Jake", src = "/assets/images/500x500_headshot.jpg")

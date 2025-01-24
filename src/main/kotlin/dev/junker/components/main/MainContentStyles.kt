@@ -21,6 +21,8 @@ fun CSSBuilder.mainContentStyles() {
 
     rule(terminalPrompt.selector) {
         backgroundColor = SiteColor.BackgroundLight.color
+        borderRadius = cornerRadius
+        margin(1.ch)
         padding(vertical = 1.rem, horizontal = 2.ch)
     }
 
@@ -35,6 +37,8 @@ fun CSSBuilder.mainContentStyles() {
     }
 
     rule(output.selector) {
+        display = Display.flex
+        flexDirection = FlexDirection.column
         fontFamily = "Work Sans, sans-serif"
         fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
@@ -48,7 +52,6 @@ fun CSSBuilder.mainContentTabletStyles() {
     }
 
     rule(terminalPrompt.selector) {
-        borderRadius = cornerRadius
         margin(1.rem)
     }
 

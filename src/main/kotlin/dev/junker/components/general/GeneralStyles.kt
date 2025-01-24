@@ -12,7 +12,7 @@ fun CSSBuilder.generalStyles() {
             fontWeight = FontWeight.lighter,
             lineHeight = 1.75.rem.lh
         )
-        margin(vertical = 2.rem)
+        margin(bottom = 2.rem)
         primaryTextGlow()
     }
 
@@ -48,8 +48,8 @@ fun CSSBuilder.generalStyles() {
         borderColor = SiteColor.BackgroundLight.color
         borderStyle = BorderStyle.solid
         height = 2.px
-        maxWidth = 128.px
-        margin(vertical = 3.rem, horizontal = LinearDimension.auto)
+        width = 128.px
+        margin(vertical = 2.rem, horizontal = LinearDimension.auto)
     }
 
     sup {
@@ -171,5 +171,3 @@ fun CSSBuilder.textWithShadow(textColor: Color, value: String) {
 }
 
 val Number.ch get() = LinearDimension("${this}ch")
-
-val Number.dvh: LinearDimension get() = LinearDimension("${this}dvh")
