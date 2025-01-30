@@ -5,17 +5,23 @@ val logbackVersion: String by project
 plugins {
     application
     kotlin("jvm") version "2.0.20"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.ktor.plugin") version "3.0.3"
 }
 
 group = "dev.junker"
 version = "0.0.1"
 
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set("dev.junker.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("dev.junker.server.jar")
+    }
 }
 
 repositories {

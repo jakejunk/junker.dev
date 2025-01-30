@@ -1,10 +1,10 @@
-FROM gradle:7-jdk11 AS build
+FROM gradle:8.12.1-jdk17 AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle shadowJar --no-daemon
+RUN gradle buildFatJar --no-daemon
 
-FROM openjdk:11
+FROM openjdk:17
 EXPOSE 8080:8080
 RUN mkdir /app
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/dev.junker.web-all.jar
-ENTRYPOINT ["java", "-jar", "/app/dev.junker.web-all.jar"]
+COPY --from=build /home/gradle/src/build/libs/dev.junker.server.jar /app/dev.junker.server.jar
+ENTRYPOINT ["java", "-jar", "/app/dev.junker.server.jar"]
