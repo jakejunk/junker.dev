@@ -42,6 +42,10 @@ fun CSSBuilder.footerStyles() {
         width = 1.ch
     }
 
+    rule("${statusIndicator.selector}::after") {
+        content = "POWER".quoted
+    }
+
     rule(copyright.selector) {
         color = SiteColor.SubtleText.color
         whiteSpace = WhiteSpace.nowrap

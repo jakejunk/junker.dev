@@ -13,7 +13,7 @@ fun BODY.footer() {
     footer(classes = mainFooter.className) {
         div(classes = footerContent.className) {
             small(classes = copyright.className) { +"©${Year.now()} Jake Junker" }
-            small(classes = statusIndicator.className) { +"POWER" }
+            small(classes = statusIndicator.className)
         }
     }
 }

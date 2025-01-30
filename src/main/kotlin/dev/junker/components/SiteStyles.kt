@@ -9,6 +9,8 @@ import dev.junker.components.footer.footerTabletStyles
 import dev.junker.components.general.*
 import dev.junker.components.main.mainContentStyles
 import dev.junker.components.main.mainContentTabletStyles
+import dev.junker.components.tagline.taglineStyles
+import dev.junker.components.tagline.taglineTabletStyles
 import kotlinx.css.*
 
 fun CSSBuilder.siteStyles() {
@@ -21,7 +23,8 @@ fun CSSBuilder.siteStyles() {
         backgroundColor = SiteColor.BackgroundMedium.color
         color = SiteColor.PrimaryText.color
         boxSizing = BoxSizing.borderBox
-        height = 100.pct
+        // HACK: How to store multiple values for a property
+        declarations["height"] = "100vh; height: 100dvh"
         overflowX = Overflow.hidden
     }
 
@@ -38,6 +41,7 @@ fun CSSBuilder.siteStyles() {
     footerStyles()
     mainContentStyles()
     asciiBannerStyles()
+    taglineStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
@@ -48,5 +52,6 @@ fun CSSBuilder.siteStyles() {
         footerTabletStyles()
         mainContentTabletStyles()
         asciiBannerTabletStyles()
+        taglineTabletStyles()
     }
 }
