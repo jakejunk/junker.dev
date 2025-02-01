@@ -3,6 +3,7 @@ package dev.junker.components.main
 import dev.junker.components.SiteColor
 import dev.junker.components.general.ch
 import dev.junker.components.general.cornerRadius
+import dev.junker.components.general.light2pxBorder
 import dev.junker.components.general.primaryTextGlow
 import kotlinx.css.*
 import kotlinx.css.properties.lh
@@ -19,14 +20,15 @@ fun CSSBuilder.mainContentStyles() {
         maxWidth = 1100.px
     }
 
-    rule(terminalPrompt.selector) {
-        backgroundColor = SiteColor.BackgroundLight.color
+    rule(commandLine.selector) {
+        backgroundColor = SiteColor.ButtonColor.color
+        border = light2pxBorder
         borderRadius = cornerRadius
         margin(1.ch)
         padding(vertical = 1.rem, horizontal = 2.ch)
     }
 
-    rule("${terminalPrompt.selector}:before") {
+    rule("${commandLine.selector}:before") {
         content = ">".quoted
         paddingRight = 1.ch
         primaryTextGlow()
@@ -51,7 +53,7 @@ fun CSSBuilder.mainContentTabletStyles() {
         justifyContent = JustifyContent.center
     }
 
-    rule(terminalPrompt.selector) {
+    rule(commandLine.selector) {
         margin(1.rem)
     }
 

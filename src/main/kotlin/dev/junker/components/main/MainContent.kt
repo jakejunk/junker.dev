@@ -7,7 +7,7 @@ import kotlinx.html.*
 
 val mainContainer = "main-container".asClass()
 val mainContent = "main".asId()
-val terminalPrompt = "terminal-prompt".asClass()
+val commandLine = "cli".asClass()
 val outputContainer = "output-container".asClass()
 val output = "output".asClass()
 
@@ -16,7 +16,7 @@ fun BODY.mainContent(page: Page) {
         main {
             id = mainContent.id
 
-            div(classes = terminalPrompt.className) {
+            div(classes = commandLine.className) {
                 when (page) {
                     is Page.Content -> +"view ${page.slug}"
                     is Page.Error -> +""
