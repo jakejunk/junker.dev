@@ -3,6 +3,7 @@ package dev.junker.components.pages
 import dev.junker.components.general.externalLink
 import dev.junker.components.general.hiddenLink
 import dev.junker.components.general.inlineCode
+import dev.junker.components.general.rightFloatImage
 import kotlinx.html.*
 
 data object AboutPage : Page.Content {
@@ -12,10 +13,10 @@ data object AboutPage : Page.Content {
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
     override val content: FlowContent.() -> Unit = {
         section {
-            h2 { +"about-me" }
-            img(classes = "img-right", alt = "Headshot of Jake", src = "/assets/images/500x500_headshot.jpg")
+            h2 { +"About me" }
+            rightFloatImage("Headshot of Jake", "/assets/images/500x500_headshot.jpg")
             p {
-                +"I'm Jake, and I think computers are pretty neat."
+                +"I think computers are pretty neat."
             }
             p {
                 +"From the moment I wrote my first line of "
@@ -45,7 +46,7 @@ data object AboutPage : Page.Content {
         hr()
 
         section {
-            h2 { +"about-this-site" }
+            h2 { +"About this site" }
             p {
                 +"This site is a journey, not a destination. "
                 +"There is no "

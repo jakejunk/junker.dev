@@ -7,40 +7,31 @@ import kotlinx.css.properties.LineHeight
 import kotlinx.css.properties.lh
 
 fun CSSBuilder.generalStyles() {
+    fontFace {
+        fontFamily = "Dogica Pixel"
+        property("src", "local('Dogica Pixel'), url(/assets/fonts/dogicapixel.otf) format('opentype')")
+    }
+
     rule("h1, h2") {
-        monospaceFont(
-            fontWeight = FontWeight.lighter,
-            lineHeight = 1.75.rem.lh
-        )
+        pixelFont()
+        textAlign = TextAlign.center
         margin(bottom = 2.rem)
-        primaryTextGlow()
+        primaryTextGlow(1.ch)
     }
 
     h1 {
-        fontSize = 2.5.rem
-        textAlign = TextAlign.center
-    }
-
-    rule("h1::before") {
-        content = "/".quoted
-        color = SiteColor.PrimaryText.color
+        before {
+            content = "/".quoted
+            color = SiteColor.PrimaryText.color
+        }
     }
 
     rule("h1.error") {
         secondaryTextGlow()
-    }
 
-    rule("h1.error::before") {
-        content = "!".quoted
-    }
-
-    h2 {
-        textAlign = TextAlign.center
-    }
-
-    rule("h2::before") {
-        content = "#".quoted
-        color = SiteColor.PrimaryText.color
+        before {
+            content = "!".quoted
+        }
     }
 
     hr {
@@ -65,37 +56,17 @@ fun CSSBuilder.generalStyles() {
         fontStyle = FontStyle.italic
     }
 
-    rule(".img-right") {
-        border = light2pxBorder
-        borderRadius = cornerRadiusRounder
-        display = Display.block
-        height = 200.px
-        margin(left = LinearDimension.auto, right = LinearDimension.auto, top = 0.px, bottom = 2.rem)
-        padding(8.px)
-        width = 200.px
-    }
-
+    imageStyles()
     linkStyles()
     inlineCodeStyles()
 }
 
 fun CSSBuilder.generalTabletStyles() {
-    rule("h1") {
-        fontSize = 3.rem
-        textAlign = TextAlign.center
-    }
-
-    rule("h2") {
-        fontSize = 2.rem
+    h2 {
         textAlign = TextAlign.left
     }
 
-    rule(".img-right") {
-        float = Float.right
-        height = 256.px
-        marginLeft = 2.rem
-        width = 256.px
-    }
+    imageTabletStyles()
 }
 
 // ====================================================================================================================
@@ -126,16 +97,11 @@ fun CSSBuilder.monospaceFont(
     }
 }
 
-fun CSSBuilder.glowingPixelatedBackgroundImage(url: String) {
-    pixelatedBackgroundImage(url, BackgroundRepeat.noRepeat)
-    filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
-}
-
-fun CSSBuilder.pixelatedBackgroundImage(url: String, repeat: BackgroundRepeat) {
-    backgroundImage = Image("url($url)")
-    backgroundSize = "contain"
-    backgroundRepeat = repeat
-    property("image-rendering", "pixelated")
+fun CSSBuilder.pixelFont() {
+    fontFamily = "Dogica Pixel, serif"
+    fontSize = 1.75.rem
+    fontWeight = FontWeight.lighter
+    lineHeight = 2.5.rem.lh
 }
 
 fun CSSBuilder.flexColumn() {
@@ -143,18 +109,18 @@ fun CSSBuilder.flexColumn() {
     flexDirection = FlexDirection.column
 }
 
-fun CSSBuilder.primaryTextGlow() {
+fun CSSBuilder.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
     textWithShadow(
         textColor = SiteColor.PrimaryBright.color,
-        blurRadius = 8.px,
+        blurRadius = glowRadius,
         color = SiteColor.Primary.color
     )
 }
 
-fun CSSBuilder.secondaryTextGlow() {
+fun CSSBuilder.secondaryTextGlow(glowRadius: LinearDimension = 8.px) {
     textWithShadow(
         textColor = SiteColor.SecondaryBright.color,
-        blurRadius = 8.px,
+        blurRadius = glowRadius,
         color = SiteColor.Secondary.color
     )
 }

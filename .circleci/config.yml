@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/project
     docker:
-      - image: gradle:7-jdk11
+      - image: gradle:8.12.1-jdk17
     steps:
       - checkout
       - run:

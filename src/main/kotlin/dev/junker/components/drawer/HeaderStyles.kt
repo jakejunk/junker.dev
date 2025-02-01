@@ -35,7 +35,8 @@ fun CSSBuilder.headerStyles() {
     }
 
     rule(navLink.selector) {
-        backgroundColor = SiteColor.ButtonColor.color
+        backgroundColor = SiteColor.BackgroundMedium.color
+        border = light2pxBorder
         borderRadius = cornerRadius
         padding(vertical = 1.rem, horizontal = 2.ch)
         textWithShadow(SiteColor.PrimaryText.color, "none")
@@ -44,7 +45,7 @@ fun CSSBuilder.headerStyles() {
     }
 
     rule("${navLink.selector}:hover") {
-        backgroundColor = SiteColor.BackgroundDark.color
+        backgroundColor = SiteColor.BackgroundLight.color
     }
 
     rule("${navLink.selector}.selected") {
@@ -70,5 +71,7 @@ fun CSSBuilder.headerTabletStyles() {
     rule(navLink.selector) {
         borderBottomLeftRadius = 0.px
         borderBottomRightRadius = 0.px
+        borderBottom = "none"
+        marginBottom = (-1.8).px
     }
 }
