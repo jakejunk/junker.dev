@@ -15,15 +15,16 @@ fun CSSBuilder.drawerStyles() {
     rule(drawerContainer.selector) {
         pointerEvents = PointerEvents.none
         position = Position.fixed
-        height = 100.vh
+        // TODO: Make more ergonomic
+        declarations["height"] = "100vh; height: 100dvh"
         width = 100.vw
     }
 
     rule(drawerBackground.selector) {
         backgroundColor = SiteColor.BackgroundDark.color
         position = Position.absolute
-        height = 100.vh
-        width = 100.vw
+        height = 100.pct
+        width = 100.pct
         opacity = 0
         visibility = Visibility.hidden
         transition("opacity", 300.ms)
