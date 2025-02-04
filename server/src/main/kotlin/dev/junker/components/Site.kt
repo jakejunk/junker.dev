@@ -22,6 +22,10 @@ private fun HTML.head(page: Page) {
         faviconStuff()
         fontStuff()
         styleLink(stylesRoute)
+        script(type = "application/javascript", src = "/assets/scripts/dev.junker.browser.js") {
+            async = true
+            defer = true
+        }
     }
 }
 
