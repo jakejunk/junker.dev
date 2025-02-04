@@ -1,6 +1,6 @@
 package dev.junker.components.general
 
-import dev.junker.components.main.mainContent
+import dev.junker.components.main.main
 import dev.junker.util.asClass
 import kotlinx.html.*
 
@@ -9,7 +9,7 @@ val externalLink = "external-link".asClass()
 val hiddenLink = "hidden-link".asClass()
 
 fun FlowOrInteractiveOrPhrasingContent.skipLink() {
-    a(classes = skipLink.className, href = mainContent.selector) {
+    a(classes = skipLink.className, href = main.selector) {
         +"Skip to content"
     }
 }

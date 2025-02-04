@@ -10,22 +10,30 @@ import kotlinx.css.properties.lh
 
 fun CSSBuilder.mainContentStyles() {
     rule(mainContainer.selector) {
+        alignItems = Align.center
+        alignSelf = Align.center
+        display = Display.flex
+        flexDirection = FlexDirection.column
         flexGrow = 1.0
+        justifyContent = JustifyContent.center
+        margin(horizontal = 1.rem)
+        maxWidth = 1100.px
         paddingBottom = 8.rem
         wordBreak = WordBreak.breakWord
     }
 
-    rule(mainContent.selector) {
+    rule(main.selector) {
         width = 100.pct
-        maxWidth = 1100.px
+        padding(vertical = 1.rem)
     }
 
     rule(commandLine.selector) {
         backgroundColor = SiteColor.ButtonColor.color
         border = light2pxBorder
         borderRadius = cornerRadius
-        margin(1.ch)
+        margin(1.rem)
         padding(vertical = 1.rem, horizontal = 2.ch)
+        width = 100.pct
     }
 
     rule("${commandLine.selector}:before") {
@@ -34,11 +42,7 @@ fun CSSBuilder.mainContentStyles() {
         primaryTextGlow()
     }
 
-    rule(outputContainer.selector) {
-        padding(1.rem)
-    }
-
-    rule(output.selector) {
+    rule(mainContent.selector) {
         display = Display.flex
         flexDirection = FlexDirection.column
         fontFamily = "Work Sans, sans-serif"
@@ -49,15 +53,10 @@ fun CSSBuilder.mainContentStyles() {
 
 fun CSSBuilder.mainContentTabletStyles() {
     rule(mainContainer.selector) {
-        display = Display.flex
-        justifyContent = JustifyContent.center
+        margin(horizontal = 2.rem)
     }
 
-    rule(commandLine.selector) {
-        margin(1.rem)
-    }
-
-    rule(outputContainer.selector) {
+    rule(main.selector) {
         padding(2.rem)
     }
 }
