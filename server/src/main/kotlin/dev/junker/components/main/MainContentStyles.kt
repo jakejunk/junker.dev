@@ -28,7 +28,7 @@ fun CSSBuilder.mainContentStyles() {
     }
 
     rule(commandLine.selector) {
-        backgroundColor = SiteColor.ButtonColor.color
+        backgroundColor = SiteColor.BackgroundDarkish.color
         border = light2pxBorder
         borderRadius = cornerRadius
         margin(1.rem)
