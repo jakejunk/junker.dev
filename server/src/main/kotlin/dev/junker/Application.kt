@@ -22,7 +22,7 @@ private val contentSecurityPolicy =
         "frame-ancestors 'self'",
         "img-src 'self'",
         "manifest-src 'self'",
-        "script-src 'self'",
+        "script-src 'self' 'wasm-unsafe-eval'",
         "style-src 'self' https://fonts.googleapis.com",
     )
     .joinToString("; ")

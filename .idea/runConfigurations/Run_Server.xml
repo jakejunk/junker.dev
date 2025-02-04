@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run Server" type="JetRunConfigurationType">
     <option name="MAIN_CLASS_NAME" value="dev.junker.ApplicationKt" />
-    <module name="junker.dev.main" />
+    <module name="junker.dev.server.main" />
     <option name="PROGRAM_PARAMETERS" value="-t" />
     <shortenClasspath name="NONE" />
     <option name="VM_PARAMETERS" value="-Dio.ktor.development=true" />
