@@ -12,6 +12,8 @@
         <option name="sourceFilePath" value="deploy/docker-compose.yml" />
       </settings>
     </deployment>
-    <method v="2" />
+    <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="false" tasks="buildFatJar" externalProjectPath="$PROJECT_DIR$/server" vmOptions="" scriptParameters="" />
+    </method>
   </configuration>
 </component>
