@@ -1,10 +1,18 @@
 version: 2.1
 
-jobs:
-  build:
-    working_directory: ~/project
+executors:
+  build-executor:
     docker:
       - image: gradle:8.12.1-jdk17
+    working_directory: ~/project
+  deploy-executor:
+    docker:
+      - image: arvindr226/alpine-ssh
+    working_directory: ~/project
+
+jobs:
+  test:
+    executor: build-executor
     steps:
       - checkout
       - run:
@@ -15,23 +23,46 @@ jobs:
           command: gradle test
       - store_test_results:
           path: junker.dev/build/test-results
-  deploy-prod:
-    docker:
-      - image: arvindr226/alpine-ssh
+  build-release:
+    executor: build-executor
     steps:
       - checkout
       - run:
-          name: Deploy
+          name: Build fat jar
+          command: gradle buildFatJar --no-daemon
+      - persist_to_workspace:
+          root: server/build/libs
+          paths:
+            - dev.junker.server.jar
+  deploy-to-prod:
+    executor: deploy-executor
+    steps:
+      - attach_workspace:
+          at: server/build/libs
+      - run:
+          name: Ensure deployment directory
+          command: ssh -oStrictHostKeyChecking=no -v $USER@$IP "mkdir -p ~/workspace/server/build/libs/"
+      - run:
+          name: Deploy to prod
+          command: scp -oStrictHostKeyChecking=no server/build/libs/dev.junker.server.jar $USER@$IP:~/workspace/server/build/libs/
+      - run:
+          name: Refresh prod
           command: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy_project.sh"
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
-      - deploy-prod:
+      - test
+      - build-release:
           requires:
-            - build
+            - test
+          filters:
+            branches:
+              only: main
+      - deploy-to-prod:
+          requires:
+            - build-release
           filters:
             branches:
               only: main
