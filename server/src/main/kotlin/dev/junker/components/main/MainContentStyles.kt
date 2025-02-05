@@ -52,6 +52,11 @@ fun CSSBuilder.mainContentStyles() {
 }
 
 fun CSSBuilder.mainContentTabletStyles() {
+    rule(commandLine.selector) {
+        margin(2.rem)
+        marginBottom = 1.rem
+    }
+
     rule(mainContainer.selector) {
         margin(horizontal = 2.rem)
     }
