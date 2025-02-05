@@ -7,6 +7,8 @@ import dev.junker.components.drawer.*
 import dev.junker.components.footer.footerStyles
 import dev.junker.components.footer.footerTabletStyles
 import dev.junker.components.general.*
+import dev.junker.components.main.commandLineStyles
+import dev.junker.components.main.commandLineTabletStyles
 import dev.junker.components.main.mainContentStyles
 import dev.junker.components.main.mainContentTabletStyles
 import dev.junker.components.tagline.taglineStyles
@@ -40,6 +42,7 @@ fun CSSBuilder.siteStyles() {
     headerStyles()
     footerStyles()
     mainContentStyles()
+    commandLineStyles()
     asciiBannerStyles()
     taglineStyles()
 
@@ -51,6 +54,7 @@ fun CSSBuilder.siteStyles() {
         headerTabletStyles()
         footerTabletStyles()
         mainContentTabletStyles()
+        commandLineTabletStyles()
         asciiBannerTabletStyles()
         taglineTabletStyles()
     }

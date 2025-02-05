@@ -29,9 +29,8 @@ fun CSSBuilder.headerStyles() {
     }
 
     rule(mainHeader.selector) {
-        display = Display.flex
+        flexColumn()
         alignItems = Align.center
-        flexDirection = FlexDirection.column
         flexGrow = 1.0
     }
 
