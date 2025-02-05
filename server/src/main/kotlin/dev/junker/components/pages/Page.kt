@@ -5,7 +5,6 @@ import dev.junker.components.drawer.drawer
 import dev.junker.components.footer.footer
 import dev.junker.components.general.skipLink
 import dev.junker.components.main.mainContent
-import dev.junker.util.asClass
 import io.ktor.http.*
 import kotlinx.html.*
 

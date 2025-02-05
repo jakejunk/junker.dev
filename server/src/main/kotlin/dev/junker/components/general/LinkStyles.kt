@@ -14,7 +14,9 @@ fun CSSBuilder.linkStyles() {
 
     rule(skipLink.selector) {
         alignSelf = Align.center
-        backgroundColor = SiteColor.ButtonColor.color
+        backgroundColor = SiteColor.BackgroundMedium.color
+        border = light2pxBorder
+        borderTop = "none"
         borderBottomLeftRadius = cornerRadius
         borderBottomRightRadius = cornerRadius
         padding(1.rem)

@@ -6,27 +6,24 @@ import dev.junker.util.asId
 import kotlinx.html.*
 
 val mainContainer = "main-container".asClass()
-val mainContent = "main".asId()
 val commandLine = "cli".asClass()
-val outputContainer = "output-container".asClass()
-val output = "output".asClass()
+val main = "main".asId()
+val mainContent = "main-content".asClass()
 
 fun BODY.mainContent(page: Page) {
     div(classes = mainContainer.className) {
-        main {
-            id = mainContent.id
-
-            div(classes = commandLine.className) {
-                when (page) {
-                    is Page.Content -> +"view ${page.slug}"
-                    is Page.Error -> +""
-                }
+        div(classes = commandLine.className) {
+            when (page) {
+                is Page.Content -> +"view ${page.slug}"
+                is Page.Error -> +""
             }
+        }
 
-            div(classes = outputContainer.className) {
-                article(classes = output.className) {
-                    with(page) { content() }
-                }
+        main {
+            id = main.id
+
+            article(classes = mainContent.className) {
+                with(page) { content() }
             }
         }
     }

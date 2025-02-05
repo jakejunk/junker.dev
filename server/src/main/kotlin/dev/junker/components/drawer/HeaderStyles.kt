@@ -3,9 +3,31 @@ package dev.junker.components.drawer
 import dev.junker.components.*
 import dev.junker.components.general.*
 import kotlinx.css.*
-import kotlinx.css.properties.TextDecoration
+import kotlinx.css.properties.*
+
+val logoTwitchKeyFrames = KeyframesBuilder().apply {
+    8.invoke {
+        transform { rotateZ(30.deg) }
+    }
+    16.invoke {
+        transform { rotateZ((-15).deg) }
+    }
+    24.invoke {
+        transform { rotateZ(7.deg) }
+    }
+    32.invoke {
+        transform { rotateZ(0.deg) }
+    }
+    100.invoke {
+        transform { rotateZ(0.deg) }
+    }
+}
 
 fun CSSBuilder.headerStyles() {
+    rule("@keyframes logoTwitch") {
+        rules += logoTwitchKeyFrames.rules
+    }
+
     rule(mainHeader.selector) {
         display = Display.flex
         alignItems = Align.center
@@ -18,6 +40,19 @@ fun CSSBuilder.headerStyles() {
         margin(24.px)
         height = 64.px
         width = 64.px
+    }
+
+    rule("${siteLogo.selector}:hover") {
+        animation += Animation(
+            duration = 1.s,
+            timing = Timing.easeInOut,
+            delay = 0.s,
+            iterationCount = 1.times,
+            direction = AnimationDirection.normal,
+            fillMode = FillMode.none,
+            playState = PlayState.running,
+            name = "logoTwitch"
+        )
     }
 
     rule("${siteLogo.selector}${error.selector}") {
