@@ -15,10 +15,10 @@ fun CSSBuilder.mainContentStyles() {
         display = Display.flex
         flexDirection = FlexDirection.column
         flexGrow = 1.0
-        justifyContent = JustifyContent.center
-        margin(horizontal = 1.rem)
+        padding(horizontal = 1.rem)
         maxWidth = 1100.px
         paddingBottom = 8.rem
+        width = 100.pct
         wordBreak = WordBreak.breakWord
     }
 
@@ -58,7 +58,7 @@ fun CSSBuilder.mainContentTabletStyles() {
     }
 
     rule(mainContainer.selector) {
-        margin(horizontal = 2.rem)
+        padding(horizontal = 2.rem)
     }
 
     rule(main.selector) {
