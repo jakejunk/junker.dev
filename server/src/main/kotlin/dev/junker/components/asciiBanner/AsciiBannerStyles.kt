@@ -7,7 +7,7 @@ import dev.junker.components.general.secondaryTextGlow
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
-fun CSSBuilder.asciiBannerStyles() {
+fun CssBuilder.asciiBannerStyles() {
     rule(asciiBannerContainer.selector) {
         alignSelf = Align.center
         display = Display.flex
@@ -51,7 +51,7 @@ fun CSSBuilder.asciiBannerStyles() {
     }
 }
 
-fun CSSBuilder.asciiBannerTabletStyles() {
+fun CssBuilder.asciiBannerTabletStyles() {
     rule(asciiBannerContainer.selector) {
         justifyContent = JustifyContent.center
         width = LinearDimension.fitContent

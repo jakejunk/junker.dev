@@ -2,43 +2,39 @@ package dev.junker.components.drawer
 
 import dev.junker.components.*
 import dev.junker.components.general.*
+import dev.junker.util.keyframes
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
-val logoTwitchKeyFrames = KeyframesBuilder().apply {
-    8.invoke {
-        transform { rotateZ(30.deg) }
-    }
-    16.invoke {
-        transform { rotateZ((-15).deg) }
-    }
-    24.invoke {
-        transform { rotateZ(7.deg) }
-    }
-    32.invoke {
-        transform { rotateZ(0.deg) }
-    }
-    100.invoke {
-        transform { rotateZ(0.deg) }
-    }
-}
-
-fun CSSBuilder.headerStyles() {
-    rule("@keyframes logoTwitch") {
-        rules += logoTwitchKeyFrames.rules
+fun CssBuilder.headerStyles() {
+    keyframes("logoTwitch") {
+        8 {
+            transform { rotateZ(30.deg) }
+        }
+        16 {
+            transform { rotateZ((-15).deg) }
+        }
+        24 {
+            transform { rotateZ(7.deg) }
+        }
+        32 {
+            transform { rotateZ(0.deg) }
+        }
+        100 {
+            transform { rotateZ(0.deg) }
+        }
     }
 
     rule(mainHeader.selector) {
-        display = Display.flex
+        flexColumn()
         alignItems = Align.center
-        flexDirection = FlexDirection.column
         flexGrow = 1.0
     }
 
     rule(siteLogo.selector) {
         glowingPixelatedBackgroundImage("/assets/images/16x16_logo_black.png")
-        margin(24.px)
         height = 64.px
+        margin = Margin(24.px)
         width = 64.px
     }
 
@@ -60,21 +56,21 @@ fun CSSBuilder.headerStyles() {
     }
 
     rule(headerNav.selector) {
+        columnGap = 1.ch
         display = Display.flex
-        justifyContent = JustifyContent.center
         flexWrap = FlexWrap.wrap
-        columnGap = ColumnGap("1ch")
-        rowGap = RowGap("1ch")
+        justifyContent = JustifyContent.center
+        padding = Padding(left = 24.px, right = 24.px, bottom = 24.px)
+        rowGap = 1.ch
         width = 100.pct
-        padding(left = 24.px, right = 24.px, bottom = 24.px)
     }
 
     rule(navLink.selector) {
+        textWithShadow(SiteColor.PrimaryText.color, "none")
         backgroundColor = SiteColor.BackgroundMedium.color
         border = light2pxBorder
         borderRadius = cornerRadius
-        padding(vertical = 1.rem, horizontal = 2.ch)
-        textWithShadow(SiteColor.PrimaryText.color, "none")
+        padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
     }
@@ -88,7 +84,7 @@ fun CSSBuilder.headerStyles() {
     }
 }
 
-fun CSSBuilder.headerTabletStyles() {
+fun CssBuilder.headerTabletStyles() {
     rule(mainHeader.selector) {
         flexDirection = FlexDirection.row
         justifyContent = JustifyContent.spaceBetween
@@ -98,15 +94,15 @@ fun CSSBuilder.headerTabletStyles() {
 
     rule(headerNav.selector) {
         alignSelf = Align.flexEnd
-        rowGap = RowGap("1rem")
+        padding = Padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
+        rowGap = 1.rem
         width = LinearDimension.auto
-        padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
     }
 
     rule(navLink.selector) {
         borderBottomLeftRadius = 0.px
         borderBottomRightRadius = 0.px
-        borderBottom = "none"
+        borderBottomStyle = BorderStyle.none
         marginBottom = (-1.8).px
     }
 }

@@ -7,13 +7,15 @@ import dev.junker.components.drawer.*
 import dev.junker.components.footer.footerStyles
 import dev.junker.components.footer.footerTabletStyles
 import dev.junker.components.general.*
+import dev.junker.components.main.commandLineStyles
+import dev.junker.components.main.commandLineTabletStyles
 import dev.junker.components.main.mainContentStyles
 import dev.junker.components.main.mainContentTabletStyles
 import dev.junker.components.tagline.taglineStyles
 import dev.junker.components.tagline.taglineTabletStyles
 import kotlinx.css.*
 
-fun CSSBuilder.siteStyles() {
+fun CssBuilder.siteStyles() {
     rule("*, ::after, ::before") {
         boxSizing = BoxSizing.inherit
     }
@@ -31,7 +33,12 @@ fun CSSBuilder.siteStyles() {
     body {
         flexColumn()
         height = 100.pct
-        margin(top = 0.px, right = 100.pct - 100.vw, bottom = 0.px, left = 0.px)
+        margin = Margin(
+            top = 0.px,
+            right = 100.pct - 100.vw,
+            bottom = 0.px,
+            left = 0.px
+        )
     }
 
     generalStyles()
@@ -40,6 +47,7 @@ fun CSSBuilder.siteStyles() {
     headerStyles()
     footerStyles()
     mainContentStyles()
+    commandLineStyles()
     asciiBannerStyles()
     taglineStyles()
 
@@ -51,6 +59,7 @@ fun CSSBuilder.siteStyles() {
         headerTabletStyles()
         footerTabletStyles()
         mainContentTabletStyles()
+        commandLineTabletStyles()
         asciiBannerTabletStyles()
         taglineTabletStyles()
     }

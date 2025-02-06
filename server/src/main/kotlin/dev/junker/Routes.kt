@@ -11,7 +11,7 @@ import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.css.CSSBuilder
+import kotlinx.css.CssBuilder
 
 const val stylesRoute = "/styles.css"
 
@@ -35,6 +35,6 @@ private fun Routing.contentPage(page: Page.Content) {
     }
 }
 
-private suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
+private suspend inline fun ApplicationCall.respondCss(builder: CssBuilder.() -> Unit) {
+    respondText(CssBuilder().apply(builder).toString(), ContentType.Text.CSS)
 }
