@@ -2,12 +2,11 @@ package dev.junker.components.footer
 
 import dev.junker.components.SiteColor
 import dev.junker.components.drawer.drawerButtonHeight
-import dev.junker.components.general.ch
 import dev.junker.components.general.light2pxBorder
 import kotlinx.css.*
 import kotlinx.css.properties.BoxShadow
 
-fun CSSBuilder.footerStyles() {
+fun CssBuilder.footerStyles() {
     rule(mainFooter.selector) {
         borderTop = light2pxBorder
         display = Display.flex
@@ -21,7 +20,7 @@ fun CSSBuilder.footerStyles() {
         justifyContent = JustifyContent.spaceBetween
         maxWidth = 1000.px
         width = 100.pct
-        padding(vertical = 1.rem, horizontal = 2.ch)
+        padding = Padding(vertical = 1.rem, horizontal = 2.ch)
     }
 
     rule(statusIndicator.selector) {
@@ -34,7 +33,7 @@ fun CSSBuilder.footerStyles() {
     rule("${statusIndicator.selector}::before") {
         backgroundColor = SiteColor.SecondaryBright.color
         borderRadius = 1.em
-        boxShadow += BoxShadow(false, 0.px, 0.px, 2.ch, 0.px, SiteColor.Secondary.color)
+        boxShadow += BoxShadow(SiteColor.Secondary.color, 0.px, 0.px, 2.ch, 0.px)
         content = "".quoted
         display = Display.inlineBlock
         height = 1.ch
@@ -52,9 +51,9 @@ fun CSSBuilder.footerStyles() {
     }
 }
 
-fun CSSBuilder.footerTabletStyles() {
+fun CssBuilder.footerTabletStyles() {
     rule(mainFooter.selector) {
-        borderTop = "none"
+        borderTopStyle = BorderStyle.none
         paddingBottom = 0.px
     }
 }

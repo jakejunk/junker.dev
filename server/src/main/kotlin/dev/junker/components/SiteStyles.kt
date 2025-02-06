@@ -15,7 +15,7 @@ import dev.junker.components.tagline.taglineStyles
 import dev.junker.components.tagline.taglineTabletStyles
 import kotlinx.css.*
 
-fun CSSBuilder.siteStyles() {
+fun CssBuilder.siteStyles() {
     rule("*, ::after, ::before") {
         boxSizing = BoxSizing.inherit
     }
@@ -33,7 +33,12 @@ fun CSSBuilder.siteStyles() {
     body {
         flexColumn()
         height = 100.pct
-        margin(top = 0.px, right = 100.pct - 100.vw, bottom = 0.px, left = 0.px)
+        margin = Margin(
+            top = 0.px,
+            right = 100.pct - 100.vw,
+            bottom = 0.px,
+            left = 0.px
+        )
     }
 
     generalStyles()

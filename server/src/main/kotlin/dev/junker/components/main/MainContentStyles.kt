@@ -4,21 +4,21 @@ import dev.junker.components.general.flexColumn
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
-fun CSSBuilder.mainContentStyles() {
+fun CssBuilder.mainContentStyles() {
     rule(mainContainer.selector) {
         flexColumn()
-        padding(horizontal = 1.rem)
         alignItems = Align.center
         alignSelf = Align.center
         flexGrow = 1.0
         maxWidth = 1100.px
+        padding = Padding(horizontal = 1.rem)
         paddingBottom = 8.rem
         width = 100.pct
         wordBreak = WordBreak.breakWord
     }
 
     rule(main.selector) {
-        padding(vertical = 1.rem)
+        padding = Padding(vertical = 1.rem)
         width = 100.pct
     }
 
@@ -30,12 +30,12 @@ fun CSSBuilder.mainContentStyles() {
     }
 }
 
-fun CSSBuilder.mainContentTabletStyles() {
+fun CssBuilder.mainContentTabletStyles() {
     rule(mainContainer.selector) {
-        padding(horizontal = 2.rem)
+        padding = Padding(horizontal = 2.rem)
     }
 
     rule(main.selector) {
-        padding(2.rem)
+        padding = Padding(2.rem)
     }
 }

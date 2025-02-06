@@ -2,11 +2,10 @@ package dev.junker.components.general
 
 import dev.junker.components.SiteColor
 import kotlinx.css.*
-import kotlinx.css.Float
 import kotlinx.css.properties.LineHeight
 import kotlinx.css.properties.lh
 
-fun CSSBuilder.generalStyles() {
+fun CssBuilder.generalStyles() {
     fontFace {
         fontFamily = "Dogica Pixel"
         property("src", "local('Dogica Pixel'), url(/assets/fonts/dogicapixel.otf) format('opentype')")
@@ -14,9 +13,9 @@ fun CSSBuilder.generalStyles() {
 
     rule("h1, h2") {
         pixelFont()
-        textAlign = TextAlign.center
-        margin(bottom = 2.rem)
         primaryTextGlow(1.ch)
+        textAlign = TextAlign.center
+        margin = Margin(bottom = 2.rem)
     }
 
     h1 {
@@ -40,7 +39,7 @@ fun CSSBuilder.generalStyles() {
         borderStyle = BorderStyle.solid
         height = 2.px
         width = 128.px
-        margin(vertical = 2.rem, horizontal = LinearDimension.auto)
+        margin = Margin(vertical = 2.rem, horizontal = LinearDimension.auto)
     }
 
     sup {
@@ -61,7 +60,7 @@ fun CSSBuilder.generalStyles() {
     inlineCodeStyles()
 }
 
-fun CSSBuilder.generalTabletStyles() {
+fun CssBuilder.generalTabletStyles() {
     h2 {
         textAlign = TextAlign.left
     }
@@ -71,13 +70,13 @@ fun CSSBuilder.generalTabletStyles() {
 
 // ====================================================================================================================
 
-val light2pxBorder = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+val light2pxBorder = Border(2.px, BorderStyle.solid, SiteColor.BackgroundLight.color)
 val cornerRadius = 9.px
 val cornerRadiusRounder = 16.px
 
-fun CSSBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
+fun CssBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
 
-fun CSSBuilder.monospaceFont(
+fun CssBuilder.monospaceFont(
     fontWeight: FontWeight? = null,
     fontSize: LinearDimension? = null,
     lineHeight: LineHeight? = null
@@ -97,19 +96,19 @@ fun CSSBuilder.monospaceFont(
     }
 }
 
-fun CSSBuilder.pixelFont() {
+fun CssBuilder.pixelFont() {
     fontFamily = "Dogica Pixel, serif"
     fontSize = 1.75.rem
     fontWeight = FontWeight.lighter
     lineHeight = 2.5.rem.lh
 }
 
-fun CSSBuilder.flexColumn() {
+fun CssBuilder.flexColumn() {
     display = Display.flex
     flexDirection = FlexDirection.column
 }
 
-fun CSSBuilder.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
+fun CssBuilder.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
     textWithShadow(
         textColor = SiteColor.PrimaryBright.color,
         blurRadius = glowRadius,
@@ -117,7 +116,7 @@ fun CSSBuilder.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
     )
 }
 
-fun CSSBuilder.secondaryTextGlow(glowRadius: LinearDimension = 8.px) {
+fun CssBuilder.secondaryTextGlow(glowRadius: LinearDimension = 8.px) {
     textWithShadow(
         textColor = SiteColor.SecondaryBright.color,
         blurRadius = glowRadius,
@@ -125,15 +124,13 @@ fun CSSBuilder.secondaryTextGlow(glowRadius: LinearDimension = 8.px) {
     )
 }
 
-fun CSSBuilder.property(name: String, value: String) = put(name, value)
+fun CssBuilder.property(name: String, value: String) = put(name, value)
 
-fun CSSBuilder.textWithShadow(textColor: Color, blurRadius: LinearDimension, color: Color) {
+fun CssBuilder.textWithShadow(textColor: Color, blurRadius: LinearDimension, color: Color) {
     textWithShadow(textColor, "0 0 $blurRadius ${color.value}")
 }
 
-fun CSSBuilder.textWithShadow(textColor: Color, value: String) {
+fun CssBuilder.textWithShadow(textColor: Color, value: String) {
     color = textColor
     property("text-shadow", value)
 }
-
-val Number.ch get() = LinearDimension("${this}ch")

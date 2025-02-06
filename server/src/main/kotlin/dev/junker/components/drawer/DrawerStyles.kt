@@ -4,14 +4,11 @@ import dev.junker.components.*
 import dev.junker.components.general.*
 import dev.junker.components.main.mainContainer
 import kotlinx.css.*
-import kotlinx.css.properties.Transforms
-import kotlinx.css.properties.ms
-import kotlinx.css.properties.transition
-import kotlinx.css.properties.translateY
+import kotlinx.css.properties.*
 
 val drawerButtonHeight = 32.px
 
-fun CSSBuilder.drawerStyles() {
+fun CssBuilder.drawerStyles() {
     rule(drawerContainer.selector) {
         pointerEvents = PointerEvents.none
         position = Position.fixed
@@ -27,29 +24,29 @@ fun CSSBuilder.drawerStyles() {
         width = 100.pct
         opacity = 0
         visibility = Visibility.hidden
-        transition("opacity", 300.ms)
-        transition("visibility", 300.ms)
+        transition += Transition("opacity", 300.ms)
+        transition += Transition("visibility", 300.ms)
     }
 
     rule(drawer.selector) {
-        pointerEvents = PointerEvents.auto
-        borderTop = light2pxBorder
-        backgroundColor = SiteColor.BackgroundMedium.color
-        position = Position.fixed
-        bottom = 0.px
-        width = 100.pct
         flexColumn()
-        transform.translateY(100.pct)
-        transition("transform", 300.ms)
         property("willChange", "transform")
+        backgroundColor = SiteColor.BackgroundMedium.color
+        borderTop = light2pxBorder
+        bottom = 0.px
+        pointerEvents = PointerEvents.auto
+        position = Position.fixed
+        transform.translateY(100.pct)
+        transition += Transition("transform", 300.ms)
+        width = 100.pct
     }
 
     rule(drawerButton.selector) {
-        pointerEvents = PointerEvents.auto
-        property("touch-action", "manipulation")
         glowingPixelatedBackgroundImage("/assets/images/8x8_menu_black.png")
+        property("touch-action", "manipulation")
+        pointerEvents = PointerEvents.auto
         backgroundColor = Color.transparent
-        border = "none"
+        border = Border.none
         position = Position.absolute
         top = (-34).px - 1.5.rem
         left = 50.pct - 16.px
@@ -75,7 +72,7 @@ fun CSSBuilder.drawerStyles() {
     }
 }
 
-fun CSSBuilder.drawerTabletStyles() {
+fun CssBuilder.drawerTabletStyles() {
     rule(drawerContainer.selector) {
         pointerEvents = PointerEvents.unset
         position = Position.static
@@ -89,8 +86,8 @@ fun CSSBuilder.drawerTabletStyles() {
     }
 
     rule(drawer.selector) {
-        borderTop = "none"
-        borderBottom = "solid 2px ${SiteColor.BackgroundLight.color.value}"
+        borderTop = Border.none
+        borderBottom = light2pxBorder
         alignItems = Align.center
         position = Position.static
         height = 100.pct

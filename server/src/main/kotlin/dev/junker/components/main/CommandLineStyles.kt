@@ -4,19 +4,19 @@ import dev.junker.components.SiteColor
 import dev.junker.components.general.*
 import kotlinx.css.*
 
-fun CSSBuilder.commandLineStyles() {
+fun CssBuilder.commandLineStyles() {
     rule(cliContainer.selector) {
         flexColumn()
-        margin(1.rem)
         alignItems = Align.center
+        margin = Margin(1.rem)
         width = 100.pct
     }
 
     rule(cli.selector) {
-        padding(vertical = 1.rem, horizontal = 2.ch)
         backgroundColor = SiteColor.BackgroundDarkish.color
         border = light2pxBorder
         borderRadius = cornerRadius
+        padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         width = 100.pct
     }
 
@@ -27,9 +27,9 @@ fun CSSBuilder.commandLineStyles() {
     }
 }
 
-fun CSSBuilder.commandLineTabletStyles() {
+fun CssBuilder.commandLineTabletStyles() {
     rule(cliContainer.selector) {
-        margin(2.rem)
+        margin = Margin(2.rem)
         marginBottom = 1.rem
     }
 }
