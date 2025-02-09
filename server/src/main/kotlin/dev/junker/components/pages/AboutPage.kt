@@ -43,8 +43,6 @@ data object AboutPage : Page.Content {
             }
         }
 
-        hr()
-
         section {
             h2 { +"About this site" }
             p {
@@ -85,7 +83,6 @@ data object AboutPage : Page.Content {
             }
         }
     }
-
 }
 
 private const val xnaWikipediaLink = "https://en.wikipedia.org/wiki/Microsoft_XNA"

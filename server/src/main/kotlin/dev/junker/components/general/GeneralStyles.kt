@@ -37,9 +37,12 @@ fun CssBuilder.generalStyles() {
         backgroundColor = SiteColor.BackgroundLight.color
         borderColor = SiteColor.BackgroundLight.color
         borderStyle = BorderStyle.solid
-        height = 2.px
+        height = 1.px
         width = 128.px
-        margin = Margin(vertical = 2.rem, horizontal = LinearDimension.auto)
+        margin = Margin(
+            vertical = 2.rem,
+            horizontal = LinearDimension.auto
+        )
     }
 
     sup {

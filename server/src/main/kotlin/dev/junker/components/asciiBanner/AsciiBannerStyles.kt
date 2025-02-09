@@ -13,7 +13,11 @@ fun CssBuilder.asciiBannerStyles() {
         display = Display.flex
         flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.flexEnd
-        marginTop = 1.rem
+        margin = Margin(
+            top = 1.rem,
+            right = LinearDimension.auto,
+            left = LinearDimension.auto
+        )
         overflowX = Overflow.visible
         width = LinearDimension.minContent
     }
