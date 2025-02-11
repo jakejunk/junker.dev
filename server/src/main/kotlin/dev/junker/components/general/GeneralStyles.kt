@@ -18,19 +18,8 @@ fun CssBuilder.generalStyles() {
         margin = Margin(bottom = 2.rem)
     }
 
-    h1 {
-        before {
-            content = "/".quoted
-            color = SiteColor.PrimaryText.color
-        }
-    }
-
     rule("h1.error") {
         secondaryTextGlow()
-
-        before {
-            content = "!".quoted
-        }
     }
 
     hr {
@@ -53,6 +42,10 @@ fun CssBuilder.generalStyles() {
         color = SiteColor.SubtleText.color
     }
 
+    s {
+        property("text-decoration-thickness", "from-font")
+    }
+
     rule(".footnotes") {
         color = SiteColor.SubtleText.color
         fontStyle = FontStyle.italic
@@ -60,7 +53,7 @@ fun CssBuilder.generalStyles() {
 
     imageStyles()
     linkStyles()
-    inlineCodeStyles()
+    codeStyles()
 }
 
 fun CssBuilder.generalTabletStyles() {
@@ -69,6 +62,7 @@ fun CssBuilder.generalTabletStyles() {
     }
 
     imageTabletStyles()
+    codeTabletStyles()
 }
 
 // ====================================================================================================================
