@@ -1,4 +1,4 @@
-package dev.junker.components.pages
+package dev.junker.pages
 
 import dev.junker.markdown.markdownDocument
 import dev.junker.util.allResources

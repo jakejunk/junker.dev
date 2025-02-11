@@ -1,4 +1,4 @@
-package dev.junker.components.pages
+package dev.junker.pages
 
 import dev.junker.components.asciiBanner.asciiBanner
 import dev.junker.components.tagline.tagline

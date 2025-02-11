@@ -1,7 +1,10 @@
 package dev.junker
 
-import dev.junker.components.pages.*
 import dev.junker.components.site
+import dev.junker.pages.InternalServerErrorPage
+import dev.junker.pages.NotFoundPage
+import dev.junker.pages.Page
+import dev.junker.pages.routes
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*

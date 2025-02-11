@@ -1,6 +1,5 @@
-package dev.junker
+package dev.junker.pages
 
-import dev.junker.components.pages.*
 import dev.junker.components.site
 import dev.junker.components.siteStyles
 import dev.junker.util.loadResourceText

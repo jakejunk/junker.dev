@@ -1,4 +1,4 @@
-package dev.junker.components.pages
+package dev.junker.pages
 
 import dev.junker.components.general.externalLink
 import dev.junker.components.general.hiddenLink

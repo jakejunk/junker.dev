@@ -1,8 +1,8 @@
 package dev.junker.components
 
-import dev.junker.components.pages.Page
-import dev.junker.components.pages.page
-import dev.junker.stylesRoute
+import dev.junker.pages.Page
+import dev.junker.pages.page
+import dev.junker.pages.stylesRoute
 import kotlinx.html.*
 
 fun HTML.site(page: Page) {

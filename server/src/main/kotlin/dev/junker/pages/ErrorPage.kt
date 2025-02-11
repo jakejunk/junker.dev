@@ -1,4 +1,4 @@
-package dev.junker.components.pages
+package dev.junker.pages
 
 import kotlinx.html.FlowContent
 import kotlinx.html.h1
