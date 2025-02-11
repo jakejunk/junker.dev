@@ -1,10 +1,9 @@
 package dev.junker
 
-import dev.junker.components.pages.AboutPage
-import dev.junker.components.pages.HomePage
-import dev.junker.components.pages.Page
+import dev.junker.components.pages.*
 import dev.junker.components.site
 import dev.junker.components.siteStyles
+import dev.junker.util.loadResourceText
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -20,17 +19,46 @@ fun Routing.routes() {
     staticResources("/assets", "/static")
 
     get(stylesRoute) {
-        call.respondCss { siteStyles() }
+        call.respondCss {
+            siteStyles()
+        }
     }
 
-    contentPage(HomePage)
-    contentPage(AboutPage)
-}
-
-private fun Routing.contentPage(page: Page.Content) {
-    get(page.slug) {
+    get(HomePage.slug) {
         call.respondHtml {
-            site(page)
+            site(HomePage)
+        }
+    }
+
+    get(AboutPage.slug) {
+        call.respondHtml {
+            site(AboutPage)
+        }
+    }
+
+    route(NotesPage.ROOT_SLUG) {
+        get {
+            val names = allNotes().toList()
+            val index = NotesPage.Index(names)
+            call.respondHtml {
+                site(index)
+            }
+        }
+
+        route("/{note-name}") {
+            get {
+                val noteName = call.pathParameters["note-name"]!!
+                val noteNameFq = "${NotesPage.ROOT_SLUG}/$noteName"
+
+                when (val markdownText = loadResourceText("${noteNameFq}.md")) {
+                    null -> call.respondRedirect(NotesPage.ROOT_SLUG, permanent = false)
+                    else -> {
+                        call.respondHtml {
+                            site(notesPage(noteNameFq, markdownText))
+                        }
+                    }
+                }
+            }
         }
     }
 }

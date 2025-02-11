@@ -1,8 +1,6 @@
 package dev.junker.components.drawer
 
-import dev.junker.components.pages.AboutPage
-import dev.junker.components.pages.HomePage
-import dev.junker.components.pages.Page
+import dev.junker.components.pages.*
 import dev.junker.util.asClass
 import kotlinx.html.*
 
@@ -30,12 +28,13 @@ private fun HEADER.siteLogo(page: Page) {
 }
 
 private fun NAV.navLinks(currentPage: Page) {
-    listOf(HomePage, AboutPage).map {
-        val navLinkClasses = when (it) {
-            currentPage -> "${navLink.className} ${selected.className}"
+    listOf(NotesPage.ROOT_SLUG, AboutPage.slug).map { slug ->
+        val navLinkClasses = when {
+            currentPage is Page.Content && currentPage.slug.startsWith(slug) ->
+                "${navLink.className} ${selected.className}"
             else -> navLink.className
         }
 
-        a(href = it.slug, classes = navLinkClasses) { +it.name }
+        a(href = slug, classes = navLinkClasses) { +slug }
     }
 }

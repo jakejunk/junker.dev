@@ -7,9 +7,8 @@ import dev.junker.components.general.rightFloatImage
 import kotlinx.html.*
 
 data object AboutPage : Page.Content {
-    override val title = "About - ${HomePage.title}"
-    override val name = "/about"
     override val slug = "/about"
+    override val title = "About - ${HomePage.title}"
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
     override val content: FlowContent.() -> Unit = {
         section {

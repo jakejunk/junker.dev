@@ -21,7 +21,6 @@ sealed interface Page {
 
     sealed interface Content : Page {
         val slug: String
-        val name: String
         val description: String
     }
 }
