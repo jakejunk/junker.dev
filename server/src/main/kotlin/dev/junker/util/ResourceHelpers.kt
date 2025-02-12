@@ -10,7 +10,7 @@ fun loadResourceText(resourceName: String): String? {
         ?.replace(Regex("(\r\n|\r)"), "\n")
 }
 
-fun allResources(parentDirName: String): Sequence<String> {
+fun allResources(parentDirName: String): Sequence<File> {
     val parentDir = object {}.javaClass.getResource(parentDirName)?.file
         ?.let { File(it) }
 
@@ -20,10 +20,10 @@ fun allResources(parentDirName: String): Sequence<String> {
     }
 }
 
-private fun allFilesInDirectory(parentDir: File): Sequence<String> {
+private fun allFilesInDirectory(parentDir: File): Sequence<File> {
     return parentDir.walk().mapNotNull { f ->
         when {
-            f.isFile -> f.nameWithoutExtension
+            f.isFile -> f
             else -> null
         }
     }

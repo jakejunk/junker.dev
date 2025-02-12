@@ -6,11 +6,10 @@ import kotlinx.html.*
 
 data object HomePage : Page.Content {
     override val slug = "/"
-    override val title = "junker.dev"
+    override val title = null
     override val description = "Mild-mannered software developer trying to make his way in the universe."
     override val content: FlowContent.() -> Unit = {
         asciiBanner()
         tagline("Searching for the art in computation.")
     }
 }
-

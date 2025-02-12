@@ -8,7 +8,7 @@ import kotlinx.html.*
 
 data object AboutPage : Page.Content {
     override val slug = "/about"
-    override val title = "About - ${HomePage.title}"
+    override val title = "About"
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
     override val content: FlowContent.() -> Unit = {
         section {

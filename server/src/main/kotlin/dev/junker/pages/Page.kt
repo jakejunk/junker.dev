@@ -9,8 +9,13 @@ import io.ktor.http.*
 import kotlinx.html.*
 
 sealed interface Page {
-    val title: String
     val content: FlowContent.() -> Unit
+    val title: String?
+    val fullTitle: String
+        get() = when (title) {
+            null -> "junker.dev"
+            else -> "$title - junker.dev"
+        }
 
     sealed interface Error : Page {
         val status get() = when (this) {

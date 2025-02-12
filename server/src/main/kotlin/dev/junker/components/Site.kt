@@ -14,7 +14,7 @@ private fun HTML.head(page: Page) {
     lang = "en-US"
     head {
         meta(charset = "utf-8")
-        title(page.title)
+        title(page.fullTitle)
         if (page is Page.Content) {
             meta(name = "description", content = page.description)
         }

@@ -2,6 +2,7 @@ package dev.junker.pages
 
 import dev.junker.components.site
 import dev.junker.components.siteStyles
+import dev.junker.markdown.MarkdownMetadata
 import dev.junker.util.loadResourceText
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -13,7 +14,7 @@ import kotlinx.css.CssBuilder
 
 const val stylesRoute = "/styles.css"
 
-fun Routing.routes() {
+fun Routing.routes(metaData: Sequence<MarkdownMetadata>) {
     staticResources("/", "/static/favicon")
     staticResources("/assets", "/static")
 
@@ -37,8 +38,7 @@ fun Routing.routes() {
 
     route(NotesPage.ROOT_SLUG) {
         get {
-            val names = allNotes().toList()
-            val index = NotesPage.Index(names)
+            val index = NotesPage.Index(metaData)
             call.respondHtml {
                 site(index)
             }

@@ -1,6 +1,5 @@
 package dev.junker
 
-import dev.junker.components.pages.*
 import dev.junker.components.site
 import dev.junker.pages.*
 import io.ktor.client.request.*

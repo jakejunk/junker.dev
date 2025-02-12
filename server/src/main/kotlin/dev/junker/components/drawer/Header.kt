@@ -1,6 +1,5 @@
 package dev.junker.components.drawer
 
-import dev.junker.components.pages.*
 import dev.junker.pages.AboutPage
 import dev.junker.pages.HomePage
 import dev.junker.pages.NotesPage

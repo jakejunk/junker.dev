@@ -1,7 +1,8 @@
 package dev.junker.pages
 
+import dev.junker.markdown.MarkdownMetadata
 import dev.junker.markdown.markdownDocument
-import dev.junker.util.allResources
+import dev.junker.markdown.parseMetadata
 import kotlinx.html.FlowContent
 import kotlinx.html.a
 import kotlinx.html.article
@@ -13,16 +14,18 @@ sealed interface NotesPage : Page.Content {
     }
 
     class Index(
-        noteNames: List<String>
+        noteMetadata: Sequence<MarkdownMetadata>
     ) : NotesPage {
         override val slug = ROOT_SLUG
-        override val title = "Notes - ${HomePage.title}"
+        override val title = "Notes"
         override val description = "Don't mind the mess."
         override val content: FlowContent.() -> Unit = {
             h1 { +"Notes - Work In Progress" }
-            for (name in noteNames) {
+            for (metadata in noteMetadata) {
                 article {
-                    a(href = "$ROOT_SLUG/$name") { +name }
+                    val title = metadata.title ?: "untitled"
+
+                    a(href = "$ROOT_SLUG/${metadata.slug}") { +title }
                 }
             }
         }
@@ -36,18 +39,14 @@ sealed interface NotesPage : Page.Content {
     ) : NotesPage
 }
 
-fun allNotes(): Sequence<String> {
-    val notes = allResources("/notes")
-    return notes
-}
-
-fun notesPage(noteNameFq: String, markdownText: String): NotesPage {
-    val document = markdownDocument(markdownText)
+fun notesPage(slug: String, markdownText: String): NotesPage {
+    val (metadata, remainingMarkdown) = parseMetadata(slug, markdownText)
+    val document = markdownDocument(remainingMarkdown)
 
     return NotesPage.FromFile(
-        slug = noteNameFq,
-        title = document.title ?: "untitled",
-        description = document.description ?: "undefined",
-        content = document.build
+        slug = slug,
+        title = metadata.title ?: "untitled",
+        description = metadata.description ?: "undefined",
+        content = document.content
     )
 }

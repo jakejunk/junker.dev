@@ -12,52 +12,19 @@ import org.intellij.markdown.flavours.gfm.GFMTokenTypes
 import org.intellij.markdown.parser.MarkdownParser
 
 data class MarkdownDocument(
-    val title: String? = null,
-    val description: String? = null,
-    val build: FlowContent.() -> Unit
+    val content: FlowContent.() -> Unit
 )
 
 fun markdownDocument(markdown: String): MarkdownDocument {
-    val (metadata, remainingMarkdown) = parseMetadata(markdown)
     val flavor = GFMFlavourDescriptor()
-    val parsedTree = MarkdownParser(flavor).buildMarkdownTreeFromString(remainingMarkdown)
+    val parsedTree = MarkdownParser(flavor).buildMarkdownTreeFromString(markdown)
 
     return MarkdownDocument(
-        title = metadata["title"],
-        description = metadata["description"],
-        build = {
-            renderMarkdown(parsedTree, remainingMarkdown)
-        }
+        content = { renderMarkdown(parsedTree, markdown) }
     )
 }
 
-private fun parseMetadata(markdown: String): Pair<Map<String, String>, String> {
-    val metadataRegex = Regex("^---\\s*\\n(.*?)\\n---\\s*\\n", RegexOption.DOT_MATCHES_ALL)
-    val match = metadataRegex.find(markdown)
-
-    return if (match != null) {
-        val metadataBlock = match.groupValues[1]
-        val remainingMarkdown = markdown.removeRange(match.range)
-
-        val metadata = metadataBlock
-            .lines()
-            .mapNotNull(::parseMetadataLine)
-            .toMap()
-
-        metadata to remainingMarkdown
-    } else {
-        emptyMap<String, String>() to markdown
-    }
-}
-
-private fun parseMetadataLine(line: String): Pair<String, String>? {
-    val parts = line.split(":", limit = 2).map { it.trim() }
-
-    return when (parts.size) {
-        2 -> parts[0] to parts[1]
-        else -> null
-    }
-}
+// ====================================================================================================================
 
 private enum class EolMode {
     NONE,
