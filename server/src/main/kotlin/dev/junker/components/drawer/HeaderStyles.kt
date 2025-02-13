@@ -40,14 +40,14 @@ fun CssBuilder.headerStyles() {
 
     rule("${siteLogo.selector}:hover") {
         animation += Animation(
+            name = "logoTwitch",
             duration = 1.s,
             timing = Timing.easeInOut,
             delay = 0.s,
             iterationCount = 1.times,
             direction = AnimationDirection.normal,
             fillMode = FillMode.none,
-            playState = PlayState.running,
-            name = "logoTwitch"
+            playState = PlayState.running
         )
     }
 
@@ -89,6 +89,7 @@ fun CssBuilder.headerTabletStyles() {
         flexDirection = FlexDirection.row
         justifyContent = JustifyContent.spaceBetween
         maxWidth = 1300.px
+        padding = Padding(horizontal = 1.rem)
         width = 100.pct
     }
 

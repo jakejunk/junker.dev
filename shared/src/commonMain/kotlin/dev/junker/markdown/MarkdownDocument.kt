@@ -66,6 +66,16 @@ private fun FlowContent.renderMarkdown(
         }
         MarkdownTokenTypes.COLON ->
             +":"
+        MarkdownTokenTypes.SINGLE_QUOTE ->
+            +"'"
+        MarkdownTokenTypes.DOUBLE_QUOTE ->
+            +"\""
+        MarkdownTokenTypes.EXCLAMATION_MARK ->
+            +"!"
+        MarkdownTokenTypes.LPAREN ->
+            +"("
+        MarkdownTokenTypes.RPAREN ->
+            +")"
         MarkdownElementTypes.ATX_1 ->
             h1 { renderChildren(node, markdown) }
         MarkdownElementTypes.ATX_2 ->
@@ -118,7 +128,17 @@ private fun FlowContent.renderMarkdown(
             }
             val updatedNode = CompositeASTNode(node.type, firstEolRemoved)
 
-            pre { code { renderChildren(updatedNode, markdown, EolMode.PRESERVE) } }
+            pre {
+                node.children
+                    .find { it.type == MarkdownTokenTypes.FENCE_LANG }
+                    ?.also {
+                        val progLang = it.getTextInNode(markdown).toString()
+                        // TODO: Actually use this
+                        attributes["data-progLang"] = progLang
+                    }
+
+                code { renderChildren(updatedNode, markdown, EolMode.PRESERVE) }
+            }
         }
         else -> renderChildren(node, markdown)
     }

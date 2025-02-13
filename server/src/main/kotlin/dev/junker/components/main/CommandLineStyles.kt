@@ -1,6 +1,5 @@
 package dev.junker.components.main
 
-import dev.junker.components.SiteColor
 import dev.junker.components.general.*
 import kotlinx.css.*
 
@@ -13,7 +12,7 @@ fun CssBuilder.commandLineStyles() {
     }
 
     rule(cli.selector) {
-        backgroundColor = SiteColor.BackgroundDarkish.color
+        frostedGlass()
         border = light2pxBorder
         borderRadius = cornerRadius
         padding = Padding(vertical = 1.rem, horizontal = 2.ch)
