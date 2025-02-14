@@ -1,6 +1,6 @@
 package dev.junker.components.main
 
-import dev.junker.components.pages.Page
+import dev.junker.pages.Page
 import dev.junker.util.asClass
 import dev.junker.util.asId
 import kotlinx.html.*

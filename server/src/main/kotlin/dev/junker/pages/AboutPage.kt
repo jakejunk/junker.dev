@@ -1,4 +1,4 @@
-package dev.junker.components.pages
+package dev.junker.pages
 
 import dev.junker.components.general.externalLink
 import dev.junker.components.general.hiddenLink
@@ -7,9 +7,8 @@ import dev.junker.components.general.rightFloatImage
 import kotlinx.html.*
 
 data object AboutPage : Page.Content {
-    override val title = "About - ${HomePage.title}"
-    override val name = "/about"
     override val slug = "/about"
+    override val title = "About"
     override val description = "Founded in 1993, Jake somehow got to the point of writing nonsense page descriptions for the internet."
     override val content: FlowContent.() -> Unit = {
         section {
@@ -42,8 +41,6 @@ data object AboutPage : Page.Content {
                 }
             }
         }
-
-        hr()
 
         section {
             h2 { +"About this site" }
@@ -85,7 +82,6 @@ data object AboutPage : Page.Content {
             }
         }
     }
-
 }
 
 private const val xnaWikipediaLink = "https://en.wikipedia.org/wiki/Microsoft_XNA"

@@ -15,6 +15,7 @@ fun CssBuilder.drawerStyles() {
         // TODO: Make more ergonomic
         declarations["height"] = "100vh; height: 100dvh"
         width = 100.vw
+        zIndex = 1
     }
 
     rule(drawerBackground.selector) {

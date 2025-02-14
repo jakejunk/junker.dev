@@ -1,4 +1,4 @@
-package dev.junker.components.pages
+package dev.junker.pages
 
 import dev.junker.components.background.background
 import dev.junker.components.drawer.drawer
@@ -9,8 +9,13 @@ import io.ktor.http.*
 import kotlinx.html.*
 
 sealed interface Page {
-    val title: String
     val content: FlowContent.() -> Unit
+    val title: String?
+    val fullTitle: String
+        get() = when (title) {
+            null -> "junker.dev"
+            else -> "$title - junker.dev"
+        }
 
     sealed interface Error : Page {
         val status get() = when (this) {
@@ -21,7 +26,6 @@ sealed interface Page {
 
     sealed interface Content : Page {
         val slug: String
-        val name: String
         val description: String
     }
 }

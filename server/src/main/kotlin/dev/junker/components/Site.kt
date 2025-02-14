@@ -1,8 +1,8 @@
 package dev.junker.components
 
-import dev.junker.components.pages.Page
-import dev.junker.components.pages.page
-import dev.junker.stylesRoute
+import dev.junker.pages.Page
+import dev.junker.pages.page
+import dev.junker.pages.stylesRoute
 import kotlinx.html.*
 
 fun HTML.site(page: Page) {
@@ -14,7 +14,7 @@ private fun HTML.head(page: Page) {
     lang = "en-US"
     head {
         meta(charset = "utf-8")
-        title(page.title)
+        title(page.fullTitle)
         if (page is Page.Content) {
             meta(name = "description", content = page.description)
         }

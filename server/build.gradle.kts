@@ -45,7 +45,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-default-headers:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-css-jvm:2025.2.2")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-css-jvm:2025.2.4")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")

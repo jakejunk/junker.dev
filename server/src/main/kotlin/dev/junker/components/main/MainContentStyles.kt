@@ -1,5 +1,6 @@
 package dev.junker.components.main
 
+import dev.junker.components.SiteColor
 import dev.junker.components.general.flexColumn
 import kotlinx.css.*
 import kotlinx.css.properties.lh
@@ -23,10 +24,21 @@ fun CssBuilder.mainContentStyles() {
     }
 
     rule(mainContent.selector) {
-        flexColumn()
         fontFamily = "Work Sans, sans-serif"
         fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
+    }
+
+    rule("section + section::before") {
+        backgroundColor = SiteColor.BackgroundLight.color
+        content = "".quoted
+        display = Display.block
+        height = 2.px
+        margin = Margin(
+            vertical = 48.px,
+            horizontal = LinearDimension.auto
+        )
+        width = 128.px
     }
 }
 

@@ -1,6 +1,6 @@
 package dev.junker.components.drawer
 
-import dev.junker.components.pages.Page
+import dev.junker.pages.Page
 import dev.junker.util.asClass
 import kotlinx.html.BODY
 import kotlinx.html.button

@@ -15,31 +15,23 @@ fun CssBuilder.generalStyles() {
         pixelFont()
         primaryTextGlow(1.ch)
         textAlign = TextAlign.center
-        margin = Margin(bottom = 2.rem)
-    }
-
-    h1 {
-        before {
-            content = "/".quoted
-            color = SiteColor.PrimaryText.color
-        }
+        margin = Margin(top = 2.rem, bottom = 2.rem)
     }
 
     rule("h1.error") {
         secondaryTextGlow()
-
-        before {
-            content = "!".quoted
-        }
     }
 
     hr {
         backgroundColor = SiteColor.BackgroundLight.color
         borderColor = SiteColor.BackgroundLight.color
         borderStyle = BorderStyle.solid
-        height = 2.px
+        height = 1.px
         width = 128.px
-        margin = Margin(vertical = 2.rem, horizontal = LinearDimension.auto)
+        margin = Margin(
+            vertical = 2.rem,
+            horizontal = LinearDimension.auto
+        )
     }
 
     sup {
@@ -50,6 +42,14 @@ fun CssBuilder.generalStyles() {
         color = SiteColor.SubtleText.color
     }
 
+    em {
+        color = SiteColor.SubtleText.color
+    }
+
+    s {
+        property("text-decoration-thickness", "from-font")
+    }
+
     rule(".footnotes") {
         color = SiteColor.SubtleText.color
         fontStyle = FontStyle.italic
@@ -57,7 +57,7 @@ fun CssBuilder.generalStyles() {
 
     imageStyles()
     linkStyles()
-    inlineCodeStyles()
+    codeStyles()
 }
 
 fun CssBuilder.generalTabletStyles() {
@@ -66,6 +66,7 @@ fun CssBuilder.generalTabletStyles() {
     }
 
     imageTabletStyles()
+    codeTabletStyles()
 }
 
 // ====================================================================================================================
@@ -96,41 +97,48 @@ fun CssBuilder.monospaceFont(
     }
 }
 
-fun CssBuilder.pixelFont() {
+fun StyledElement.pixelFont() {
     fontFamily = "Dogica Pixel, serif"
     fontSize = 1.75.rem
     fontWeight = FontWeight.lighter
     lineHeight = 2.5.rem.lh
 }
 
-fun CssBuilder.flexColumn() {
+fun StyledElement.flexColumn() {
     display = Display.flex
     flexDirection = FlexDirection.column
 }
 
-fun CssBuilder.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
+fun StyledElement.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
     textWithShadow(
         textColor = SiteColor.PrimaryBright.color,
-        blurRadius = glowRadius,
-        color = SiteColor.Primary.color
+        shadowColor = SiteColor.Primary.color,
+        blurRadius = glowRadius
     )
 }
 
-fun CssBuilder.secondaryTextGlow(glowRadius: LinearDimension = 8.px) {
+fun StyledElement.secondaryTextGlow(glowRadius: LinearDimension = 8.px) {
     textWithShadow(
         textColor = SiteColor.SecondaryBright.color,
-        blurRadius = glowRadius,
-        color = SiteColor.Secondary.color
+        shadowColor = SiteColor.Secondary.color,
+        blurRadius = glowRadius
     )
 }
 
-fun CssBuilder.property(name: String, value: String) = put(name, value)
-
-fun CssBuilder.textWithShadow(textColor: Color, blurRadius: LinearDimension, color: Color) {
-    textWithShadow(textColor, "0 0 $blurRadius ${color.value}")
+fun StyledElement.textWithShadow(textColor: Color, shadowColor: Color, blurRadius: LinearDimension) {
+    textWithShadow(textColor, "0 0 $blurRadius ${shadowColor.value}")
 }
 
-fun CssBuilder.textWithShadow(textColor: Color, value: String) {
+fun StyledElement.textWithShadow(textColor: Color, value: String) {
     color = textColor
     property("text-shadow", value)
+}
+
+fun StyledElement.frostedGlass() {
+    backdropFilter = "blur(16px)"
+    backgroundColor = SiteColor.BackgroundDark.color.changeAlpha(0.33)
+}
+
+fun StyledElement.property(name: String, value: String) {
+    put(name, value)
 }

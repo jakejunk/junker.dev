@@ -27,7 +27,8 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            api(libs.kotlinx.html)
+            implementation(libs.markdown)
         }
     }
 }

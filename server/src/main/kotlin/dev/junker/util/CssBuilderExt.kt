@@ -8,7 +8,7 @@ fun CssBuilder.keyframes(
     block: KeyframesBuilder.() -> Unit
 ) {
     val builder = KeyframesBuilder().apply(block)
-    rule("@keyframes $name") {
+    "@keyframes $name" {
         rules += builder.rules
     }
 }
