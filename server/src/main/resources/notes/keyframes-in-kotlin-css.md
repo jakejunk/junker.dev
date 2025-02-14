@@ -1,29 +1,35 @@
 ---
 title: @keyframes in kotlin-css
 description: Making @keyframes a bit easier to work with.
+modifiedDate: 2025-2-13
 ---
 
-# `@keyframes` in `kotlin-css`
+# @keyframes in kotlin-css
+
+_The following is relevant for `kotlin-css:2025.2.4` and below. 
+`kotlin-css:2025.2.5` will include `CssBuilder::keyframes`. Sweet!_
 
 If you're looking to build a site completely in Kotlin, you'll likely run into
 [`kotlin-css`](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-css),
-the CSS DSL of choice *(are there others?)*.
-While fantastic for avoiding a mess of `.css` files, it's still in the early stage.
+the CSS DSL of choice *(according to me)*.
+Great for avoiding a mess of stylesheets, but still in its early phase.
 Authoring `@keyframes`, in particular, requires some extracurriculars in order to work cleanly.
 
 ## What's provided
 
-The current DSL already has about 90% of what any site needs:
-
 ```kotlin
 val styles = CssBuilder().apply {
-    // Styling for HTML elements
-    body {
-        margin = Margin(0.px)
-        padding = Padding(0.px)
+    // Nice syntax, but doesn't do anything
+    KeyframesBuilder().apply { 
+        50 {
+            transform { translateX(7.px) }
+        }
+        100 {
+            transform { translateX(52.px) }
+        }
     }
-    
-    // Styling for other selectors
+
+    // `rule` block
     ".some-class" {
         animation += Animation(
             name = "my-animation",
@@ -37,29 +43,18 @@ val styles = CssBuilder().apply {
 styles.toString()
 ```
 
-Additionally, `KeyframesBuilder` already exists and allows writing keyframe offsets:
+Out of the box, `kotlin-css` provides:
+- `CssBuilder`, for creating styling rules.
+- `KeyframesBuilder`, for building out animation `@keyframes`.
 
-```kotlin
-val builder = KeyframesBuilder().apply { 
-    50 {
-        transform { translateX(7.px) }
-    }
-    100 {
-        transform { translateX(52.px) }
-    }
-}
-```
+So what's the issue?
 
-Cool! Almost there.
-
-Sadly, this is where the API starts to feel a bit incomplete.
-An `Animation` takes a name, but a `KeyframesBuilder` does not;
-how can these be tied together?
-And how are the keyframe values written out to the final CSS output?
+As of version `2025.2.4`, `CssBuilder` has no built-in handling for `KeyframesBuilder`,
+so keyframes will be lost whenever the final CSS is produced.
+Not to mention that the keyframe builder doesn't even have a name to reference.
 
 ## What's needed
 
-Using nothing but the provided API, animations can be made to work like so:
 ```kotlin
 val name = "my-animation"
 val styles = CssBuilder().apply {
@@ -91,12 +86,24 @@ val styles = CssBuilder().apply {
 styles.toString()
 ```
 
-Could use some polishing, but it works.
-The important thing of note is that in `kotlin-css`, both `rule` blocks and `KeyframesBuilder` implement `RuleContainer`,
-meaning it's simply a matter of passing along the builder's rules.
+Since both `rule` blocks and `KeyframesBuilder` implement `RuleContainer`,
+it's simply a matter of manually passing along the builder's rules in a `"@keyframes $name"` block.
 
 After a bit of refactoring, you're left with a pretty reasonable way of defining `@keyframes`:
 
+```kotlin
+// CssBuilderExt.kt
+
+fun CssBuilder.keyframes(
+    name: String,
+    block: KeyframesBuilder.() -> Unit
+) {
+    val builder = KeyframesBuilder().apply(block)
+    rule("@keyframes $name") {
+        rules += builder.rules
+    }
+}
+```
 ```kotlin
 val name = "my-animation"
 val styles = CssBuilder().apply {
@@ -122,20 +129,6 @@ val styles = CssBuilder().apply {
 }
 
 styles.toString()
-
-// ============================================================================
-// CssBuilderExt.kt
-// ============================================================================
-
-fun CssBuilder.keyframes(
-    name: String,
-    block: KeyframesBuilder.() -> Unit
-) {
-    val builder = KeyframesBuilder().apply(block)
-    rule("@keyframes $name") {
-        rules += builder.rules
-    }
-}
 ```
 
 Neat!

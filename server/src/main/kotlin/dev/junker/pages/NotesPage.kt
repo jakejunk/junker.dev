@@ -41,7 +41,7 @@ sealed interface NotesPage : Page.Content {
 
 fun notesPage(slug: String, markdownText: String): NotesPage {
     val (metadata, remainingMarkdown) = parseMetadata(slug, markdownText)
-    val document = markdownDocument(remainingMarkdown)
+    val document = markdownDocument(metadata, remainingMarkdown)
 
     return NotesPage.FromFile(
         slug = slug,

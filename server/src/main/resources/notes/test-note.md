@@ -1,9 +1,12 @@
 ---
 title: This is a test note
 description: This is a test description.
+creationDate: 2025-2-6
 ---
 
 # Header 1 - This is a test note
+
+If you're reading this, congrats on the peek behind the curtain.
 
 ## Header 2
 This is a paragraph.

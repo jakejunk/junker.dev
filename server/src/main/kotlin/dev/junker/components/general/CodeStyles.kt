@@ -18,18 +18,15 @@ fun CssBuilder.codeStyles() {
         property("scrollbar-color", "${SiteColor.BackgroundLight.color} ${SiteColor.BackgroundDarkish.color}")
         margin = Margin(
             top = 1.rem,
-            right = (-1).px,
+            right = (-1).rem,
             bottom = 2.rem,
-            left = (-1).px
+            left = (-1).rem
         )
         overflowX = Overflow.auto
 
         code {
             frostedGlass()
-            border = light2pxBorder
-            borderLeftStyle = BorderStyle.none
             borderRadius = 0.px
-            borderRightStyle = BorderStyle.none
             display = Display.block
             fontSize = 0.85.rem
             lineHeight = 1.25.rem.lh
@@ -49,9 +46,7 @@ fun CssBuilder.codeTabletStyles() {
         )
 
         code {
-            borderLeftStyle = BorderStyle.solid
             borderRadius = cornerRadius
-            borderRightStyle = BorderStyle.solid
         }
     }
 }
