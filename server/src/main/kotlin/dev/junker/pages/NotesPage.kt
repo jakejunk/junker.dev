@@ -14,7 +14,7 @@ sealed interface NotesPage : Page.Content {
     }
 
     class Index(
-        noteMetadata: Sequence<MarkdownMetadata>
+        noteMetadata: List<MarkdownMetadata>
     ) : NotesPage {
         override val slug = ROOT_SLUG
         override val title = "Notes"
@@ -25,7 +25,7 @@ sealed interface NotesPage : Page.Content {
                 article {
                     val title = metadata.title ?: "untitled"
 
-                    a(href = "$ROOT_SLUG/${metadata.slug}") { +title }
+                    a(href = metadata.slug) { +title }
                 }
             }
         }

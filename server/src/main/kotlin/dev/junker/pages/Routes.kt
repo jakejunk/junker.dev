@@ -14,7 +14,7 @@ import kotlinx.css.CssBuilder
 
 const val stylesRoute = "/styles.css"
 
-fun Routing.routes(metaData: Sequence<MarkdownMetadata>) {
+fun Routing.routes(metaData: List<MarkdownMetadata>) {
     staticResources("/", "/static/favicon")
     staticResources("/assets", "/static")
 
