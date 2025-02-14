@@ -7,7 +7,7 @@ import dev.junker.pages.InternalServerErrorPage
 import dev.junker.pages.NotFoundPage
 import dev.junker.pages.Page
 import dev.junker.pages.routes
-import dev.junker.util.allResources
+import dev.junker.util.loadResourceText
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -15,6 +15,9 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.routing.*
+import kotlin.io.path.Path
+import kotlin.io.path.nameWithoutExtension
+import kotlin.io.path.readText
 import kotlin.time.measureTimedValue
 
 fun main(args: Array<String>) = EngineMain.main(args)
@@ -71,10 +74,12 @@ private suspend fun ApplicationCall.errorPage(errorPage: Page.Error) {
     }
 }
 
-private fun collectNoteMetadata(): Sequence<MarkdownMetadata> {
-    val notes = allResources("/notes")
-        .mapNotNull { note -> note.takeIf { it.extension == "md" } }
-        .map { note -> parseMetadata(note.nameWithoutExtension, note.readText()).first }
+private fun collectNoteMetadata(): List<MarkdownMetadata> {
+    val parentDir = "/notes"
+    val notes = listOf("keyframes-in-kotlin-css", "test-note")
+        .map { "$parentDir/$it" }
+        .map { it to loadResourceText("$it.md") }
+        .map { (noteName, noteText) -> parseMetadata(noteName, noteText ?: "").first }
 
     return notes
 }
