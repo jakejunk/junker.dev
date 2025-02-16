@@ -4,15 +4,15 @@ import dev.junker.pages.AboutPage
 import dev.junker.pages.HomePage
 import dev.junker.pages.NotesPage
 import dev.junker.pages.Page
-import dev.junker.util.asClass
+import dev.junker.util.classSelector
 import kotlinx.html.*
 
-val mainHeader = "main-header".asClass()
-val headerNav = "header-nav".asClass()
-val siteLogo = "site-logo".asClass()
-val error = "error".asClass()
-val navLink = "nav-link".asClass()
-val selected = "selected".asClass()
+val mainHeader = "main-header".classSelector()
+val headerNav = "header-nav".classSelector()
+val siteLogo = "site-logo".classSelector()
+val error = "error".classSelector()
+val navLink = "nav-link".classSelector()
+val selected = "selected".classSelector()
 
 fun DIV.header(page: Page) {
     header(classes = mainHeader.className) {

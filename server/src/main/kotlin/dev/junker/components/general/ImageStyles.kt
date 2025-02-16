@@ -3,6 +3,9 @@ package dev.junker.components.general
 import dev.junker.components.SiteColor
 import kotlinx.css.*
 import kotlinx.css.Float
+import kotlinx.css.properties.deg
+import kotlinx.css.properties.rotateZ
+import kotlinx.css.properties.transform
 
 fun CssBuilder.imageStyles() {
     rule(imageRight.selector) {
@@ -18,7 +21,7 @@ fun CssBuilder.imageStyles() {
 
         after {
             pixelFont()
-            property("transform", "rotateZ(15deg);")
+            transform { rotateZ(15.deg) }
             content = "Jake".quoted
             position = Position.absolute
             whiteSpace = WhiteSpace.nowrap

@@ -15,9 +15,6 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.routing.*
-import kotlin.io.path.Path
-import kotlin.io.path.nameWithoutExtension
-import kotlin.io.path.readText
 import kotlin.time.measureTimedValue
 
 fun main(args: Array<String>) = EngineMain.main(args)

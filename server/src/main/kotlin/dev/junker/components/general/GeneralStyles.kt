@@ -1,9 +1,9 @@
 package dev.junker.components.general
 
 import dev.junker.components.SiteColor
+import dev.junker.markdown.exclamation
 import kotlinx.css.*
-import kotlinx.css.properties.LineHeight
-import kotlinx.css.properties.lh
+import kotlinx.css.properties.*
 
 fun CssBuilder.generalStyles() {
     fontFace {
@@ -11,14 +11,22 @@ fun CssBuilder.generalStyles() {
         property("src", "local('Dogica Pixel'), url(/assets/fonts/dogicapixel.otf) format('opentype')")
     }
 
-    rule("h1, h2") {
+    "h1, h2" {
         pixelFont()
         primaryTextGlow(1.ch)
         textAlign = TextAlign.center
-        margin = Margin(top = 2.rem, bottom = 2.rem)
+        marginTop = 2.rem
     }
 
-    rule("h1.error") {
+    h1 {
+        marginBottom = 4.rem
+    }
+
+    h2 {
+        marginBottom = 2.rem
+    }
+
+    "h1.error" {
         secondaryTextGlow()
     }
 
@@ -50,7 +58,15 @@ fun CssBuilder.generalStyles() {
         property("text-decoration-thickness", "from-font")
     }
 
-    rule(".footnotes") {
+    exclamation.selector {
+        // TODO: Consolidate with similar rules in imageStyles
+        pixelFont()
+        transform { rotateZ((-15).deg) }
+        display = Display.inlineBlock
+        whiteSpace = WhiteSpace.nowrap
+    }
+
+    ".footnotes" {
         color = SiteColor.SubtleText.color
         fontStyle = FontStyle.italic
     }
@@ -134,9 +150,12 @@ fun StyledElement.textWithShadow(textColor: Color, value: String) {
     property("text-shadow", value)
 }
 
-fun StyledElement.frostedGlass() {
+fun StyledElement.frostedGlass(
+    siteColor: SiteColor = SiteColor.BackgroundDark,
+    alpha: Double = 0.33
+) {
     backdropFilter = "blur(16px)"
-    backgroundColor = SiteColor.BackgroundDark.color.changeAlpha(0.33)
+    backgroundColor = siteColor.color.changeAlpha(alpha)
 }
 
 fun StyledElement.property(name: String, value: String) {

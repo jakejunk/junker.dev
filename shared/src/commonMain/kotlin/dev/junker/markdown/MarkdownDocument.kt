@@ -1,5 +1,6 @@
 package dev.junker.markdown
 
+import dev.junker.util.classSelector
 import kotlinx.html.*
 import org.intellij.markdown.MarkdownElementTypes
 import org.intellij.markdown.MarkdownTokenTypes
@@ -10,6 +11,8 @@ import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 import org.intellij.markdown.flavours.gfm.GFMTokenTypes
 import org.intellij.markdown.parser.MarkdownParser
 
+val exclamation = "exclamation".classSelector()
+
 data class MarkdownDocument(
     val content: FlowContent.() -> Unit
 )
@@ -19,7 +22,25 @@ fun markdownDocument(metadata: MarkdownMetadata, markdown: String): MarkdownDocu
     val parsedTree = MarkdownParser(flavor).buildMarkdownTreeFromString(markdown)
 
     return MarkdownDocument(
-        content = { renderMarkdown(metadata, parsedTree, markdown) }
+        content = {
+            em {
+                if (metadata.modifiedDate != null) {
+                    +"Edited: "
+                    time {
+                        dateTime = metadata.modifiedDate
+                        +metadata.modifiedDate
+                    }
+                } else if (metadata.creationDate != null) {
+                    +"Written: "
+                    time {
+                        dateTime = metadata.creationDate
+                        +metadata.creationDate
+                    }
+                }
+            }
+
+            renderMarkdown(parsedTree, markdown)
+        }
     )
 }
 
@@ -32,7 +53,6 @@ private enum class EolMode {
 }
 
 private fun FlowContent.renderMarkdown(
-    metadata: MarkdownMetadata,
     node: ASTNode,
     markdown: String,
     eolMode: EolMode = EolMode.NONE
@@ -76,38 +96,34 @@ private fun FlowContent.renderMarkdown(
             +"("
         MarkdownTokenTypes.RPAREN ->
             +")"
-        MarkdownElementTypes.ATX_1 -> {
-            h1 { renderChildNodes(metadata, node, markdown) }
-            if (metadata.modifiedDate != null) {
-                em { +"Edited: ${metadata.modifiedDate}" }
-            } else if (metadata.creationDate != null) {
-                em { +"Written: ${metadata.creationDate}" }
-            }
-        }
+        MarkdownElementTypes.ATX_1 ->
+            h1 { renderChildNodes(node, markdown) }
         MarkdownElementTypes.ATX_2 ->
-            h2 { renderChildNodes(metadata, node, markdown) }
+            h2 { renderChildNodes(node, markdown) }
+        MarkdownElementTypes.ATX_3 ->
+            span(classes = exclamation.className) { renderChildNodes(node, markdown) }
         // Only render paragraphs when not part of a list item
         MarkdownElementTypes.PARAGRAPH -> when (this) {
             !is LI ->
-                p { renderChildNodes(metadata, node, markdown, EolMode.SPACE) }
-            else -> renderChildNodes(metadata, node, markdown)
+                p { renderChildNodes(node, markdown, EolMode.SPACE) }
+            else -> renderChildNodes(node, markdown)
         }
         MarkdownElementTypes.EMPH ->
-            em { renderChildNodes(metadata, node, markdown) }
+            em { renderChildNodes(node, markdown, EolMode.SPACE) }
         MarkdownElementTypes.STRONG ->
-            strong { renderChildNodes(metadata, node, markdown) }
+            strong { renderChildNodes(node, markdown) }
         GFMElementTypes.STRIKETHROUGH ->
-            s { renderChildNodes(metadata, node, markdown) }
+            s { renderChildNodes(node, markdown) }
         MarkdownElementTypes.UNORDERED_LIST ->
-            ul { renderChildNodes(metadata, node, markdown) }
+            ul { renderChildNodes(node, markdown) }
         MarkdownElementTypes.ORDERED_LIST ->
-            ol { renderChildNodes(metadata, node, markdown) }
+            ol { renderChildNodes(node, markdown) }
         MarkdownElementTypes.LIST_ITEM -> when (this) {
             is UL ->
-                li { renderChildNodes(metadata, node, markdown) }
+                li { renderChildNodes(node, markdown) }
             is OL ->
-                li { renderChildNodes(metadata, node, markdown) }
-            else -> renderChildNodes(metadata, node, markdown)
+                li { renderChildNodes(node, markdown) }
+            else -> renderChildNodes(node, markdown)
         }
         MarkdownElementTypes.INLINE_LINK -> {
             val href = node.children
@@ -118,11 +134,11 @@ private fun FlowContent.renderMarkdown(
             node.children
                 .find { it.type == MarkdownElementTypes.LINK_TEXT }
                 ?.also {
-                    a(href = href) { renderChildNodes(metadata, it, markdown) }
+                    a(href = href) { renderChildNodes(it, markdown) }
                 }
         }
         MarkdownElementTypes.CODE_SPAN ->
-            code { renderChildNodes(metadata, node, markdown) }
+            code { renderChildNodes(node, markdown) }
         // No need to support code blocks
         MarkdownElementTypes.CODE_FENCE -> {
             var firstEolSeen = false
@@ -142,24 +158,22 @@ private fun FlowContent.renderMarkdown(
                         attributes["data-progLang"] = progLang
                     }
 
-                code { renderChildNodes(metadata, firstEolRemoved, markdown, EolMode.PRESERVE) }
+                code { renderChildNodes(firstEolRemoved, markdown, EolMode.PRESERVE) }
             }
         }
-        else -> renderChildNodes(metadata, node, markdown)
+        else -> renderChildNodes(node, markdown)
     }
 }
 
 private fun FlowContent.renderChildNodes(
-    metadata: MarkdownMetadata,
     parentNode: ASTNode,
     markdown: String,
     eolMode: EolMode = EolMode.NONE
 ) {
-    renderChildNodes(metadata, parentNode.children, markdown, eolMode)
+    renderChildNodes(parentNode.children, markdown, eolMode)
 }
 
 private fun FlowContent.renderChildNodes(
-    metadata: MarkdownMetadata,
     nodes: List<ASTNode>,
     markdown: String,
     eolMode: EolMode
@@ -189,19 +203,18 @@ private fun FlowContent.renderChildNodes(
     sections.forEach { section ->
         when {
             headerEncountered ->
-                section { renderAllNodes(metadata, section, markdown, eolMode) }
-            else -> renderAllNodes(metadata, section, markdown, eolMode)
+                section { renderAllNodes(section, markdown, eolMode) }
+            else -> renderAllNodes(section, markdown, eolMode)
         }
     }
 }
 
 private fun FlowContent.renderAllNodes(
-    metadata: MarkdownMetadata,
     nodes: List<ASTNode>,
     markdown: String,
     eolMode: EolMode = EolMode.NONE
 ) {
     nodes.forEach { node ->
-        renderMarkdown(metadata, node, markdown, eolMode)
+        renderMarkdown(node, markdown, eolMode)
     }
 }

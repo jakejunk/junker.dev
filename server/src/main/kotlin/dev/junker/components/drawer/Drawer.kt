@@ -1,16 +1,16 @@
 package dev.junker.components.drawer
 
 import dev.junker.pages.Page
-import dev.junker.util.asClass
+import dev.junker.util.classSelector
 import kotlinx.html.BODY
 import kotlinx.html.button
 import kotlinx.html.div
 import kotlinx.html.tabIndex
 
-val drawerContainer = "drawer-container".asClass()
-val drawerBackground = "drawer-bg".asClass()
-val drawer = "drawer".asClass()
-val drawerButton = "drawer-button".asClass()
+val drawerContainer = "drawer-container".classSelector()
+val drawerBackground = "drawer-bg".classSelector()
+val drawer = "drawer".classSelector()
+val drawerButton = "drawer-button".classSelector()
 
 fun BODY.drawer(page: Page) {
     div(classes = drawerContainer.className) {
