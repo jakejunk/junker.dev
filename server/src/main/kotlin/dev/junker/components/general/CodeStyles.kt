@@ -25,13 +25,16 @@ fun CssBuilder.codeStyles() {
         overflowX = Overflow.auto
 
         code {
-            frostedGlass()
+            frostedGlass(SiteColor.BackgroundLight, 0.0)
+            border = light2pxBorder
+            borderLeftStyle = BorderStyle.none
             borderRadius = 0.px
+            borderRightStyle = BorderStyle.none
             display = Display.block
             fontSize = 0.85.rem
             lineHeight = 1.25.rem.lh
             minWidth = LinearDimension.minContent
-            padding = Padding(1.rem)
+            padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         }
     }
 }
@@ -46,7 +49,10 @@ fun CssBuilder.codeTabletStyles() {
         )
 
         code {
+            borderLeftStyle = BorderStyle.solid
             borderRadius = cornerRadius
+            borderRightStyle = BorderStyle.solid
+            padding = Padding(vertical = 1.5.rem, horizontal = 3.ch)
         }
     }
 }

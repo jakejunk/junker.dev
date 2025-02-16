@@ -32,13 +32,13 @@ fun CssBuilder.siteStyles() {
 
     body {
         flexColumn()
-        height = 100.pct
         margin = Margin(
             top = 0.px,
             right = 100.pct - 100.vw,
             bottom = 0.px,
             left = 0.px
         )
+        minHeight = 100.pct
     }
 
     generalStyles()

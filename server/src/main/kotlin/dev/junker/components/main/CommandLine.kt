@@ -1,12 +1,12 @@
 package dev.junker.components.main
 
 import dev.junker.pages.Page
-import dev.junker.util.asClass
+import dev.junker.util.classSelector
 import kotlinx.html.DIV
 import kotlinx.html.div
 
-val cliContainer = "cli-container".asClass()
-val cli = "cli".asClass()
+val cliContainer = "cli-container".classSelector()
+val cli = "cli".classSelector()
 
 
 fun DIV.commandLine(page: Page) {

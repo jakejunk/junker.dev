@@ -1,11 +1,11 @@
 package dev.junker.components.asciiBanner
 
-import dev.junker.util.asClass
+import dev.junker.util.classSelector
 import kotlinx.html.*
 
-val asciiBannerContainer = "ascii-banner-container".asClass()
-val asciiBannerGroup = "ascii-banner-group".asClass()
-val asciiBanner = "ascii-banner".asClass()
+val asciiBannerContainer = "ascii-banner-container".classSelector()
+val asciiBannerGroup = "ascii-banner-group".classSelector()
+val asciiBanner = "ascii-banner".classSelector()
 
 fun FlowContent.asciiBanner() {
     div(classes = asciiBannerContainer.className) {

@@ -6,14 +6,14 @@ modifiedDate: 2025-2-13
 
 # @keyframes in kotlin-css
 
-_The following is relevant for `kotlin-css:2025.2.4` and below. 
-`kotlin-css:2025.2.5` will include `CssBuilder::keyframes`. Sweet!_
+_The following is relevant for `kotlin-css:2025.2.4` and below;
+2025.2.5 will include `CssBuilder::keyframes`. Sweet!_
 
 If you're looking to build a site completely in Kotlin, you'll likely run into
 [`kotlin-css`](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-css),
 the CSS DSL of choice *(according to me)*.
-Great for avoiding a mess of stylesheets, but still in its early phase.
-Authoring `@keyframes`, in particular, requires some extracurriculars in order to work cleanly.
+Great for avoiding a mess of stylesheets, but still in its early phase of development.
+Writing `@keyframes`, in particular, requires a little extra attention.
 
 ## What's provided
 
@@ -44,14 +44,13 @@ styles.toString()
 ```
 
 Out of the box, `kotlin-css` provides:
-- `CssBuilder`, for creating styling rules.
+- `CssBuilder`, for authoring styling rules and producing the final output.
 - `KeyframesBuilder`, for building out animation `@keyframes`.
 
-So what's the issue?
+## What's missing?
 
-As of version `2025.2.4`, `CssBuilder` has no built-in handling for `KeyframesBuilder`,
-so keyframes will be lost whenever the final CSS is produced.
-Not to mention that the keyframe builder doesn't even have a name to reference.
+As of version `2025.2.4`, `CssBuilder` has no built-in handling for `KeyframesBuilder`.
+It's not entirely obvious how to ensure that the keyframe offsets get rendered into the final output.
 
 ## What's needed
 
@@ -87,7 +86,7 @@ styles.toString()
 ```
 
 Since both `rule` blocks and `KeyframesBuilder` implement `RuleContainer`,
-it's simply a matter of manually passing along the builder's rules in a `"@keyframes $name"` block.
+it's just a matter of manually passing along the builder's rules in a `"@keyframes $name"` block.
 
 After a bit of refactoring, you're left with a pretty reasonable way of defining `@keyframes`:
 
@@ -131,4 +130,4 @@ val styles = CssBuilder().apply {
 styles.toString()
 ```
 
-Neat!
+### Neat!

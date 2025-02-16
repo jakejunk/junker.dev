@@ -1,13 +1,13 @@
 package dev.junker.components.footer
 
-import dev.junker.util.asClass
+import dev.junker.util.classSelector
 import kotlinx.html.*
 import java.time.Year
 
-val mainFooter = "main-footer".asClass()
-val footerContent = "footer-content".asClass()
-val statusIndicator = "totally-real-status-indicator".asClass()
-val copyright = "copyright".asClass()
+val mainFooter = "main-footer".classSelector()
+val footerContent = "footer-content".classSelector()
+val statusIndicator = "totally-real-status-indicator".classSelector()
+val copyright = "copyright".classSelector()
 
 fun BODY.footer() {
     footer(classes = mainFooter.className) {
