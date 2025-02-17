@@ -29,6 +29,7 @@ kotlin {
         commonMain.dependencies {
             api(libs.kotlinx.html)
             implementation(libs.markdown)
+            implementation("dev.snipme:highlights:1.0.0")
         }
     }
 }
