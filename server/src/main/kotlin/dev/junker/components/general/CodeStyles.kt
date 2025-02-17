@@ -1,9 +1,9 @@
 package dev.junker.components.general
 
 import dev.junker.components.SiteColor
+import dev.junker.syntax.*
 import kotlinx.css.*
-import kotlinx.css.properties.LineHeight
-import kotlinx.css.properties.lh
+import kotlinx.css.properties.*
 
 fun CssBuilder.codeStyles() {
     code {
@@ -32,10 +32,34 @@ fun CssBuilder.codeStyles() {
             borderRightStyle = BorderStyle.none
             display = Display.block
             fontSize = 0.85.rem
+            fontWeight = FontWeight.normal
             lineHeight = 1.25.rem.lh
             minWidth = LinearDimension.minContent
             padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         }
+    }
+
+    annotation.selector {
+        color = hex(0xBBB529)
+    }
+
+    keyword.selector {
+        color = hex(0xCC7832)
+        fontWeight = FontWeight.bold
+    }
+
+    string.selector {
+        color = hex(0x6A8759)
+        fontWeight = FontWeight.bold
+    }
+
+    literal.selector {
+        color = hex(0x6897BB)
+        fontWeight = FontWeight.bold
+    }
+
+    comment.selector {
+        color = hex(0x909090)
     }
 }
 
