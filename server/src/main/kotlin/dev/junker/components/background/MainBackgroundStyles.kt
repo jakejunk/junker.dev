@@ -4,7 +4,7 @@ import dev.junker.components.general.pixelatedBackgroundImage
 import kotlinx.css.*
 
 fun CssBuilder.backgroundStyles() {
-    rule(mainBackground.selector) {
+    mainBackground.selector {
         pixelatedBackgroundImage("assets/images/256x128_bg.png", BackgroundRepeat.repeatX)
         backgroundPosition = RelativePosition.centerBottom
         bottom = 0.px

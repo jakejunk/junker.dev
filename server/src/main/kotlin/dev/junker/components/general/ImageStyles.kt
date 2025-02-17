@@ -8,7 +8,7 @@ import kotlinx.css.properties.rotateZ
 import kotlinx.css.properties.transform
 
 fun CssBuilder.imageStyles() {
-    rule(imageRight.selector) {
+    imageRight.selector {
         border = light2pxBorder
         borderRadius = cornerRadiusRounder
         display = Display.block
@@ -30,14 +30,14 @@ fun CssBuilder.imageStyles() {
         }
     }
 
-    rule("${imageRight.selector} img") {
+    "${imageRight.selector} img" {
         borderRadius = cornerRadius
         width = 100.pct
     }
 }
 
 fun CssBuilder.imageTabletStyles() {
-    rule(imageRight.selector) {
+    imageRight.selector {
         float = Float.right
         height = 256.px
         marginLeft = 2.rem

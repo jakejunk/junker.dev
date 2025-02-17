@@ -6,7 +6,7 @@ import kotlinx.css.*
 import kotlinx.css.properties.lh
 
 fun CssBuilder.mainContentStyles() {
-    rule(mainContainer.selector) {
+    mainContainer.selector {
         flexColumn()
         alignItems = Align.center
         alignSelf = Align.center
@@ -18,18 +18,18 @@ fun CssBuilder.mainContentStyles() {
         wordBreak = WordBreak.breakWord
     }
 
-    rule(main.selector) {
+    main.selector {
         padding = Padding(vertical = 1.rem)
         width = 100.pct
     }
 
-    rule(mainContent.selector) {
+    mainContent.selector {
         fontFamily = "Work Sans, sans-serif"
         fontWeight = FontWeight.lighter
         lineHeight = 1.75.rem.lh
     }
 
-    rule("section + section::before") {
+    "section + section::before" {
         backgroundColor = SiteColor.BackgroundLight.color
         content = "".quoted
         display = Display.block
@@ -43,11 +43,11 @@ fun CssBuilder.mainContentStyles() {
 }
 
 fun CssBuilder.mainContentTabletStyles() {
-    rule(mainContainer.selector) {
+    mainContainer.selector {
         padding = Padding(horizontal = 2.rem)
     }
 
-    rule(main.selector) {
+    main.selector {
         padding = Padding(2.rem)
     }
 }

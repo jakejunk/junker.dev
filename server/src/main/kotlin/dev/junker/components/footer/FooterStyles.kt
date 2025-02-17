@@ -7,14 +7,14 @@ import kotlinx.css.*
 import kotlinx.css.properties.BoxShadow
 
 fun CssBuilder.footerStyles() {
-    rule(mainFooter.selector) {
+    mainFooter.selector {
         borderTop = light2pxBorder
         display = Display.flex
         justifyContent = JustifyContent.center
         paddingBottom = 3.rem + drawerButtonHeight
     }
 
-    rule(footerContent.selector) {
+    footerContent.selector {
         display = Display.flex
         alignItems = Align.baseline
         justifyContent = JustifyContent.spaceBetween
@@ -23,14 +23,14 @@ fun CssBuilder.footerStyles() {
         padding = Padding(vertical = 1.rem, horizontal = 2.ch)
     }
 
-    rule(statusIndicator.selector) {
+    statusIndicator.selector {
         alignItems = Align.baseline
         color = SiteColor.SubtleText.color
         display = Display.inlineFlex
         whiteSpace = WhiteSpace.nowrap
     }
 
-    rule("${statusIndicator.selector}::before") {
+    "${statusIndicator.selector}::before" {
         backgroundColor = SiteColor.SecondaryBright.color
         borderRadius = 1.em
         boxShadow += BoxShadow(SiteColor.Secondary.color, 0.px, 0.px, 2.ch, 0.px)
@@ -41,18 +41,18 @@ fun CssBuilder.footerStyles() {
         width = 1.ch
     }
 
-    rule("${statusIndicator.selector}::after") {
+    "${statusIndicator.selector}::after" {
         content = "POWER".quoted
     }
 
-    rule(copyright.selector) {
+    copyright.selector {
         color = SiteColor.SubtleText.color
         whiteSpace = WhiteSpace.nowrap
     }
 }
 
 fun CssBuilder.footerTabletStyles() {
-    rule(mainFooter.selector) {
+    mainFooter.selector {
         borderTopStyle = BorderStyle.none
         paddingBottom = 0.px
     }

@@ -4,7 +4,7 @@ import dev.junker.components.SiteColor
 import kotlinx.css.*
 
 fun CssBuilder.taglineStyles() {
-    rule(tagline.selector) {
+    tagline.selector {
         color = SiteColor.SubtleText.color
         fontSize = 1.rem
         fontStyle = FontStyle.italic;
@@ -16,7 +16,7 @@ fun CssBuilder.taglineStyles() {
 }
 
 fun CssBuilder.taglineTabletStyles() {
-    rule(tagline.selector) {
+    tagline.selector {
         margin = Margin(2.ch, 0.px, 0.px, 0.px)
         textAlign = TextAlign.center
     }

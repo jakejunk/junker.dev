@@ -12,7 +12,7 @@ fun CssBuilder.linkStyles() {
         property("text-decoration-thickness", "from-font")
     }
 
-    rule(skipLink.selector) {
+    skipLink.selector {
         secondaryTextGlow()
         alignSelf = Align.center
         backgroundColor = SiteColor.BackgroundMedium.color
@@ -27,22 +27,22 @@ fun CssBuilder.linkStyles() {
         zIndex = 1
     }
 
-    rule("${skipLink.selector}::before") {
+    "${skipLink.selector}::before" {
         content = "↯ ".quoted
         fontWeight = FontWeight.bold
     }
 
-    rule("${skipLink.selector}:focus") {
+    "${skipLink.selector}:focus" {
         transform.translateY(0.px)
     }
 
-    rule("${externalLink.selector}::after") {
+    "${externalLink.selector}::after" {
         content = " ↗".quoted
         lineHeight = 0.rem.lh
         verticalAlign = VerticalAlign.`super`
     }
 
-    rule(hiddenLink.selector) {
+    hiddenLink.selector {
         textWithShadow(Color.inherit, "none")
     }
 }

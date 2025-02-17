@@ -8,7 +8,7 @@ import kotlinx.css.*
 import kotlinx.css.properties.lh
 
 fun CssBuilder.asciiBannerStyles() {
-    rule(asciiBannerContainer.selector) {
+    asciiBannerContainer.selector {
         alignSelf = Align.center
         display = Display.flex
         flexWrap = FlexWrap.wrap
@@ -22,11 +22,11 @@ fun CssBuilder.asciiBannerStyles() {
         width = LinearDimension.minContent
     }
 
-    rule(asciiBannerGroup.selector) {
+    asciiBannerGroup.selector {
         display = Display.flex
     }
 
-    rule(asciiBanner.selector) {
+    asciiBanner.selector {
         monospaceFont(
             fontWeight = FontWeight.normal,
             fontSize = 2.25.vw,
@@ -35,37 +35,37 @@ fun CssBuilder.asciiBannerStyles() {
         whiteSpace = WhiteSpace.pre
     }
 
-    rule("${asciiBanner.selector}.junker") {
+    "${asciiBanner.selector}.junker" {
         marginBottom = (-2).em
     }
 
-    rule("${asciiBanner.selector}.junker::before") {
+    "${asciiBanner.selector}.junker::before" {
         content = junker
         primaryTextGlow()
     }
 
-    rule("${asciiBanner.selector}.dot::before") {
+    "${asciiBanner.selector}.dot::before" {
         content = dot
         secondaryTextGlow()
     }
 
-    rule("${asciiBanner.selector}.dev::before") {
+    "${asciiBanner.selector}.dev::before" {
         content = dev
         color = SiteColor.PrimaryText.color
     }
 }
 
 fun CssBuilder.asciiBannerTabletStyles() {
-    rule(asciiBannerContainer.selector) {
+    asciiBannerContainer.selector {
         justifyContent = JustifyContent.center
         width = LinearDimension.fitContent
     }
 
-    rule(asciiBannerGroup.selector) {
+    asciiBannerGroup.selector {
         marginTop = 0.rem
     }
 
-    rule(asciiBanner.selector) {
+    asciiBanner.selector {
         fontSize = LinearDimension.inherit
         lineHeight = 1.25.rem.lh
     }
