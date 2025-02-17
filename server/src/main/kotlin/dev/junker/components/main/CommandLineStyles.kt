@@ -5,7 +5,7 @@ import dev.junker.components.general.*
 import kotlinx.css.*
 
 fun CssBuilder.commandLineStyles() {
-    rule(cliContainer.selector) {
+    cliContainer.selector {
         flexColumn()
         alignItems = Align.center
         // TODO: Frosted glass blurs everything
@@ -17,13 +17,13 @@ fun CssBuilder.commandLineStyles() {
         width = 100.pct
     }
 
-    rule(cli.selector) {
+    cli.selector {
         padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         whiteSpace = WhiteSpace.nowrap
         width = 100.pct
     }
 
-    rule("${cli.selector}::before") {
+    "${cli.selector}::before" {
         primaryTextGlow()
         content = ">".quoted
         paddingRight = 1.ch
@@ -31,7 +31,7 @@ fun CssBuilder.commandLineStyles() {
 }
 
 fun CssBuilder.commandLineTabletStyles() {
-    rule(cliContainer.selector) {
+    cliContainer.selector {
         margin = Margin(2.rem)
         marginBottom = 1.rem
     }

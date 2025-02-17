@@ -16,7 +16,7 @@ import dev.junker.components.tagline.taglineTabletStyles
 import kotlinx.css.*
 
 fun CssBuilder.siteStyles() {
-    rule("*, ::after, ::before") {
+    "*, ::after, ::before" {
         boxSizing = BoxSizing.inherit
     }
 

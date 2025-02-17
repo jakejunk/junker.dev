@@ -24,20 +24,20 @@ fun CssBuilder.headerStyles() {
         }
     }
 
-    rule(mainHeader.selector) {
+    mainHeader.selector {
         flexColumn()
         alignItems = Align.center
         flexGrow = 1.0
     }
 
-    rule(siteLogo.selector) {
+    siteLogo.selector {
         glowingPixelatedBackgroundImage("/assets/images/16x16_logo_black.png")
         height = 64.px
         margin = Margin(24.px)
         width = 64.px
     }
 
-    rule("${siteLogo.selector}:hover") {
+    "${siteLogo.selector}:hover" {
         animation += Animation(
             name = "logoTwitch",
             duration = 1.s,
@@ -50,11 +50,11 @@ fun CssBuilder.headerStyles() {
         )
     }
 
-    rule("${siteLogo.selector}${error.selector}") {
+    "${siteLogo.selector}${error.selector}" {
         filter = "invert(60%) sepia(30%) saturate(645%) hue-rotate(318deg) brightness(106%) contrast(90%) drop-shadow(0px 0px 1ch ${SiteColor.Secondary.color.value})"
     }
 
-    rule(headerNav.selector) {
+    headerNav.selector {
         columnGap = 1.ch
         display = Display.flex
         flexWrap = FlexWrap.wrap
@@ -64,7 +64,7 @@ fun CssBuilder.headerStyles() {
         width = 100.pct
     }
 
-    rule(navLink.selector) {
+    navLink.selector {
         textWithShadow(SiteColor.PrimaryText.color, "none")
         backgroundColor = SiteColor.BackgroundMedium.color
         border = light2pxBorder
@@ -74,17 +74,17 @@ fun CssBuilder.headerStyles() {
         whiteSpace = WhiteSpace.nowrap
     }
 
-    rule("${navLink.selector}:hover") {
+    "${navLink.selector}:hover" {
         backgroundColor = SiteColor.BackgroundLight.color
     }
 
-    rule("${navLink.selector}.selected") {
+    "${navLink.selector}.selected" {
         primaryTextGlow()
     }
 }
 
 fun CssBuilder.headerTabletStyles() {
-    rule(mainHeader.selector) {
+    mainHeader.selector {
         flexDirection = FlexDirection.row
         justifyContent = JustifyContent.spaceBetween
         maxWidth = 1300.px
@@ -92,14 +92,14 @@ fun CssBuilder.headerTabletStyles() {
         width = 100.pct
     }
 
-    rule(headerNav.selector) {
+    headerNav.selector {
         alignSelf = Align.flexEnd
         padding = Padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
         rowGap = 1.rem
         width = LinearDimension.auto
     }
 
-    rule(navLink.selector) {
+    navLink.selector {
         borderBottomLeftRadius = 0.px
         borderBottomRightRadius = 0.px
         borderBottomStyle = BorderStyle.none

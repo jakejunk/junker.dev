@@ -15,13 +15,12 @@ the CSS DSL of choice *(according to me)*.
 While a great alternative to handwriting `.css` files,
 some things can be more difficult than expected due to the "low-level" design—getting it to produce
 [`@keyframes`](https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes),
-in particular, requires some extra patience.
+in particular, requires some extra attention.
 
 ## What's provided
 
 ```kotlin
 val styles = CssBuilder().apply {
-    // Nice syntax, but doesn't do anything
     KeyframesBuilder().apply {
         50 {
             transform { translateX(7.px) }
@@ -46,19 +45,21 @@ styles.toString()
 
 Out of the box, `kotlin-css` provides:
 - `CssBuilder`, for authoring styling rules.
-- `KeyframesBuilder`, for building out animation `@keyframes`.
+- `KeyframesBuilder`, for building out animation keyframes.
+- `Animation`, for applying an animation.
 
 ## What's missing?
 
-As of version `2025.2.4`, `CssBuilder` has no built-in handling for `KeyframesBuilder`.
-It's not entirely obvious how to ensure that the keyframe offsets get rendered into the final stylesheet.
+As of version `2025.2.4`, `CssBuilder` has no built-in handling for `KeyframesBuilder`,
+so it's not entirely obvious how to ensure that the keyframe values make it into the rendered stylesheet.
+Additionally, how can the name `"my-animation"` be given to the keyframes for an `Animation` to reference?
 
 ## What's needed
 
 ```kotlin
 const val myAnimation = "my-animation"
 val styles = CssBuilder().apply {
-    "@keyframes myAnimation" {
+    "@keyframes $myAnimation" {
         val builder = KeyframesBuilder().apply {
             50 {
                 transform { translateX(7.px) }
@@ -88,7 +89,7 @@ styles.toString()
 Since both `rule` blocks and `KeyframesBuilder` implement `RuleContainer`,
 it's just a matter of manually passing along the builder's rules in a `"@keyframes $name"` block.
 
-After a bit of refactoring, you're left with a pretty reasonable way of defining `@keyframes`:
+With some minor refactoring, this process can be made more intuitive:
 
 ```kotlin
 fun CssBuilder.keyframes(
@@ -96,7 +97,7 @@ fun CssBuilder.keyframes(
     block: KeyframesBuilder.() -> Unit
 ) {
     val builder = KeyframesBuilder().apply(block)
-    rule("@keyframes $name") {
+    "@keyframes $name" {
         rules += builder.rules
     }
 }
@@ -112,7 +113,7 @@ val styles = CssBuilder().apply {
         }
     }
     
-    rule(".some-class") {
+    ".some-class" {
         animation += Animation(
             name = myAnimation,
             duration = 5.s
