@@ -1,6 +1,7 @@
 ---
 title: @keyframes in kotlin-css
 description: Making @keyframes a bit easier to work with.
+creationDate: 2025-2-12
 modifiedDate: 2025-2-13
 ---
 
@@ -9,11 +10,11 @@ modifiedDate: 2025-2-13
 _The following is relevant for `kotlin-css:2025.2.4` and below;
 2025.2.5 will include `CssBuilder::keyframes`. Sweet!_
 
-If you're looking to build a site completely in Kotlin, you'll likely run into
-[`kotlin-css`](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-css),
-the CSS DSL of choice *(according to me)*.
-While a great alternative to handwriting `.css` files,
-some things can be more difficult than expected due to the "low-level" design—getting it to produce
+If you're looking to build a site completely in Kotlin,
+the CSS DSL of choice *(according to me)* is
+[`kotlin-css`](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-css).
+The library is a great alternative to handwriting `.css` files,
+though the "low-level" design can add a degree of difficulty in certain areas—getting it to produce
 [`@keyframes`](https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes),
 in particular, requires some extra attention.
 
@@ -50,9 +51,9 @@ Out of the box, `kotlin-css` provides:
 
 ## What's missing?
 
-As of version `2025.2.4`, `CssBuilder` has no built-in handling for `KeyframesBuilder`,
-so it's not entirely obvious how to ensure that the keyframe values make it into the rendered stylesheet.
-Additionally, how can the name `"my-animation"` be given to the keyframes for an `Animation` to reference?
+As of version 2025.2.4, `CssBuilder` lacks built-in support for `KeyframesBuilder`,
+making it unclear how to get keyframes into the final rendered stylesheet.
+Additionally, how can keyframes be given a name for an `Animation` to reference?
 
 ## What's needed
 
@@ -89,7 +90,7 @@ styles.toString()
 Since both `rule` blocks and `KeyframesBuilder` implement `RuleContainer`,
 it's just a matter of manually passing along the builder's rules in a `"@keyframes $name"` block.
 
-With some minor refactoring, this process can be made more intuitive:
+With some minor refactoring, writing keyframes suddenly becomes lemon squeezy:
 
 ```kotlin
 fun CssBuilder.keyframes(

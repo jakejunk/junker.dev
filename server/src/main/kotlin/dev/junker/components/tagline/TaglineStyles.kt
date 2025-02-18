@@ -7,7 +7,7 @@ fun CssBuilder.taglineStyles() {
     tagline.selector {
         color = SiteColor.SubtleText.color
         fontSize = 1.rem
-        fontStyle = FontStyle.italic;
+        fontStyle = FontStyle.italic
         fontWeight = FontWeight.lighter
         margin = Margin(2.ch, 0.px, 0.px, LinearDimension.auto)
         paddingRight = 1.ch
