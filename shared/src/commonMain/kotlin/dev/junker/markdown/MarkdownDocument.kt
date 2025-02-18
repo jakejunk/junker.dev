@@ -25,13 +25,13 @@ fun markdownDocument(metadata: MarkdownMetadata, markdown: String): MarkdownDocu
         content = {
             em {
                 if (metadata.modifiedDate != null) {
-                    +"Edited: "
+                    +"Edited - "
                     time {
                         dateTime = metadata.modifiedDate
                         +metadata.modifiedDate
                     }
                 } else if (metadata.creationDate != null) {
-                    +"Written: "
+                    +"Written - "
                     time {
                         dateTime = metadata.creationDate
                         +metadata.creationDate
