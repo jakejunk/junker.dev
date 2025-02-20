@@ -1,7 +1,7 @@
 package dev.junker.components.general
 
+import dev.junker.*
 import dev.junker.components.SiteColor
-import dev.junker.syntax.*
 import kotlinx.css.*
 import kotlinx.css.properties.*
 

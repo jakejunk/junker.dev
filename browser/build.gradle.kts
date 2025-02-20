@@ -36,6 +36,7 @@ kotlin {
             implementation(project(":shared"))
             implementation(libs.kotlinx.html)
             implementation(libs.kotlinx.browser)
+            implementation("dev.snipme:highlights:1.0.0")
         }
     }
 }

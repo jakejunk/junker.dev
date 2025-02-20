@@ -41,6 +41,7 @@ dependencies {
     }
 
     implementation(project(":shared"))
+    implementation(libs.markdown)
     implementation("io.ktor:ktor-server-html-builder-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-default-headers:$ktorVersion")

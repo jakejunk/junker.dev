@@ -1,7 +1,7 @@
 package dev.junker.components.general
 
 import dev.junker.components.main.main
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.*
 
 val skipLink = "skip-link".classSelector()

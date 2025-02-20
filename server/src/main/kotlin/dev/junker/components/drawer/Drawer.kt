@@ -1,7 +1,7 @@
 package dev.junker.components.drawer
 
 import dev.junker.pages.Page
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.BODY
 import kotlinx.html.button
 import kotlinx.html.div

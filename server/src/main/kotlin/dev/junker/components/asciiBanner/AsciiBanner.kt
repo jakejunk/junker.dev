@@ -1,6 +1,6 @@
 package dev.junker.components.asciiBanner
 
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.*
 
 val asciiBannerContainer = "ascii-banner-container".classSelector()

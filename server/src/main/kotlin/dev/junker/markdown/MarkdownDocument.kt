@@ -1,6 +1,6 @@
 package dev.junker.markdown
 
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.*
 import org.intellij.markdown.MarkdownElementTypes
 import org.intellij.markdown.MarkdownTokenTypes

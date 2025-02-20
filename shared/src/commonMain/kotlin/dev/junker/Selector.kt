@@ -1,6 +1,13 @@
-package dev.junker.util
+package dev.junker
 
 import kotlin.jvm.JvmInline
+
+// Syntax highlighting
+val annotation = "annotation".classSelector()
+val keyword = "keyword".classSelector()
+val string = "string".classSelector()
+val literal = "literal".classSelector()
+val comment = "comment".classSelector()
 
 sealed interface Selector {
     val selector: String

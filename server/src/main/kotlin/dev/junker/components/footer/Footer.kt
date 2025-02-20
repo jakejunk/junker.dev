@@ -1,6 +1,6 @@
 package dev.junker.components.footer
 
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.*
 import java.time.Year
 

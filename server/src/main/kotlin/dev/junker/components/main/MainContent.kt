@@ -1,8 +1,8 @@
 package dev.junker.components.main
 
 import dev.junker.pages.Page
-import dev.junker.util.classSelector
-import dev.junker.util.idSelector
+import dev.junker.classSelector
+import dev.junker.idSelector
 import kotlinx.html.*
 
 val mainContainer = "main-container".classSelector()

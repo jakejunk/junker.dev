@@ -1,6 +1,6 @@
 package dev.junker.components.general
 
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.SECTION
 import kotlinx.html.div
 import kotlinx.html.img
