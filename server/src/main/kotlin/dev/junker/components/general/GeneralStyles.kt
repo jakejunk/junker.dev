@@ -8,6 +8,8 @@ import kotlinx.css.properties.*
 fun CssBuilder.generalStyles() {
     fontFace {
         fontFamily = "Dogica Pixel"
+        property("font-display", "swap")
+        property("size-adjust", "75%")
         property("src", "local('Dogica Pixel'), url(/assets/fonts/dogicapixel.woff2) format('woff2')")
     }
 
@@ -114,8 +116,8 @@ fun CssBuilder.monospaceFont(
 }
 
 fun StyledElement.pixelFont() {
-    fontFamily = "Dogica Pixel, serif"
-    fontSize = 1.75.rem
+    fontFamily = "Dogica Pixel, Courier New, Courier, monospace"
+    fontSize = 2.3.rem
     fontWeight = FontWeight.lighter
     lineHeight = 2.5.rem.lh
 }
