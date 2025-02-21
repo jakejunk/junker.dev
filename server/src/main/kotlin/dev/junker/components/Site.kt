@@ -42,6 +42,11 @@ private fun HEAD.faviconStuff() {
 private fun HEAD.fontStuff() {
     link(rel = "preconnect", href = "https://fonts.googleapis.com")
     link(rel = "preconnect", href = "https://fonts.gstatic.com") { attributes["crossorigin"] = "" }
+    link(rel = "preconnect", href = "/assets/fonts/dogicapixel.woff2") {
+        type = "font/woff2"
+        attributes["crossorigin"] = ""
+        attributes["as"] = "font"
+    }
     styleLink("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;700&display=swap")
     styleLink("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap")
 }

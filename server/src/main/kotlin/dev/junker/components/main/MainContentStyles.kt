@@ -2,8 +2,10 @@ package dev.junker.components.main
 
 import dev.junker.components.SiteColor
 import dev.junker.components.general.flexColumn
+import dev.junker.components.general.pixelFont
+import dev.junker.components.general.secondaryTextGlow
 import kotlinx.css.*
-import kotlinx.css.properties.lh
+import kotlinx.css.properties.*
 
 fun CssBuilder.mainContentStyles() {
     mainContainer.selector {
@@ -20,7 +22,17 @@ fun CssBuilder.mainContentStyles() {
 
     main.selector {
         padding = Padding(vertical = 1.rem)
+        position = Position.relative
         width = 100.pct
+    }
+
+    "#main${workInProgress.selector}::before" {
+        pixelFont()
+        secondaryTextGlow()
+        content = "W.I.P.!".quoted
+        position = Position.absolute
+        top = 0.px
+        transform.rotateZ((-15).deg)
     }
 
     mainContent.selector {

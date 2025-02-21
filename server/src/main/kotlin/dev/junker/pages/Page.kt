@@ -11,6 +11,10 @@ import kotlinx.html.*
 sealed interface Page {
     val content: FlowContent.() -> Unit
     val title: String?
+
+    val isWip: Boolean
+        get() = false
+
     val fullTitle: String
         get() = when (title) {
             null -> "junker.dev"

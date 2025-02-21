@@ -14,10 +14,7 @@ kotlin {
             val rootDirPath = project.rootDir.path
             val projectDirPath = project.projectDir.path
             commonWebpackConfig {
-                if (isProdBuild) {
-                    sourceMaps = false
-                }
-
+                sourceMaps = !isProdBuild
                 outputFileName = "dev.junker.browser.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
