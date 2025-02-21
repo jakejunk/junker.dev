@@ -1,7 +1,7 @@
 package dev.junker.components.main
 
 import dev.junker.pages.Page
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.DIV
 import kotlinx.html.div
 

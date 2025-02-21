@@ -8,7 +8,7 @@ import kotlinx.css.properties.*
 fun CssBuilder.generalStyles() {
     fontFace {
         fontFamily = "Dogica Pixel"
-        property("src", "local('Dogica Pixel'), url(/assets/fonts/dogicapixel.otf) format('opentype')")
+        property("src", "local('Dogica Pixel'), url(/assets/fonts/dogicapixel.woff2) format('woff2')")
     }
 
     "h1, h2" {

@@ -1,6 +1,6 @@
 package dev.junker.components.background
 
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.BODY
 import kotlinx.html.div
 

@@ -1,15 +1,7 @@
 package dev.junker.syntax
 
-import dev.junker.util.Selector
-import dev.junker.util.classSelector
+import dev.junker.*
 import dev.snipme.highlights.model.PhraseLocation
-import kotlin.jvm.JvmInline
-
-val annotation = "annotation".classSelector()
-val keyword = "keyword".classSelector()
-val string = "string".classSelector()
-val literal = "literal".classSelector()
-val comment = "comment".classSelector()
 
 sealed interface Token {
     val location: PhraseLocation
@@ -30,27 +22,22 @@ sealed interface Token {
         }
     }
 
-    @JvmInline
     value class Annotation(
         override val location: PhraseLocation
     ) : Token
 
-    @JvmInline
     value class Keyword(
         override val location: PhraseLocation
     ) : Token
 
-    @JvmInline
     value class String(
         override val location: PhraseLocation
     ) : Token
 
-    @JvmInline
     value class Literal(
         override val location: PhraseLocation
     ) : Token
 
-    @JvmInline
     value class Comment(
         override val location: PhraseLocation
     ) : Token

@@ -3,11 +3,41 @@ package dev.junker.syntax
 import dev.snipme.highlights.Highlights
 import dev.snipme.highlights.model.SyntaxLanguage
 import dev.snipme.highlights.model.SyntaxThemes
+import kotlinx.browser.document
 import kotlinx.html.CODE
+import kotlinx.html.dom.create
+import kotlinx.html.js.code
 import kotlinx.html.span
+import org.w3c.dom.HTMLPreElement
+import org.w3c.dom.asList
+import kotlin.time.measureTime
 
-fun CODE.highlightCode(code: String) {
-    val sortedPhrases = computeAllPhrases(code)
+fun highlightCodeBlocks() {
+    val codeBlocks = document.querySelectorAll("pre[data-proglang]")
+    if (codeBlocks.length == 0) {
+        return
+    }
+
+    val time = measureTime {
+        for (codeBlock in codeBlocks.asList()) {
+            with(codeBlock as HTMLPreElement) {
+                val codeString = innerText
+                val language = getAttribute("data-proglang") ?: ""
+                val highlightedCode = document.create.code {
+                    highlightCode(codeString, language)
+                }
+
+                textContent = ""
+                append(highlightedCode)
+            }
+        }
+    }
+
+    println("Highlighted all code in $time")
+}
+
+fun CODE.highlightCode(code: String, language: String) {
+    val sortedPhrases = computeAllPhrases(code, language)
 
     var i = 0
     for (phrase in sortedPhrases) {
@@ -35,11 +65,11 @@ fun CODE.highlightCode(code: String) {
     }
 }
 
-private fun computeAllPhrases(code: String): List<Token> {
+private fun computeAllPhrases(code: String, language: String): List<Token> {
     val structure = Highlights.Builder()
         .code(code)
         .theme(SyntaxThemes.darcula(darkMode = true))
-        .language(SyntaxLanguage.KOTLIN)
+        .language(SyntaxLanguage.getByName(language) ?: SyntaxLanguage.DEFAULT)
         .build()
         .getCodeStructure()
 

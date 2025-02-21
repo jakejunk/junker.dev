@@ -4,7 +4,7 @@ import dev.junker.pages.AboutPage
 import dev.junker.pages.HomePage
 import dev.junker.pages.NotesPage
 import dev.junker.pages.Page
-import dev.junker.util.classSelector
+import dev.junker.classSelector
 import kotlinx.html.*
 
 val mainHeader = "main-header".classSelector()

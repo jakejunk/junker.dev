@@ -14,10 +14,7 @@ kotlin {
             val rootDirPath = project.rootDir.path
             val projectDirPath = project.projectDir.path
             commonWebpackConfig {
-                if (isProdBuild) {
-                    sourceMaps = false
-                }
-
+                sourceMaps = !isProdBuild
                 outputFileName = "dev.junker.browser.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
@@ -36,6 +33,7 @@ kotlin {
             implementation(project(":shared"))
             implementation(libs.kotlinx.html)
             implementation(libs.kotlinx.browser)
+            implementation("dev.snipme:highlights:1.0.0")
         }
     }
 }

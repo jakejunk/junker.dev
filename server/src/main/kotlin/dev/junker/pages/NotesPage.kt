@@ -19,8 +19,9 @@ sealed interface NotesPage : Page.Content {
         override val slug = ROOT_SLUG
         override val title = "Notes"
         override val description = "Don't mind the mess."
+        override val isWip = true
         override val content: FlowContent.() -> Unit = {
-            h1 { +"Notes - Work In Progress" }
+            h1 { +"Notes" }
             for (metadata in noteMetadata) {
                 article {
                     val title = metadata.title ?: "untitled"
