@@ -7,6 +7,36 @@ import dev.junker.components.general.secondaryTextGlow
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
+/*
+    "span:nth-child(2n)" {
+        animationDelay = 0.02.s
+    }
+
+    "span:nth-child(3n)" {
+        animationDelay = 0.33.s
+    }
+
+    "span:nth-child(5n)" {
+        animationDelay = 0.05.s
+    }
+
+    "span:nth-child(11n)" {
+        animationDelay = 0.11.s
+    }
+
+    "span:nth-child(13n)" {
+        animationDelay = 0.23.s
+    }
+
+    "span:nth-child(17n)" {
+        animationDelay = 0.17.s
+    }
+
+    "h1 > span:nth-child(19n)" {
+        animationDelay = 0.19.s
+    }
+*/
+
 fun CssBuilder.asciiBannerStyles() {
     asciiBannerContainer.selector {
         alignSelf = Align.center

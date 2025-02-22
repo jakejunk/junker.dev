@@ -1,11 +1,28 @@
 package dev.junker.components.general
 
 import dev.junker.components.SiteColor
+import dev.junker.components.code.codeStyles
+import dev.junker.components.code.codeTabletStyles
 import dev.junker.markdown.exclamation
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
 fun CssBuilder.generalStyles() {
+    keyframes("flickerIn") {
+        0 {
+            opacity = 0
+        }
+        33 {
+            opacity = .66
+        }
+        66 {
+            opacity = .33
+        }
+        100 {
+            opacity = 1
+        }
+    }
+
     fontFace {
         fontFamily = "Dogica Pixel"
         property("font-display", "swap")
@@ -16,16 +33,28 @@ fun CssBuilder.generalStyles() {
     "h1, h2" {
         pixelFont()
         primaryTextGlow(1.ch)
-        textAlign = TextAlign.center
+        animation += Animation(
+            name = "flickerIn",
+            duration = 0.75.s,
+            timing = cubicBezier(0.1, 1.1, 0.22, -1.0),
+            iterationCount = 1.times,
+            direction = AnimationDirection.normal,
+            fillMode = FillMode.forwards,
+            playState = PlayState.running
+        )
         marginTop = 2.rem
+        opacity = 0
+        textAlign = TextAlign.center
     }
 
     h1 {
         marginBottom = 4.rem
+        animationDelay = 0.25.s
     }
 
     h2 {
         marginBottom = 2.rem
+        animationDelay = 0.33.s
     }
 
     "h1.error" {
@@ -75,7 +104,6 @@ fun CssBuilder.generalStyles() {
 
     imageStyles()
     linkStyles()
-    codeStyles()
 }
 
 fun CssBuilder.generalTabletStyles() {
@@ -84,7 +112,6 @@ fun CssBuilder.generalTabletStyles() {
     }
 
     imageTabletStyles()
-    codeTabletStyles()
 }
 
 // ====================================================================================================================

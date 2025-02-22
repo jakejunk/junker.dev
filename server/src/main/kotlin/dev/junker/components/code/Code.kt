@@ -1,7 +1,6 @@
-package dev.junker.components.general
+package dev.junker.components.code
 
 import kotlinx.html.FlowContent
-import kotlinx.html.P
 import kotlinx.html.code
 import kotlinx.html.pre
 

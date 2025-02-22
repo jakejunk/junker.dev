@@ -2,7 +2,7 @@ package dev.junker.pages
 
 import dev.junker.components.general.externalLink
 import dev.junker.components.general.hiddenLink
-import dev.junker.components.general.inlineCode
+import dev.junker.components.code.inlineCode
 import dev.junker.components.general.rightFloatImage
 import kotlinx.html.*
 

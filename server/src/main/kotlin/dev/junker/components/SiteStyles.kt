@@ -3,6 +3,8 @@ package dev.junker.components
 import dev.junker.components.asciiBanner.asciiBannerStyles
 import dev.junker.components.asciiBanner.asciiBannerTabletStyles
 import dev.junker.components.background.backgroundStyles
+import dev.junker.components.code.codeStyles
+import dev.junker.components.code.codeTabletStyles
 import dev.junker.components.drawer.*
 import dev.junker.components.footer.footerStyles
 import dev.junker.components.footer.footerTabletStyles
@@ -50,6 +52,7 @@ fun CssBuilder.siteStyles() {
     commandLineStyles()
     asciiBannerStyles()
     taglineStyles()
+    codeStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
@@ -62,5 +65,6 @@ fun CssBuilder.siteStyles() {
         commandLineTabletStyles()
         asciiBannerTabletStyles()
         taglineTabletStyles()
+        codeTabletStyles()
     }
 }
