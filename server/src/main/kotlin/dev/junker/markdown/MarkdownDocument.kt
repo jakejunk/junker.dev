@@ -58,6 +58,15 @@ private fun FlowContent.renderMarkdown(
     eolMode: EolMode = EolMode.NONE
 ) {
     when (node.type) {
+        MarkdownElementTypes.ATX_1 -> {
+            h1 { renderChildNodes(node, markdown) }
+        }
+        MarkdownElementTypes.ATX_2 -> {
+            h2 { renderChildNodes(node, markdown) }
+        }
+        MarkdownElementTypes.ATX_3 -> {
+            span(classes = exclamation.className) { renderChildNodes(node, markdown) }
+        }
         MarkdownTokenTypes.ATX_CONTENT -> {
             val trimmed = node.children
                 .dropWhile { it.type == MarkdownTokenTypes.WHITE_SPACE }
@@ -71,59 +80,44 @@ private fun FlowContent.renderMarkdown(
                 +trimmedText
             }
         }
-        MarkdownTokenTypes.CODE_FENCE_CONTENT ->
-            +node.getTextInNode(markdown).trimEnd().toString()
-        // Don't render auto-links as actual links
-        GFMTokenTypes.GFM_AUTOLINK,
-        MarkdownTokenTypes.TEXT ->
-            +node.getTextInNode(markdown).trim().toString()
-        MarkdownTokenTypes.WHITE_SPACE ->
-            +" "
-        MarkdownTokenTypes.EOL -> when (eolMode) {
-            EolMode.NONE -> { /* Ignore */ }
-            EolMode.SPACE -> +" "
-            EolMode.PRESERVE -> +"\n"
-        }
-        MarkdownTokenTypes.COLON ->
-            +":"
-        MarkdownTokenTypes.SINGLE_QUOTE ->
-            +"'"
-        MarkdownTokenTypes.DOUBLE_QUOTE ->
-            +"\""
-        MarkdownTokenTypes.EXCLAMATION_MARK ->
-            +"!"
-        MarkdownTokenTypes.LPAREN ->
-            +"("
-        MarkdownTokenTypes.RPAREN ->
-            +")"
-        MarkdownElementTypes.ATX_1 ->
-            h1 { renderChildNodes(node, markdown) }
-        MarkdownElementTypes.ATX_2 ->
-            h2 { renderChildNodes(node, markdown) }
-        MarkdownElementTypes.ATX_3 ->
-            span(classes = exclamation.className) { renderChildNodes(node, markdown) }
         // Only render paragraphs when not part of a list item
-        MarkdownElementTypes.PARAGRAPH -> when (this) {
-            !is LI ->
-                p { renderChildNodes(node, markdown, EolMode.SPACE) }
-            else -> renderChildNodes(node, markdown)
+        MarkdownElementTypes.PARAGRAPH -> {
+            when (this) {
+                !is LI -> {
+                    p { renderChildNodes(node, markdown, EolMode.SPACE) }
+                }
+                else -> {
+                    renderChildNodes(node, markdown, EolMode.SPACE)
+                }
+            }
         }
-        MarkdownElementTypes.EMPH ->
+        MarkdownElementTypes.EMPH -> {
             em { renderChildNodes(node, markdown, EolMode.SPACE) }
-        MarkdownElementTypes.STRONG ->
+        }
+        MarkdownElementTypes.STRONG -> {
             strong { renderChildNodes(node, markdown) }
-        GFMElementTypes.STRIKETHROUGH ->
+        }
+        GFMElementTypes.STRIKETHROUGH -> {
             s { renderChildNodes(node, markdown) }
-        MarkdownElementTypes.UNORDERED_LIST ->
+        }
+        MarkdownElementTypes.UNORDERED_LIST -> {
             ul { renderChildNodes(node, markdown) }
-        MarkdownElementTypes.ORDERED_LIST ->
+        }
+        MarkdownElementTypes.ORDERED_LIST -> {
             ol { renderChildNodes(node, markdown) }
-        MarkdownElementTypes.LIST_ITEM -> when (this) {
-            is UL ->
-                li { renderChildNodes(node, markdown) }
-            is OL ->
-                li { renderChildNodes(node, markdown) }
-            else -> renderChildNodes(node, markdown)
+        }
+        MarkdownElementTypes.LIST_ITEM -> {
+            when (this) {
+                is UL -> {
+                    li { renderChildNodes(node, markdown) }
+                }
+                is OL -> {
+                    li { renderChildNodes(node, markdown) }
+                }
+                else -> {
+                    renderChildNodes(node, markdown)
+                }
+            }
         }
         MarkdownElementTypes.INLINE_LINK -> {
             val href = node.children
@@ -137,9 +131,7 @@ private fun FlowContent.renderMarkdown(
                     a(href = href) { renderChildNodes(it, markdown) }
                 }
         }
-        MarkdownElementTypes.CODE_SPAN ->
-            code { renderChildNodes(node, markdown) }
-        // No need to support code blocks
+        // No need to support code blocks, only fences
         MarkdownElementTypes.CODE_FENCE -> {
             var firstEolSeen = false
             val firstEolRemoved = node.children.filter {
@@ -161,7 +153,48 @@ private fun FlowContent.renderMarkdown(
                 code { renderChildNodes(firstEolRemoved, markdown, EolMode.PRESERVE) }
             }
         }
-        else -> renderChildNodes(node, markdown)
+        MarkdownTokenTypes.CODE_FENCE_CONTENT -> {
+            +node.getTextInNode(markdown).trimEnd().toString()
+        }
+        MarkdownElementTypes.CODE_SPAN -> {
+            code { renderChildNodes(node, markdown) }
+        }
+        // Render auto-links as text
+        GFMTokenTypes.GFM_AUTOLINK,
+        MarkdownTokenTypes.TEXT -> {
+            +node.getTextInNode(markdown).trim().toString()
+        }
+        MarkdownTokenTypes.EOL -> {
+            when (eolMode) {
+                EolMode.NONE -> { /* Ignore */ }
+                EolMode.SPACE -> +" "
+                EolMode.PRESERVE -> +"\n"
+            }
+        }
+        MarkdownTokenTypes.WHITE_SPACE -> {
+            +" "
+        }
+        MarkdownTokenTypes.COLON -> {
+            +":"
+        }
+        MarkdownTokenTypes.SINGLE_QUOTE -> {
+            +"'"
+        }
+        MarkdownTokenTypes.DOUBLE_QUOTE -> {
+            +"\""
+        }
+        MarkdownTokenTypes.EXCLAMATION_MARK -> {
+            +"!"
+        }
+        MarkdownTokenTypes.LPAREN -> {
+            +"("
+        }
+        MarkdownTokenTypes.RPAREN -> {
+            +")"
+        }
+        else -> {
+            renderChildNodes(node, markdown)
+        }
     }
 }
 

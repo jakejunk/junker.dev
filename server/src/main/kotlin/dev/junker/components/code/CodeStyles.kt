@@ -1,7 +1,8 @@
-package dev.junker.components.general
+package dev.junker.components.code
 
 import dev.junker.*
 import dev.junker.components.SiteColor
+import dev.junker.components.general.*
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
@@ -44,22 +45,19 @@ fun CssBuilder.codeStyles() {
     }
 
     keyword.selector {
-        color = hex(0xCC7832)
-        fontWeight = FontWeight.bold
+        color = hex(0xFFAB66)
     }
 
     string.selector {
-        color = hex(0x6A8759)
-        fontWeight = FontWeight.bold
+        color = hex(0x8AD161)
     }
 
     literal.selector {
-        color = hex(0x6897BB)
-        fontWeight = FontWeight.bold
+        color = hex(0x66BDFF)
     }
 
     comment.selector {
-        color = hex(0x909090)
+        color = hex(0xA1A1A1)
     }
 }
 

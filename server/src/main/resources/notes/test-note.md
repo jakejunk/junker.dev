@@ -33,10 +33,11 @@ This is a link with formatting: [_**Go to Google**_](https://google.com).
 This is a link with no text: [](/).
 This should be regular text: www.google.com.
 
-This has a span of `code`.
+This has a span of `code`. I'll keep typing so that a new line breaks at some point
+and then before you know it yada yada yada yada yada yada yada yada yada `BAM` another inline code span.
 
 ```kotlin
-// This is some overflowing Kotlin code ============================================================================================================================================================================
+// This comment is wayyyy too long ============================================================================================================================================================================
 fun test() {
     println("Cool! This line is really long for testing!")
 }
@@ -45,6 +46,11 @@ fun test() {
 ```kotlin
 // This is some Kotlin code
 fun test() {
+    val int = 1
+    val double = 1.0
+    val float = 1.0f
+    val fontSize = 1.rem
+    
     println("Neat!")
 }
 ```
