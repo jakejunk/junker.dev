@@ -73,7 +73,12 @@ private suspend fun ApplicationCall.errorPage(errorPage: Page.Error) {
 
 private fun collectNoteMetadata(): List<MarkdownMetadata> {
     val parentDir = "/notes"
-    val notes = listOf("keyframes-in-kotlin-css", "test-note")
+    val notes =
+        listOf(
+            "foit-and-kintsugi",
+            "keyframes-in-kotlin-css",
+            "test-note"
+        )
         .map { "$parentDir/$it" }
         .map { it to loadResourceText("$it.md") }
         .map { (noteName, noteText) -> parseMetadata(noteName, noteText ?: "").first }
