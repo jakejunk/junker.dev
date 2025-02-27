@@ -13,7 +13,7 @@ data object AboutPage : Page.Content {
     override val content: FlowContent.() -> Unit = {
         section {
             h2 { +"About me" }
-            rightFloatImage("Headshot of Jake", "/assets/images/500x500_headshot.jpg")
+            rightFloatImage("Headshot of Jake", "/assets/images/500x500_headshot.jpg", "Jake")
             p {
                 +"I think computers are pretty neat."
             }
