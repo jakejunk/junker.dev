@@ -6,9 +6,9 @@ creationDate: 2025-2-27
 
 # The Flash Of Invisible Text, and Kintsugi
 
-Using local fonts feel like something that should be easy.
+Using local fonts feels like something that should be easy.
 And it is, to an extent.
-Just host the font on the server,
+Just host the font,
 write the needed [`@font-face`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) rule,
 and then take in the beauty of that revamped section header.
 But wait, I think I saw something...
@@ -32,10 +32,10 @@ provides the loading "fallback strategy"
 Using `swap` at least downgrades our issue into the
 [flash of unstyled text](https://fonts.google.com/knowledge/glossary/fout).
 - [`size-adjust`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust)
-works great with `font-display: swap` by adjusting the scale of its parent `@font-face`,
+works great with `font-display: swap` by scaling its parent `@font-face`,
 making the swap less visually jarring.
 - [`preload`](https://web.dev/articles/preload-critical-assets)!
-Skip the "wait for the stylesheet to download" step and get that font ready for action.
+Skip the "wait for the stylesheet to download" step and load the font right away.
 - [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
 HTTP headers can be used to tell the browser to cache the font for a bit.
 I haven't actually implemented this yet, but I should.
@@ -47,7 +47,7 @@ Not bad, but where's the _**touch**_?
 
 ## Embracing imperfection
 
-Time to start thinking from a different perspective.
+Time to shift perspective.
 [Kintsugi](https://en.wikipedia.org/wiki/Kintsugi) shows us that
 beauty can be found in imperfection,
 so maybe it's worth considering that my goal shouldn't be to eliminate "download time" entirely;
@@ -101,6 +101,6 @@ Now, section headers avoid text flashing _with style_.
 
 ...
 
-- _Confession: I always Google "em dash" when I want to use one.
-Like seriously what on earth is `Alt + 0151`, Windows._
+- _Confession: I always Google "em dash" when I want to use one—seriously
+what on earth is `Alt + 0151`, Windows._
 - _If your neon sign is **actually** flickering, it might be broken._
