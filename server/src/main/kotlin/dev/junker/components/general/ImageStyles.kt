@@ -8,6 +8,27 @@ import kotlinx.css.properties.rotateZ
 import kotlinx.css.properties.transform
 
 fun CssBuilder.imageStyles() {
+    imageBanner.selector {
+        border = light2pxBorder
+        borderLeftStyle = BorderStyle.none
+        borderRightStyle = BorderStyle.none
+        margin = Margin(
+            top = 0.px,
+            right = (-1).rem,
+            bottom = 2.rem,
+            left = (-1).rem
+        )
+        display = Display.block
+        paddingTop = 8.px
+        paddingBottom = 8.px
+        position = Position.relative
+
+        img {
+            display = Display.block
+            width = 100.pct
+        }
+    }
+
     imageRight.selector {
         border = light2pxBorder
         borderRadius = cornerRadiusRounder
@@ -19,14 +40,16 @@ fun CssBuilder.imageStyles() {
         width = 200.px
         zIndex = -1
 
-        after {
-            pixelFont()
-            transform { rotateZ(15.deg) }
-            content = "Jake".quoted
-            position = Position.absolute
-            whiteSpace = WhiteSpace.nowrap
-            top = (-14).px
-            right = (-10).px
+        "&[data-exclamation]" {
+            after {
+                pixelFont()
+                transform { rotateZ(15.deg) }
+                property("content", "attr(data-exclamation)")
+                position = Position.absolute
+                whiteSpace = WhiteSpace.nowrap
+                top = (-14).px
+                right = (-10).px
+            }
         }
     }
 
@@ -37,6 +60,25 @@ fun CssBuilder.imageStyles() {
 }
 
 fun CssBuilder.imageTabletStyles() {
+    imageBanner.selector {
+        borderLeftStyle = BorderStyle.solid
+        borderRadius = cornerRadiusRounder
+        borderRightStyle = BorderStyle.solid
+        display = Display.block
+        margin = Margin(
+            top = 0.px,
+            right = LinearDimension.auto,
+            bottom = 3.rem,
+            left = LinearDimension.auto
+        )
+        paddingLeft = 8.px
+        paddingRight = 8.px
+
+        img {
+            borderRadius = cornerRadius
+        }
+    }
+
     imageRight.selector {
         float = Float.right
         height = 256.px

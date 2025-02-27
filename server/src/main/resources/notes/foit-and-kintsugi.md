@@ -1,16 +1,10 @@
 ---
 title: The Flash Of Invisible Text, and Kintsugi
-description: Issue, or inspiration?
-creationDate: TODO
+description: Download time; issue, or source of inspiration?
+creationDate: 2025-2-27
 ---
 
 # The Flash Of Invisible Text, and Kintsugi
-
-Look at that section header ☝🏼!
-
-![Wow!](https://tenor.com/tZXzxAjRGED.gif "Wow!")
-
-## Late to the party
 
 Using local fonts feel like something that should be easy.
 And it is, to an extent.
@@ -20,8 +14,12 @@ and then take in the beauty of that revamped section header.
 But wait, I think I saw something...
 
 Well, more accurately, I didn't see anything.
-The page loaded, I didn't see a header, and then—BAM—there it is.
+The page loaded with no header in sight, and then—BAM—there it is.
 It's that darn [flash of invisible text](https://fonts.google.com/knowledge/glossary/foit).
+
+...
+
+![GAME ON](/assets/images/game-on.jpg "Photo by 8 verthing on Unsplash")
 
 ## Download speed, a law of nature
 
@@ -34,33 +32,34 @@ provides the loading "fallback strategy"
 Using `swap` at least downgrades our issue into the
 [flash of unstyled text](https://fonts.google.com/knowledge/glossary/fout).
 - [`size-adjust`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust)
-works great with `font-display: swap`,
-by adjusting the scale of its parent `@font-face`, making the swap less visually jarring.
+works great with `font-display: swap` by adjusting the scale of its parent `@font-face`,
+making the swap less visually jarring.
 - [`preload`](https://web.dev/articles/preload-critical-assets)!
 Skip the "wait for the stylesheet to download" step and get that font ready for action.
-- [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control):
+- [`Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+HTTP headers can be used to tell the browser to cache the font for a bit.
 I haven't actually implemented this yet, but I should.
 
-Sweet! One massive step in the right direction.
+Sweet! Using these tools addresses the loading delay—but
+something about it feels, I don't know, sterile.
+The text just shows up quicker and smoother than before.
+Not bad, but where's the _**touch**_?
 
 ## Embracing imperfection
 
-The loading delay has been addressed, great;
-but something about it feels, I don't know, sterile.
-After all this work, the text just shows up quicker and smoother than before.
-Not bad, but where's the _**touch**_?
+Time to start thinking from a different perspective.
+[Kintsugi](https://en.wikipedia.org/wiki/Kintsugi) shows us that
+beauty can be found in imperfection,
+so maybe it's worth considering that my goal shouldn't be to eliminate "download time" entirely;
+perhaps it's an idea worth playing with.
 
-According to [kintsugi](https://en.wikipedia.org/wiki/Kintsugi),
-beauty can be found in brokenness and imperfection.
-While I'm not exactly repairing ceramic with gold,
-it's worth considering that maybe my goal shouldn't be to completely eliminate "download time";
-perhaps it's an idea worth highlighting and playing with.
+_Can I fix text flashing while still conveying "latency"?_
 
-
-Taking inspiration from traditional neon signs,
-we can tweak the opacity to mimic a flicker effect.
-Combine this with a slight animation delay to mask the effects of loading,
-and we're cooking with gas now.
+Increasing the opacity after a delay would mask any loading...
+just make sure that text doesn't pop in.
+Additionally, I can take inspiration from neon signs and use `cubic-bezier` to create a subtle "flicker" effect.
+This builds a fun bridge between the idea of "warming up" neon gas and
+"downloading" the required font file:
 
 ```css
 @keyframes flickerIn {
@@ -96,7 +95,12 @@ h2 {
 }
 ```
 
+Now, section headers avoid text flashing _with style_.
+
 ### Wow!
 
-_Confession: I always Google "em dash" when I want to use one.
+...
+
+- _Confession: I always Google "em dash" when I want to use one.
 Like seriously what on earth is `Alt + 0151`, Windows._
+- _If your neon sign is **actually** flickering, it might be broken._

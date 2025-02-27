@@ -1,6 +1,7 @@
 package dev.junker.markdown
 
 import dev.junker.classSelector
+import dev.junker.components.general.imageBanner
 import kotlinx.html.*
 import org.intellij.markdown.MarkdownElementTypes
 import org.intellij.markdown.MarkdownTokenTypes
@@ -119,17 +120,41 @@ private fun FlowContent.renderMarkdown(
                 }
             }
         }
+        MarkdownElementTypes.IMAGE -> {
+            span (classes = imageBanner.className) {
+                img {
+                    node.children
+                        .filter { it.type != MarkdownTokenTypes.EXCLAMATION_MARK }
+                        .let { renderChildNodes(it, markdown, eolMode) }
+                }
+            }
+        }
         MarkdownElementTypes.INLINE_LINK -> {
             val href = node.children
                 .find { it.type == MarkdownElementTypes.LINK_DESTINATION }
-                ?.getTextInNode(markdown)
-                ?.toString() ?: "#"
-
-            node.children
+                ?.getTextInNode(markdown)?.toString() ?: "#"
+            val text = node.children
                 .find { it.type == MarkdownElementTypes.LINK_TEXT }
-                ?.also {
-                    a(href = href) { renderChildNodes(it, markdown) }
+            val titleText = node.children
+                .find { it.type == MarkdownElementTypes.LINK_TITLE }
+                ?.getTextInNode(markdown)?.toString()
+
+            if (this is IMG) {
+                src = href
+                alt = text?.getTextInNode(markdown)?.toString() ?: ""
+                if (titleText != null) {
+                    title = titleText
                 }
+            } else {
+                text?.also {
+                    a(href = href) {
+                        if (titleText != null) {
+                            title = titleText
+                        }
+                        renderChildNodes(it, markdown)
+                    }
+                }
+            }
         }
         // No need to support code blocks, only fences
         MarkdownElementTypes.CODE_FENCE -> {
@@ -162,7 +187,11 @@ private fun FlowContent.renderMarkdown(
         // Render auto-links as text
         GFMTokenTypes.GFM_AUTOLINK,
         MarkdownTokenTypes.TEXT -> {
-            +node.getTextInNode(markdown).trim().toString()
+            val nodeText = node.getTextInNode(markdown).trim().toString()
+            when (nodeText) {
+                "..." -> hr {  }
+                else -> +nodeText
+            }
         }
         MarkdownTokenTypes.EOL -> {
             when (eolMode) {

@@ -68,7 +68,7 @@ fun CssBuilder.generalStyles() {
         height = 1.px
         width = 128.px
         margin = Margin(
-            vertical = 2.rem,
+            vertical = 3.rem,
             horizontal = LinearDimension.auto
         )
     }
