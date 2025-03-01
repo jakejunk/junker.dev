@@ -137,28 +137,59 @@ private fun CssBuilder.sudokuControlStyles() {
         monospaceFont(fontWeight = FontWeight.bold, fontSize = 32.px)
         backgroundImage = radialGradient {
             circle()
-            at(RelativePosition.center)
-            colorStop(hex(0xDDD))
-            colorStop(hex(0xAAA))
+            at(RelativePosition.offset(65.pct, 45.pct))
+            colorStop(hex(0xE0E0E0))
+            colorStop(hex(0xB0B0B0))
         }
         border = Border.none
         borderRadius = 50.pct
-        boxShadow += BoxShadowInset(color = hex(0xFFF).withAlpha(0.6), offsetX = (-2).px, blurRadius = 3.px)
-        boxShadow += BoxShadowInset(color = hex(0x000).withAlpha(0.3), offsetX = 3.px, blurRadius = 5.px)
-        boxShadow += BoxShadow(color = hex(0x000).withAlpha(0.4), offsetX = (-2).px, blurRadius = 4.px)
-        color = hex(0x222)
+        boxShadow += BoxShadowInset(
+            color = hex(0xFFF).withAlpha(0.5),
+            offsetY = 1.px,
+            blurRadius = 2.px
+        )
+        boxShadow += BoxShadowInset(
+            color = hex(0x000).withAlpha(0.3),
+            offsetY = (-1).px,
+            blurRadius = 2.px
+        )
+        boxShadow += BoxShadow(
+            color = hex(0x000).withAlpha(0.4),
+            offsetX = (-1).px,
+            offsetY = 1.px,
+            blurRadius = 2.px
+        )
+        color = hex(0x333)
         cursor = Cursor.pointer
         height = 64.px
-        textShadow += TextShadow(
-            color = hex(0xFFF).withAlpha(0.6),
-            offsetX = (-1).px,
-            blurRadius = 2.px,
-            spreadRadius = LinearDimension(" ")
-        )
+        position = Position.relative
+        transition += Transition("transform", duration = 0.1.s, timing = Timing.ease)
+        transition += Transition("box-shadow", duration = 0.1.s, timing = Timing.ease)
         width = 64.px
 
+        before {
+            backgroundImage = radialGradient {
+                ellipse()
+                at(RelativePosition.center)
+                colorStop(hex(0xFFF).withAlpha(0.4))
+                colorStop(Color.transparent)
+            }
+            borderRadius = 50.pct
+            height = 20.pct
+            left = 55.pct
+            position = Position.absolute
+            top = 15.pct
+            width = 40.pct
+        }
+
         active {
-            filter = "brightness(0.75)"
+            transform { translateY(2.px) }
+            boxShadow += BoxShadowInset(
+                color = hex(0x000).withAlpha(0.6),
+                offsetX = 1.px,
+                offsetY = 1.px,
+                blurRadius = 3.px
+            )
         }
     }
 }
