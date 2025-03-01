@@ -3,7 +3,6 @@ package dev.junker.pages
 import dev.junker.components.site
 import dev.junker.components.siteStyles
 import dev.junker.markdown.MarkdownMetadata
-import dev.junker.util.loadResourceText
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -47,13 +46,36 @@ fun Routing.routes(metaData: List<MarkdownMetadata>) {
         route("/{note-name}") {
             get {
                 val noteName = call.pathParameters["note-name"]!!
-                val noteNameFq = "${NotesPage.ROOT_SLUG}/$noteName"
 
-                when (val markdownText = loadResourceText("${noteNameFq}.md")) {
+                when (val notePage = notePage(noteName)) {
                     null -> call.respondRedirect(NotesPage.ROOT_SLUG, permanent = false)
                     else -> {
                         call.respondHtml {
-                            site(notesPage(noteNameFq, markdownText))
+                            site(notePage)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    route(ProjectsPage.ROOT_SLUG) {
+        get {
+            val index = ProjectsPage.Index()
+            call.respondHtml {
+                site(index)
+            }
+        }
+
+        route("/{project-name}") {
+            get {
+                val projectName = call.pathParameters["project-name"]!!
+
+                when (val projectPage = projectPage(projectName)) {
+                    null -> call.respondRedirect(ProjectsPage.ROOT_SLUG, permanent = false)
+                    else -> {
+                        call.respondHtml {
+                            site(projectPage)
                         }
                     }
                 }

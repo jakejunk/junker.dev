@@ -16,7 +16,7 @@ fun CssBuilder.linkStyles() {
         secondaryTextGlow()
         alignSelf = Align.center
         backgroundColor = SiteColor.BackgroundMedium.color
-        border = light2pxBorder
+        border = light2pxBorder()
         borderTopStyle = BorderStyle.none
         borderBottomLeftRadius = cornerRadius
         borderBottomRightRadius = cornerRadius

@@ -33,7 +33,7 @@ fun CssBuilder.drawerStyles() {
         flexColumn()
         property("willChange", "transform")
         backgroundColor = SiteColor.BackgroundMedium.color
-        borderTop = light2pxBorder
+        borderTop = light2pxBorder()
         bottom = 0.px
         pointerEvents = PointerEvents.auto
         position = Position.fixed
@@ -88,7 +88,7 @@ fun CssBuilder.drawerTabletStyles() {
 
     drawer.selector {
         borderTop = Border.none
-        borderBottom = light2pxBorder
+        borderBottom = light2pxBorder()
         alignItems = Align.center
         position = Position.static
         height = 100.pct

@@ -1,10 +1,7 @@
 package dev.junker.components.drawer
 
-import dev.junker.pages.AboutPage
-import dev.junker.pages.HomePage
-import dev.junker.pages.NotesPage
-import dev.junker.pages.Page
 import dev.junker.classSelector
+import dev.junker.pages.*
 import kotlinx.html.*
 
 val mainHeader = "main-header".classSelector()
@@ -31,7 +28,7 @@ private fun HEADER.siteLogo(page: Page) {
 }
 
 private fun NAV.navLinks(currentPage: Page) {
-    listOf(NotesPage.ROOT_SLUG, AboutPage.slug).map { slug ->
+    listOf(ProjectsPage.ROOT_SLUG, NotesPage.ROOT_SLUG, AboutPage.slug).map { slug ->
         val navLinkClasses = when {
             currentPage is Page.Content && currentPage.slug.startsWith(slug) ->
                 "${navLink.className} ${selected.className}"

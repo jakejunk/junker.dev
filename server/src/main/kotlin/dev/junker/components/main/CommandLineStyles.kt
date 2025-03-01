@@ -10,7 +10,7 @@ fun CssBuilder.commandLineStyles() {
         alignItems = Align.center
         // TODO: Frosted glass blurs everything
         backgroundColor = SiteColor.BackgroundDark.color.changeAlpha(0.33)
-        border = light2pxBorder
+        border = light2pxBorder()
         borderRadius = cornerRadius
         margin = Margin(1.rem)
         overflowX = Overflow.auto

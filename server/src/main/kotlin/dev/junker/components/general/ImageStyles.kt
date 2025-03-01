@@ -9,7 +9,7 @@ import kotlinx.css.properties.transform
 
 fun CssBuilder.imageStyles() {
     imageBanner.selector {
-        border = light2pxBorder
+        border = light2pxBorder()
         borderLeftStyle = BorderStyle.none
         borderRightStyle = BorderStyle.none
         margin = Margin(
@@ -30,7 +30,7 @@ fun CssBuilder.imageStyles() {
     }
 
     imageRight.selector {
-        border = light2pxBorder
+        border = light2pxBorder()
         borderRadius = cornerRadiusRounder
         display = Display.block
         height = 200.px
