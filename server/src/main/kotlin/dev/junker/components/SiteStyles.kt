@@ -13,6 +13,8 @@ import dev.junker.components.main.commandLineStyles
 import dev.junker.components.main.commandLineTabletStyles
 import dev.junker.components.main.mainContentStyles
 import dev.junker.components.main.mainContentTabletStyles
+import dev.junker.components.sudoku.sudokuStyles
+import dev.junker.components.sudoku.sudokuTabletStyles
 import dev.junker.components.tagline.taglineStyles
 import dev.junker.components.tagline.taglineTabletStyles
 import kotlinx.css.*
@@ -53,6 +55,7 @@ fun CssBuilder.siteStyles() {
     asciiBannerStyles()
     taglineStyles()
     codeStyles()
+    sudokuStyles()
 
     // Make sure to render all query-dependent styles last.
     // CSS DSL tries to get clever and combine things, changing around order.
@@ -66,5 +69,6 @@ fun CssBuilder.siteStyles() {
         asciiBannerTabletStyles()
         taglineTabletStyles()
         codeTabletStyles()
+        sudokuTabletStyles()
     }
 }

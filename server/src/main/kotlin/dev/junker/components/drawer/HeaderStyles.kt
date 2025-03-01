@@ -67,7 +67,7 @@ fun CssBuilder.headerStyles() {
     navLink.selector {
         textWithShadow(SiteColor.PrimaryText.color, "none")
         backgroundColor = SiteColor.BackgroundMedium.color
-        border = light2pxBorder
+        border = light2pxBorder()
         borderRadius = cornerRadius
         padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         textDecoration = TextDecoration.none

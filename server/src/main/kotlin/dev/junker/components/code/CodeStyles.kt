@@ -26,8 +26,8 @@ fun CssBuilder.codeStyles() {
         overflowX = Overflow.auto
 
         code {
-            frostedGlass(SiteColor.BackgroundLight, 0.0)
-            border = light2pxBorder
+            frostedGlass(SiteColor.BackgroundLight.color, 0.0)
+            border = light2pxBorder()
             borderLeftStyle = BorderStyle.none
             borderRadius = 0.px
             borderRightStyle = BorderStyle.none

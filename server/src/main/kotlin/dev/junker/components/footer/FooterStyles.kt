@@ -8,7 +8,7 @@ import kotlinx.css.properties.BoxShadow
 
 fun CssBuilder.footerStyles() {
     mainFooter.selector {
-        borderTop = light2pxBorder
+        borderTop = light2pxBorder()
         display = Display.flex
         justifyContent = JustifyContent.center
         paddingBottom = 3.rem + drawerButtonHeight

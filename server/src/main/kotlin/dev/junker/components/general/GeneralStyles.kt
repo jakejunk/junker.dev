@@ -1,8 +1,6 @@
 package dev.junker.components.general
 
 import dev.junker.components.SiteColor
-import dev.junker.components.code.codeStyles
-import dev.junker.components.code.codeTabletStyles
 import dev.junker.markdown.exclamation
 import kotlinx.css.*
 import kotlinx.css.properties.*
@@ -116,9 +114,16 @@ fun CssBuilder.generalTabletStyles() {
 
 // ====================================================================================================================
 
-val light2pxBorder = Border(2.px, BorderStyle.solid, SiteColor.BackgroundLight.color)
 val cornerRadius = 9.px
 val cornerRadiusRounder = 16.px
+
+fun light2pxBorder(): Border {
+    return lightBorder(2.px)
+}
+
+fun lightBorder(width: LinearDimension): Border {
+    return Border(width, BorderStyle.solid, SiteColor.BackgroundLight.color)
+}
 
 fun CssBuilder.tabletOrLarger(block: RuleSet) = media("(min-width: 768px)", block)
 
@@ -180,11 +185,14 @@ fun StyledElement.textWithShadow(textColor: Color, value: String) {
 }
 
 fun StyledElement.frostedGlass(
-    siteColor: SiteColor = SiteColor.BackgroundDark,
+    color: Color = SiteColor.BackgroundDark.color,
     alpha: Double = 0.33
 ) {
     backdropFilter = "blur(16px)"
-    backgroundColor = siteColor.color.changeAlpha(alpha)
+    backgroundColor = when (color) {
+        Color.transparent -> color
+        else -> color.changeAlpha(alpha)
+    }
 }
 
 fun StyledElement.property(name: String, value: String) {

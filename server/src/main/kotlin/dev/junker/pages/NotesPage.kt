@@ -3,6 +3,7 @@ package dev.junker.pages
 import dev.junker.markdown.MarkdownMetadata
 import dev.junker.markdown.markdownDocument
 import dev.junker.markdown.parseMetadata
+import dev.junker.util.loadResourceText
 import kotlinx.html.FlowContent
 import kotlinx.html.a
 import kotlinx.html.article
@@ -40,12 +41,15 @@ sealed interface NotesPage : Page.Content {
     ) : NotesPage
 }
 
-fun notesPage(slug: String, markdownText: String): NotesPage {
-    val (metadata, remainingMarkdown) = parseMetadata(slug, markdownText)
+fun notePage(noteName: String): NotesPage? {
+    val noteNameFq = "${NotesPage.ROOT_SLUG}/$noteName"
+    val markdownText = loadResourceText("${noteNameFq}.md") ?: return null
+
+    val (metadata, remainingMarkdown) = parseMetadata(noteNameFq, markdownText)
     val document = markdownDocument(metadata, remainingMarkdown)
 
     return NotesPage.FromFile(
-        slug = slug,
+        slug = noteNameFq,
         title = metadata.title ?: "untitled",
         description = metadata.description ?: "undefined",
         content = document.content
