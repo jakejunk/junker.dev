@@ -21,6 +21,7 @@ private fun CssBuilder.sudokuGridStyles() {
         display = Display.flex
         flexDirection = FlexDirection.row
         flexWrap = FlexWrap.wrap
+        gap = 4.ch
         justifyContent = JustifyContent.center
     }
 
@@ -33,6 +34,8 @@ private fun CssBuilder.sudokuGridStyles() {
         flexBasis = 100.pct.basis
         flexGrow = 1
         marginBottom = 4.ch
+        marginLeft = (-1).rem
+        marginRight = (-1).rem
         maxWidth = 576.px
     }
 
@@ -43,6 +46,7 @@ private fun CssBuilder.sudokuGridStyles() {
 
     sudokuCell.selector {
         border = lightBorder(1.px)
+        containerType = ContainerType.size
         position = Position.relative
 
         "&${sudokuSelected.selector}" {
@@ -99,12 +103,11 @@ private fun CssBuilder.sudokuGridStyles() {
     }
 
     sudokuCellValue.selector {
-        fontSize = 2.5.rem
+        fontSize = clamp(5.px, NumericLinearDimension(100, "cqi"), 2.5.rem)
         height = 100.pct
-        lineHeight = 150.pct.lh
+        lineHeight = NumericLinearDimension(100, "cqh").lh
         position = Position.absolute
         textAlign = TextAlign.center
-        top = 0.px
         width = 100.pct
 
         after {
@@ -112,7 +115,7 @@ private fun CssBuilder.sudokuGridStyles() {
         }
 
         hover {
-            backgroundColor = SiteColor.BackgroundDarkish.color
+            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
         }
     }
 }
@@ -124,7 +127,6 @@ private fun CssBuilder.sudokuControlStyles() {
         border = light2pxBorder()
         borderRadius = cornerRadius
         height = LinearDimension.fitContent
-        margin = Margin(horizontal = 4.ch)
         padding = Padding(1.rem)
     }
 
@@ -191,6 +193,12 @@ private fun CssBuilder.sudokuControlStyles() {
                 blurRadius = 3.px
             )
         }
+
+        focusVisible {
+            outlineColor = SiteColor.SubtleText.color
+            outlineStyle = OutlineStyle.solid
+            outlineWidth = 5.px
+        }
     }
 }
 
@@ -206,5 +214,8 @@ private fun CssBuilder.grid3x3(gap: LinearDimension? = null) {
 // ====================================================================================================================
 
 fun CssBuilder.sudokuTabletStyles() {
-
+    sudokuGrid.selector {
+        marginLeft = 0.px
+        marginRight = 0.px
+    }
 }
