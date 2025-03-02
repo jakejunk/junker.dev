@@ -19,9 +19,6 @@ data class MarkdownDocument(
 )
 
 fun markdownDocument(metadata: MarkdownMetadata, markdown: String): MarkdownDocument {
-    val flavor = GFMFlavourDescriptor()
-    val parsedTree = MarkdownParser(flavor).buildMarkdownTreeFromString(markdown)
-
     return MarkdownDocument(
         content = {
             em {
@@ -40,9 +37,16 @@ fun markdownDocument(metadata: MarkdownMetadata, markdown: String): MarkdownDocu
                 }
             }
 
-            renderMarkdown(parsedTree, markdown)
+            renderMarkdown(markdown)
         }
     )
+}
+
+fun FlowContent.renderMarkdown(markdown: String) {
+    val flavor = GFMFlavourDescriptor()
+    val parser = MarkdownParser(flavor)
+    val parsedTree = parser.buildMarkdownTreeFromString(markdown)
+    renderMarkdown(parsedTree, markdown)
 }
 
 // ====================================================================================================================
@@ -187,7 +191,10 @@ private fun FlowContent.renderMarkdown(
         // Render auto-links as text
         GFMTokenTypes.GFM_AUTOLINK,
         MarkdownTokenTypes.TEXT -> {
-            val nodeText = node.getTextInNode(markdown).trim().toString()
+            val nodeText = node
+                .getTextInNode(markdown)
+                .trim().toString()
+
             when (nodeText) {
                 "..." -> hr {  }
                 else -> +nodeText

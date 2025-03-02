@@ -21,6 +21,7 @@ private fun CssBuilder.sudokuGridStyles() {
         display = Display.flex
         flexDirection = FlexDirection.row
         flexWrap = FlexWrap.wrap
+        gap = 4.ch
         justifyContent = JustifyContent.center
     }
 
@@ -33,6 +34,8 @@ private fun CssBuilder.sudokuGridStyles() {
         flexBasis = 100.pct.basis
         flexGrow = 1
         marginBottom = 4.ch
+        marginLeft = (-1).rem
+        marginRight = (-1).rem
         maxWidth = 576.px
     }
 
@@ -43,6 +46,7 @@ private fun CssBuilder.sudokuGridStyles() {
 
     sudokuCell.selector {
         border = lightBorder(1.px)
+        containerType = ContainerType.size
         position = Position.relative
 
         "&${sudokuSelected.selector}" {
@@ -99,12 +103,11 @@ private fun CssBuilder.sudokuGridStyles() {
     }
 
     sudokuCellValue.selector {
-        fontSize = 2.5.rem
+        fontSize = clamp(5.px, NumericLinearDimension(100, "cqi"), 2.5.rem)
         height = 100.pct
-        lineHeight = 150.pct.lh
+        lineHeight = NumericLinearDimension(100, "cqh").lh
         position = Position.absolute
         textAlign = TextAlign.center
-        top = 0.px
         width = 100.pct
 
         after {
@@ -112,7 +115,7 @@ private fun CssBuilder.sudokuGridStyles() {
         }
 
         hover {
-            backgroundColor = SiteColor.BackgroundDarkish.color
+            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
         }
     }
 }
@@ -124,7 +127,6 @@ private fun CssBuilder.sudokuControlStyles() {
         border = light2pxBorder()
         borderRadius = cornerRadius
         height = LinearDimension.fitContent
-        margin = Margin(horizontal = 4.ch)
         padding = Padding(1.rem)
     }
 
@@ -137,28 +139,65 @@ private fun CssBuilder.sudokuControlStyles() {
         monospaceFont(fontWeight = FontWeight.bold, fontSize = 32.px)
         backgroundImage = radialGradient {
             circle()
-            at(RelativePosition.center)
-            colorStop(hex(0xDDD))
-            colorStop(hex(0xAAA))
+            at(RelativePosition.offset(65.pct, 45.pct))
+            colorStop(hex(0xE0E0E0))
+            colorStop(hex(0xB0B0B0))
         }
         border = Border.none
         borderRadius = 50.pct
-        boxShadow += BoxShadowInset(color = hex(0xFFF).withAlpha(0.6), offsetX = (-2).px, blurRadius = 3.px)
-        boxShadow += BoxShadowInset(color = hex(0x000).withAlpha(0.3), offsetX = 3.px, blurRadius = 5.px)
-        boxShadow += BoxShadow(color = hex(0x000).withAlpha(0.4), offsetX = (-2).px, blurRadius = 4.px)
-        color = hex(0x222)
+        boxShadow += BoxShadowInset(
+            color = hex(0xFFF).withAlpha(0.5),
+            offsetY = 1.px,
+            blurRadius = 2.px
+        )
+        boxShadow += BoxShadowInset(
+            color = hex(0x000).withAlpha(0.3),
+            offsetY = (-1).px,
+            blurRadius = 2.px
+        )
+        boxShadow += BoxShadow(
+            color = hex(0x000).withAlpha(0.4),
+            offsetX = (-1).px,
+            offsetY = 1.px,
+            blurRadius = 2.px
+        )
+        color = hex(0x333)
         cursor = Cursor.pointer
         height = 64.px
-        textShadow += TextShadow(
-            color = hex(0xFFF).withAlpha(0.6),
-            offsetX = (-1).px,
-            blurRadius = 2.px,
-            spreadRadius = LinearDimension(" ")
-        )
+        position = Position.relative
+        transition += Transition("transform", duration = 0.1.s, timing = Timing.ease)
+        transition += Transition("box-shadow", duration = 0.1.s, timing = Timing.ease)
         width = 64.px
 
+        before {
+            backgroundImage = radialGradient {
+                ellipse()
+                at(RelativePosition.center)
+                colorStop(hex(0xFFF).withAlpha(0.4))
+                colorStop(Color.transparent)
+            }
+            borderRadius = 50.pct
+            height = 20.pct
+            left = 55.pct
+            position = Position.absolute
+            top = 15.pct
+            width = 40.pct
+        }
+
         active {
-            filter = "brightness(0.75)"
+            transform { translateY(2.px) }
+            boxShadow += BoxShadowInset(
+                color = hex(0x000).withAlpha(0.6),
+                offsetX = 1.px,
+                offsetY = 1.px,
+                blurRadius = 3.px
+            )
+        }
+
+        focusVisible {
+            outlineColor = SiteColor.SubtleText.color
+            outlineStyle = OutlineStyle.solid
+            outlineWidth = 5.px
         }
     }
 }
@@ -175,5 +214,8 @@ private fun CssBuilder.grid3x3(gap: LinearDimension? = null) {
 // ====================================================================================================================
 
 fun CssBuilder.sudokuTabletStyles() {
-
+    sudokuGrid.selector {
+        marginLeft = 0.px
+        marginRight = 0.px
+    }
 }
