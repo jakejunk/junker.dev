@@ -12,6 +12,7 @@ import kotlinx.html.js.button
 import kotlinx.html.js.div
 import kotlinx.html.js.input
 import kotlinx.html.js.label
+import kotlinx.html.span
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
@@ -57,7 +58,7 @@ class SudokuControlsView private constructor(
                         button(classes = sudokuPossibleValue.className) {
                             val v = value.toString()
                             attributes["data-value"] = v
-                            +v
+                            span { +v }
                         }
                     }
                 }
