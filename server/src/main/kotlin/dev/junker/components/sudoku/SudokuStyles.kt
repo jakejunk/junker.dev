@@ -12,17 +12,15 @@ fun CssBuilder.sudokuStyles() {
 }
 
 private fun CssBuilder.sudokuGridStyles() {
-    sudokuContainer.selector {
-        flexColumn()
-        margin = Margin(32.px, LinearDimension.auto)
-    }
-
     sudoku.selector {
         display = Display.flex
+        columnGap = 32.px
+        containerType = ContainerType.inlineSize
         flexDirection = FlexDirection.row
         flexWrap = FlexWrap.wrap
-        gap = 4.ch
         justifyContent = JustifyContent.center
+        marginBottom = 4.ch
+        rowGap = 16.px
     }
 
     sudokuGrid.selector {
@@ -33,7 +31,6 @@ private fun CssBuilder.sudokuGridStyles() {
         border = lightBorder(3.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
-        marginBottom = 4.ch
         marginLeft = (-1).rem
         marginRight = (-1).rem
         maxWidth = 576.px
@@ -103,7 +100,7 @@ private fun CssBuilder.sudokuGridStyles() {
     }
 
     sudokuCellValue.selector {
-        fontSize = clamp(5.px, NumericLinearDimension(100, "cqi"), 2.5.rem)
+        fontSize = clamp(5.px, NumericLinearDimension(90, "cqi"), 2.5.rem)
         height = 100.pct
         lineHeight = NumericLinearDimension(100, "cqh").lh
         position = Position.absolute
@@ -128,6 +125,7 @@ private fun CssBuilder.sudokuControlStyles() {
         borderRadius = cornerRadius
         height = LinearDimension.fitContent
         padding = Padding(1.rem)
+        width = 256.px
     }
 
     sudokuNumpad.selector {
@@ -135,8 +133,20 @@ private fun CssBuilder.sudokuControlStyles() {
         marginBottom = 1.rem
     }
 
+    container("(max-width: ${576 + 256 + 32 - 1}.9px)") {
+        sudokuControls.selector {
+            width = 576.px
+        }
+
+        sudokuNumpad.selector {
+            display = Display.flex
+        }
+    }
+
     sudokuPossibleValue.selector {
         monospaceFont(fontWeight = FontWeight.bold, fontSize = 32.px)
+        property("-webkit-tap-highlight-color", "transparent")
+        aspectRatio = AspectRatio(1, 1)
         backgroundImage = radialGradient {
             circle()
             at(RelativePosition.offset(65.pct, 45.pct))
@@ -163,11 +173,10 @@ private fun CssBuilder.sudokuControlStyles() {
         )
         color = hex(0x333)
         cursor = Cursor.pointer
-        height = 64.px
+        flexGrow = 1
         position = Position.relative
         transition += Transition("transform", duration = 0.1.s, timing = Timing.ease)
         transition += Transition("box-shadow", duration = 0.1.s, timing = Timing.ease)
-        width = 64.px
 
         before {
             backgroundImage = radialGradient {
