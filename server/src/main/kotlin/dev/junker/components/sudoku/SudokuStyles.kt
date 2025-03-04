@@ -19,7 +19,7 @@ private fun CssBuilder.sudokuGridStyles() {
         flexDirection = FlexDirection.row
         flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.center
-        marginBottom = 4.ch
+        margin = Margin(2.rem, (-1).rem + 5.px)
         rowGap = 16.px
     }
 
@@ -31,8 +31,6 @@ private fun CssBuilder.sudokuGridStyles() {
         border = lightBorder(3.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
-        marginLeft = (-1).rem
-        marginRight = (-1).rem
         maxWidth = 576.px
     }
 
@@ -47,7 +45,7 @@ private fun CssBuilder.sudokuGridStyles() {
         position = Position.relative
 
         "&${sudokuSelected.selector}" {
-            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
+            backgroundColor = SiteColor.BackgroundLight.color
         }
     }
 
@@ -133,18 +131,8 @@ private fun CssBuilder.sudokuControlStyles() {
         marginBottom = 1.rem
     }
 
-    container("(max-width: ${576 + 256 + 32 - 1}.9px)") {
-        sudokuControls.selector {
-            width = 576.px
-        }
-
-        sudokuNumpad.selector {
-            display = Display.flex
-        }
-    }
-
     sudokuPossibleValue.selector {
-        monospaceFont(fontWeight = FontWeight.bold, fontSize = 32.px)
+        monospaceFont(fontWeight = FontWeight.bold)
         property("-webkit-tap-highlight-color", "transparent")
         aspectRatio = AspectRatio(1, 1)
         backgroundImage = radialGradient {
@@ -172,11 +160,16 @@ private fun CssBuilder.sudokuControlStyles() {
             blurRadius = 2.px
         )
         color = hex(0x333)
+        containerType = ContainerType.inlineSize
         cursor = Cursor.pointer
         flexGrow = 1
         position = Position.relative
         transition += Transition("transform", duration = 0.1.s, timing = Timing.ease)
         transition += Transition("box-shadow", duration = 0.1.s, timing = Timing.ease)
+
+        children("span") {
+            fontSize = clamp(10.px, NumericLinearDimension(100, "cqi"), 32.px)
+        }
 
         before {
             backgroundImage = radialGradient {
@@ -209,6 +202,19 @@ private fun CssBuilder.sudokuControlStyles() {
             outlineWidth = 5.px
         }
     }
+
+    container("(max-width: ${576 + 256 + 32 - 1}.9px)") {
+        sudokuControls.selector {
+            maxWidth = 576.px
+            padding = Padding(8.px)
+            width = 100.pct
+        }
+
+        sudokuNumpad.selector {
+            display = Display.flex
+            gap = 5.px
+        }
+    }
 }
 
 private fun CssBuilder.grid3x3(gap: LinearDimension? = null) {
@@ -223,7 +229,7 @@ private fun CssBuilder.grid3x3(gap: LinearDimension? = null) {
 // ====================================================================================================================
 
 fun CssBuilder.sudokuTabletStyles() {
-    sudokuGrid.selector {
+    sudoku.selector {
         marginLeft = 0.px
         marginRight = 0.px
     }
