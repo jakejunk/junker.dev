@@ -45,7 +45,7 @@ private fun CssBuilder.sudokuGridStyles() {
         position = Position.relative
 
         "&${sudokuSelected.selector}" {
-            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
+            backgroundColor = SiteColor.BackgroundLight.color
         }
     }
 
