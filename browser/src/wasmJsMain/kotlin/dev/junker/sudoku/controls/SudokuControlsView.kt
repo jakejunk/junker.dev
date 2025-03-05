@@ -1,11 +1,8 @@
 package dev.junker.sudoku.controls
 
+import dev.junker.*
 import dev.junker.sudoku.SudokuValue
 import dev.junker.sudoku.toSudokuValue
-import dev.junker.sudokuControls
-import dev.junker.sudokuMarkingToggle
-import dev.junker.sudokuNumpad
-import dev.junker.sudokuPossibleValue
 import kotlinx.html.InputType
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.button
@@ -21,10 +18,18 @@ import org.w3c.dom.HTMLInputElement
 class SudokuControlsView private constructor(
     val root: HTMLElement,
     val possibleValues: List<HTMLButtonElement>,
-    val markingToggle: HTMLInputElement
+    val markingToggle: HTMLInputElement,
+    val preciseMarkingToggle: HTMLInputElement
 ) {
-    var onChangeMode: ((GameMode) -> Unit)? = null
     var onSetValue: ((SudokuValue) -> Unit)? = null
+    var onMarkingToggled: ((Boolean) -> Unit)? = null
+    var onPreciseMarkingToggled: ((Boolean) -> Unit)? = null
+
+    val markingEnabled: Boolean
+        get() = markingToggle.checked
+
+    val preciseMarkingEnabled: Boolean
+        get() = preciseMarkingToggle.checked
 
     init {
         possibleValues.forEach { button ->
@@ -38,12 +43,11 @@ class SudokuControlsView private constructor(
         }
 
         markingToggle.onclick = {
-            val mode = when (markingToggle.checked) {
-                true -> GameMode.MARKING
-                false -> GameMode.PLAYING
-            }
+            onMarkingToggled?.invoke(markingEnabled)
+        }
 
-            onChangeMode?.invoke(mode)
+        preciseMarkingToggle.onclick = {
+            onPreciseMarkingToggled?.invoke(preciseMarkingEnabled)
         }
     }
 
@@ -51,6 +55,7 @@ class SudokuControlsView private constructor(
         fun TagConsumer<Element>.sudokuControlsView(): SudokuControlsView {
             val buttons: List<HTMLButtonElement>
             val markingToggle: HTMLInputElement
+            val preciseMarkToggle: HTMLInputElement
             val controls = div(classes = sudokuControls.className) {
                 div(classes = sudokuNumpad.className) {
                     buttons = List(9) { i ->
@@ -63,17 +68,27 @@ class SudokuControlsView private constructor(
                     }
                 }
 
-                label {
-                    markingToggle = input(
-                        classes = sudokuMarkingToggle.className,
-                        name = "controls",
-                        type = InputType.checkBox
-                    )
-                    +"Mark mode"
+                div(classes = sudokuToggles.className) {
+                    label {
+                        markingToggle = input(
+                            classes = sudokuMarkingToggle.className,
+                            name = "controls",
+                            type = InputType.checkBox
+                        )
+                        +"Mark mode"
+                    }
+                    label {
+                        preciseMarkToggle = input(
+                            classes = sudokuPreciseMarkingToggle.className,
+                            name = "controls",
+                            type = InputType.checkBox
+                        )
+                        +"Precise marking"
+                    }
                 }
             }
 
-            return SudokuControlsView(controls, buttons, markingToggle)
+            return SudokuControlsView(controls, buttons, markingToggle, preciseMarkToggle)
         }
     }
 }

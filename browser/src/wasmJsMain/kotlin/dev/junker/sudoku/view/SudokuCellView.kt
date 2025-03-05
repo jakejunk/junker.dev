@@ -46,6 +46,10 @@ class SudokuCellView private constructor(
         }
     }
 
+    fun toggleMark(mark: SudokuValue) {
+        marks[mark]?.toggleVisibility()
+    }
+
     companion object {
         fun TagConsumer<Element>.sudokuCellView(): SudokuCellView {
             val value: HTMLElement
