@@ -50,17 +50,14 @@ private fun CssBuilder.sudokuGridStyles() {
     }
 
     sudokuCellMarks.selector {
-        property("align-content", "space-between")
-        display = Display.flex
-        flexWrap = FlexWrap.wrap
+        grid3x3()
         height = 100.pct
-        justifyContent = JustifyContent.spaceBetween
         pointerEvents = PointerEvents.none
         width = 100.pct
 
-        // When the parent container is in a "marking" state,
+        // When the parent container is in a "precise marking" state,
         // allow pointer events on the cell marks element
-        "${sudokuMarking.selector} &" {
+        "${sudokuMarking.selector}${sudokuPreciseMarking.selector} &" {
             pointerEvents = PointerEvents.unset
         }
     }
@@ -70,26 +67,24 @@ private fun CssBuilder.sudokuGridStyles() {
     }
 
     sudokuCellMark.selector {
-        fontSize = 0.85.rem
-        height = 32.5.pct
+        fontSize = min(1.rem, NumericLinearDimension(33, "cqi"))
+        lineHeight = NumericLinearDimension(33, "cqh").lh
         position = Position.relative
-        width = 32.5.pct
 
         after {
             property("content", "attr(data-value)")
             borderRadius = 50.pct
             color = Color.transparent
-            display = Display.inlineBlock
-            height = 100.pct
-            lineHeight = 1.25.rem.lh
             position = Position.absolute
             textAlign = TextAlign.center
             width = 100.pct
         }
 
-        "&:hover::after" {
-            backgroundColor = SiteColor.BackgroundLight.color
-            color = Color.unset
+        media("(pointer: fine)") {
+            "&:hover::after" {
+                backgroundColor = SiteColor.BackgroundLight.color
+                color = Color.unset
+            }
         }
 
         "&${sudokuMarked.selector}::after" {
@@ -118,17 +113,13 @@ private fun CssBuilder.sudokuGridStyles() {
 private fun CssBuilder.sudokuControlStyles() {
     sudokuControls.selector {
         flexColumn()
-        frostedGlass(Color.transparent)
-        border = light2pxBorder()
-        borderRadius = cornerRadius
+        gap = 16.px
         height = LinearDimension.fitContent
-        padding = Padding(1.rem)
         width = 256.px
     }
 
     sudokuNumpad.selector {
         grid3x3(gap = 1.ch)
-        marginBottom = 1.rem
     }
 
     sudokuPossibleValue.selector {
@@ -203,16 +194,28 @@ private fun CssBuilder.sudokuControlStyles() {
         }
     }
 
+    sudokuToggles.selector {
+        flexColumn()
+        frostedGlass(Color.transparent)
+        border = light2pxBorder()
+        borderRadius = cornerRadius
+        padding = Padding(1.rem)
+    }
+
     container("(max-width: ${576 + 256 + 32 - 1}.9px)") {
         sudokuControls.selector {
             maxWidth = 576.px
-            padding = Padding(8.px)
             width = 100.pct
         }
 
         sudokuNumpad.selector {
             display = Display.flex
             gap = 5.px
+        }
+
+        sudokuToggles.selector {
+            margin = Margin(horizontal = 1.rem - 5.px)
+            padding = Padding(8.px)
         }
     }
 }

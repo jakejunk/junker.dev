@@ -30,10 +30,13 @@ class SudokuPage(
             [container query length units](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units).
               - ~~Need better wrapping behavior for the numpad;
               not great to use on mobile currently.~~
-              - Look into better input method for marks;
-              mobile users can't be expected to precisely click individual sections of a cell.
+              - ~~Look into better input method for marks;
+              mobile users can't be expected to precisely click individual sections of a cell.~~
               - Start thinking about a basic solver.
             - 3/3: Adjusted numpad behavior when wrapping on mobile.
+            - 3/4: Adjusted mark font scaling and added a marking mode better suited for mobile.
+              - The controls UI needs some polish.
+              - Need a better warning message for browsers without proper WASM support.
         """.trimIndent())
     }
 }

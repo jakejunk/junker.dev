@@ -15,6 +15,7 @@ val sudokuCellMarks = "sudoku-cell-marks".classSelector()
 
 // States
 val sudokuMarking = "sudoku-marking".classSelector()
+val sudokuPreciseMarking = "sudoku-precise-marking".classSelector()
 val sudokuMarked = "sudoku-marked".classSelector()
 val sudokuSelected = "sudoku-selected".classSelector()
 
@@ -22,7 +23,9 @@ val sudokuSelected = "sudoku-selected".classSelector()
 val sudokuControls = "sudoku-controls".classSelector()
 val sudokuNumpad = "sudoku-numpad".classSelector()
 val sudokuPossibleValue = "sudoku-possible-value".classSelector()
+val sudokuToggles = "sudoku-toggles".classSelector()
 val sudokuMarkingToggle = "sudoku-marking-toggle".classSelector()
+val sudokuPreciseMarkingToggle = "sudoku-precise-marking-toggle".classSelector()
 
 // Syntax highlighting ========================================================
 val annotation = "annotation".classSelector()
