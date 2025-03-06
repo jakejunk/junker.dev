@@ -17,11 +17,14 @@ class SudokuView private constructor(
     val controls: SudokuControlsView
 ) {
     init {
-        controls.onSetValue = { value ->
+        controls.onSetValue = { newValue ->
             grid.activeCell?.apply {
                 when (controls.markingEnabled) {
-                    true -> toggleMark(value)
-                    false -> setValue(value)
+                    true -> toggleMark(newValue)
+                    false -> {
+                        value = newValue
+                        grid.highlightValue(newValue)
+                    }
                 }
             }
         }

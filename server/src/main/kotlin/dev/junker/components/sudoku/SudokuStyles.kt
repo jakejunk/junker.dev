@@ -44,6 +44,30 @@ private fun CssBuilder.sudokuGridStyles() {
         containerType = ContainerType.size
         position = Position.relative
 
+        before {
+            property("content", "attr(data-value)")
+            fontSize = clamp(5.px, NumericLinearDimension(90, "cqi"), 2.5.rem)
+            height = 100.pct
+            lineHeight = NumericLinearDimension(100, "cqh").lh
+            position = Position.absolute
+            textAlign = TextAlign.center
+            width = 100.pct
+        }
+
+        val highlightSelectors = List(9) { i -> i + 1 }
+            .joinToString(",") { i ->
+                // AKA: Unselected cell with `data-value=i` inside grid where `data-highlight=i`
+                "${sudokuGrid.selector}[data-highlight=\'$i\'] &[data-value='$i']:not(${sudokuSelected.selector})"
+            }
+
+        highlightSelectors {
+            backgroundColor = SiteColor.BackgroundDarkish.color
+        }
+
+        hover {
+            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
+        }
+
         "&${sudokuSelected.selector}" {
             backgroundColor = SiteColor.BackgroundLight.color
         }
@@ -62,7 +86,7 @@ private fun CssBuilder.sudokuGridStyles() {
         }
     }
 
-    "${sudokuCellValue.selector}[data-value]:not([data-value=\"\"]) + ${sudokuCellMarks.selector}" {
+    "${sudokuCell.selector}[data-value] ${sudokuCellMarks.selector}" {
         display = Display.none
     }
 
@@ -89,23 +113,6 @@ private fun CssBuilder.sudokuGridStyles() {
 
         "&${sudokuMarked.selector}::after" {
             color = Color.unset
-        }
-    }
-
-    sudokuCellValue.selector {
-        fontSize = clamp(5.px, NumericLinearDimension(90, "cqi"), 2.5.rem)
-        height = 100.pct
-        lineHeight = NumericLinearDimension(100, "cqh").lh
-        position = Position.absolute
-        textAlign = TextAlign.center
-        width = 100.pct
-
-        after {
-            property("content", "attr(data-value)")
-        }
-
-        hover {
-            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
         }
     }
 }
