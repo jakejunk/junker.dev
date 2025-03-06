@@ -1,5 +1,6 @@
 package dev.junker.sudoku.view
 
+import dev.junker.sudoku.SudokuValue
 import dev.junker.sudoku.view.SudokuBoxView.Companion.sudokuBoxView
 import dev.junker.sudokuGrid
 import kotlinx.html.TagConsumer
@@ -18,7 +19,16 @@ class SudokuGridView private constructor(
             box.onBoxCellSelected = { cell ->
                 activeCell?.unselect()
                 activeCell = cell.apply { select() }
+
+                highlightValue(cell.value)
             }
+        }
+    }
+
+    fun highlightValue(value: SudokuValue?) {
+        when (value) {
+            null -> root.removeAttribute("data-highlight")
+            else -> root.setAttribute("data-highlight", value.toString())
         }
     }
 

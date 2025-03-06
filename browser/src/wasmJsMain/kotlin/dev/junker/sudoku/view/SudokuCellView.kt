@@ -2,6 +2,7 @@ package dev.junker.sudoku.view
 
 import dev.junker.sudoku.SudokuValue
 import dev.junker.sudoku.forEachSudokuValue
+import dev.junker.sudoku.toSudokuValue
 import dev.junker.sudoku.view.SudokuCellMarkView.Companion.sudokuCellMarkView
 import dev.junker.sudokuCell
 import dev.junker.sudokuCellMarks
@@ -14,13 +15,18 @@ import org.w3c.dom.HTMLElement
 
 class SudokuCellView private constructor(
     val root: HTMLElement,
-    val value: HTMLElement,
     val marks: Map<SudokuValue, SudokuCellMarkView>
 ) {
     var onCellSelected: ((SudokuCellView) -> Unit)? = null
 
+    var value: SudokuValue?
+        get() = root.getAttribute("data-value")
+            ?.toIntOrNull()
+            ?.toSudokuValue()
+        set(value) = root.setAttribute("data-value", value.toString())
+
     init {
-        value.onclick = { onCellSelected?.invoke(this) }
+        root.onclick = { onCellSelected?.invoke(this) }
     }
 
     fun select() {
@@ -29,10 +35,6 @@ class SudokuCellView private constructor(
 
     fun unselect() {
         root.classList.remove(sudokuSelected.className)
-    }
-
-    fun setValue(newValue: SudokuValue) {
-        value.setAttribute("data-value", newValue.toString())
     }
 
     fun setMarks(visibleMarks: Set<SudokuValue>) {
@@ -52,12 +54,8 @@ class SudokuCellView private constructor(
 
     companion object {
         fun TagConsumer<Element>.sudokuCellView(): SudokuCellView {
-            val value: HTMLElement
             val marks: Map<SudokuValue, SudokuCellMarkView>
             val root = div(classes = sudokuCell.className) {
-                value = div(classes = sudokuCellValue.className) {
-                    attributes["data-value"] = ""
-                }
 
                 div(classes = sudokuCellMarks.className) {
                     marks = buildMap {
@@ -68,7 +66,7 @@ class SudokuCellView private constructor(
                 }
             }
 
-            return SudokuCellView(root, value, marks)
+            return SudokuCellView(root, marks)
         }
     }
 }

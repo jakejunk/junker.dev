@@ -37,6 +37,7 @@ class SudokuPage(
             - 3/4: Adjusted mark font scaling and added a marking mode better suited for mobile.
               - The controls UI needs some polish.
               - Need a better warning message for browsers without proper WASM support.
+            - 3/5: Highlight similar values when one is selected.
         """.trimIndent())
     }
 }
