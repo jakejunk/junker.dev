@@ -38,6 +38,8 @@ class SudokuPage(
               - The controls UI needs some polish.
               - Need a better warning message for browsers without proper WASM support.
             - 3/5: Highlight similar values when one is selected.
+            - 3/6: Highlight (bold) similar values in marks too.
+              - Need to prevent partially solved grids from being wiped out on a browser refresh.
         """.trimIndent())
     }
 }

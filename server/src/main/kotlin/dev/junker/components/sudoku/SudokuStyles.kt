@@ -57,7 +57,7 @@ private fun CssBuilder.sudokuGridStyles() {
         val highlightSelectors = List(9) { i -> i + 1 }
             .joinToString(",") { i ->
                 // AKA: Unselected cell with `data-value=i` inside grid where `data-highlight=i`
-                "${sudokuGrid.selector}[data-highlight=\'$i\'] &[data-value='$i']:not(${sudokuSelected.selector})"
+                "${sudokuGrid.selector}[data-highlight='$i'] &[data-value='$i']:not(${sudokuSelected.selector})"
             }
 
         highlightSelectors {
@@ -92,7 +92,7 @@ private fun CssBuilder.sudokuGridStyles() {
 
     sudokuCellMark.selector {
         fontSize = min(1.rem, NumericLinearDimension(33, "cqi"))
-        lineHeight = NumericLinearDimension(33, "cqh").lh
+        lineHeight = NumericLinearDimension(35, "cqh").lh
         position = Position.relative
 
         after {
@@ -113,6 +113,16 @@ private fun CssBuilder.sudokuGridStyles() {
 
         "&${sudokuMarked.selector}::after" {
             color = Color.unset
+        }
+
+        val highlightSelectors = List(9) { i -> i + 1 }
+            .joinToString(",") { i ->
+                // AKA: Mark with `data-value=i` inside grid where `data-highlight=i`
+                "${sudokuGrid.selector}[data-highlight='$i'] &[data-value='$i']"
+            }
+
+        highlightSelectors {
+            fontWeight = FontWeight.bold
         }
     }
 }
@@ -181,7 +191,7 @@ private fun CssBuilder.sudokuControlStyles() {
             left = 55.pct
             position = Position.absolute
             top = 15.pct
-            width = 40.pct
+            width = 35.pct
         }
 
         active {
