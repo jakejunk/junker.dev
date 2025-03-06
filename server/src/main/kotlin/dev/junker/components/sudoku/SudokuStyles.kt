@@ -56,8 +56,9 @@ private fun CssBuilder.sudokuGridStyles() {
 
         val highlightSelectors = List(9) { i -> i + 1 }
             .joinToString(",") { i ->
-                // AKA: Unselected cell with `data-value=i` inside grid where `data-highlight=i`
-                "${sudokuGrid.selector}[data-highlight='$i'] &[data-value='$i']:not(${sudokuSelected.selector})"
+                // AKA: Cell with `data-value=i` inside grid with `data-highlight=i`
+                // Using `:where()` to lower specificity
+                "${sudokuGrid.selector}[data-highlight='$i'] :where(&[data-value='$i'])"
             }
 
         highlightSelectors {
@@ -117,7 +118,7 @@ private fun CssBuilder.sudokuGridStyles() {
 
         val highlightSelectors = List(9) { i -> i + 1 }
             .joinToString(",") { i ->
-                // AKA: Mark with `data-value=i` inside grid where `data-highlight=i`
+                // AKA: Mark with `data-value=i` inside grid with `data-highlight=i`
                 "${sudokuGrid.selector}[data-highlight='$i'] &[data-value='$i']"
             }
 
