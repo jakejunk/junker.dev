@@ -55,12 +55,12 @@ fun CssBuilder.headerStyles() {
     }
 
     headerNav.selector {
-        columnGap = 1.ch
-        display = Display.flex
-        flexWrap = FlexWrap.wrap
+        wrappingRow(
+            rowGap = 1.ch,
+            columnGap = 1.ch
+        )
         justifyContent = JustifyContent.center
         padding = Padding(left = 24.px, right = 24.px, bottom = 24.px)
-        rowGap = 1.ch
         width = 100.pct
     }
 

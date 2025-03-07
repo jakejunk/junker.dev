@@ -4,6 +4,7 @@ import dev.junker.components.SiteColor
 import dev.junker.components.general.monospaceFont
 import dev.junker.components.general.primaryTextGlow
 import dev.junker.components.general.secondaryTextGlow
+import dev.junker.components.general.wrappingRow
 import kotlinx.css.*
 import kotlinx.css.properties.lh
 
@@ -39,9 +40,8 @@ import kotlinx.css.properties.lh
 
 fun CssBuilder.asciiBannerStyles() {
     asciiBannerContainer.selector {
+        wrappingRow()
         alignSelf = Align.center
-        display = Display.flex
-        flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.flexEnd
         margin = Margin(
             top = 1.rem,

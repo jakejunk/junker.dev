@@ -175,8 +175,6 @@ private fun CssBuilder.sudokuControlStyles() {
         cursor = Cursor.pointer
         flexGrow = 1
         position = Position.relative
-        transition += Transition("transform", duration = 0.1.s, timing = Timing.ease)
-        transition += Transition("box-shadow", duration = 0.1.s, timing = Timing.ease)
 
         children("span") {
             fontSize = clamp(10.px, NumericLinearDimension(100, "cqi"), 32.px)
