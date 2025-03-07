@@ -154,9 +154,39 @@ fun StyledElement.pixelFont() {
     lineHeight = 2.5.rem.lh
 }
 
-fun StyledElement.flexColumn() {
+fun StyledElement.flexRow(
+    rowGap: LinearDimension? = null
+) {
+    display = Display.flex
+    flexDirection = FlexDirection.row
+    rowGap?.also { gap = it }
+}
+
+fun StyledElement.wrappingRow(
+    rowGap: LinearDimension? = null,
+    columnGap: LinearDimension? = null
+) {
+    display = Display.flex
+    flexDirection = FlexDirection.row
+    flexWrap = FlexWrap.wrap
+    rowGap?.also { this.rowGap = it }
+    columnGap?.also { this.columnGap = it }
+}
+
+fun StyledElement.flexColumn(
+    columnGap: LinearDimension? = null
+) {
     display = Display.flex
     flexDirection = FlexDirection.column
+    columnGap?.also { gap = it }
+}
+
+fun StyledElement.grid3x3(
+    cellGap: LinearDimension? = null
+) {
+    display = Display.grid
+    gridTemplateColumns = GridTemplateColumns.repeat("3, 1fr")
+    cellGap?.also { gap = it }
 }
 
 fun StyledElement.primaryTextGlow(glowRadius: LinearDimension = 8.px) {

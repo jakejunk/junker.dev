@@ -29,6 +29,14 @@ class SudokuView private constructor(
             }
         }
 
+        controls.onDeleteValue = {
+            grid.activeCell?.apply {
+                value = null
+                setMarks(emptySet())
+                grid.highlightValue(null)
+            }
+        }
+
         controls.onMarkingToggled = { enabled ->
             when (enabled) {
                 true -> root.classList.add(sudokuMarking.className)

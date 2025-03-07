@@ -6,7 +6,6 @@ import dev.junker.sudoku.toSudokuValue
 import dev.junker.sudoku.view.SudokuCellMarkView.Companion.sudokuCellMarkView
 import dev.junker.sudokuCell
 import dev.junker.sudokuCellMarks
-import dev.junker.sudokuCellValue
 import dev.junker.sudokuSelected
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
@@ -23,7 +22,10 @@ class SudokuCellView private constructor(
         get() = root.getAttribute("data-value")
             ?.toIntOrNull()
             ?.toSudokuValue()
-        set(value) = root.setAttribute("data-value", value.toString())
+        set(value) = when (value) {
+            null -> root.removeAttribute("data-value")
+            else -> root.setAttribute("data-value", value.toString())
+        }
 
     init {
         root.onclick = { onCellSelected?.invoke(this) }
