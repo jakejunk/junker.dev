@@ -19,9 +19,11 @@ class SudokuControlsView private constructor(
     val root: HTMLElement,
     val possibleValues: List<HTMLButtonElement>,
     val markingToggle: HTMLInputElement,
+    val deleteButton: HTMLButtonElement,
     val preciseMarkingToggle: HTMLInputElement
 ) {
     var onSetValue: ((SudokuValue) -> Unit)? = null
+    var onDeleteValue: (() -> Unit)? = null
     var onMarkingToggled: ((Boolean) -> Unit)? = null
     var onPreciseMarkingToggled: ((Boolean) -> Unit)? = null
 
@@ -46,6 +48,10 @@ class SudokuControlsView private constructor(
             onMarkingToggled?.invoke(markingEnabled)
         }
 
+        deleteButton.onclick = {
+            onDeleteValue?.invoke()
+        }
+
         preciseMarkingToggle.onclick = {
             onPreciseMarkingToggled?.invoke(preciseMarkingEnabled)
         }
@@ -55,6 +61,7 @@ class SudokuControlsView private constructor(
         fun TagConsumer<Element>.sudokuControlsView(): SudokuControlsView {
             val buttons: List<HTMLButtonElement>
             val markingToggle: HTMLInputElement
+            val deleteButton: HTMLButtonElement
             val preciseMarkToggle: HTMLInputElement
             val controls = div(classes = sudokuControls.className) {
                 div(classes = sudokuNumpad.className) {
@@ -68,18 +75,29 @@ class SudokuControlsView private constructor(
                     }
                 }
 
-                div(classes = sudokuToggles.className) {
+                div(classes = sudokuActions.className) {
                     label {
                         markingToggle = input(
-                            classes = sudokuMarkingToggle.className,
+                            classes = "${sudokuAction.className} ${sudokuActionMark.className}",
                             name = "controls",
                             type = InputType.checkBox
                         )
-                        +"Mark mode"
+                        span { +"Mark" }
                     }
+
+                    label {
+                        deleteButton = button(
+                            classes = "${sudokuAction.className} ${sudokuActionDelete.className}",
+                            name = "controls"
+                        )
+                        span { +"Delete" }
+                    }
+                }
+
+                div(classes = sudokuToggles.className) {
                     label {
                         preciseMarkToggle = input(
-                            classes = sudokuPreciseMarkingToggle.className,
+                            classes = sudokuAction.className,
                             name = "controls",
                             type = InputType.checkBox
                         )
@@ -88,7 +106,7 @@ class SudokuControlsView private constructor(
                 }
             }
 
-            return SudokuControlsView(controls, buttons, markingToggle, preciseMarkToggle)
+            return SudokuControlsView(controls, buttons, markingToggle, deleteButton, preciseMarkToggle)
         }
     }
 }

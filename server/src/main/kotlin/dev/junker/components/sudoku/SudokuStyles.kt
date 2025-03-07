@@ -6,6 +6,10 @@ import dev.junker.components.general.*
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
+private const val gridWidth = 576
+private const val controlWidth = 256
+private const val gridControlsGapWidth = 32
+
 fun CssBuilder.sudokuStyles() {
     sudokuGridStyles()
     sudokuControlStyles()
@@ -13,14 +17,13 @@ fun CssBuilder.sudokuStyles() {
 
 private fun CssBuilder.sudokuGridStyles() {
     sudoku.selector {
-        display = Display.flex
-        columnGap = 32.px
+        wrappingRow(
+            rowGap = 16.px,
+            columnGap = gridControlsGapWidth.px
+        )
         containerType = ContainerType.inlineSize
-        flexDirection = FlexDirection.row
-        flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.center
         margin = Margin(2.rem, (-1).rem + 5.px)
-        rowGap = 16.px
     }
 
     sudokuGrid.selector {
@@ -31,7 +34,7 @@ private fun CssBuilder.sudokuGridStyles() {
         border = lightBorder(3.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
-        maxWidth = 576.px
+        maxWidth = gridWidth.px
     }
 
     sudokuBox.selector {
@@ -130,14 +133,13 @@ private fun CssBuilder.sudokuGridStyles() {
 
 private fun CssBuilder.sudokuControlStyles() {
     sudokuControls.selector {
-        flexColumn()
-        gap = 16.px
+        flexColumn(columnGap = 16.px)
         height = LinearDimension.fitContent
-        width = 256.px
+        width = controlWidth.px
     }
 
     sudokuNumpad.selector {
-        grid3x3(gap = 1.ch)
+        grid3x3(cellGap = 1.ch)
     }
 
     sudokuPossibleValue.selector {
@@ -212,6 +214,60 @@ private fun CssBuilder.sudokuControlStyles() {
         }
     }
 
+    sudokuActions.selector {
+        flexRow(rowGap = 1.ch)
+
+        label {
+            flexColumn()
+            flexBasis = FlexBasis("0")
+            flexGrow = 1
+            textAlign = TextAlign.center
+
+            sudokuAction.selector {
+                property("-webkit-tap-highlight-color", "transparent")
+                frostedGlass(Color.transparent)
+                appearance = Appearance.none
+                backgroundColor = Color.transparent
+                border = light2pxBorder()
+                borderRadius = cornerRadius
+                color = Color.unset
+                fontSize = 2.rem
+                margin = Margin(0.px)
+                padding = Padding(8.px)
+
+                before {
+                    display = Display.block
+                    lineHeight = 1.618.rem.lh
+                    textAlign = TextAlign.center
+                }
+
+                hover {
+                    backgroundColor = SiteColor.BackgroundLight.color
+                    cursor = Cursor.pointer
+                }
+
+                "&${sudokuActionMark.selector}" {
+                    before {
+                        content = "✏".quoted
+                    }
+
+                    checked {
+                        backgroundColor = SiteColor.BackgroundLight.color
+                        before {
+                            content = "✎".quoted
+                        }
+                    }
+                }
+
+                "&${sudokuActionDelete.selector}" {
+                    before {
+                        content = "✖".quoted
+                    }
+                }
+            }
+        }
+    }
+
     sudokuToggles.selector {
         flexColumn()
         frostedGlass(Color.transparent)
@@ -220,9 +276,9 @@ private fun CssBuilder.sudokuControlStyles() {
         padding = Padding(1.rem)
     }
 
-    container("(max-width: ${576 + 256 + 32 - 1}.9px)") {
+    container("(max-width: ${gridWidth + controlWidth + gridControlsGapWidth - 1}.9px)") {
         sudokuControls.selector {
-            maxWidth = 576.px
+            maxWidth = gridWidth.px
             width = 100.pct
         }
 
@@ -232,18 +288,8 @@ private fun CssBuilder.sudokuControlStyles() {
         }
 
         sudokuToggles.selector {
-            margin = Margin(horizontal = 1.rem - 5.px)
-            padding = Padding(8.px)
+            padding = Padding(5.px)
         }
-    }
-}
-
-private fun CssBuilder.grid3x3(gap: LinearDimension? = null) {
-    display = Display.grid
-    gridTemplateColumns = GridTemplateColumns.repeat("3, 1fr")
-
-    if (gap != null) {
-        this.gap = gap
     }
 }
 

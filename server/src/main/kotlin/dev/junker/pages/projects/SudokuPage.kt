@@ -35,10 +35,11 @@ class SudokuPage(
               - Start thinking about a basic solver.
             - 3/3: Adjusted numpad behavior when wrapping on mobile.
             - 3/4: Adjusted mark font scaling and added a marking mode better suited for mobile.
-              - The controls UI needs some polish.
+              - ~~The controls UI needs some polish.~~
               - Need a better warning message for browsers without proper WASM support.
-            - 3/5: Highlight similar values when one is selected.
-            - 3/6: Highlight (bold) similar values in marks too.
+            - 3/5: Made selecting a cell highlight similar values.
+            - 3/6: Made selecting a cell bold similar values in marks,
+            and added a delete button to the now refreshed controls UI.
               - Need to prevent partially solved grids from being wiped out on a browser refresh.
         """.trimIndent())
     }
