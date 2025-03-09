@@ -223,43 +223,39 @@ private fun CssBuilder.sudokuControlStyles() {
 
             sudokuAction.selector {
                 property("-webkit-tap-highlight-color", "transparent")
-                frostedGlass(Color.transparent)
                 appearance = Appearance.none
                 backgroundColor = Color.transparent
-                border = light2pxBorder()
+                border = Border.none
                 borderRadius = cornerRadius
                 color = Color.unset
-                fontSize = 2.rem
                 margin = Margin(0.px)
                 padding = Padding(8.px)
+                textAlign = TextAlign.center
 
                 before {
-                    display = Display.block
-                    lineHeight = 1.618.rem.lh
-                    textAlign = TextAlign.center
+                    pixelatedBackgroundImage("assets/images/16x16_sudoku_icons.png", size = 64.px)
+                    display = Display.inlineBlock
+                    height = 32.px
+                    width = 32.px
                 }
 
                 hover {
-                    backgroundColor = SiteColor.BackgroundLight.color
                     cursor = Cursor.pointer
                 }
 
-                "&${sudokuActionMark.selector}" {
-                    before {
-                        content = "✏".quoted
-                    }
+                active {
+                    backgroundColor = SiteColor.BackgroundLight.color
+                }
 
+                "&${sudokuActionMark.selector}" {
                     checked {
                         backgroundColor = SiteColor.BackgroundLight.color
-                        before {
-                            content = "✎".quoted
-                        }
                     }
                 }
 
-                "&${sudokuActionDelete.selector}" {
+                "&${sudokuActionErase.selector}" {
                     before {
-                        content = "✖".quoted
+                        backgroundPosition = RelativePosition("-32px 0px")
                     }
                 }
             }

@@ -90,13 +90,18 @@ fun CssBuilder.imageTabletStyles() {
 // ====================================================================================================================
 
 fun CssBuilder.glowingPixelatedBackgroundImage(url: String) {
-    pixelatedBackgroundImage(url, BackgroundRepeat.noRepeat)
+    pixelatedBackgroundImage(url)
     filter = "invert(74%) sepia(47%) saturate(462%) hue-rotate(115deg) brightness(98%) contrast(95%) drop-shadow(0px 0px 1ch ${SiteColor.Primary.color.value})"
 }
 
-fun CssBuilder.pixelatedBackgroundImage(url: String, repeat: BackgroundRepeat) {
+fun CssBuilder.pixelatedBackgroundImage(
+    url: String,
+    repeat: BackgroundRepeat = BackgroundRepeat.noRepeat,
+    size: LinearDimension? = null
+) {
     property("image-rendering", "pixelated")
     backgroundImage = Image("url($url)")
     backgroundSize = "contain"
     backgroundRepeat = repeat
+    size?.also { backgroundSize = it.toString() }
 }

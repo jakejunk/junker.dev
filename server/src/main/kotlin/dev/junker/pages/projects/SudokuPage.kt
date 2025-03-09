@@ -41,6 +41,8 @@ class SudokuPage(
             - 3/6: Made selecting a cell bold similar values in marks,
             and added a delete button to the now refreshed controls UI.
               - Need to prevent partially solved grids from being wiped out on a browser refresh.
+            - 3/9: Added custom images for actions.
+              - Keyboard input? Should be pretty easy.
         """.trimIndent())
     }
 }

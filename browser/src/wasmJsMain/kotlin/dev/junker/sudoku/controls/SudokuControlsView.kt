@@ -19,11 +19,11 @@ class SudokuControlsView private constructor(
     val root: HTMLElement,
     val possibleValues: List<HTMLButtonElement>,
     val markingToggle: HTMLInputElement,
-    val deleteButton: HTMLButtonElement,
+    val eraseButton: HTMLButtonElement,
     val preciseMarkingToggle: HTMLInputElement
 ) {
     var onSetValue: ((SudokuValue) -> Unit)? = null
-    var onDeleteValue: (() -> Unit)? = null
+    var onEraseValue: (() -> Unit)? = null
     var onMarkingToggled: ((Boolean) -> Unit)? = null
     var onPreciseMarkingToggled: ((Boolean) -> Unit)? = null
 
@@ -48,8 +48,8 @@ class SudokuControlsView private constructor(
             onMarkingToggled?.invoke(markingEnabled)
         }
 
-        deleteButton.onclick = {
-            onDeleteValue?.invoke()
+        eraseButton.onclick = {
+            onEraseValue?.invoke()
         }
 
         preciseMarkingToggle.onclick = {
@@ -61,7 +61,7 @@ class SudokuControlsView private constructor(
         fun TagConsumer<Element>.sudokuControlsView(): SudokuControlsView {
             val buttons: List<HTMLButtonElement>
             val markingToggle: HTMLInputElement
-            val deleteButton: HTMLButtonElement
+            val eraseButton: HTMLButtonElement
             val preciseMarkToggle: HTMLInputElement
             val controls = div(classes = sudokuControls.className) {
                 div(classes = sudokuNumpad.className) {
@@ -86,11 +86,11 @@ class SudokuControlsView private constructor(
                     }
 
                     label {
-                        deleteButton = button(
-                            classes = "${sudokuAction.className} ${sudokuActionDelete.className}",
+                        eraseButton = button(
+                            classes = "${sudokuAction.className} ${sudokuActionErase.className}",
                             name = "controls"
                         )
-                        span { +"Delete" }
+                        span { +"Erase" }
                     }
                 }
 
@@ -106,7 +106,7 @@ class SudokuControlsView private constructor(
                 }
             }
 
-            return SudokuControlsView(controls, buttons, markingToggle, deleteButton, preciseMarkToggle)
+            return SudokuControlsView(controls, buttons, markingToggle, eraseButton, preciseMarkToggle)
         }
     }
 }
