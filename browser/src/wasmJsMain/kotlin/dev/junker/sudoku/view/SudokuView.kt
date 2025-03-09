@@ -29,7 +29,7 @@ class SudokuView private constructor(
             }
         }
 
-        controls.onDeleteValue = {
+        controls.onEraseValue = {
             grid.activeCell?.apply {
                 value = null
                 setMarks(emptySet())
