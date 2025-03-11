@@ -66,14 +66,12 @@ private fun CssBuilder.sudokuGridStyles() {
 
         highlightSelectors {
             backgroundColor = SiteColor.BackgroundDarkish.color
-        }
-
-        hover {
-            backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
+            fontWeight = FontWeight.bold
         }
 
         "&${sudokuSelected.selector}" {
             backgroundColor = SiteColor.BackgroundLight.color
+            fontWeight = FontWeight.normal
         }
     }
 
@@ -108,13 +106,6 @@ private fun CssBuilder.sudokuGridStyles() {
             width = 100.pct
         }
 
-        media("(pointer: fine)") {
-            "&:hover::after" {
-                backgroundColor = SiteColor.BackgroundLight.color
-                color = Color.unset
-            }
-        }
-
         "&${sudokuMarked.selector}::after" {
             color = Color.unset
         }
@@ -127,6 +118,25 @@ private fun CssBuilder.sudokuGridStyles() {
 
         highlightSelectors {
             fontWeight = FontWeight.bold
+        }
+    }
+
+    // User has mouse
+    media("(pointer: fine)") {
+        sudokuCell.selector {
+            hover {
+                backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
+            }
+        }
+
+        sudokuCellMark.selector {
+            hover {
+                // Because using `after()` overwrites `content`
+                "&::after" {
+                    backgroundColor = SiteColor.BackgroundLight.color
+                    color = Color.unset
+                }
+            }
         }
     }
 }
@@ -270,6 +280,7 @@ private fun CssBuilder.sudokuControlStyles() {
         padding = Padding(1.rem)
     }
 
+    // When the sudoku area becomes too narrow, move controls underneath grid
     container("(max-width: ${gridWidth + controlWidth + gridControlsGapWidth - 1}.9px)") {
         sudokuControls.selector {
             maxWidth = gridWidth.px

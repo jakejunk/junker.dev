@@ -11,8 +11,10 @@ import org.w3c.dom.HTMLElement
 class SudokuCellMarkView private constructor(
     private val root: HTMLElement
 ) {
+    var onMarkSelected: ((SudokuCellMarkView) -> Unit)? = null
+
     init {
-        root.onclick = { toggleVisibility() }
+        root.onclick = { onMarkSelected?.invoke(this) }
     }
 
     fun toggleVisibility() {
