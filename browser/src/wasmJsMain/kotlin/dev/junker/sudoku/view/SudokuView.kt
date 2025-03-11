@@ -1,6 +1,7 @@
 package dev.junker.sudoku.view
 
 import dev.junker.sudoku
+import dev.junker.sudoku.Sudoku
 import dev.junker.sudoku.controls.SudokuControlsView
 import dev.junker.sudoku.controls.SudokuControlsView.Companion.sudokuControlsView
 import dev.junker.sudoku.view.SudokuGridView.Companion.sudokuGridView
@@ -16,7 +17,20 @@ class SudokuView private constructor(
     val grid: SudokuGridView,
     val controls: SudokuControlsView
 ) {
+    // TODO
+    var model = Sudoku.EMPTY
+
     init {
+        grid.boxes.forEach { box ->
+            box.cells.forEach { cell ->
+                cell.marks.entries.forEach { (value, markView) ->
+                    markView.onMarkSelected = {
+                        markView.toggleVisibility()
+                    }
+                }
+            }
+        }
+
         controls.onSetValue = { newValue ->
             grid.activeCell?.apply {
                 when (controls.markingEnabled) {
