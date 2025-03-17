@@ -29,7 +29,7 @@ class SudokuCellView private constructor(
         }
 
     init {
-        root.onclick = { onCellSelected?.invoke(this) }
+        root.onpointerdown = { onCellSelected?.invoke(this) }
     }
 
     fun select() {
