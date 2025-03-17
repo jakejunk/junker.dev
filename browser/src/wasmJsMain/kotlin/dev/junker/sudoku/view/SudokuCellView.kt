@@ -13,18 +13,19 @@ import org.w3c.dom.Element
 import org.w3c.dom.HTMLElement
 
 class SudokuCellView private constructor(
+    val index: Int,
     val root: HTMLElement,
     val marks: Map<SudokuValue, SudokuCellMarkView>
 ) {
     var onCellSelected: ((SudokuCellView) -> Unit)? = null
 
     var value: SudokuValue?
-        get() = root.getAttribute("data-value")
+        get() = root.getAttribute(VALUE_ATTRIBUTE)
             ?.toIntOrNull()
             ?.toSudokuValue()
         set(value) = when (value) {
-            null -> root.removeAttribute("data-value")
-            else -> root.setAttribute("data-value", value.toString())
+            null -> root.removeAttribute(VALUE_ATTRIBUTE)
+            else -> root.setAttribute(VALUE_ATTRIBUTE, value.toString())
         }
 
     init {
@@ -40,25 +41,32 @@ class SudokuCellView private constructor(
     }
 
     fun setMarks(visibleMarks: Set<SudokuValue>) {
-        marks.forEach { (value, view) ->
-            val visible = when (value) {
-                in visibleMarks -> true
-                else -> false
+        marks.forEach { (value, mark) ->
+            when (value) {
+                in visibleMarks -> mark.enable()
+                else -> mark.disable()
             }
-
-            view.setVisibility(visible)
         }
     }
 
     fun toggleMark(mark: SudokuValue) {
-        marks[mark]?.toggleVisibility()
+        marks[mark]?.toggle()
+    }
+
+    fun enableMark(mark: SudokuValue) {
+        marks[mark]?.enable()
+    }
+
+    fun disableMark(mark: SudokuValue) {
+        marks[mark]?.disable()
     }
 
     companion object {
-        fun TagConsumer<Element>.sudokuCellView(): SudokuCellView {
+        private const val VALUE_ATTRIBUTE = "data-value"
+
+        fun TagConsumer<Element>.sudokuCellView(index: Int): SudokuCellView {
             val marks: Map<SudokuValue, SudokuCellMarkView>
             val root = div(classes = sudokuCell.className) {
-
                 div(classes = sudokuCellMarks.className) {
                     marks = buildMap {
                         forEachSudokuValue {
@@ -68,7 +76,7 @@ class SudokuCellView private constructor(
                 }
             }
 
-            return SudokuCellView(root, marks)
+            return SudokuCellView(index, root, marks)
         }
     }
 }

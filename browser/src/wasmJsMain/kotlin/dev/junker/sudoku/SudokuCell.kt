@@ -14,22 +14,20 @@ sealed interface SudokuCell {
             return marks.getBit(value.asInt)
         }
 
-        fun mark(value: SudokuValue): Empty {
+        fun enableMark(value: SudokuValue): Empty {
             val newBitField = marks.setBit(value.asInt, true)
             return Empty(newBitField)
         }
 
-        fun unMark(value: SudokuValue): Empty {
+        fun disableMark(value: SudokuValue): Empty {
             val newBitField = marks.setBit(value.asInt, false)
             return Empty(newBitField)
         }
 
-        fun forEachMark(action: (value: SudokuValue, marked: Boolean) -> Unit) {
-            repeat(9) { i ->
-                val marked = marks.getBit(i)
-                val value =  i.toSudokuValue()
-
-                action(value, marked)
+        fun forEachMark(action: (value: SudokuValue, enabled: Boolean) -> Unit) {
+            forEachSudokuValue { value ->
+                val enabled = marks.getBit(value.asInt)
+                action(value, enabled)
             }
         }
     }

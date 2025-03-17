@@ -268,6 +268,12 @@ private fun CssBuilder.sudokuControlStyles() {
                         backgroundPosition = RelativePosition("-32px 0px")
                     }
                 }
+
+                "&${sudokuActionUndo.selector}" {
+                    before {
+                        backgroundPosition = RelativePosition("0px -32px")
+                    }
+                }
             }
         }
     }
