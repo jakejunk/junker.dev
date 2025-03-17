@@ -1,7 +1,7 @@
 package dev.junker.sudoku.view
 
 import dev.junker.sudoku
-import dev.junker.sudoku.Sudoku
+import dev.junker.sudoku.SudokuState
 import dev.junker.sudoku.controls.SudokuControlsView
 import dev.junker.sudoku.controls.SudokuControlsView.Companion.sudokuControlsView
 import dev.junker.sudoku.view.SudokuGridView.Companion.sudokuGridView
@@ -10,70 +10,99 @@ import dev.junker.sudokuPreciseMarking
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
+import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
 class SudokuView private constructor(
-    val root: HTMLElement,
-    val grid: SudokuGridView,
-    val controls: SudokuControlsView
+    private val sudokuElement: HTMLElement,
+    private val grid: SudokuGridView,
+    private val controls: SudokuControlsView
 ) {
-    // TODO
-    var model = Sudoku.EMPTY
-
-    init {
-        grid.boxes.forEach { box ->
-            box.cells.forEach { cell ->
-                cell.marks.entries.forEach { (value, markView) ->
-                    markView.onMarkSelected = {
-                        markView.toggleVisibility()
-                    }
-                }
-            }
-        }
-
-        controls.onSetValue = { newValue ->
-            grid.activeCell?.apply {
-                when (controls.markingEnabled) {
-                    true -> toggleMark(newValue)
-                    false -> {
-                        value = newValue
-                        grid.highlightValue(newValue)
-                    }
-                }
-            }
-        }
-
-        controls.onEraseValue = {
-            grid.activeCell?.apply {
-                value = null
-                setMarks(emptySet())
+    private val state = SudokuState(
+        onCellFilled = { index, value ->
+            grid.fillCell(index, value)
+        },
+        onCellErased = { index ->
+            grid.eraseCell(index)
+        },
+        onMarkEnabled = { index, value ->
+            grid.enableMark(index, value)
+        },
+        onMarkDisabled = { index, value ->
+            grid.disableMark(index, value)
+        },
+        onStateUpdated = {
+            val activeCellValue = grid.activeCell?.value
+            if (activeCellValue != null) {
+                grid.highlightValue(activeCellValue)
+            } else {
                 grid.highlightValue(null)
             }
         }
+    )
 
-        controls.onMarkingToggled = { enabled ->
-            when (enabled) {
-                true -> root.classList.add(sudokuMarking.className)
-                false -> root.classList.remove(sudokuMarking.className)
+    init {
+        grid.forEachCellView {
+            onCellSelected = {
+                grid.activeCell?.unselect()
+                grid.activeCell = this.apply { select() }
+
+                grid.highlightValue(value)
+            }
+
+            marks.entries.forEach { (value, markView) ->
+                markView.onMarkSelected = {
+                    state.toggleMark(index, value)
+                }
             }
         }
 
-        controls.onPreciseMarkingToggled = { enabled ->
-            grid.activeCell?.unselect()
-            grid.activeCell = null
+        with(controls) {
+            onSetValue = { newValue ->
+                grid.activeCell?.apply {
+                    when (controls.markingEnabled) {
+                        true -> state.toggleMark(index, newValue)
+                        false -> state.fillCell(index, newValue)
+                    }
+                }
+            }
 
-            when (enabled) {
-                true -> root.classList.add(sudokuPreciseMarking.className)
-                false -> root.classList.remove(sudokuPreciseMarking.className)
+            onUndo = {
+                state.undo()
+            }
+
+            onEraseValue = {
+                grid.activeCell?.apply {
+                    state.eraseCell(index)
+                }
+            }
+
+            onMarkingToggled = { enabled ->
+                when (enabled) {
+                    true -> sudokuElement.classList.add(sudokuMarking.className)
+                    false -> sudokuElement.classList.remove(sudokuMarking.className)
+                }
+            }
+
+            onPreciseMarkingToggled = { enabled ->
+                grid.activeCell?.unselect()
+                grid.activeCell = null
+
+                when (enabled) {
+                    true -> sudokuElement.classList.add(sudokuPreciseMarking.className)
+                    false -> sudokuElement.classList.remove(sudokuPreciseMarking.className)
+                }
             }
         }
     }
 
     companion object {
         fun TagConsumer<Element>.sudokuView(): SudokuView {
+            val root: HTMLDivElement
             val grid: SudokuGridView
             val controls: SudokuControlsView
-            val root = div(classes = sudoku.className) {
+
+            root = div(classes = sudoku.className) {
                 grid = sudokuGridView()
                 controls = sudokuControlsView()
             }

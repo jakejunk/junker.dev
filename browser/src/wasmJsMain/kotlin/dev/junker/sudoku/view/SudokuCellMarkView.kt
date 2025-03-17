@@ -17,17 +17,20 @@ class SudokuCellMarkView private constructor(
         root.onclick = { onMarkSelected?.invoke(this) }
     }
 
-    fun toggleVisibility() {
-        val shouldMark = !root.classList.contains(sudokuMarked.className)
-        setVisibility(shouldMark)
+    fun toggle() {
+        if (root.classList.contains(sudokuMarked.className)) {
+            disable()
+        } else {
+            enable()
+        }
     }
 
-    fun setVisibility(visible: Boolean) {
-        val markClassList = root.classList
-        when (visible) {
-            true -> markClassList.add(sudokuMarked.className)
-            false -> markClassList.remove(sudokuMarked.className)
-        }
+    fun enable() {
+        root.classList.add(sudokuMarked.className)
+    }
+
+    fun disable() {
+        root.classList.remove(sudokuMarked.className)
     }
 
     companion object {

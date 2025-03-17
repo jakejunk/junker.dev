@@ -10,18 +10,17 @@ import kotlinx.html.js.div
 import kotlinx.html.js.input
 import kotlinx.html.js.label
 import kotlinx.html.span
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLButtonElement
-import org.w3c.dom.HTMLElement
-import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.*
 
 class SudokuControlsView private constructor(
     val root: HTMLElement,
     val possibleValues: List<HTMLButtonElement>,
+    val undoButton: HTMLButtonElement,
     val markingToggle: HTMLInputElement,
     val eraseButton: HTMLButtonElement,
     val preciseMarkingToggle: HTMLInputElement
 ) {
+    var onUndo: (() -> Unit)? = null
     var onSetValue: ((SudokuValue) -> Unit)? = null
     var onEraseValue: (() -> Unit)? = null
     var onMarkingToggled: ((Boolean) -> Unit)? = null
@@ -44,6 +43,10 @@ class SudokuControlsView private constructor(
             }
         }
 
+        undoButton.onclick = {
+            onUndo?.invoke()
+        }
+
         markingToggle.onclick = {
             onMarkingToggled?.invoke(markingEnabled)
         }
@@ -59,11 +62,14 @@ class SudokuControlsView private constructor(
 
     companion object {
         fun TagConsumer<Element>.sudokuControlsView(): SudokuControlsView {
+            val controls: HTMLDivElement
             val buttons: List<HTMLButtonElement>
             val markingToggle: HTMLInputElement
             val eraseButton: HTMLButtonElement
+            val undoButton: HTMLButtonElement
             val preciseMarkToggle: HTMLInputElement
-            val controls = div(classes = sudokuControls.className) {
+
+            controls = div(classes = sudokuControls.className) {
                 div(classes = sudokuNumpad.className) {
                     buttons = List(9) { i ->
                         val value = (i + 1).toSudokuValue()
@@ -76,6 +82,14 @@ class SudokuControlsView private constructor(
                 }
 
                 div(classes = sudokuActions.className) {
+                    label {
+                        undoButton = button(
+                            classes = "${sudokuAction.className} ${sudokuActionUndo.className}",
+                            name = "controls"
+                        )
+                        span { +"Undo" }
+                    }
+
                     label {
                         markingToggle = input(
                             classes = "${sudokuAction.className} ${sudokuActionMark.className}",
@@ -106,7 +120,14 @@ class SudokuControlsView private constructor(
                 }
             }
 
-            return SudokuControlsView(controls, buttons, markingToggle, eraseButton, preciseMarkToggle)
+            return SudokuControlsView(
+                root = controls,
+                possibleValues = buttons,
+                undoButton = undoButton,
+                markingToggle = markingToggle,
+                eraseButton = eraseButton,
+                preciseMarkingToggle = preciseMarkToggle
+            )
         }
     }
 }

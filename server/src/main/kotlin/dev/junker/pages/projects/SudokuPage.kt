@@ -40,9 +40,13 @@ class SudokuPage(
             - 3/5: Made selecting a cell highlight similar values.
             - 3/6: Made selecting a cell bold similar values in marks,
             and added a delete button to the now refreshed controls UI.
-              - Need to prevent partially solved grids from being wiped out on a browser refresh.
+              - Need to prevent grids from being wiped out on a browser refresh.
             - 3/9: Added custom images for actions.
               - Keyboard input? Should be pretty easy.
+            - 3/16: Added an undo button; only required a small, complete code overhaul.
+              - It'd be cool to have some `?g=ENCODED_SUDOKU_GRID` query parameter for sharing grids.
+              - Need to address the "forced reflow" warning I sometimes see in the console.
+              The noticeable layout shift isn't great.
         """.trimIndent())
     }
 }

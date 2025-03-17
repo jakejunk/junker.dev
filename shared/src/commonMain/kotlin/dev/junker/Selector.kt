@@ -26,6 +26,7 @@ val sudokuActions = "sudoku-actions".classSelector()
 val sudokuAction = "sudoku-action".classSelector()
 val sudokuActionMark = "sudoku-action-mark".classSelector()
 val sudokuActionErase = "sudoku-action-erase".classSelector()
+val sudokuActionUndo = "sudoku-action-undo".classSelector()
 val sudokuToggles = "sudoku-toggles".classSelector()
 
 // Syntax highlighting ========================================================
