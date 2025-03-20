@@ -276,11 +276,13 @@ private fun CssBuilder.sudokuControlStyles() {
                 }
 
                 "&.error" {
-                    animation += Animation(
-                        name = "twitch",
-                        duration = 1.s,
-                        timing = Timing.easeInOut
-                    )
+                    before {
+                        animation += Animation(
+                            name = "twitch",
+                            duration = 1.s,
+                            timing = Timing.easeInOut
+                        )
+                    }
                 }
             }
         }

@@ -97,8 +97,8 @@ class SudokuView private constructor(
         }
     }
 
-    private fun HTMLButtonElement.twitchOnError(undoResult: Result<Unit, String>) {
-        when (undoResult) {
+    private fun HTMLButtonElement.twitchOnError(actionResult: Result<Unit, String>) {
+        when (actionResult) {
             is Result.Ok -> classList.remove("error")
             is Result.Error -> {
                 classList.remove("error")
