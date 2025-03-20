@@ -274,6 +274,14 @@ private fun CssBuilder.sudokuControlStyles() {
                         backgroundPosition = RelativePosition("0px -32px")
                     }
                 }
+
+                "&.error" {
+                    animation += Animation(
+                        name = "twitch",
+                        duration = 1.s,
+                        timing = Timing.easeInOut
+                    )
+                }
             }
         }
     }

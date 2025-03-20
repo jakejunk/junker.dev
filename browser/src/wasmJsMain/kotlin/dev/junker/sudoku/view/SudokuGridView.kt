@@ -10,8 +10,8 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
 class SudokuGridView private constructor(
-    val root: HTMLElement,
-    val boxes: List<SudokuBoxView>
+    private val root: HTMLElement,
+    val boxes: List<SudokuBoxView>,
 ) {
     var activeCell: SudokuCellView? = null
 

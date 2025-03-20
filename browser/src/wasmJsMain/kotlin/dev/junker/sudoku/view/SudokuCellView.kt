@@ -49,10 +49,6 @@ class SudokuCellView private constructor(
         }
     }
 
-    fun toggleMark(mark: SudokuValue) {
-        marks[mark]?.toggle()
-    }
-
     fun enableMark(mark: SudokuValue) {
         marks[mark]?.enable()
     }

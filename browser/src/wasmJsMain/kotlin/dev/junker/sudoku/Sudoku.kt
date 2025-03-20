@@ -15,7 +15,7 @@ class Sudoku private constructor(
     ): Result<Sudoku, String> {
         val updatedCells = cells.update(index) { cell ->
             when (cell) {
-                is SudokuCell.Filled -> return "Cell has a value!".err()
+                is SudokuCell.Filled -> return "Already filled.".err()
                 is SudokuCell.Empty -> {
                     onCellFilled(index, value)
                     SudokuCell.Filled(value)
@@ -26,9 +26,21 @@ class Sudoku private constructor(
         return Sudoku(updatedCells).ok()
     }
 
-    fun eraseCell(index: Int): Sudoku {
-        val updatedCells = cells.update(index) { SudokuCell.Empty.FULLY_EMPTY }
-        return Sudoku(updatedCells)
+    fun eraseCell(
+        index: Int,
+        onCellErased: (index: Int) -> Unit
+    ): Result<Sudoku, String> {
+        val updatedCells = cells.update(index) {
+            when {
+                it.isFullyEmpty -> return "Already empty.".err()
+                else -> {
+                    onCellErased(index)
+                    SudokuCell.Empty.FULLY_EMPTY
+                }
+            }
+        }
+
+        return Sudoku(updatedCells).ok()
     }
 
     fun toggleMark(

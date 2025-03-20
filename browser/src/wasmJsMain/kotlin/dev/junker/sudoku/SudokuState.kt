@@ -1,17 +1,22 @@
 package dev.junker.sudoku
 
 import dev.junker.Result
+import dev.junker.err
 import dev.junker.ifOk
 import dev.junker.ok
 
 class SudokuState(
+    private val initialState: Sudoku,
     private val onCellFilled: (index: Int, value: SudokuValue) -> Unit,
     private val onCellErased: (index: Int) -> Unit,
     private val onMarkEnabled: (index: Int, value: SudokuValue) -> Unit,
     private val onMarkDisabled: (index: Int, value: SudokuValue) -> Unit,
     private val onStateUpdated: () -> Unit
 ) {
-    private val history = mutableListOf(Sudoku.EMPTY)
+    private val history: MutableList<Sudoku> = mutableListOf()
+
+    val hasHistory: Boolean
+        get() = history.isEmpty()
 
     fun fillCell(index: Int, value: SudokuValue): Result<Unit, String> {
         return update {
@@ -26,16 +31,16 @@ class SudokuState(
         }
     }
 
-    fun eraseCell(index: Int) {
-        onCellErased(index)
-
-        update { eraseCell(index).ok() }
+    fun eraseCell(index: Int): Result<Unit, String> {
+        return update {
+            eraseCell(index, onCellErased)
+        }
     }
 
     private inline fun update(
         crossinline action: Sudoku.() -> Result<Sudoku, String>
     ): Result<Unit, String> {
-        val current = history.lastOrNull() ?: Sudoku.EMPTY
+        val current = mostRecent()
         return current.action()
             .ifOk { updatedState ->
                 history.add(updatedState)
@@ -43,15 +48,15 @@ class SudokuState(
             }
     }
 
-    fun undo() {
-        if (history.size < 1) {
-            return
+    fun undo(): Result<Unit, String> {
+        if (hasHistory) {
+            return "No history.".err()
         }
 
         val current = history.removeLast()
-        val target = history.lastOrNull() ?: Sudoku.EMPTY
+        val target = mostRecent()
 
-        restoreState(current, target)
+        return restoreState(current, target).ok()
     }
 
     private fun restoreState(current: Sudoku, target: Sudoku) {
@@ -86,5 +91,9 @@ class SudokuState(
         }
 
         onStateUpdated()
+    }
+
+    private fun mostRecent(): Sudoku {
+        return history.lastOrNull() ?: initialState
     }
 }

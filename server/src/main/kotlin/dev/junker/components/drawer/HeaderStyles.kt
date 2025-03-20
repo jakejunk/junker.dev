@@ -6,7 +6,7 @@ import kotlinx.css.*
 import kotlinx.css.properties.*
 
 fun CssBuilder.headerStyles() {
-    keyframes("logoTwitch") {
+    keyframes("twitch") {
         8 {
             transform { rotateZ(30.deg) }
         }
@@ -39,14 +39,9 @@ fun CssBuilder.headerStyles() {
 
     "${siteLogo.selector}:hover" {
         animation += Animation(
-            name = "logoTwitch",
+            name = "twitch",
             duration = 1.s,
-            timing = Timing.easeInOut,
-            delay = 0.s,
-            iterationCount = 1.times,
-            direction = AnimationDirection.normal,
-            fillMode = FillMode.none,
-            playState = PlayState.running
+            timing = Timing.easeInOut
         )
     }
 
