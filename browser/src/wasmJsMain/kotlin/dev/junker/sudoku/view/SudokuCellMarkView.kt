@@ -9,20 +9,13 @@ import org.w3c.dom.Element
 import org.w3c.dom.HTMLElement
 
 class SudokuCellMarkView private constructor(
-    private val root: HTMLElement
+    private val root: HTMLElement,
+    val value: SudokuValue
 ) {
     var onMarkSelected: ((SudokuCellMarkView) -> Unit)? = null
 
     init {
         root.onclick = { onMarkSelected?.invoke(this) }
-    }
-
-    fun toggle() {
-        if (root.classList.contains(sudokuMarked.className)) {
-            disable()
-        } else {
-            enable()
-        }
     }
 
     fun enable() {
@@ -39,7 +32,7 @@ class SudokuCellMarkView private constructor(
                 attributes["data-value"] = value.toString()
             }
 
-            return SudokuCellMarkView(root)
+            return SudokuCellMarkView(root, value)
         }
     }
 }

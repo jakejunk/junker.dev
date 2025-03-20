@@ -47,6 +47,7 @@ class SudokuPage(
               - It'd be cool to have some `?g=ENCODED_SUDOKU_GRID` query parameter for sharing grids.
               - Need to address the "forced reflow" warning I sometimes see in the console.
               The noticeable layout shift isn't great.
+            - 3/20: Added "can't do that" animations for undo and erase buttons.
         """.trimIndent())
     }
 }

@@ -1,15 +1,15 @@
 package dev.junker.sudoku.view
 
-import dev.junker.sudoku
+import dev.junker.*
+import dev.junker.sudoku.Sudoku
 import dev.junker.sudoku.SudokuState
 import dev.junker.sudoku.controls.SudokuControlsView
 import dev.junker.sudoku.controls.SudokuControlsView.Companion.sudokuControlsView
 import dev.junker.sudoku.view.SudokuGridView.Companion.sudokuGridView
-import dev.junker.sudokuMarking
-import dev.junker.sudokuPreciseMarking
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
+import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
@@ -19,6 +19,7 @@ class SudokuView private constructor(
     private val controls: SudokuControlsView
 ) {
     private val state = SudokuState(
+        initialState = Sudoku.EMPTY,
         onCellFilled = { index, value ->
             grid.fillCell(index, value)
         },
@@ -68,12 +69,12 @@ class SudokuView private constructor(
             }
 
             onUndo = {
-                state.undo()
+                undoButton.twitchOnError(state.undo())
             }
 
             onEraseValue = {
                 grid.activeCell?.apply {
-                    state.eraseCell(index)
+                    eraseButton.twitchOnError(state.eraseCell(index))
                 }
             }
 
@@ -92,6 +93,17 @@ class SudokuView private constructor(
                     true -> sudokuElement.classList.add(sudokuPreciseMarking.className)
                     false -> sudokuElement.classList.remove(sudokuPreciseMarking.className)
                 }
+            }
+        }
+    }
+
+    private fun HTMLButtonElement.twitchOnError(undoResult: Result<Unit, String>) {
+        when (undoResult) {
+            is Result.Ok -> classList.remove("error")
+            is Result.Error -> {
+                classList.remove("error")
+                offsetWidth
+                classList.add("error")
             }
         }
     }

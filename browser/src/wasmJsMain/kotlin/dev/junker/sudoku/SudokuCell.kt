@@ -3,6 +3,9 @@ package dev.junker.sudoku
 import dev.junker.BitField16
 
 sealed interface SudokuCell {
+    val isFullyEmpty: Boolean
+        get() = this == Empty.FULLY_EMPTY
+
     value class Empty private constructor(
         private val marks: BitField16
     ) : SudokuCell {
