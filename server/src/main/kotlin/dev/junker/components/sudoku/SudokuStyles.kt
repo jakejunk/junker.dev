@@ -286,8 +286,21 @@ private fun CssBuilder.sudokuControlStyles() {
                 }
 
                 "&${sudokuActionMark.selector}" {
+                    before {
+                        transition += Transition(
+                            property = "transform",
+                            duration = 0.33.s,
+                            timing = cubicBezier(0.33, 2.5, 0.66, 0.25)
+                        )
+                    }
+
                     checked {
                         backgroundColor = SiteColor.BackgroundLight.color
+                        before {
+                            transform {
+                                rotateZ((-45).deg)
+                            }
+                        }
                     }
                 }
 
