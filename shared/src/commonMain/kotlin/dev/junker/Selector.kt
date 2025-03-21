@@ -5,6 +5,7 @@ import kotlin.jvm.JvmInline
 // Sudoku =====================================================================
 // Grid
 val sudokuContainer = "sudoku-container".idSelector()
+val sudokuPlaceholder = "sudoku-placeholder".idSelector()
 val sudoku = "sudoku".classSelector()
 val sudokuGrid = "sudoku-grid".classSelector()
 val sudokuBox = "sudoku-box".classSelector()

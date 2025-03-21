@@ -16,6 +16,34 @@ fun CssBuilder.sudokuStyles() {
 }
 
 private fun CssBuilder.sudokuGridStyles() {
+    keyframes("fadeIn") {
+        0 {
+            opacity = 0
+        }
+        100 {
+            opacity = 1
+        }
+    }
+
+    sudokuPlaceholder.selector {
+        secondaryTextGlow()
+        animation += Animation(
+            name = "fadeIn",
+            duration = 0.75.s,
+            timing = Timing.easeInOut,
+            fillMode = FillMode.forwards
+        )
+        height = gridWidth.px
+        margin = Margin(vertical = 2.rem, horizontal = LinearDimension.auto)
+        maxWidth = gridWidth.px
+        opacity = 0
+        textAlign = TextAlign.center
+
+        transform {
+            opacity = 1
+        }
+    }
+
     sudoku.selector {
         wrappingRow(
             rowGap = 16.px,
@@ -275,7 +303,7 @@ private fun CssBuilder.sudokuControlStyles() {
                     }
                 }
 
-                "&.error" {
+                "&.twitch" {
                     before {
                         animation += Animation(
                             name = "twitch",
