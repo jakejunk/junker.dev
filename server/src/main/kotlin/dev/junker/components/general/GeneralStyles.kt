@@ -35,10 +35,7 @@ fun CssBuilder.generalStyles() {
             name = "flickerIn",
             duration = 0.75.s,
             timing = cubicBezier(0.1, 1.1, 0.22, -1.0),
-            iterationCount = 1.times,
-            direction = AnimationDirection.normal,
-            fillMode = FillMode.forwards,
-            playState = PlayState.running
+            fillMode = FillMode.forwards
         )
         marginTop = 2.rem
         opacity = 0
@@ -85,6 +82,7 @@ fun CssBuilder.generalStyles() {
 
     s {
         property("text-decoration-thickness", "from-font")
+        opacity = 0.5
     }
 
     exclamation.selector {

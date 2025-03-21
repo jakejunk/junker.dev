@@ -3,6 +3,7 @@ package dev.junker.pages.projects
 import dev.junker.markdown.renderMarkdown
 import dev.junker.pages.ProjectsPage
 import dev.junker.sudokuContainer
+import dev.junker.sudokuPlaceholder
 import kotlinx.html.*
 
 class SudokuPage(
@@ -14,7 +15,8 @@ class SudokuPage(
     override val content: FlowContent.() -> Unit = {
         div {
             id = sudokuContainer.id
-            noScript {
+            div {
+                id = sudokuPlaceholder.id
                 +"WASM must be enabled in order to play."
             }
         }
@@ -36,7 +38,7 @@ class SudokuPage(
             - 3/3: Adjusted numpad behavior when wrapping on mobile.
             - 3/4: Adjusted mark font scaling and added a marking mode better suited for mobile.
               - ~~The controls UI needs some polish.~~
-              - Need a better warning message for browsers without proper WASM support.
+              - ~~Need a better warning message for browsers without proper WASM support.~~
             - 3/5: Made selecting a cell highlight similar values.
             - 3/6: Made selecting a cell bold similar values in marks,
             and added a delete button to the now refreshed controls UI.
@@ -45,9 +47,10 @@ class SudokuPage(
               - Keyboard input? Should be pretty easy.
             - 3/16: Added an undo button; only required a small, complete code overhaul.
               - It'd be cool to have some `?g=ENCODED_SUDOKU_GRID` query parameter for sharing grids.
-              - Need to address the "forced reflow" warning I sometimes see in the console.
-              The noticeable layout shift isn't great.
-            - 3/20: Added "can't do that" animations for undo and erase buttons.
+              - ~~Need to address the "forced reflow" warning I sometimes see in the console.
+              The noticeable layout shift isn't great.~~
+            - 3/20: Added "can't do that" animations for the undo and erase buttons.
+            Also addressed layout shifting and added a message for visitors without WASM.
         """.trimIndent())
     }
 }

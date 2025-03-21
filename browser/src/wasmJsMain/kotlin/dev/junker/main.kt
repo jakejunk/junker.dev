@@ -8,6 +8,9 @@ import kotlinx.html.dom.append
 fun main() {
     highlightCodeBlocks()
 
-    document.getElementById(sudokuContainer.id)
-        ?.append { sudokuView() }
+    with(document) {
+        getElementById(sudokuPlaceholder.id)?.remove()
+        getElementById(sudokuContainer.id)
+            ?.append { sudokuView() }
+    }
 }

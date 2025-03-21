@@ -69,13 +69,15 @@ class SudokuView private constructor(
             }
 
             onUndo = {
-                undoButton.twitchOnError(state.undo())
+                state.undo()
+                    .ifError { undoButton.twitch() }
             }
 
             onEraseValue = {
-                grid.activeCell?.apply {
-                    eraseButton.twitchOnError(state.eraseCell(index))
-                }
+                grid.activeCell
+                    .orElse("No cell selected.")
+                    .ifOkTry { cell -> state.eraseCell(cell.index) }
+                    .ifError { eraseButton.twitch() }
             }
 
             onMarkingToggled = { enabled ->
@@ -97,15 +99,10 @@ class SudokuView private constructor(
         }
     }
 
-    private fun HTMLButtonElement.twitchOnError(actionResult: Result<Unit, String>) {
-        when (actionResult) {
-            is Result.Ok -> classList.remove("error")
-            is Result.Error -> {
-                classList.remove("error")
-                offsetWidth
-                classList.add("error")
-            }
-        }
+    private fun HTMLButtonElement.twitch() {
+        classList.remove("twitch")
+        offsetWidth
+        classList.add("twitch")
     }
 
     companion object {

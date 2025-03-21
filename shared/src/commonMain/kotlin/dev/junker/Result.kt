@@ -30,3 +30,28 @@ inline fun <T, E, U> Result<T, E>.ifOk(
         is Result.Error -> this
     }
 }
+
+inline fun <T, E, U> Result<T, E>.ifOkTry(
+    crossinline transform: (T) -> Result<U, E>
+): Result<U, E> {
+    return when (this) {
+        is Result.Ok -> transform(value)
+        is Result.Error -> this
+    }
+}
+
+inline fun <T, E, F> Result<T, E>.ifError(
+    crossinline transform: (E) -> F
+): Result<T, F> {
+    return when (this) {
+        is Result.Ok -> this
+        is Result.Error -> transform(error).err()
+    }
+}
+
+fun <T, E> T?.orElse(error: E): Result<T, E> {
+    return when (this) {
+        null -> error.err()
+        else -> ok()
+    }
+}
