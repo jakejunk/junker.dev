@@ -1,12 +1,11 @@
 package dev.junker.pages
 
+import dev.junker.components.table.notesGrid
 import dev.junker.markdown.MarkdownMetadata
 import dev.junker.markdown.markdownDocument
 import dev.junker.markdown.parseMetadata
 import dev.junker.util.loadResourceText
 import kotlinx.html.FlowContent
-import kotlinx.html.a
-import kotlinx.html.article
 import kotlinx.html.h1
 
 sealed interface NotesPage : Page.Content {
@@ -20,16 +19,10 @@ sealed interface NotesPage : Page.Content {
         override val slug = ROOT_SLUG
         override val title = "Notes"
         override val description = "Don't mind the mess."
-        override val isWip = true
         override val content: FlowContent.() -> Unit = {
             h1 { +"Notes" }
-            for (metadata in noteMetadata) {
-                article {
-                    val title = metadata.title ?: "untitled"
 
-                    a(href = metadata.slug) { +title }
-                }
-            }
+            notesGrid(items = noteMetadata)
         }
     }
 
