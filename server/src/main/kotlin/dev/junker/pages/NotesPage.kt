@@ -1,5 +1,6 @@
 package dev.junker.pages
 
+import dev.junker.classSelector
 import dev.junker.components.table.notesGrid
 import dev.junker.markdown.MarkdownMetadata
 import dev.junker.markdown.markdownDocument
@@ -7,6 +8,8 @@ import dev.junker.markdown.parseMetadata
 import dev.junker.util.loadResourceText
 import kotlinx.html.FlowContent
 import kotlinx.html.h1
+
+val notesHeader = "notes-header".classSelector()
 
 sealed interface NotesPage : Page.Content {
     companion object {
@@ -20,7 +23,7 @@ sealed interface NotesPage : Page.Content {
         override val title = "Notes"
         override val description = "Don't mind the mess."
         override val content: FlowContent.() -> Unit = {
-            h1 { +"Notes" }
+            h1(classes = notesHeader.className) { +"Notes" }
 
             notesGrid(items = noteMetadata)
         }
