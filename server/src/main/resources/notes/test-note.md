@@ -1,7 +1,7 @@
 ---
 title: This is a test note
 description: This is a test description.
-creationDate: 2025-2-6
+creationDate: 2025.2.6
 ---
 
 # Header 1 - This is a test note

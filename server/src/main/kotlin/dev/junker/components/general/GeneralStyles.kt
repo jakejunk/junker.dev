@@ -98,6 +98,10 @@ fun CssBuilder.generalStyles() {
         opacity = 0.5
     }
 
+    time {
+        monospaceFont()
+    }
+
     exclamation.selector {
         // TODO: Consolidate with similar rules in imageStyles
         pixelFont()

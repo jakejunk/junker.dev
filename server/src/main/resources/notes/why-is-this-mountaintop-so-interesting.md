@@ -1,7 +1,7 @@
 ---
 title: Why Is This Mountaintop So Interesting?
-description: No, it's not because "liminal space".
-creationDate: 2025-4-8
+description: What a magnificent rock.
+creationDate: 2025.4.8
 ---
 
 # Why Is This Mountaintop So Interesting?

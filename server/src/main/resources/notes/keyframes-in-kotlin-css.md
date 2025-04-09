@@ -1,8 +1,8 @@
 ---
 title: @keyframes in kotlin-css
 description: Making @keyframes a bit easier to work with.
-creationDate: 2025-2-12
-modifiedDate: 2025-2-13
+creationDate: 2025.2.12
+modifiedDate: 2025.2.13
 ---
 
 # @keyframes in kotlin-css

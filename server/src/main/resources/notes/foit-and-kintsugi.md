@@ -1,7 +1,7 @@
 ---
 title: The Flash Of Invisible Text, and Kintsugi
 description: Download time; issue, or source of inspiration?
-creationDate: 2025-2-27
+creationDate: 2025.2.27
 ---
 
 # The Flash Of Invisible Text, and Kintsugi
