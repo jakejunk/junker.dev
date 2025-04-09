@@ -1,7 +1,7 @@
 package dev.junker.pages
 
 import dev.junker.classSelector
-import dev.junker.components.table.notesGrid
+import dev.junker.components.grid.notesGrid
 import dev.junker.markdown.MarkdownMetadata
 import dev.junker.markdown.markdownDocument
 import dev.junker.markdown.parseMetadata

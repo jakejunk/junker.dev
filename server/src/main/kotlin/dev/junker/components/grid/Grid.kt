@@ -1,4 +1,4 @@
-package dev.junker.components.table
+package dev.junker.components.grid
 
 import dev.junker.classSelector
 import dev.junker.markdown.MarkdownMetadata

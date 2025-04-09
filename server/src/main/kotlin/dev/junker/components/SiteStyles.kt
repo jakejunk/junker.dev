@@ -16,8 +16,8 @@ import dev.junker.components.main.mainContentTabletStyles
 import dev.junker.components.quote.quoteStyles
 import dev.junker.components.sudoku.sudokuStyles
 import dev.junker.components.sudoku.sudokuTabletStyles
-import dev.junker.components.table.gridStyles
-import dev.junker.components.table.gridTabletStyles
+import dev.junker.components.grid.gridStyles
+import dev.junker.components.grid.gridTabletStyles
 import dev.junker.components.tagline.taglineStyles
 import dev.junker.components.tagline.taglineTabletStyles
 import kotlinx.css.*

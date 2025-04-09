@@ -1,10 +1,9 @@
-package dev.junker.components.table
+package dev.junker.components.grid
 
 import dev.junker.components.SiteColor
 import dev.junker.components.general.*
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import kotlin.time.Duration.Companion.seconds
 
 fun CssBuilder.gridStyles() {
     notesGrid.selector {
@@ -36,7 +35,7 @@ fun CssBuilder.gridStyles() {
             timing = Timing.easeInOut
         )
 
-        hover {
+        "&:hover, &:focus" {
             boxShadow += BoxShadow(
                 color = Color.black.withAlpha(0.33),
                 offsetY = 4.px,
