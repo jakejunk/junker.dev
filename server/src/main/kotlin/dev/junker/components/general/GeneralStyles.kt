@@ -2,6 +2,7 @@ package dev.junker.components.general
 
 import dev.junker.components.SiteColor
 import dev.junker.markdown.exclamation
+import dev.junker.pages.notesHeader
 import kotlinx.css.*
 import kotlinx.css.properties.*
 
@@ -30,7 +31,6 @@ fun CssBuilder.generalStyles() {
 
     "h1, h2" {
         pixelFont()
-        primaryTextGlow(1.ch)
         animation += Animation(
             name = "flickerIn",
             duration = 0.75.s,
@@ -43,17 +43,30 @@ fun CssBuilder.generalStyles() {
     }
 
     h1 {
+        whiteTextGlow(1.ch)
         marginBottom = 4.rem
         animationDelay = 0.25.s
+
+        "&.error" {
+            secondaryTextGlow()
+        }
+
+        "&${notesHeader.selector}" {
+            before {
+                pixelatedBackgroundImage("/assets/images/16x16_notes_icon.png")
+                display = Display.inlineBlock
+                height = 64.px
+                marginRight = (-32).px
+                verticalAlign = VerticalAlign.bottom
+                width = 64.px
+            }
+        }
     }
 
     h2 {
+        primaryTextGlow(1.ch)
         marginBottom = 2.rem
         animationDelay = 0.33.s
-    }
-
-    "h1.error" {
-        secondaryTextGlow()
     }
 
     hr {
@@ -83,6 +96,10 @@ fun CssBuilder.generalStyles() {
     s {
         property("text-decoration-thickness", "from-font")
         opacity = 0.5
+    }
+
+    time {
+        monospaceFont()
     }
 
     exclamation.selector {
@@ -147,7 +164,7 @@ fun CssBuilder.monospaceFont(
 
 fun StyledElement.pixelFont() {
     fontFamily = "Dogica Pixel, Courier New, Courier, monospace"
-    fontSize = 2.3.rem
+    fontSize = 2.375.rem
     fontWeight = FontWeight.lighter
     lineHeight = 2.5.rem.lh
 }
@@ -185,6 +202,14 @@ fun StyledElement.grid3x3(
     display = Display.grid
     gridTemplateColumns = GridTemplateColumns.repeat("3, 1fr")
     cellGap?.also { gap = it }
+}
+
+fun StyledElement.whiteTextGlow(glowRadius: LinearDimension = 8.px) {
+    textWithShadow(
+        textColor = SiteColor.PrimaryText.color,
+        shadowColor = SiteColor.PrimaryBright.color,
+        blurRadius = glowRadius
+    )
 }
 
 fun StyledElement.primaryTextGlow(glowRadius: LinearDimension = 8.px) {

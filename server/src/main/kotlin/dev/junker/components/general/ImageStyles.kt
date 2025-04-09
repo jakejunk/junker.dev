@@ -22,10 +22,11 @@ fun CssBuilder.imageStyles() {
         paddingTop = 8.px
         paddingBottom = 8.px
         position = Position.relative
+        width = LinearDimension.fitContent
 
         img {
             display = Display.block
-            width = 100.pct
+            maxWidth = 100.pct
         }
     }
 

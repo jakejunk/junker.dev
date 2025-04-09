@@ -67,14 +67,18 @@ fun CssBuilder.headerStyles() {
         padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         textDecoration = TextDecoration.none
         whiteSpace = WhiteSpace.nowrap
-    }
 
-    "${navLink.selector}:hover" {
-        backgroundColor = SiteColor.BackgroundLight.color
-    }
+        hover {
+            backgroundColor = SiteColor.BackgroundLight.color
+        }
 
-    "${navLink.selector}.selected" {
-        primaryTextGlow()
+        focus {
+            zIndex = 1
+        }
+
+        "&.selected" {
+            primaryTextGlow()
+        }
     }
 }
 
@@ -89,15 +93,25 @@ fun CssBuilder.headerTabletStyles() {
 
     headerNav.selector {
         alignSelf = Align.flexEnd
+        columnGap = 0.px
         padding = Padding(left = 24.px, right = 24.px, top = 24.px, bottom = 0.px)
         rowGap = 1.rem
         width = LinearDimension.auto
     }
 
     navLink.selector {
-        borderBottomLeftRadius = 0.px
-        borderBottomRightRadius = 0.px
+        borderRadius = 0.px
         borderBottomStyle = BorderStyle.none
+        borderRightStyle = BorderStyle.none
         marginBottom = (-1.8).px
+
+        firstChild {
+            borderTopLeftRadius = cornerRadius
+        }
+
+        lastChild {
+            borderRightStyle = BorderStyle.solid
+            borderTopRightRadius = cornerRadius
+        }
     }
 }

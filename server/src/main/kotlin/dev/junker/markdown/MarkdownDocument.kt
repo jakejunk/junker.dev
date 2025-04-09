@@ -23,13 +23,15 @@ fun markdownDocument(metadata: MarkdownMetadata, markdown: String): MarkdownDocu
         content = {
             em {
                 if (metadata.modifiedDate != null) {
-                    +"Edited - "
                     time {
                         dateTime = metadata.modifiedDate
                         +metadata.modifiedDate
                     }
+                    span {
+                        title = "Edited"
+                        +"*"
+                    }
                 } else if (metadata.creationDate != null) {
-                    +"Written - "
                     time {
                         dateTime = metadata.creationDate
                         +metadata.creationDate
@@ -187,6 +189,9 @@ private fun FlowContent.renderMarkdown(
         }
         MarkdownElementTypes.CODE_SPAN -> {
             code { renderChildNodes(node, markdown) }
+        }
+        MarkdownElementTypes.BLOCK_QUOTE -> {
+            blockQuote { renderChildNodes(node, markdown) }
         }
         // Render auto-links as text
         GFMTokenTypes.GFM_AUTOLINK,
