@@ -75,6 +75,7 @@ private fun collectNoteMetadata(): List<MarkdownMetadata> {
     val parentDir = "/notes"
     val notes =
         listOf(
+            "why-is-this-mountaintop-so-interesting",
             "foit-and-kintsugi",
             "keyframes-in-kotlin-css",
             "test-note"

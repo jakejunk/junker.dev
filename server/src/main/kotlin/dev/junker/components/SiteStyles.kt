@@ -13,6 +13,7 @@ import dev.junker.components.main.commandLineStyles
 import dev.junker.components.main.commandLineTabletStyles
 import dev.junker.components.main.mainContentStyles
 import dev.junker.components.main.mainContentTabletStyles
+import dev.junker.components.quote.quoteStyles
 import dev.junker.components.sudoku.sudokuStyles
 import dev.junker.components.sudoku.sudokuTabletStyles
 import dev.junker.components.table.gridStyles
@@ -57,6 +58,7 @@ fun CssBuilder.siteStyles() {
     asciiBannerStyles()
     taglineStyles()
     codeStyles()
+    quoteStyles()
     gridStyles()
     sudokuStyles()
 

@@ -24,22 +24,24 @@ fun CssBuilder.linkStyles() {
         position = Position.absolute
         textDecoration = TextDecoration.none
         transform.translateY((-100).pct)
-        zIndex = 1
+        zIndex = 100
+
+        before {
+            content = "↯ ".quoted
+            fontWeight = FontWeight.bold
+        }
+
+        focus {
+            transform.translateY(0.px)
+        }
     }
 
-    "${skipLink.selector}::before" {
-        content = "↯ ".quoted
-        fontWeight = FontWeight.bold
-    }
-
-    "${skipLink.selector}:focus" {
-        transform.translateY(0.px)
-    }
-
-    "${externalLink.selector}::after" {
-        content = " ↗".quoted
-        lineHeight = 0.rem.lh
-        verticalAlign = VerticalAlign.`super`
+    externalLink.selector {
+        after {
+            content = " ↗".quoted
+            lineHeight = 0.rem.lh
+            verticalAlign = VerticalAlign.`super`
+        }
     }
 
     hiddenLink.selector {

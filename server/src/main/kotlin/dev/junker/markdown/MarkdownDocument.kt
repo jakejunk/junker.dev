@@ -188,6 +188,9 @@ private fun FlowContent.renderMarkdown(
         MarkdownElementTypes.CODE_SPAN -> {
             code { renderChildNodes(node, markdown) }
         }
+        MarkdownElementTypes.BLOCK_QUOTE -> {
+            blockQuote { renderChildNodes(node, markdown) }
+        }
         // Render auto-links as text
         GFMTokenTypes.GFM_AUTOLINK,
         MarkdownTokenTypes.TEXT -> {

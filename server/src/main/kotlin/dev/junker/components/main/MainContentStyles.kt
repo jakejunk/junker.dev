@@ -45,7 +45,7 @@ fun CssBuilder.mainContentStyles() {
         backgroundColor = SiteColor.BackgroundLight.color
         content = "".quoted
         display = Display.block
-        height = 2.px
+        height = 1.9.px
         margin = Margin(
             vertical = 48.px,
             horizontal = LinearDimension.auto
