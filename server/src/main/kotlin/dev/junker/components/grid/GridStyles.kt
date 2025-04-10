@@ -48,6 +48,7 @@ fun CssBuilder.gridStyles() {
         header {
             h2 {
                 monospaceFont(fontSize = 1.25.rem, lineHeight = 1.75.rem.lh)
+                primaryTextGlow(1.ch)
                 margin = Margin(vertical = 0.5.rem)
                 textAlign = TextAlign.left
             }
