@@ -70,8 +70,8 @@ But my favorite location? That distinction belongs to
 up on the hill after exiting Mt. Moon.
 And yep, you guessed it—there was absolutely _nothing_ up there.
 1998 me would stand there forever,
-imagining a cozy rest spot with a view overlooking Cerulean City.
-I would basically stand there and do nothing beyond watching my confused Pikachu spin in circles.
+imagining a cozy rest spot with a view overlooking Cerulean City...
+The only movement on-screen was my confused Pikachu spinning in circles.
 
 _Why?_
 

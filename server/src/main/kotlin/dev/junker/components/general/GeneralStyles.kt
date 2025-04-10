@@ -43,7 +43,7 @@ fun CssBuilder.generalStyles() {
     }
 
     h1 {
-        whiteTextGlow(1.ch)
+        primaryTextGlow(1.ch)
         marginBottom = 4.rem
         animationDelay = 0.25.s
 
@@ -64,7 +64,7 @@ fun CssBuilder.generalStyles() {
     }
 
     h2 {
-        primaryTextGlow(1.ch)
+        color = SiteColor.SubtleText.color
         marginBottom = 2.rem
         animationDelay = 0.33.s
     }
@@ -202,14 +202,6 @@ fun StyledElement.grid3x3(
     display = Display.grid
     gridTemplateColumns = GridTemplateColumns.repeat("3, 1fr")
     cellGap?.also { gap = it }
-}
-
-fun StyledElement.whiteTextGlow(glowRadius: LinearDimension = 8.px) {
-    textWithShadow(
-        textColor = SiteColor.PrimaryText.color,
-        shadowColor = SiteColor.PrimaryBright.color,
-        blurRadius = glowRadius
-    )
 }
 
 fun StyledElement.primaryTextGlow(glowRadius: LinearDimension = 8.px) {
