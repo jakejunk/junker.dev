@@ -6,8 +6,6 @@ import kotlinx.css.*
 
 fun CssBuilder.commandLineStyles() {
     cliContainer.selector {
-        flexColumn()
-        alignItems = Align.center
         // TODO: Frosted glass blurs everything
         backgroundColor = SiteColor.BackgroundDark.color.changeAlpha(0.33)
         border = light2pxBorder()
@@ -20,7 +18,7 @@ fun CssBuilder.commandLineStyles() {
     cli.selector {
         padding = Padding(vertical = 1.rem, horizontal = 2.ch)
         whiteSpace = WhiteSpace.nowrap
-        width = 100.pct
+        width = LinearDimension.fitContent
     }
 
     "${cli.selector}::before" {

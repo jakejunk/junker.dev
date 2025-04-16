@@ -45,10 +45,12 @@ fun CssBuilder.mainContentStyles() {
         backgroundColor = SiteColor.BackgroundLight.color
         content = "".quoted
         display = Display.block
-        height = 1.9.px
+        height = 4.px
         margin = Margin(
-            vertical = 48.px,
-            horizontal = LinearDimension.auto
+            top = 64.px,
+            bottom = (-16).px,
+            left = LinearDimension.auto,
+            right = LinearDimension.auto
         )
         width = 128.px
     }
@@ -61,5 +63,12 @@ fun CssBuilder.mainContentTabletStyles() {
 
     main.selector {
         padding = Padding(2.rem)
+    }
+
+    "section + section::before" {
+        margin = Margin(
+            left = 0.px,
+            right = 0.px
+        )
     }
 }
