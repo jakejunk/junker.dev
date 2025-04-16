@@ -69,7 +69,7 @@ But my favorite location? That distinction belongs to
 [Kanto Route 4](https://bulbapedia.bulbagarden.net/wiki/Kanto_Route_4#Eastern_segment),
 up on the hill after exiting Mt. Moon.
 And yep, you guessed it—there was absolutely _nothing_ up there.
-1998 me would stand there forever,
+1999 me would stand there forever,
 imagining a cozy rest spot with a view overlooking Cerulean City...
 The only movement on-screen was my confused Pikachu spinning in circles.
 
