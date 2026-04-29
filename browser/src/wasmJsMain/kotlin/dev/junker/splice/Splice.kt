@@ -3,54 +3,73 @@ package dev.junker.splice
 import dev.junker.Result
 import dev.junker.err
 import dev.junker.ok
+import dev.junker.sudoku.SudokuCell
+import kotlin.collections.List
 
-class Splice(
+class Splice private constructor(
     val sideLength: Int,
-    val cells: List<SpliceCell> = List(sideLength * sideLength) { SpliceCell.Empty },
-    val operators: List<Pair<Range?, SpliceOperator>>
+    val cells: List<SpliceCell>,
+    val operators: List<Pair<Range, SpliceOperator>>
 ) {
     fun applyOperator(
-        op: SpliceOperator,
-        position: Position
-    ): Result<Splice, String> {
-        val endPos = when (op.direction) {
-            Direction.VERTICAL -> position.plusY(2)
-            Direction.HORIZONTAL -> position.plusX(2)
+        operator: SpliceOperator,
+        startPos: Position
+    ): Result<OperationResult, String> {
+        val (endPos, resultPos) = when (operator.direction) {
+            Direction.VERTICAL -> startPos.plusY(1) to startPos.plusY(2)
+            Direction.HORIZONTAL -> startPos.plusX(1) to startPos.plusX(2)
         }
 
-        position.toIndex() ?: return "Invalid start position".err()
-        endPos.toIndex() ?: return "Invalid end position".err()
+        val lhs = startPos.toIndex()
+            ?.let { cells[it] }
+            ?: return "Invalid start position".err()
 
-        val opRange = position upThrough endPos
-        val opIndex = operators
-            .indexOfFirst { (range, operator) -> range == null && operator == op }
-            .takeIf { it >= 0 }
-            ?: return "Invalid operator".err()
+        val rhs = endPos.toIndex()
+            ?.let { cells[it] }
+            ?: return "Invalid end position".err()
 
-        return Splice(
-            sideLength = sideLength,
-            cells = cells,
-            operators = operators.update(opIndex) { opRange to op }
+        val resultIndex = resultPos.toIndex()
+            ?: return "Invalid result position".err()
+
+        return OperationResult(
+            new = Splice(
+                sideLength = sideLength,
+                cells = cells,
+                operators = operators + (startPos upThrough resultPos to operator),
+            ),
+            index = resultIndex,
+            cell = operator.perform(lhs, rhs)
         ).ok()
     }
 
     fun removeOperator(
-        op: SpliceOperator,
-        position: Position
-    ): Result<Splice, String> {
-        position.toIndex() ?: return "Invalid position".err()
+        pos: Position
+    ): Result<OperationResult, String> {
+        // FIXME: Either forbid result cell overlaps, or add a second check
+        //  for operations with overlapping result cells before resetting value
 
-        val opIndex = operators
-            .indexOfFirst { (range, operator) ->
-                range != null && range.contains(position) && operator == op
-            }
-            .takeIf { it >= 0 }
-            ?: return "Invalid operator".err()
+        val possible = operators
+            .mapIndexed { i, (range, _) -> i to range }
+            .filter { (_, range) -> range.contains(pos) }
 
-        return Splice(
-            sideLength = sideLength,
-            cells = cells,
-            operators = operators.update(opIndex) { null to op }
+        if (possible.isEmpty()) {
+            return "No operator at position $pos".err()
+        } else if (possible.size > 1) {
+            return "Multiple operations at position $pos".err()
+        }
+
+        val (opIndex, range) = possible[0]
+        val resultIndex = range.end.toIndex()
+            ?: return "Invalid result position".err()
+
+        return OperationResult(
+            new = Splice(
+                sideLength = sideLength,
+                cells = cells,
+                operators = operators - operators[opIndex],
+            ),
+            index = resultIndex,
+            cell = cells[resultIndex]
         ).ok()
     }
 
@@ -61,15 +80,19 @@ class Splice(
         }
     }
 
-    private inline fun <T> List<T>.update(
-        index: Int,
-        action: (T) -> T
-    ): List<T> {
-        return mapIndexed { i, t ->
-            when {
-                i == index -> action(t)
-                else -> t
-            }
+    companion object {
+        fun empty(sideLength: Int): Splice {
+            return Splice(
+                sideLength = sideLength,
+                cells = List(sideLength * sideLength) { SpliceCell.Null },
+                operators = emptyList()
+            )
         }
     }
 }
+
+data class OperationResult(
+    val new: Splice,
+    val index: Int,
+    val cell: SpliceCell
+)

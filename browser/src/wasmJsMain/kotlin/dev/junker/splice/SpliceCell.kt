@@ -1,11 +1,29 @@
 package dev.junker.splice
 
 sealed interface SpliceCell {
-    data object Null : SpliceCell
+    val value: UByte
 
-    data object Jump : SpliceCell
+    data object Null : SpliceCell {
+        override val value: UByte = 0u
+    }
 
-    data object Empty : SpliceCell
+    data class Filled(
+        override val value: UByte
+    ) : SpliceCell {
+        fun isJumpCell() = value == UByte.MAX_VALUE
+    }
+}
 
-    data class Filled(val value: UByte) : SpliceCell
+fun SpliceOperator.perform(
+    lhs: SpliceCell,
+    rhs: SpliceCell
+): SpliceCell.Filled {
+    val updatedValue = when (this) {
+        is SpliceOperator.Add -> lhs.value + rhs.value
+        is SpliceOperator.Subtract -> lhs.value - rhs.value
+        is SpliceOperator.Multiply -> lhs.value * rhs.value
+        is SpliceOperator.Divide -> lhs.value / rhs.value
+    }
+
+    return SpliceCell.Filled(updatedValue.toUByte())
 }

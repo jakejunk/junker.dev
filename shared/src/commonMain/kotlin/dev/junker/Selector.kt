@@ -2,6 +2,25 @@ package dev.junker
 
 import kotlin.jvm.JvmInline
 
+// Splice =====================================================================
+// Grid
+val spliceContainer = "splice-container".idSelector()
+val splicePlaceholder = "splice-placeholder".idSelector()
+val splice = "splice".classSelector()
+val spliceGrid = "splice-grid".classSelector()
+val spliceCell = "splice-cell".classSelector()
+
+// States
+val spliceSelected = "splice-selected".classSelector()
+
+// Controls
+val spliceControls = "splice-controls".classSelector()
+val spliceActions = "splice-actions".classSelector()
+val spliceAction = "splice-action".classSelector()
+val spliceActionMark = "splice-action-mark".classSelector()
+val spliceActionErase = "splice-action-erase".classSelector()
+val spliceActionUndo = "splice-action-undo".classSelector()
+
 // Sudoku =====================================================================
 // Grid
 val sudokuContainer = "sudoku-container".idSelector()

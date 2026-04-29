@@ -1,0 +1,119 @@
+package dev.junker.splice.view
+
+import dev.junker.*
+import dev.junker.splice.Splice
+import dev.junker.splice.SpliceState
+import dev.junker.sudoku.Sudoku
+import dev.junker.sudoku.SudokuState
+import dev.junker.sudoku.controls.SudokuControlsView
+import dev.junker.sudoku.controls.SudokuControlsView.Companion.sudokuControlsView
+import dev.junker.sudoku.view.SudokuGridView
+import dev.junker.sudoku.view.SudokuGridView.Companion.sudokuGridView
+import kotlinx.html.TagConsumer
+import kotlinx.html.js.div
+import org.w3c.dom.Element
+import org.w3c.dom.HTMLButtonElement
+import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.HTMLElement
+
+class SpliceView private constructor(
+    private val sudokuElement: HTMLElement,
+    private val grid: SudokuGridView,
+    private val controls: SudokuControlsView
+) {
+    private val state = SpliceState(
+        initialState = Splice.empty(4),
+        onCellFilled = { index, value ->
+            grid.fillCell(index, value)
+        },
+        onCellErased = { index ->
+            grid.eraseCell(index)
+        },
+        onStateUpdated = {
+            val activeCellValue = grid.activeCell?.value
+            if (activeCellValue != null) {
+                grid.highlightValue(activeCellValue)
+            } else {
+                grid.highlightValue(null)
+            }
+        }
+    )
+
+    init {
+        grid.forEachCellView {
+            onCellSelected = {
+                grid.activeCell?.unselect()
+                grid.activeCell = this.apply { select() }
+
+                grid.highlightValue(value)
+            }
+
+            marks.entries.forEach { (value, markView) ->
+                markView.onMarkSelected = {
+                    state.toggleMark(index, value)
+                }
+            }
+        }
+
+        with(controls) {
+            onSetValue = { newValue ->
+                grid.activeCell?.apply {
+                    when (controls.markingEnabled) {
+                        true -> state.toggleMark(index, newValue)
+                        false -> state.fillCell(index, newValue)
+                    }
+                }
+            }
+
+            onUndo = {
+                state.undo()
+                    .ifError { undoButton.twitch() }
+            }
+
+            onEraseValue = {
+                grid.activeCell
+                    .orElse("No cell selected.")
+                    .ifOkTry { cell -> state.eraseCell(cell.index) }
+                    .ifError { eraseButton.twitch() }
+            }
+
+            onMarkingToggled = { enabled ->
+                when (enabled) {
+                    true -> sudokuElement.classList.add(sudokuMarking.className)
+                    false -> sudokuElement.classList.remove(sudokuMarking.className)
+                }
+            }
+
+            onPreciseMarkingToggled = { enabled ->
+                grid.activeCell?.unselect()
+                grid.activeCell = null
+
+                when (enabled) {
+                    true -> sudokuElement.classList.add(sudokuPreciseMarking.className)
+                    false -> sudokuElement.classList.remove(sudokuPreciseMarking.className)
+                }
+            }
+        }
+    }
+
+    private fun HTMLButtonElement.twitch() {
+        classList.remove("twitch")
+        offsetWidth
+        classList.add("twitch")
+    }
+
+    companion object {
+        fun TagConsumer<Element>.sudokuView(): SudokuView {
+            val root: HTMLDivElement
+            val grid: SudokuGridView
+            val controls: SudokuControlsView
+
+            root = div(classes = sudoku.className) {
+                grid = sudokuGridView()
+                controls = sudokuControlsView()
+            }
+
+            return SudokuView(root, grid, controls)
+        }
+    }
+}

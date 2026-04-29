@@ -12,5 +12,9 @@ fun main() {
         getElementById(sudokuPlaceholder.id)?.remove()
         getElementById(sudokuContainer.id)
             ?.append { sudokuView() }
+
+        getElementById(splicePlaceholder.id)?.remove()
+        getElementById(spliceContainer.id)
+            ?.append { sudokuView() }
     }
 }
