@@ -3,8 +3,6 @@ package dev.junker.splice
 import dev.junker.Result
 import dev.junker.err
 import dev.junker.ok
-import dev.junker.sudoku.SudokuCell
-import kotlin.collections.List
 
 class Splice private constructor(
     val sideLength: Int,
@@ -12,8 +10,8 @@ class Splice private constructor(
     val operators: List<Pair<Range, SpliceOperator>>
 ) {
     fun applyOperator(
-        operator: SpliceOperator,
-        startPos: Position
+        startPos: Position,
+        operator: SpliceOperator
     ): Result<OperationResult, String> {
         val (endPos, resultPos) = when (operator.direction) {
             Direction.VERTICAL -> startPos.plusY(1) to startPos.plusY(2)

@@ -1,14 +1,14 @@
 package dev.junker.splice.view
 
-import dev.junker.*
+import dev.junker.ifError
+import dev.junker.ifOkTry
+import dev.junker.orElse
+import dev.junker.splice
 import dev.junker.splice.Splice
 import dev.junker.splice.SpliceState
-import dev.junker.sudoku.Sudoku
-import dev.junker.sudoku.SudokuState
-import dev.junker.sudoku.controls.SudokuControlsView
-import dev.junker.sudoku.controls.SudokuControlsView.Companion.sudokuControlsView
-import dev.junker.sudoku.view.SudokuGridView
-import dev.junker.sudoku.view.SudokuGridView.Companion.sudokuGridView
+import dev.junker.splice.controls.SpliceControlsView
+import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView
+import dev.junker.splice.view.SpliceGridView.Companion.spliceGridView
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -17,12 +17,12 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
 class SpliceView private constructor(
-    private val sudokuElement: HTMLElement,
-    private val grid: SudokuGridView,
-    private val controls: SudokuControlsView
+    private val root: HTMLElement,
+    private val grid: SpliceGridView,
+    private val controls: SpliceControlsView
 ) {
     private val state = SpliceState(
-        initialState = Splice.empty(4),
+        initialSnapshot = Splice.empty(4),
         onCellFilled = { index, value ->
             grid.fillCell(index, value)
         },
@@ -30,12 +30,12 @@ class SpliceView private constructor(
             grid.eraseCell(index)
         },
         onStateUpdated = {
-            val activeCellValue = grid.activeCell?.value
-            if (activeCellValue != null) {
-                grid.highlightValue(activeCellValue)
-            } else {
-                grid.highlightValue(null)
-            }
+//            val activeCellValue = grid.activeCell?.value
+//            if (activeCellValue != null) {
+//                grid.highlightValue(activeCellValue)
+//            } else {
+//                grid.highlightValue(null)
+//            }
         }
     )
 
@@ -43,55 +43,28 @@ class SpliceView private constructor(
         grid.forEachCellView {
             onCellSelected = {
                 grid.activeCell?.unselect()
-                grid.activeCell = this.apply { select() }
+                grid.activeCell = this.also { it.select() }
 
                 grid.highlightValue(value)
-            }
-
-            marks.entries.forEach { (value, markView) ->
-                markView.onMarkSelected = {
-                    state.toggleMark(index, value)
-                }
             }
         }
 
         with(controls) {
             onSetValue = { newValue ->
                 grid.activeCell?.apply {
-                    when (controls.markingEnabled) {
-                        true -> state.toggleMark(index, newValue)
-                        false -> state.fillCell(index, newValue)
-                    }
+                    state.applyOperator(index, newValue)
                 }
             }
 
             onUndo = {
-                state.undo()
-                    .ifError { undoButton.twitch() }
+                state.undo().ifError { undoButton.twitch() }
             }
 
             onEraseValue = {
                 grid.activeCell
                     .orElse("No cell selected.")
-                    .ifOkTry { cell -> state.eraseCell(cell.index) }
+                    .ifOkTry { cell -> state.removeOperator(cell.index) }
                     .ifError { eraseButton.twitch() }
-            }
-
-            onMarkingToggled = { enabled ->
-                when (enabled) {
-                    true -> sudokuElement.classList.add(sudokuMarking.className)
-                    false -> sudokuElement.classList.remove(sudokuMarking.className)
-                }
-            }
-
-            onPreciseMarkingToggled = { enabled ->
-                grid.activeCell?.unselect()
-                grid.activeCell = null
-
-                when (enabled) {
-                    true -> sudokuElement.classList.add(sudokuPreciseMarking.className)
-                    false -> sudokuElement.classList.remove(sudokuPreciseMarking.className)
-                }
             }
         }
     }
@@ -103,17 +76,17 @@ class SpliceView private constructor(
     }
 
     companion object {
-        fun TagConsumer<Element>.sudokuView(): SudokuView {
+        fun TagConsumer<Element>.spliceView(): SpliceView {
             val root: HTMLDivElement
-            val grid: SudokuGridView
-            val controls: SudokuControlsView
+            val grid: SpliceGridView
+            val controls: SpliceControlsView
 
-            root = div(classes = sudoku.className) {
-                grid = sudokuGridView()
-                controls = sudokuControlsView()
+            root = div(classes = splice.className) {
+                grid = spliceGridView(4)
+                controls = spliceControlsView()
             }
 
-            return SudokuView(root, grid, controls)
+            return SpliceView(root, grid, controls)
         }
     }
 }

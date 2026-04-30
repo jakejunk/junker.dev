@@ -62,6 +62,9 @@ private fun CssBuilder.spliceGridStyles() {
         flexBasis = 100.pct.basis
         flexGrow = 1
         maxWidth = gridWidth.px
+
+        display = Display.grid
+        gridTemplateColumns = GridTemplateColumns.repeat("var(--grid-cols), 1fr")
     }
 
     spliceCell.selector {
@@ -102,6 +105,80 @@ private fun CssBuilder.spliceControlStyles() {
         width = controlWidth.px
     }
 
+    spliceOperations.selector {
+        grid3x3(cellGap = 1.ch)
+    }
+
+    splicePossibleOperation.selector {
+        monospaceFont(fontWeight = FontWeight.bold)
+        property("-webkit-tap-highlight-color", "transparent")
+        aspectRatio = AspectRatio(1, 1)
+        backgroundImage = radialGradient {
+            circle()
+            at(RelativePosition.offset(65.pct, 45.pct))
+            colorStop(hex(0xE0E0E0))
+            colorStop(hex(0xB0B0B0))
+        }
+        border = Border.none
+        borderRadius = 50.pct
+        boxShadow += BoxShadowInset(
+            color = hex(0xFFF).withAlpha(0.5),
+            offsetY = 1.px,
+            blurRadius = 2.px
+        )
+        boxShadow += BoxShadowInset(
+            color = hex(0x000).withAlpha(0.3),
+            offsetY = (-1).px,
+            blurRadius = 2.px
+        )
+        boxShadow += BoxShadow(
+            color = hex(0x000).withAlpha(0.4),
+            offsetX = (-1).px,
+            offsetY = 1.px,
+            blurRadius = 2.px
+        )
+        color = hex(0x333)
+        containerType = ContainerType.inlineSize
+        cursor = Cursor.pointer
+        flexGrow = 1
+        position = Position.relative
+
+        children("span") {
+            fontSize = clamp(10.px, NumericLinearDimension(100, "cqi"), 32.px)
+        }
+
+        before {
+            backgroundImage = radialGradient {
+                ellipse()
+                at(RelativePosition.center)
+                colorStop(hex(0xFFF).withAlpha(0.4))
+                colorStop(Color.transparent)
+            }
+            borderRadius = 50.pct
+            height = 20.pct
+            left = 55.pct
+            position = Position.absolute
+            top = 15.pct
+            width = 35.pct
+        }
+
+        active {
+            transform { translateY(2.px) }
+            boxShadow += BoxShadowInset(
+                color = hex(0x000).withAlpha(0.6),
+                offsetX = 1.px,
+                offsetY = 1.px,
+                blurRadius = 3.px
+            )
+        }
+
+        focusVisible {
+            outlineColor = SiteColor.SubtleText.color
+            outlineStyle = OutlineStyle.solid
+            outlineWidth = 5.px
+        }
+    }
+
     spliceActions.selector {
         flexRow(rowGap = 1.ch)
 
@@ -135,25 +212,6 @@ private fun CssBuilder.spliceControlStyles() {
 
                 active {
                     backgroundColor = SiteColor.BackgroundLight.color
-                }
-
-                "&${spliceActionMark.selector}" {
-                    before {
-                        transition += Transition(
-                            property = "transform",
-                            duration = 0.33.s,
-                            timing = cubicBezier(0.33, 2.5, 0.66, 0.25)
-                        )
-                    }
-
-                    checked {
-                        backgroundColor = SiteColor.BackgroundLight.color
-                        before {
-                            transform {
-                                rotateZ((-45).deg)
-                            }
-                        }
-                    }
                 }
 
                 "&${spliceActionErase.selector}" {

@@ -6,7 +6,7 @@ import dev.junker.ifOk
 import dev.junker.ok
 
 class SpliceState(
-    private val initialState: Splice,
+    private val initialSnapshot: Splice,
     private val onCellFilled: (index: Int, value: UByte) -> Unit,
     private val onCellErased: (index: Int) -> Unit,
     private val onStateUpdated: () -> Unit
@@ -14,19 +14,21 @@ class SpliceState(
     private val history: MutableList<Splice> = mutableListOf()
 
     fun applyOperator(
-        operator: SpliceOperator,
-        startPos: Position
+        index: Int,
+        operator: SpliceOperator
     ): Result<Unit, String> {
         return update {
-            applyOperator(operator, startPos)
+            val position = Position(index / sideLength, index % sideLength)
+            applyOperator(position, operator)
         }
     }
 
     fun removeOperator(
-        pos: Position
+        index: Int
     ): Result<Unit, String> {
         return update {
-            removeOperator(pos)
+            val position = Position(index / sideLength, index % sideLength)
+            removeOperator(position)
         }
     }
 
@@ -59,7 +61,7 @@ class SpliceState(
     }
 
     private fun mostRecent(): Splice {
-        return history.lastOrNull() ?: initialState
+        return history.lastOrNull() ?: initialSnapshot
     }
 
     private fun restoreState(current: Splice, target: Splice) {

@@ -23,6 +23,7 @@ interface ProjectsPage : Page.Content {
             // FIXME
             article {
                 a(href = "$ROOT_SLUG/sudoku") { +"Sudoku" }
+                a(href = "$ROOT_SLUG/splice") { +"Splice" }
             }
         }
     }

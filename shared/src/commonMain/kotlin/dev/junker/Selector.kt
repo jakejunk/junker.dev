@@ -15,9 +15,10 @@ val spliceSelected = "splice-selected".classSelector()
 
 // Controls
 val spliceControls = "splice-controls".classSelector()
+val spliceOperations = "splice-operations".classSelector()
+val splicePossibleOperation = "splice-possible-operation".classSelector()
 val spliceActions = "splice-actions".classSelector()
 val spliceAction = "splice-action".classSelector()
-val spliceActionMark = "splice-action-mark".classSelector()
 val spliceActionErase = "splice-action-erase".classSelector()
 val spliceActionUndo = "splice-action-undo".classSelector()
 

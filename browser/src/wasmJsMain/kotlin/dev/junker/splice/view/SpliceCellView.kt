@@ -1,5 +1,7 @@
 package dev.junker.splice.view
 
+import dev.junker.spliceCell
+import dev.junker.spliceSelected
 import dev.junker.sudoku.SudokuValue
 import dev.junker.sudoku.forEachSudokuValue
 import dev.junker.sudoku.toSudokuValue
@@ -19,10 +21,9 @@ class SpliceCellView private constructor(
 ) {
     var onCellSelected: ((SpliceCellView) -> Unit)? = null
 
-    var value: SudokuValue?
+    var value: UByte?
         get() = root.getAttribute(VALUE_ATTRIBUTE)
-            ?.toIntOrNull()
-            ?.toSudokuValue()
+            ?.toUByteOrNull()
         set(value) = when (value) {
             null -> root.removeAttribute(VALUE_ATTRIBUTE)
             else -> root.setAttribute(VALUE_ATTRIBUTE, value.toString())
@@ -33,18 +34,18 @@ class SpliceCellView private constructor(
     }
 
     fun select() {
-        root.classList.add(sudokuSelected.className)
+        root.classList.add(spliceSelected.className)
     }
 
     fun unselect() {
-        root.classList.remove(sudokuSelected.className)
+        root.classList.remove(spliceSelected.className)
     }
 
     companion object {
         private const val VALUE_ATTRIBUTE = "data-value"
 
         fun TagConsumer<Element>.spliceCellView(index: Int): SpliceCellView {
-            val root = div(classes = sudokuCell.className)
+            val root = div(classes = spliceCell.className)
 
             return SpliceCellView(index, root)
         }
