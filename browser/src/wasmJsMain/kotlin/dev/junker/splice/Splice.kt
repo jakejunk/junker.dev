@@ -16,7 +16,9 @@ class Splice private constructor(
         operator: SpliceOperator
     ): Result<Splice, String> {
         val candidate = PlacedOperator(position, operator)
-        if (operators.any { it.resultPosition == candidate.resultPosition }) {
+        if (candidate.resultPosition.x >= sideLength || candidate.resultPosition.y >= sideLength) {
+            return "Result off grid at ${candidate.resultPosition}".err()
+        } else if (operators.any { it.resultPosition == candidate.resultPosition }) {
             return "Multiple results at ${candidate.resultPosition}".err()
         }
 
@@ -57,14 +59,6 @@ class Splice private constructor(
     }
 
     companion object {
-        fun empty(sideLength: Int): Splice {
-            return Splice(
-                sideLength = sideLength,
-                cells = List(sideLength * sideLength) { SpliceCell(0u) },
-                operators = emptyList()
-            )
-        }
-
         fun simple(
             sideLength: Int,
             init: (Int) -> SpliceCell

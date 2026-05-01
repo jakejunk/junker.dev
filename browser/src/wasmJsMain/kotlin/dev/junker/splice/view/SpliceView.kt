@@ -5,8 +5,8 @@ import dev.junker.ifOkTry
 import dev.junker.orElse
 import dev.junker.splice
 import dev.junker.splice.Splice
-import dev.junker.splice.cell.SpliceCell
 import dev.junker.splice.SpliceState
+import dev.junker.splice.cell.SpliceCell
 import dev.junker.splice.controls.SpliceControlsView
 import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView
 import dev.junker.splice.view.SpliceGridView.Companion.spliceGridView
@@ -52,14 +52,12 @@ class SpliceView private constructor(
         with(controls) {
             onSetValue = { newValue ->
                 grid.activeCell?.apply {
-                    println("onSetValue: $index $newValue")
                     state.applyOperator(index, newValue)
                 }
             }
 
             onUndo = {
                 state.undo().ifError {
-                    println("undo: $it")
                     undoButton.twitch()
                 }
             }
