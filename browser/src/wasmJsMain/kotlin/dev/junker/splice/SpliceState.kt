@@ -4,9 +4,7 @@ import dev.junker.Result
 import dev.junker.err
 import dev.junker.ifOk
 import dev.junker.ok
-
-// TODO: Try to consolidate the onFilled/Erased invocations,
-//  to bring the logic into one spot
+import dev.junker.splice.validation.getEffectiveCells
 
 class SpliceState(
     private val initialSnapshot: Splice,
@@ -16,11 +14,22 @@ class SpliceState(
     private val history: MutableList<Splice> = mutableListOf()
 
     init {
-        restoreState(
-            current = Splice.empty(initialSnapshot.sideLength),
+        transition(
+            current = initialSnapshot,
             target = initialSnapshot,
             force = true
         )
+    }
+
+    fun undo(): Result<Unit, String> {
+        if (history.isEmpty()) {
+            return "No history.".err()
+        }
+
+        val current = history.removeLast()
+        val target = mostRecent()
+
+        return transition(current, target).ok()
     }
 
     fun applyOperator(
@@ -42,6 +51,10 @@ class SpliceState(
         }
     }
 
+    private fun mostRecent(): Splice {
+        return history.lastOrNull() ?: initialSnapshot
+    }
+
     private inline fun update(
         action: Splice.() -> Result<Splice, String>
     ): Result<Unit, String> {
@@ -49,35 +62,27 @@ class SpliceState(
         val updated = last.action()
 
         return updated.ifOk { updatedSnapshot ->
-            restoreState(last, updatedSnapshot)
+            transition(last, updatedSnapshot)
             history.add(updatedSnapshot)
         }
     }
 
-    fun undo(): Result<Unit, String> {
-        if (history.isEmpty()) {
-            return "No history.".err()
-        }
-
-        val current = history.removeLast()
-        val target = mostRecent()
-
-        return restoreState(current, target).ok()
-    }
-
-    private fun mostRecent(): Splice {
-        return history.lastOrNull() ?: initialSnapshot
-    }
-
-    private fun restoreState(
+    private fun transition(
         current: Splice,
         target: Splice,
         force: Boolean = false
     ) {
-        (current.effectiveCells zip target.effectiveCells).forEachIndexed { i, (from, to) ->
+        val from = current.getEffectiveCells()
+        val to = target.getEffectiveCells()
+
+        (from.effectiveCells zip to.effectiveCells).forEachIndexed { i, (from, to) ->
             if (from != to || force) {
                 onCellFilled(i, to.value)
             }
+        }
+
+        to.errors.forEach {
+            println(it)
         }
 
         onStateUpdated()

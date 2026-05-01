@@ -1,15 +1,7 @@
-package dev.junker.splice.view
+package dev.junker.splice.cell
 
 import dev.junker.spliceCell
 import dev.junker.spliceSelected
-import dev.junker.sudoku.SudokuValue
-import dev.junker.sudoku.forEachSudokuValue
-import dev.junker.sudoku.toSudokuValue
-import dev.junker.sudoku.view.SudokuCellMarkView
-import dev.junker.sudoku.view.SudokuCellMarkView.Companion.sudokuCellMarkView
-import dev.junker.sudokuCell
-import dev.junker.sudokuCellMarks
-import dev.junker.sudokuSelected
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element

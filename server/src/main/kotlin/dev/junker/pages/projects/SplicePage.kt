@@ -29,6 +29,7 @@ class SplicePage(
             ## Dev log
             
             - 4/29: Basic idea implemented. Still figuring out the flow of the game and what's "fun".
+            - 5/1: Corrected cell arithmetic and added basic validation.
         """.trimIndent())
     }
 }

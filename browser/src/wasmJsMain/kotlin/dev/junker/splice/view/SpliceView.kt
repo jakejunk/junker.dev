@@ -5,7 +5,7 @@ import dev.junker.ifOkTry
 import dev.junker.orElse
 import dev.junker.splice
 import dev.junker.splice.Splice
-import dev.junker.splice.SpliceCell
+import dev.junker.splice.cell.SpliceCell
 import dev.junker.splice.SpliceState
 import dev.junker.splice.controls.SpliceControlsView
 import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView

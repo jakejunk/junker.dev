@@ -1,4 +1,6 @@
-package dev.junker.splice
+package dev.junker.splice.cell
+
+import dev.junker.splice.SpliceOperator
 
 data class SpliceCell(
     val value: UByte

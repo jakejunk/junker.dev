@@ -3,28 +3,13 @@ package dev.junker.splice
 import dev.junker.Result
 import dev.junker.err
 import dev.junker.ok
+import dev.junker.splice.cell.SpliceCell
 
 class Splice private constructor(
     val sideLength: Int,
     val cells: List<SpliceCell>,
     val operators: List<PlacedOperator>
 ) {
-    val effectiveCells: List<SpliceCell>
-        get() {
-            val result = cells.toMutableList()
-
-            operators
-                .sortedBy { placedOp -> placedOp.resultPosition.toIndex() }
-                .forEach { placedOp ->
-                    val lhs = result[placedOp.lhsPosition.toIndex()!!]
-                    val rhs = result[placedOp.rhsPosition.toIndex()!!]
-
-                    placedOp.resultPosition.toIndex()
-                        ?.let { result[it] = placedOp.operator.perform(lhs, rhs) }
-                }
-
-            return result
-        }
 
     fun applyOperator(
         position: Position,
@@ -64,7 +49,7 @@ class Splice private constructor(
         ).ok()
     }
 
-    private fun Position.toIndex(): Int? {
+    fun Position.toIndex(): Int? {
         return when {
             x !in 0..<sideLength || y !in 0..<sideLength -> null
             else -> x + y * sideLength

@@ -1,6 +1,7 @@
 package dev.junker.splice.view
 
-import dev.junker.splice.view.SpliceCellView.Companion.spliceCellView
+import dev.junker.splice.cell.SpliceCellView
+import dev.junker.splice.cell.SpliceCellView.Companion.spliceCellView
 import dev.junker.spliceGrid
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
