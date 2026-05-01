@@ -2,15 +2,8 @@ package dev.junker.splice.view
 
 import dev.junker.splice.view.SpliceCellView.Companion.spliceCellView
 import dev.junker.spliceGrid
-import dev.junker.sudoku.SudokuValue
-import dev.junker.sudoku.view.SudokuBoxView
-import dev.junker.sudoku.view.SudokuBoxView.Companion.sudokuBoxView
-import dev.junker.sudoku.view.SudokuCellView
-import dev.junker.sudokuGrid
 import kotlinx.html.TagConsumer
-import kotlinx.html.itemProp
 import kotlinx.html.js.div
-import kotlinx.html.style
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
@@ -29,11 +22,8 @@ class SpliceGridView private constructor(
     }
 
     fun fillCell(index: Int, value: UByte) {
+        println("fillCell: $index: $value")
         cells[index].value = value
-    }
-
-    fun eraseCell(index: Int) {
-        cells[index].value = null
     }
 
     inline fun forEachCellView(

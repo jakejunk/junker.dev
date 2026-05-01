@@ -1,23 +1,17 @@
 package dev.junker.splice
 
-sealed interface SpliceCell {
+data class SpliceCell(
     val value: UByte
+) {
+    fun isNullCell() = value == UByte.MIN_VALUE
 
-    data object Null : SpliceCell {
-        override val value: UByte = 0u
-    }
-
-    data class Filled(
-        override val value: UByte
-    ) : SpliceCell {
-        fun isJumpCell() = value == UByte.MAX_VALUE
-    }
+    fun isJumpCell() = value == UByte.MAX_VALUE
 }
 
 fun SpliceOperator.perform(
     lhs: SpliceCell,
     rhs: SpliceCell
-): SpliceCell.Filled {
+): SpliceCell {
     val updatedValue = when (this) {
         is SpliceOperator.Add -> lhs.value + rhs.value
         is SpliceOperator.Subtract -> lhs.value - rhs.value
@@ -25,5 +19,5 @@ fun SpliceOperator.perform(
         is SpliceOperator.Divide -> lhs.value / rhs.value
     }
 
-    return SpliceCell.Filled(updatedValue.toUByte())
+    return SpliceCell(updatedValue.toUByte())
 }

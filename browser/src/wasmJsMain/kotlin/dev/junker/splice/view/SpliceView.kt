@@ -5,6 +5,7 @@ import dev.junker.ifOkTry
 import dev.junker.orElse
 import dev.junker.splice
 import dev.junker.splice.Splice
+import dev.junker.splice.SpliceCell
 import dev.junker.splice.SpliceState
 import dev.junker.splice.controls.SpliceControlsView
 import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView
@@ -22,12 +23,11 @@ class SpliceView private constructor(
     private val controls: SpliceControlsView
 ) {
     private val state = SpliceState(
-        initialSnapshot = Splice.empty(4),
+        initialSnapshot = Splice.simple(4) { i ->
+            SpliceCell((i * 2).toUByte())
+        },
         onCellFilled = { index, value ->
             grid.fillCell(index, value)
-        },
-        onCellErased = { index ->
-            grid.eraseCell(index)
         },
         onStateUpdated = {
 //            val activeCellValue = grid.activeCell?.value
@@ -52,12 +52,16 @@ class SpliceView private constructor(
         with(controls) {
             onSetValue = { newValue ->
                 grid.activeCell?.apply {
+                    println("onSetValue: $index $newValue")
                     state.applyOperator(index, newValue)
                 }
             }
 
             onUndo = {
-                state.undo().ifError { undoButton.twitch() }
+                state.undo().ifError {
+                    println("undo: $it")
+                    undoButton.twitch()
+                }
             }
 
             onEraseValue = {

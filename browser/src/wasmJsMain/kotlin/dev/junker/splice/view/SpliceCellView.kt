@@ -26,7 +26,14 @@ class SpliceCellView private constructor(
             ?.toUByteOrNull()
         set(value) = when (value) {
             null -> root.removeAttribute(VALUE_ATTRIBUTE)
-            else -> root.setAttribute(VALUE_ATTRIBUTE, value.toString())
+            else -> {
+                val formatted = value
+                    .toString(16)
+                    .padStart(2, '0')
+                    .uppercase()
+
+                root.setAttribute(VALUE_ATTRIBUTE, formatted)
+            }
         }
 
     init {
