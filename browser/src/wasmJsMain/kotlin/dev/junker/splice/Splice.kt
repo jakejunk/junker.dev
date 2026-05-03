@@ -4,13 +4,13 @@ import dev.junker.Result
 import dev.junker.err
 import dev.junker.ok
 import dev.junker.splice.cell.SpliceCell
+import dev.snipme.highlights.internal.get
 
 class Splice private constructor(
     val sideLength: Int,
     val cells: List<SpliceCell>,
-    val operators: List<PlacedOperator>
+    val operators: Set<PlacedOperator>
 ) {
-
     fun applyOperator(
         position: Position,
         operator: SpliceOperator
@@ -47,8 +47,12 @@ class Splice private constructor(
         return Splice(
             sideLength = sideLength,
             cells = cells,
-            operators = operators - operators[opIndex],
+            operators = operators - operators[opIndex]!!,
         ).ok()
+    }
+
+    fun Int.toPosition(): Position {
+        return Position(this % sideLength, this / sideLength)
     }
 
     fun Position.toIndex(): Int? {
@@ -65,8 +69,8 @@ class Splice private constructor(
         ): Splice {
             return Splice(
                 sideLength = sideLength,
-                cells = List(sideLength * sideLength) { i -> init(i) },
-                operators = emptyList()
+                cells = List(sideLength * sideLength, init),
+                operators = emptySet()
             )
         }
     }

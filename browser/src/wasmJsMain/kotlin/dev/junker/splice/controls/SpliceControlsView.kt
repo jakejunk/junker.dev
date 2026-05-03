@@ -22,7 +22,7 @@ class SpliceControlsView private constructor(
 ) {
     var onUndo: (() -> Unit)? = null
     var onSetValue: ((SpliceOperator) -> Unit)? = null
-    var onEraseValue: (() -> Unit)? = null
+    var onEraseOperator: (() -> Unit)? = null
 
     init {
         possibleValues.forEach { button ->
@@ -38,7 +38,7 @@ class SpliceControlsView private constructor(
         }
 
         eraseButton.onclick = {
-            onEraseValue?.invoke()
+            onEraseOperator?.invoke()
         }
     }
 

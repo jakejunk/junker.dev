@@ -4,6 +4,7 @@ import dev.junker.ifError
 import dev.junker.ifOkTry
 import dev.junker.orElse
 import dev.junker.splice
+import dev.junker.splice.Position
 import dev.junker.splice.Splice
 import dev.junker.splice.SpliceState
 import dev.junker.splice.cell.SpliceCell
@@ -23,11 +24,28 @@ class SpliceView private constructor(
     private val controls: SpliceControlsView
 ) {
     private val state = SpliceState(
-        initialSnapshot = Splice.simple(4) { i ->
-            SpliceCell((i * 2).toUByte())
+        initialSnapshot = Splice.simple(grid.sideLength) { i ->
+            SpliceCell(i.toUByte())
         },
-        onCellFilled = { index, value ->
+        onOperatorAdded = { placedOperator ->
+            val lhsIndex = placedOperator.lhsPosition.toIndex()!!
+            val rhsIndex = placedOperator.rhsPosition.toIndex()!!
+            val resultIndex = placedOperator.resultPosition.toIndex()!!
+
+            grid.formatOperationCells(placedOperator.operator, lhsIndex, rhsIndex, resultIndex)
+        },
+        onOperatorRemoved = { placedOperator ->
+            val lhsIndex = placedOperator.lhsPosition.toIndex()!!
+            val rhsIndex = placedOperator.rhsPosition.toIndex()!!
+            val resultIndex = placedOperator.resultPosition.toIndex()!!
+
+            grid.clearOperationCells(placedOperator.operator, lhsIndex, rhsIndex, resultIndex)
+        },
+        onCellUpdated = { index, value ->
             grid.fillCell(index, value)
+        },
+        onValidationError = {
+            println(it)
         },
         onStateUpdated = {
 //            val activeCellValue = grid.activeCell?.value
@@ -62,7 +80,7 @@ class SpliceView private constructor(
                 }
             }
 
-            onEraseValue = {
+            onEraseOperator = {
                 grid.activeCell
                     .orElse("No cell selected.")
                     .ifOkTry { cell -> state.removeOperator(cell.index) }
@@ -84,7 +102,8 @@ class SpliceView private constructor(
             val controls: SpliceControlsView
 
             root = div(classes = splice.className) {
-                grid = spliceGridView(4)
+                // FIXME: This shouldn't be decoupled from SpliceState.sidelength used above
+                grid = spliceGridView(6)
                 controls = spliceControlsView()
             }
 

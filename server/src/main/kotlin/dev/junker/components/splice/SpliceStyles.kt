@@ -74,7 +74,7 @@ private fun CssBuilder.spliceGridStyles() {
 
         before {
             property("content", "attr(data-value)")
-            fontSize = clamp(5.px, NumericLinearDimension(90, "cqi"), 2.5.rem)
+            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
             height = 100.pct
             lineHeight = NumericLinearDimension(100, "cqh").lh
             position = Position.absolute

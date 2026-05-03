@@ -8,8 +8,11 @@ import dev.junker.splice.validation.getEffectiveCells
 
 class SpliceState(
     private val initialSnapshot: Splice,
-    private val onCellFilled: (index: Int, value: UByte) -> Unit,
-    private val onStateUpdated: () -> Unit
+    private val onOperatorAdded: Splice.(PlacedOperator) -> Unit,
+    private val onOperatorRemoved: Splice.(PlacedOperator) -> Unit,
+    private val onCellUpdated: Splice.(Int, UByte) -> Unit,
+    private val onValidationError: Splice.(String) -> Unit,
+    private val onStateUpdated: Splice.() -> Unit
 ) {
     private val history: MutableList<Splice> = mutableListOf()
 
@@ -37,8 +40,7 @@ class SpliceState(
         operator: SpliceOperator
     ): Result<Unit, String> {
         return update {
-            val position = Position(index % sideLength, index / sideLength)
-            applyOperator(position, operator)
+            applyOperator(index.toPosition(), operator)
         }
     }
 
@@ -46,13 +48,8 @@ class SpliceState(
         index: Int
     ): Result<Unit, String> {
         return update {
-            val position = Position(index % sideLength, index / sideLength)
-            removeOperator(position)
+            removeOperator(index.toPosition())
         }
-    }
-
-    private fun mostRecent(): Splice {
-        return history.lastOrNull() ?: initialSnapshot
     }
 
     private inline fun update(
@@ -67,24 +64,39 @@ class SpliceState(
         }
     }
 
+    private fun mostRecent(): Splice {
+        return history.lastOrNull() ?: initialSnapshot
+    }
+
     private fun transition(
         current: Splice,
         target: Splice,
+        // TODO: Use this more or make separate function?
         force: Boolean = false
     ) {
-        val from = current.getEffectiveCells()
-        val to = target.getEffectiveCells()
+        (current.operators - target.operators).forEach { placedOperator ->
+            target.onOperatorRemoved(placedOperator)
+        }
 
-        (from.effectiveCells zip to.effectiveCells).forEachIndexed { i, (from, to) ->
+        (target.operators - current.operators).forEach { placedOperator ->
+            target.onOperatorAdded(placedOperator)
+        }
+
+        val fromSnapshot = current.getEffectiveCells()
+        val toSnapshot = target.getEffectiveCells()
+
+        (fromSnapshot.effectiveCells zip toSnapshot.effectiveCells).forEachIndexed { i, (from, to) ->
             if (from != to || force) {
-                onCellFilled(i, to.value)
+                target.onCellUpdated(i, to.value)
             }
         }
 
-        to.errors.forEach {
-            println(it)
+        // TODO: Consider onValidationResolved if errors grows beyond String
+
+        toSnapshot.errors.forEach {
+            target.onValidationError(it)
         }
 
-        onStateUpdated()
+        target.onStateUpdated()
     }
 }

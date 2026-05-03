@@ -1,5 +1,6 @@
 package dev.junker.splice.view
 
+import dev.junker.splice.SpliceOperator
 import dev.junker.splice.cell.SpliceCellView
 import dev.junker.splice.cell.SpliceCellView.Companion.spliceCellView
 import dev.junker.spliceGrid
@@ -11,6 +12,7 @@ import org.w3c.dom.HTMLElement
 
 class SpliceGridView private constructor(
     private val root: HTMLElement,
+    val sideLength: Int,
     val cells: List<SpliceCellView>,
 ) {
     var activeCell: SpliceCellView? = null
@@ -25,6 +27,30 @@ class SpliceGridView private constructor(
     fun fillCell(index: Int, value: UByte) {
         println("fillCell: $index: $value")
         cells[index].value = value
+    }
+
+    fun formatOperationCells(
+        op: SpliceOperator,
+        lhsIndex: Int,
+        rhsIndex: Int,
+        resultIndex: Int
+    ) {
+        println(op)
+        println(rhsIndex)
+        println(lhsIndex)
+        println(resultIndex)
+    }
+
+    fun clearOperationCells(
+        op: SpliceOperator,
+        lhsIndex: Int,
+        rhsIndex: Int,
+        resultIndex: Int
+    ) {
+        println(op)
+        println(rhsIndex)
+        println(lhsIndex)
+        println(resultIndex)
     }
 
     inline fun forEachCellView(
@@ -50,7 +76,7 @@ class SpliceGridView private constructor(
 
             root.style.setProperty("--grid-cols", sideLength.toString())
 
-            return SpliceGridView(root, cells)
+            return SpliceGridView(root, sideLength, cells)
         }
     }
 }

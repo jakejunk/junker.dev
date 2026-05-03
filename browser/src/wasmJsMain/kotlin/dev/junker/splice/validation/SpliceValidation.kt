@@ -67,7 +67,7 @@ private fun Splice.validateAdjacency(
             val b = cells[i].value.toInt()
             val distance = abs(a - b)
 
-            if (distance > 1 || distance != UByte.MAX_VALUE.toInt()) {
+            if (distance > 1 && distance != UByte.MAX_VALUE.toInt()) {
                 add("Adjacency error at index $i")
             }
         }
