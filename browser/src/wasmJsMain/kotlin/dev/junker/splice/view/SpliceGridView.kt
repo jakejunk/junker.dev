@@ -35,10 +35,9 @@ class SpliceGridView private constructor(
         rhsIndex: Int,
         resultIndex: Int
     ) {
-        println(op)
-        println(rhsIndex)
-        println(lhsIndex)
-        println(resultIndex)
+        cells[lhsIndex].mark(op,"lhs")
+        cells[rhsIndex].mark(op,"rhs")
+        cells[resultIndex].mark(op,"result")
     }
 
     fun clearOperationCells(
@@ -47,10 +46,9 @@ class SpliceGridView private constructor(
         rhsIndex: Int,
         resultIndex: Int
     ) {
-        println(op)
-        println(rhsIndex)
-        println(lhsIndex)
-        println(resultIndex)
+        cells[lhsIndex].clear("lhs", op.direction)
+        cells[rhsIndex].clear("rhs", op.direction)
+        cells[resultIndex].clear("result", op.direction)
     }
 
     inline fun forEachCellView(

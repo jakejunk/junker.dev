@@ -4,7 +4,6 @@ import dev.junker.ifError
 import dev.junker.ifOkTry
 import dev.junker.orElse
 import dev.junker.splice
-import dev.junker.splice.Position
 import dev.junker.splice.Splice
 import dev.junker.splice.SpliceState
 import dev.junker.splice.cell.SpliceCell
@@ -60,9 +59,10 @@ class SpliceView private constructor(
     init {
         grid.forEachCellView {
             onCellSelected = {
-                grid.activeCell?.unselect()
-                grid.activeCell = this.also { it.select() }
+                grid.activeCell?.selected = false
+                selected = true
 
+                grid.activeCell = this
                 grid.highlightValue(value)
             }
         }

@@ -4,9 +4,10 @@ import dev.junker.markdown.renderMarkdown
 import dev.junker.pages.ProjectsPage
 import dev.junker.spliceContainer
 import dev.junker.splicePlaceholder
-import dev.junker.sudokuContainer
-import dev.junker.sudokuPlaceholder
-import kotlinx.html.*
+import kotlinx.html.FlowContent
+import kotlinx.html.div
+import kotlinx.html.hr
+import kotlinx.html.id
 
 class SplicePage(
     override val slug: String
@@ -30,6 +31,8 @@ class SplicePage(
             
             - 4/29: Basic idea implemented. Still figuring out the flow of the game and what's "fun".
             - 5/1: Corrected cell arithmetic and added basic validation.
+            - 5/4: Added visualization for grid operations.
+              - Need to decide if the overlap logic is worth keeping.
         """.trimIndent())
     }
 }

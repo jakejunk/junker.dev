@@ -6,25 +6,25 @@ sealed interface SpliceOperator {
     data class Add(
         override val direction: Direction
     ) : SpliceOperator {
-        override fun toString() = "+$direction"
+        override fun toString() = "+"
     }
 
     data class Subtract(
         override val direction: Direction
     ) : SpliceOperator {
-        override fun toString() = "-$direction"
+        override fun toString() = "-"
     }
 
     data class Multiply(
         override val direction: Direction
     ) : SpliceOperator {
-        override fun toString() = "×$direction"
+        override fun toString() = "×"
     }
 
     data class Divide(
         override val direction: Direction
     ) : SpliceOperator {
-        override fun toString() = "÷$direction"
+        override fun toString() = "÷"
     }
 }
 
@@ -58,16 +58,12 @@ infix fun PlacedOperator.overlaps(other: PlacedOperator): Boolean {
         && resultPosition.y >= other.lhsPosition.y
 }
 
-fun parseSpliceOperator(value: String): SpliceOperator? {
+fun parseSpliceOperator(value: String, direction: Direction): SpliceOperator? {
     return when (value) {
-        "+_" -> SpliceOperator.Add(Direction.HORIZONTAL)
-        "+|" -> SpliceOperator.Add(Direction.VERTICAL)
-        "-_" -> SpliceOperator.Subtract(Direction.HORIZONTAL)
-        "-|" -> SpliceOperator.Subtract(Direction.VERTICAL)
-        "×_" -> SpliceOperator.Multiply(Direction.HORIZONTAL)
-        "×|" -> SpliceOperator.Multiply(Direction.VERTICAL)
-        "÷_" -> SpliceOperator.Divide(Direction.HORIZONTAL)
-        "÷|" -> SpliceOperator.Divide(Direction.VERTICAL)
+        "+" -> SpliceOperator.Add(direction)
+        "-" -> SpliceOperator.Subtract(direction)
+        "×" -> SpliceOperator.Multiply(direction)
+        "÷" -> SpliceOperator.Divide(direction)
         else -> null
     }
 }

@@ -12,6 +12,12 @@ val spliceCell = "splice-cell".classSelector()
 
 // States
 val spliceSelected = "splice-selected".classSelector()
+val spliceLhsVertical = "splice-lhs-v".classSelector()
+val spliceLhsHorizontal = "splice-lhs-h".classSelector()
+val spliceRhsVertical = "splice-rhs-v".classSelector()
+val spliceRhsHorizontal = "splice-rhs-h".classSelector()
+val spliceResultVertical = "splice-result-v".classSelector()
+val spliceResultHorizontal = "splice-result-h".classSelector()
 
 // Controls
 val spliceControls = "splice-controls".classSelector()

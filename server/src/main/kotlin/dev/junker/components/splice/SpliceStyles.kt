@@ -82,9 +82,35 @@ private fun CssBuilder.spliceGridStyles() {
             width = 100.pct
         }
 
+        after {
+            borderRadius = 16.px
+            bottom = 50.pct - 16.px
+            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
+            fontWeight = FontWeight.bold
+            height = 32.px
+            lineHeight = 32.px.lh
+            position = Position.absolute
+            right = (-17).px
+            textAlign = TextAlign.center
+            width = 32.px
+            zIndex = 1
+        }
+
         "&${spliceSelected.selector}" {
             backgroundColor = SiteColor.BackgroundLight.color
             fontWeight = FontWeight.normal
+        }
+
+        "&${spliceRhsHorizontal.selector}" {
+            after {
+                content = "=".quoted
+            }
+        }
+
+        "&${spliceLhsHorizontal.selector}" {
+            after {
+                property("content", "attr(data-operator-h)")
+            }
         }
     }
 

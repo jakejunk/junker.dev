@@ -4,6 +4,7 @@ import dev.junker.*
 import dev.junker.splice.Direction
 import dev.junker.splice.SpliceOperator
 import dev.junker.splice.parseSpliceOperator
+import dev.junker.splice.tryParseDirection
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.button
 import kotlinx.html.js.div
@@ -27,8 +28,12 @@ class SpliceControlsView private constructor(
     init {
         possibleValues.forEach { button ->
             button.onclick = {
-                button.getAttribute("data-value")
-                    ?.let { parseSpliceOperator(it) }
+                val direction = button.getAttribute(DIRECTION_ATTRIBUTE)
+                    ?.tryParseDirection()
+                    ?: Direction.HORIZONTAL
+
+                button.getAttribute(OPERATION_ATTRIBUTE)
+                    ?.let { parseSpliceOperator(it, direction) }
                     ?.also { onSetValue?.invoke(it) }
             }
         }
@@ -43,6 +48,9 @@ class SpliceControlsView private constructor(
     }
 
     companion object {
+        const val OPERATION_ATTRIBUTE = "data-operation"
+        const val DIRECTION_ATTRIBUTE = "data-direction"
+
         fun TagConsumer<Element>.spliceControlsView(): SpliceControlsView {
             val controls: HTMLDivElement
             val buttons: List<HTMLButtonElement>
@@ -61,7 +69,8 @@ class SpliceControlsView private constructor(
                     buttons = tempOps.map { op ->
                         button(classes = splicePossibleOperation.className) {
                             val v = op.toString()
-                            attributes["data-value"] = v
+                            attributes[OPERATION_ATTRIBUTE] = v
+                            attributes[DIRECTION_ATTRIBUTE] = op.direction.toString()
                             span { +v }
                         }
                     }
