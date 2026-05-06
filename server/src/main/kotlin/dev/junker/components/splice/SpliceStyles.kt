@@ -101,15 +101,23 @@ private fun CssBuilder.spliceGridStyles() {
             fontWeight = FontWeight.normal
         }
 
-        "&${spliceRhsHorizontal.selector}" {
-            after {
-                content = "=".quoted
+        "&${spliceLhsHorizontal.selector}" {
+            "&[data-operator-h-rhs]" {
+                after {
+                    property("content", "attr(data-operator-h-rhs)")
+                }
+            }
+
+            "&[data-operator-h-lhs]" {
+                after {
+                    property("content", "attr(data-operator-h-lhs)")
+                }
             }
         }
 
-        "&${spliceLhsHorizontal.selector}" {
+        "&${spliceRhsHorizontal.selector}" {
             after {
-                property("content", "attr(data-operator-h)")
+                content = "=".quoted
             }
         }
     }

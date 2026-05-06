@@ -50,7 +50,7 @@ class SpliceCellView private constructor(
             root.classList.add(it.className)
 
             when (operator.direction) {
-                Direction.HORIZONTAL -> root.setAttribute("data-operator-h", operator.toString())
+                Direction.HORIZONTAL -> root.setAttribute("data-operator-h-$role", operator.toString())
                 Direction.VERTICAL -> root.setAttribute("data-operator-v", operator.toString())
             }
         }
@@ -66,7 +66,7 @@ class SpliceCellView private constructor(
             root.classList.remove(it.className)
 
             when (direction) {
-                Direction.HORIZONTAL -> root.removeAttribute("data-operator-h")
+                Direction.HORIZONTAL -> root.removeAttribute("data-operator-h-$role")
                 Direction.VERTICAL -> root.removeAttribute("data-operator-v")
             }
         }
