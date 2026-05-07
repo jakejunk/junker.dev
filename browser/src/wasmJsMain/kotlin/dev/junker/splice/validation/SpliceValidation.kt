@@ -7,8 +7,20 @@ import kotlin.math.abs
 
 data class SpliceValidation(
     val effectiveCells: List<SpliceCell>,
-    val errors: List<String>
+    val errors: Set<SpliceError>
 )
+
+sealed interface SpliceError {
+    val index: Int
+
+    data class Null(
+        override val index: Int
+    ) : SpliceError
+
+    data class Adjacency(
+        override val index: Int
+    ) : SpliceError
+}
 
 fun Splice.getEffectiveCells(): SpliceValidation {
     val effectiveCells = cells.toMutableList()
@@ -27,20 +39,20 @@ fun Splice.getEffectiveCells(): SpliceValidation {
     val adjacencyErrors = validateAdjacency(effectiveCells)
     val allErrors = nullErrors + adjacencyErrors
 
-    return SpliceValidation(effectiveCells, allErrors)
+    return SpliceValidation(effectiveCells, allErrors.toSet())
 }
 
 private fun validateNulls(
     cells: List<SpliceCell>
-): List<String> {
+): List<SpliceError> {
     return cells.mapIndexed { i, cell -> i to cell }
         .filter { (_, cell) -> cell.isNullCell() }
-        .map { (i, _) -> "Null cell found at index $i" }
+        .map { (i, _) -> SpliceError.Null(i) }
 }
 
 private fun Splice.validateAdjacency(
     cells: List<SpliceCell>
-): List<String> {
+): List<SpliceError> {
     if (cells.size < 2) {
         return emptyList()
     }
@@ -68,7 +80,7 @@ private fun Splice.validateAdjacency(
             val distance = abs(a - b)
 
             if (distance > 1 && distance != UByte.MAX_VALUE.toInt()) {
-                add("Adjacency error at index $i")
+                add(SpliceError.Adjacency(i))
             }
         }
     }

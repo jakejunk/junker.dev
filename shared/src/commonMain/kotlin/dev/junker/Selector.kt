@@ -18,6 +18,8 @@ val spliceRhsVertical = "splice-rhs-v".classSelector()
 val spliceRhsHorizontal = "splice-rhs-h".classSelector()
 val spliceResultVertical = "splice-result-v".classSelector()
 val spliceResultHorizontal = "splice-result-h".classSelector()
+val spliceNull = "splice-null".classSelector()
+val spliceOutOfRange = "splice-oor".classSelector()
 
 // Controls
 val spliceControls = "splice-controls".classSelector()

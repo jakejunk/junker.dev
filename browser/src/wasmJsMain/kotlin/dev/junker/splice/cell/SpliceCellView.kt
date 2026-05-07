@@ -3,6 +3,7 @@ package dev.junker.splice.cell
 import dev.junker.*
 import dev.junker.splice.Direction
 import dev.junker.splice.SpliceOperator
+import dev.junker.splice.validation.SpliceError
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -44,9 +45,7 @@ class SpliceCellView private constructor(
         operator: SpliceOperator,
         role: String
     ) {
-        val classToggle = getClass(role, operator.direction)
-
-        classToggle?.also {
+        getClass(role, operator.direction)?.also {
             root.classList.add(it.className)
 
             when (operator.direction) {
@@ -60,9 +59,7 @@ class SpliceCellView private constructor(
         role: String,
         direction: Direction
     ) {
-        val classToggle = getClass(role, direction)
-
-        classToggle?.also {
+        getClass(role, direction)?.also {
             root.classList.remove(it.className)
 
             when (direction) {
@@ -70,6 +67,14 @@ class SpliceCellView private constructor(
                 Direction.VERTICAL -> root.removeAttribute("data-operator-v")
             }
         }
+    }
+
+    fun mark(error: SpliceError) {
+        root.classList.add(getClass(error).className)
+    }
+
+    fun clear(error: SpliceError) {
+        root.classList.remove(getClass(error).className)
     }
 
     private fun getClass(role: String, direction: Direction): Selector.Class? {
@@ -87,6 +92,13 @@ class SpliceCellView private constructor(
                 Direction.VERTICAL -> spliceResultVertical
             }
             else -> null
+        }
+    }
+
+    private fun getClass(error: SpliceError): Selector.Class {
+        return when (error) {
+            is SpliceError.Null -> spliceNull
+            is SpliceError.Adjacency -> spliceOutOfRange
         }
     }
 

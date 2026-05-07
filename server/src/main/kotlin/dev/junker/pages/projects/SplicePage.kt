@@ -32,7 +32,9 @@ class SplicePage(
             - 4/29: Basic idea implemented. Still figuring out the flow of the game and what's "fun".
             - 5/1: Corrected cell arithmetic and added basic validation.
             - 5/4: Added visualization for grid operations.
-              - Need to decide if the overlap logic is worth keeping.
+              - ~~Need to decide if the overlap logic is worth keeping.~~ Overlap seems interesting enough.
+            - 5/7: Added basic null and adjacency error styling.
+              - For adjacency errors, find something more visually interesting.
         """.trimIndent())
     }
 }

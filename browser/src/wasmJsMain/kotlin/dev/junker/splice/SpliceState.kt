@@ -4,6 +4,7 @@ import dev.junker.Result
 import dev.junker.err
 import dev.junker.ifOk
 import dev.junker.ok
+import dev.junker.splice.validation.SpliceError
 import dev.junker.splice.validation.getEffectiveCells
 
 class SpliceState(
@@ -11,7 +12,8 @@ class SpliceState(
     private val onOperatorAdded: Splice.(PlacedOperator) -> Unit,
     private val onOperatorRemoved: Splice.(PlacedOperator) -> Unit,
     private val onCellUpdated: Splice.(Int, UByte) -> Unit,
-    private val onValidationError: Splice.(String) -> Unit,
+    private val onValidationError: Splice.(SpliceError) -> Unit,
+    private val onValidationCleared: Splice.(SpliceError) -> Unit,
     private val onStateUpdated: Splice.() -> Unit
 ) {
     private val history: MutableList<Splice> = mutableListOf()
@@ -71,14 +73,13 @@ class SpliceState(
     private fun transition(
         current: Splice,
         target: Splice,
-        // TODO: Use this more or make separate function?
         force: Boolean = false
     ) {
         (current.operators - target.operators).forEach { placedOperator ->
             target.onOperatorRemoved(placedOperator)
         }
 
-        (target.operators - current.operators).forEach { placedOperator ->
+        (if (force) target.operators else target.operators - current.operators).forEach { placedOperator ->
             target.onOperatorAdded(placedOperator)
         }
 
@@ -91,10 +92,12 @@ class SpliceState(
             }
         }
 
-        // TODO: Consider onValidationResolved if errors grows beyond String
+        (fromSnapshot.errors - toSnapshot.errors).forEach { clearedError ->
+            target.onValidationCleared(clearedError)
+        }
 
-        toSnapshot.errors.forEach {
-            target.onValidationError(it)
+        (if (force) toSnapshot.errors else toSnapshot.errors - fromSnapshot.errors).forEach { newError ->
+            target.onValidationError(newError)
         }
 
         target.onStateUpdated()

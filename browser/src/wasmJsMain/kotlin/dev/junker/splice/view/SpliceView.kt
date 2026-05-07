@@ -43,8 +43,11 @@ class SpliceView private constructor(
         onCellUpdated = { index, value ->
             grid.fillCell(index, value)
         },
-        onValidationError = {
-            println(it)
+        onValidationError = { error ->
+            grid.markCell(error)
+        },
+        onValidationCleared = { error ->
+            grid.clearCell(error)
         },
         onStateUpdated = {
 //            val activeCellValue = grid.activeCell?.value

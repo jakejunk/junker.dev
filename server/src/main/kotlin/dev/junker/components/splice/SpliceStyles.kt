@@ -83,6 +83,7 @@ private fun CssBuilder.spliceGridStyles() {
         }
 
         after {
+            primaryTextGlow()
             borderRadius = 16.px
             bottom = 50.pct - 16.px
             fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
@@ -119,6 +120,14 @@ private fun CssBuilder.spliceGridStyles() {
             after {
                 content = "=".quoted
             }
+        }
+
+        "&${spliceOutOfRange.selector}" {
+            color = SiteColor.SubtleText.color
+        }
+
+        "&${spliceNull.selector}" {
+            color = SiteColor.SubtleText.color
         }
     }
 
