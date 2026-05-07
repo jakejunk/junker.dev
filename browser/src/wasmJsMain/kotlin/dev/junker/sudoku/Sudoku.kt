@@ -5,8 +5,7 @@ import dev.junker.err
 import dev.junker.ok
 
 class Sudoku private constructor(
-    val cells: List<SudokuCell> =
-        List(9 * 9) { SudokuCell.Empty.FULLY_EMPTY }
+    val cells: List<SudokuCell> = List(9 * 9) { SudokuCell.Empty.FULLY_EMPTY }
 ) {
     fun fillCell(
         index: Int,

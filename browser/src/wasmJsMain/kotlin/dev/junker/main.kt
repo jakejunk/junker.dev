@@ -1,5 +1,6 @@
 package dev.junker
 
+import dev.junker.splice.view.SpliceView.Companion.spliceView
 import dev.junker.sudoku.view.SudokuView.Companion.sudokuView
 import dev.junker.syntax.highlightCodeBlocks
 import kotlinx.browser.document
@@ -12,5 +13,9 @@ fun main() {
         getElementById(sudokuPlaceholder.id)?.remove()
         getElementById(sudokuContainer.id)
             ?.append { sudokuView() }
+
+        getElementById(splicePlaceholder.id)?.remove()
+        getElementById(spliceContainer.id)
+            ?.append { spliceView() }
     }
 }

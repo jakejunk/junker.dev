@@ -2,6 +2,34 @@ package dev.junker
 
 import kotlin.jvm.JvmInline
 
+// Splice =====================================================================
+// Grid
+val spliceContainer = "splice-container".idSelector()
+val splicePlaceholder = "splice-placeholder".idSelector()
+val splice = "splice".classSelector()
+val spliceGrid = "splice-grid".classSelector()
+val spliceCell = "splice-cell".classSelector()
+
+// States
+val spliceSelected = "splice-selected".classSelector()
+val spliceLhsVertical = "splice-lhs-v".classSelector()
+val spliceLhsHorizontal = "splice-lhs-h".classSelector()
+val spliceRhsVertical = "splice-rhs-v".classSelector()
+val spliceRhsHorizontal = "splice-rhs-h".classSelector()
+val spliceResultVertical = "splice-result-v".classSelector()
+val spliceResultHorizontal = "splice-result-h".classSelector()
+val spliceNull = "splice-null".classSelector()
+val spliceOutOfRange = "splice-oor".classSelector()
+
+// Controls
+val spliceControls = "splice-controls".classSelector()
+val spliceOperations = "splice-operations".classSelector()
+val splicePossibleOperation = "splice-possible-operation".classSelector()
+val spliceActions = "splice-actions".classSelector()
+val spliceAction = "splice-action".classSelector()
+val spliceActionErase = "splice-action-erase".classSelector()
+val spliceActionUndo = "splice-action-undo".classSelector()
+
 // Sudoku =====================================================================
 // Grid
 val sudokuContainer = "sudoku-container".idSelector()

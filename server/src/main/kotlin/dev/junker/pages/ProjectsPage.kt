@@ -1,5 +1,6 @@
 package dev.junker.pages
 
+import dev.junker.pages.projects.SplicePage
 import dev.junker.pages.projects.SudokuPage
 import kotlinx.html.FlowContent
 import kotlinx.html.a
@@ -22,6 +23,7 @@ interface ProjectsPage : Page.Content {
             // FIXME
             article {
                 a(href = "$ROOT_SLUG/sudoku") { +"Sudoku" }
+                a(href = "$ROOT_SLUG/splice") { +"Splice" }
             }
         }
     }
@@ -32,6 +34,7 @@ fun projectPage(projectName: String): ProjectsPage? {
 
     return when (projectName) {
         "sudoku" -> SudokuPage(projectNameFq)
+        "splice" -> SplicePage(projectNameFq)
         else -> null
     }
 }
