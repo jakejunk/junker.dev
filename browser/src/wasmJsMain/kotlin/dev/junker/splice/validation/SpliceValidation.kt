@@ -7,19 +7,33 @@ import kotlin.math.abs
 
 data class SpliceValidation(
     val effectiveCells: List<SpliceCell>,
-    val errors: Set<SpliceError>
+    val validations: Set<SpliceCellValidation>
 )
 
-sealed interface SpliceError {
+sealed interface SpliceCellValidation {
     val index: Int
+
+    data class Jump(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    data class JumpTarget(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    data class Skip(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    sealed interface Error : SpliceCellValidation
 
     data class Null(
         override val index: Int
-    ) : SpliceError
+    ) : Error
 
     data class Adjacency(
         override val index: Int
-    ) : SpliceError
+    ) : Error
 }
 
 fun Splice.getEffectiveCells(): SpliceValidation {
@@ -35,24 +49,54 @@ fun Splice.getEffectiveCells(): SpliceValidation {
                 ?.let { effectiveCells[it] = placedOp.operator.perform(lhs, rhs) }
         }
 
+    val jumps = validateJumps(effectiveCells)
     val nullErrors = validateNulls(effectiveCells)
     val adjacencyErrors = validateAdjacency(effectiveCells)
-    val allErrors = nullErrors + adjacencyErrors
+    val allErrors = jumps + nullErrors + adjacencyErrors
 
     return SpliceValidation(effectiveCells, allErrors.toSet())
 }
 
+private fun validateJumps(
+    cells: List<SpliceCell>
+): List<SpliceCellValidation> {
+    val validations = buildList {
+        var jumpFound = false
+        var jumpTarget: UByte? = null
+
+        cells.forEachIndexed { i, cell ->
+            if (cell.isJumpCell()) {
+                add(SpliceCellValidation.Jump(i))
+                jumpFound = true
+            } else if (jumpFound) {
+                add(SpliceCellValidation.JumpTarget(i))
+                jumpFound = false
+                jumpTarget = cell.value
+            } else if (jumpTarget != null) {
+                if (jumpTarget == cell.value) {
+                    jumpTarget = null
+                } else {
+                    add(SpliceCellValidation.Skip(i))
+                }
+            }
+        }
+    }
+
+    return validations
+}
+
 private fun validateNulls(
     cells: List<SpliceCell>
-): List<SpliceError> {
-    return cells.mapIndexed { i, cell -> i to cell }
+): List<SpliceCellValidation.Null> {
+    return cells
+        .mapIndexed { i, cell -> i to cell }
         .filter { (_, cell) -> cell.isNullCell() }
-        .map { (i, _) -> SpliceError.Null(i) }
+        .map { (i, _) -> SpliceCellValidation.Null(i) }
 }
 
 private fun Splice.validateAdjacency(
     cells: List<SpliceCell>
-): List<SpliceError> {
+): List<SpliceCellValidation.Adjacency> {
     if (cells.size < 2) {
         return emptyList()
     }
@@ -80,7 +124,7 @@ private fun Splice.validateAdjacency(
             val distance = abs(a - b)
 
             if (distance > 1 && distance != UByte.MAX_VALUE.toInt()) {
-                add(SpliceError.Adjacency(i))
+                add(SpliceCellValidation.Adjacency(i))
             }
         }
     }

@@ -3,7 +3,7 @@ package dev.junker.splice.view
 import dev.junker.splice.SpliceOperator
 import dev.junker.splice.cell.SpliceCellView
 import dev.junker.splice.cell.SpliceCellView.Companion.spliceCellView
-import dev.junker.splice.validation.SpliceError
+import dev.junker.splice.validation.SpliceCellValidation
 import dev.junker.spliceGrid
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
@@ -52,11 +52,11 @@ class SpliceGridView private constructor(
         cells[resultIndex].clear("result", op.direction)
     }
 
-    fun markCell(error: SpliceError) {
-        cells[error.index].mark(error)
+    fun markCell(validation: SpliceCellValidation) {
+        cells[validation.index].mark(validation)
     }
 
-    fun clearCell(error: SpliceError) {
+    fun clearCell(error: SpliceCellValidation) {
         cells[error.index].clear(error)
     }
 

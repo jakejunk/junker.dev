@@ -83,10 +83,10 @@ private fun CssBuilder.spliceGridStyles() {
         }
 
         after {
-            primaryTextGlow()
             borderRadius = 16.px
             bottom = 50.pct - 16.px
-            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
+            color = SiteColor.SubtleText.color
+            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 3.rem)
             fontWeight = FontWeight.bold
             height = 32.px
             lineHeight = 32.px.lh
@@ -95,11 +95,6 @@ private fun CssBuilder.spliceGridStyles() {
             textAlign = TextAlign.center
             width = 32.px
             zIndex = 1
-        }
-
-        "&${spliceSelected.selector}" {
-            backgroundColor = SiteColor.BackgroundLight.color
-            fontWeight = FontWeight.normal
         }
 
         "&${spliceLhsHorizontal.selector}" {
@@ -127,7 +122,25 @@ private fun CssBuilder.spliceGridStyles() {
         }
 
         "&${spliceNull.selector}" {
-            color = SiteColor.SubtleText.color
+            val c = SiteColor.BackgroundLight.color
+
+            color = Color.transparent
+            property("background", "repeating-linear-gradient(45deg, $c, $c 3px, transparent 3px, transparent 15px)")
+        }
+
+        "&${spliceJump.selector}" {
+            after {
+                content = "↯".quoted
+            }
+        }
+
+        "&${spliceJumpTarget.selector}" {
+            primaryTextGlow()
+        }
+
+        "&${spliceSelected.selector}" {
+            backgroundColor = SiteColor.BackgroundLight.color
+            fontWeight = FontWeight.normal
         }
     }
 

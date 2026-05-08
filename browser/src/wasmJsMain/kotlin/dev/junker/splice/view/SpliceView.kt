@@ -24,7 +24,7 @@ class SpliceView private constructor(
 ) {
     private val state = SpliceState(
         initialSnapshot = Splice.simple(grid.sideLength) { i ->
-            SpliceCell(i.toUByte())
+            SpliceCell((i + 1).toUByte())
         },
         onOperatorAdded = { placedOperator ->
             val lhsIndex = placedOperator.lhsPosition.toIndex()!!
@@ -43,8 +43,8 @@ class SpliceView private constructor(
         onCellUpdated = { index, value ->
             grid.fillCell(index, value)
         },
-        onValidationError = { error ->
-            grid.markCell(error)
+        onValidation = { validation ->
+            grid.markCell(validation)
         },
         onValidationCleared = { error ->
             grid.clearCell(error)
@@ -106,7 +106,7 @@ class SpliceView private constructor(
 
             root = div(classes = splice.className) {
                 // FIXME: This shouldn't be decoupled from SpliceState.sidelength used above
-                grid = spliceGridView(6)
+                grid = spliceGridView(4)
                 controls = spliceControlsView()
             }
 
