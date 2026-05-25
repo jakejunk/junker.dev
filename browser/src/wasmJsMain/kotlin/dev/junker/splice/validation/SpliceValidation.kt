@@ -65,10 +65,7 @@ private fun validateJumps(
         var jumpTarget: UByte? = null
 
         cells.forEachIndexed { i, cell ->
-            if (cell.isJumpCell()) {
-                add(SpliceCellValidation.Jump(i))
-                jumpFound = true
-            } else if (jumpFound) {
+            if (jumpFound) {
                 add(SpliceCellValidation.JumpTarget(i))
                 jumpFound = false
                 jumpTarget = cell.value
@@ -78,6 +75,9 @@ private fun validateJumps(
                 } else {
                     add(SpliceCellValidation.Skip(i))
                 }
+            } else if (cell.isJumpCell()) {
+                add(SpliceCellValidation.Jump(i))
+                jumpFound = true
             }
         }
     }

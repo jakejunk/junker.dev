@@ -79,6 +79,8 @@ private fun CssBuilder.spliceGridStyles() {
             lineHeight = NumericLinearDimension(100, "cqh").lh
             position = Position.absolute
             textAlign = TextAlign.center
+            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.inherit))
+            property("text-decoration-thickness", "from-font")
             width = 100.pct
         }
 
@@ -117,6 +119,10 @@ private fun CssBuilder.spliceGridStyles() {
             }
         }
 
+        "&${spliceResultHorizontal.selector}" {
+            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.underline))
+        }
+
         "&${spliceOutOfRange.selector}" {
             color = SiteColor.SubtleText.color
         }
@@ -125,6 +131,13 @@ private fun CssBuilder.spliceGridStyles() {
             val c = SiteColor.BackgroundLight.color
 
             color = Color.transparent
+            property("background", "repeating-linear-gradient(45deg, $c, $c 3px, transparent 3px, transparent 15px)")
+        }
+
+        "&${spliceSkip.selector}" {
+            val c = SiteColor.BackgroundLight.color
+
+            color = SiteColor.SubtleText.color
             property("background", "repeating-linear-gradient(45deg, $c, $c 3px, transparent 3px, transparent 15px)")
         }
 

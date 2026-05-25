@@ -26,7 +26,6 @@ class SpliceGridView private constructor(
     }
 
     fun fillCell(index: Int, value: UByte) {
-        println("fillCell: $index: $value")
         cells[index].value = value
     }
 

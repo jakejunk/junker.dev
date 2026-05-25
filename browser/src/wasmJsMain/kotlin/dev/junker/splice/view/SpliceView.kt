@@ -6,7 +6,6 @@ import dev.junker.orElse
 import dev.junker.splice
 import dev.junker.splice.Splice
 import dev.junker.splice.SpliceState
-import dev.junker.splice.cell.SpliceCell
 import dev.junker.splice.controls.SpliceControlsView
 import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView
 import dev.junker.splice.view.SpliceGridView.Companion.spliceGridView
@@ -18,14 +17,13 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
 class SpliceView private constructor(
+    initial: Splice,
     private val root: HTMLElement,
     private val grid: SpliceGridView,
     private val controls: SpliceControlsView
 ) {
     private val state = SpliceState(
-        initialSnapshot = Splice.simple(grid.sideLength) { i ->
-            SpliceCell((i + 1).toUByte())
-        },
+        initialSnapshot = initial,
         onOperatorAdded = { placedOperator ->
             val lhsIndex = placedOperator.lhsPosition.toIndex()!!
             val rhsIndex = placedOperator.rhsPosition.toIndex()!!
@@ -104,13 +102,17 @@ class SpliceView private constructor(
             val grid: SpliceGridView
             val controls: SpliceControlsView
 
+            val initial = Splice.simple(4) { i ->
+                (i + 1).toUByte()
+            }
+
             root = div(classes = splice.className) {
                 // FIXME: This shouldn't be decoupled from SpliceState.sidelength used above
-                grid = spliceGridView(4)
+                grid = spliceGridView(initial.sideLength)
                 controls = spliceControlsView()
             }
 
-            return SpliceView(root, grid, controls)
+            return SpliceView(initial, root, grid, controls)
         }
     }
 }
