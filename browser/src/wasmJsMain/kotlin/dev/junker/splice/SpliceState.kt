@@ -4,7 +4,7 @@ import dev.junker.Result
 import dev.junker.err
 import dev.junker.ifOk
 import dev.junker.ok
-import dev.junker.splice.validation.SpliceError
+import dev.junker.splice.validation.SpliceCellValidation
 import dev.junker.splice.validation.getEffectiveCells
 
 class SpliceState(
@@ -12,9 +12,9 @@ class SpliceState(
     private val onOperatorAdded: Splice.(PlacedOperator) -> Unit,
     private val onOperatorRemoved: Splice.(PlacedOperator) -> Unit,
     private val onCellUpdated: Splice.(Int, UByte) -> Unit,
-    private val onValidationError: Splice.(SpliceError) -> Unit,
-    private val onValidationCleared: Splice.(SpliceError) -> Unit,
-    private val onStateUpdated: Splice.() -> Unit
+    private val onValidation: Splice.(SpliceCellValidation) -> Unit,
+    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
+    private val onStateUpdated: Splice.(String) -> Unit
 ) {
     private val history: MutableList<Splice> = mutableListOf()
 
@@ -92,14 +92,18 @@ class SpliceState(
             }
         }
 
-        (fromSnapshot.errors - toSnapshot.errors).forEach { clearedError ->
-            target.onValidationCleared(clearedError)
+        (fromSnapshot.validations - toSnapshot.validations).forEach { cleared ->
+            target.onValidationCleared(cleared)
         }
 
-        (if (force) toSnapshot.errors else toSnapshot.errors - fromSnapshot.errors).forEach { newError ->
-            target.onValidationError(newError)
+        (if (force) toSnapshot.validations else toSnapshot.validations - fromSnapshot.validations).forEach { validation ->
+            target.onValidation(validation)
         }
 
-        target.onStateUpdated()
+        if (toSnapshot.isLocked) {
+            target.onStateUpdated("locked")
+        } else {
+            target.onStateUpdated("unlocked")
+        }
     }
 }

@@ -3,7 +3,7 @@ package dev.junker.splice.cell
 import dev.junker.*
 import dev.junker.splice.Direction
 import dev.junker.splice.SpliceOperator
-import dev.junker.splice.validation.SpliceError
+import dev.junker.splice.validation.SpliceCellValidation
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -69,11 +69,11 @@ class SpliceCellView private constructor(
         }
     }
 
-    fun mark(error: SpliceError) {
-        root.classList.add(getClass(error).className)
+    fun mark(validation: SpliceCellValidation) {
+        root.classList.add(getClass(validation).className)
     }
 
-    fun clear(error: SpliceError) {
+    fun clear(error: SpliceCellValidation) {
         root.classList.remove(getClass(error).className)
     }
 
@@ -95,10 +95,14 @@ class SpliceCellView private constructor(
         }
     }
 
-    private fun getClass(error: SpliceError): Selector.Class {
-        return when (error) {
-            is SpliceError.Null -> spliceNull
-            is SpliceError.Adjacency -> spliceOutOfRange
+    private fun getClass(validation: SpliceCellValidation): Selector.Class {
+        return when (validation) {
+            is SpliceCellValidation.Jump -> spliceJump
+            is SpliceCellValidation.JumpTarget -> spliceJumpTarget
+            is SpliceCellValidation.JumpDestination -> spliceJumpTarget // TODO
+            is SpliceCellValidation.Skip -> spliceSkip
+            is SpliceCellValidation.Null -> spliceNull
+            is SpliceCellValidation.Adjacency -> spliceOutOfRange
         }
     }
 

@@ -79,14 +79,16 @@ private fun CssBuilder.spliceGridStyles() {
             lineHeight = NumericLinearDimension(100, "cqh").lh
             position = Position.absolute
             textAlign = TextAlign.center
+            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.inherit))
+            property("text-decoration-color", SiteColor.SubtleText.color.toString())
             width = 100.pct
         }
 
         after {
-            primaryTextGlow()
             borderRadius = 16.px
             bottom = 50.pct - 16.px
-            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
+            color = SiteColor.SubtleText.color
+            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 3.rem)
             fontWeight = FontWeight.bold
             height = 32.px
             lineHeight = 32.px.lh
@@ -95,11 +97,6 @@ private fun CssBuilder.spliceGridStyles() {
             textAlign = TextAlign.center
             width = 32.px
             zIndex = 1
-        }
-
-        "&${spliceSelected.selector}" {
-            backgroundColor = SiteColor.BackgroundLight.color
-            fontWeight = FontWeight.normal
         }
 
         "&${spliceLhsHorizontal.selector}" {
@@ -122,12 +119,41 @@ private fun CssBuilder.spliceGridStyles() {
             }
         }
 
+        "&${spliceResultHorizontal.selector}" {
+            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.underline))
+        }
+
         "&${spliceOutOfRange.selector}" {
-            color = SiteColor.SubtleText.color
+            secondaryTextGlow()
         }
 
         "&${spliceNull.selector}" {
+            val c = SiteColor.BackgroundLight.color
+
             color = SiteColor.SubtleText.color
+            property("background", "repeating-linear-gradient(60deg, $c, $c 2px, transparent 2px, transparent 27px)")
+        }
+
+        "&${spliceSkip.selector}" {
+            val c = SiteColor.BackgroundLight.color
+
+            color = SiteColor.SubtleText.color
+            property("background", "repeating-linear-gradient(60deg, $c, $c 2px, transparent 2px, transparent 27px)")
+        }
+
+        "&${spliceJump.selector}" {
+            after {
+                content = "↯".quoted
+            }
+        }
+
+        "&${spliceJumpTarget.selector}" {
+            primaryTextGlow()
+        }
+
+        "&${spliceSelected.selector}" {
+            backgroundColor = SiteColor.BackgroundLight.color
+            fontWeight = FontWeight.normal
         }
     }
 

@@ -7,19 +7,42 @@ import kotlin.math.abs
 
 data class SpliceValidation(
     val effectiveCells: List<SpliceCell>,
-    val errors: Set<SpliceError>
-)
+    val validations: Set<SpliceCellValidation>
+) {
+    val isLocked: Boolean
+        get() = validations
+            .filterIsInstance<SpliceCellValidation.Error>()
+            .isNotEmpty()
+}
 
-sealed interface SpliceError {
+sealed interface SpliceCellValidation {
     val index: Int
+
+    data class Jump(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    data class JumpTarget(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    data class JumpDestination(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    data class Skip(
+        override val index: Int
+    ) : SpliceCellValidation
+
+    sealed interface Error : SpliceCellValidation
 
     data class Null(
         override val index: Int
-    ) : SpliceError
+    ) : Error
 
     data class Adjacency(
         override val index: Int
-    ) : SpliceError
+    ) : Error
 }
 
 fun Splice.getEffectiveCells(): SpliceValidation {
@@ -35,53 +58,55 @@ fun Splice.getEffectiveCells(): SpliceValidation {
                 ?.let { effectiveCells[it] = placedOp.operator.perform(lhs, rhs) }
         }
 
-    val nullErrors = validateNulls(effectiveCells)
-    val adjacencyErrors = validateAdjacency(effectiveCells)
-    val allErrors = nullErrors + adjacencyErrors
-
-    return SpliceValidation(effectiveCells, allErrors.toSet())
+    return SpliceValidation(effectiveCells, validate(effectiveCells))
 }
 
-private fun validateNulls(
+private fun Splice.validate(
     cells: List<SpliceCell>
-): List<SpliceError> {
-    return cells.mapIndexed { i, cell -> i to cell }
-        .filter { (_, cell) -> cell.isNullCell() }
-        .map { (i, _) -> SpliceError.Null(i) }
+): Set<SpliceCellValidation> {
+    return buildSet {
+        var previousValue = cells.first().value
+        var jumpFound = false
+        var jumpTarget: UByte? = null
+
+        cells.forEachIndexed { i, cell ->
+            if (jumpFound) {
+                add(SpliceCellValidation.JumpTarget(i))
+                jumpFound = false
+                jumpTarget = cell.value
+            } else if (jumpTarget != null) {
+                if (jumpTarget == cell.value) {
+                    jumpTarget = null
+                    add(SpliceCellValidation.JumpDestination(i))
+                } else {
+                    add(SpliceCellValidation.Skip(i))
+                }
+            } else if (cell.isJumpCell()) {
+                add(SpliceCellValidation.Jump(i))
+                jumpFound = true
+            } else if (cell.isNullCell()) {
+                add(SpliceCellValidation.Null(i))
+            } else if (!partOfOperator(i)) {
+                val lhs = previousValue.toInt()
+                val rhs = cell.value.toInt()
+                val distance = abs(lhs - rhs)
+
+                if (distance > 1 && distance != UByte.MAX_VALUE.toInt()) {
+                    add(SpliceCellValidation.Adjacency(i))
+                }
+            }
+
+            previousValue = cell.value
+        }
+    }
 }
 
-private fun Splice.validateAdjacency(
-    cells: List<SpliceCell>
-): List<SpliceError> {
-    if (cells.size < 2) {
-        return emptyList()
-    }
-
-    fun sharedOperator(a: Int, b: Int): Boolean {
-        return operators.any { op ->
-            val indices = setOf(
-                op.lhsPosition.toIndex(),
-                op.rhsPosition.toIndex(),
-                op.resultPosition.toIndex()
-            )
-
-            a in indices && b in indices
-        }
-    }
-
-    return buildList {
-        for (i in 1..<cells.size) {
-            if (sharedOperator(i - 1, i)) {
-                continue
-            }
-
-            val a = cells[i - 1].value.toInt()
-            val b = cells[i].value.toInt()
-            val distance = abs(a - b)
-
-            if (distance > 1 && distance != UByte.MAX_VALUE.toInt()) {
-                add(SpliceError.Adjacency(i))
-            }
-        }
+private fun Splice.partOfOperator(i: Int): Boolean {
+    return operators.any { op ->
+        i in setOf(
+            op.lhsPosition.toIndex(),
+            op.rhsPosition.toIndex(),
+            op.resultPosition.toIndex()
+        )
     }
 }

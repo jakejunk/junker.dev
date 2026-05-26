@@ -51,13 +51,6 @@ infix fun PlacedOperator.contains(p: Position): Boolean {
         && p.y in lhsPosition.y..resultPosition.y
 }
 
-infix fun PlacedOperator.overlaps(other: PlacedOperator): Boolean {
-    return lhsPosition.x <= other.resultPosition.x
-        && resultPosition.x >= other.lhsPosition.x
-        && lhsPosition.y <= other.resultPosition.y
-        && resultPosition.y >= other.lhsPosition.y
-}
-
 fun parseSpliceOperator(value: String, direction: Direction): SpliceOperator? {
     return when (value) {
         "+" -> SpliceOperator.Add(direction)

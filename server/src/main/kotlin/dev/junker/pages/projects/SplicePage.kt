@@ -34,7 +34,8 @@ class SplicePage(
             - 5/4: Added visualization for grid operations.
               - ~~Need to decide if the overlap logic is worth keeping.~~ Overlap seems interesting enough.
             - 5/7: Added basic null and adjacency error styling.
-              - For adjacency errors, find something more visually interesting.
+              - ~~For adjacency errors, find something more visually interesting.~~
+            - 5/25: Relaxed operator placement, and refreshed cell styling. It's now possible to "unlock" the puzzle and win.
         """.trimIndent())
     }
 }

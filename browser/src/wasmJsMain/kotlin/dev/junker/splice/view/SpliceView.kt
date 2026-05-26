@@ -10,6 +10,7 @@ import dev.junker.splice.cell.SpliceCell
 import dev.junker.splice.controls.SpliceControlsView
 import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView
 import dev.junker.splice.view.SpliceGridView.Companion.spliceGridView
+import kotlinx.browser.window
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -18,14 +19,13 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 
 class SpliceView private constructor(
+    initial: Splice,
     private val root: HTMLElement,
     private val grid: SpliceGridView,
     private val controls: SpliceControlsView
 ) {
     private val state = SpliceState(
-        initialSnapshot = Splice.simple(grid.sideLength) { i ->
-            SpliceCell(i.toUByte())
-        },
+        initialSnapshot = initial,
         onOperatorAdded = { placedOperator ->
             val lhsIndex = placedOperator.lhsPosition.toIndex()!!
             val rhsIndex = placedOperator.rhsPosition.toIndex()!!
@@ -43,19 +43,18 @@ class SpliceView private constructor(
         onCellUpdated = { index, value ->
             grid.fillCell(index, value)
         },
-        onValidationError = { error ->
-            grid.markCell(error)
+        onValidation = { validation ->
+            grid.markCell(validation)
         },
         onValidationCleared = { error ->
             grid.clearCell(error)
         },
-        onStateUpdated = {
-//            val activeCellValue = grid.activeCell?.value
-//            if (activeCellValue != null) {
-//                grid.highlightValue(activeCellValue)
-//            } else {
-//                grid.highlightValue(null)
-//            }
+        onStateUpdated = { state ->
+            if (state == "unlocked") {
+                window.alert("UNLOCKED")
+            }
+
+            setValidation(state)
         }
     )
 
@@ -92,6 +91,10 @@ class SpliceView private constructor(
         }
     }
 
+    private fun setValidation(state: String) {
+        root.setAttribute("data-state", state)
+    }
+
     private fun HTMLButtonElement.twitch() {
         classList.remove("twitch")
         offsetWidth
@@ -104,13 +107,22 @@ class SpliceView private constructor(
             val grid: SpliceGridView
             val controls: SpliceControlsView
 
+            val cells = listOf<UByte>(
+                2u, 50u, 0u, 51u,
+                50u, 25u, 25u, 0u,
+                1u, 2u, 3u, 4u,
+                89u, 90u, 4u, 5u,
+            )
+
+            val initial = Splice.simple(4) { i -> cells[i] }
+
             root = div(classes = splice.className) {
                 // FIXME: This shouldn't be decoupled from SpliceState.sidelength used above
-                grid = spliceGridView(6)
+                grid = spliceGridView(initial.sideLength)
                 controls = spliceControlsView()
             }
 
-            return SpliceView(root, grid, controls)
+            return SpliceView(initial, root, grid, controls)
         }
     }
 }
