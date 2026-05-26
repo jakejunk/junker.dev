@@ -14,7 +14,7 @@ class SpliceState(
     private val onCellUpdated: Splice.(Int, UByte) -> Unit,
     private val onValidation: Splice.(SpliceCellValidation) -> Unit,
     private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
-    private val onStateUpdated: Splice.() -> Unit
+    private val onStateUpdated: Splice.(String) -> Unit
 ) {
     private val history: MutableList<Splice> = mutableListOf()
 
@@ -100,6 +100,10 @@ class SpliceState(
             target.onValidation(newError)
         }
 
-        target.onStateUpdated()
+        if (toSnapshot.isLocked) {
+            target.onStateUpdated("locked")
+        } else {
+            target.onStateUpdated("unlocked")
+        }
     }
 }

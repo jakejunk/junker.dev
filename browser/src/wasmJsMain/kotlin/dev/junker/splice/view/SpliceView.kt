@@ -47,13 +47,8 @@ class SpliceView private constructor(
         onValidationCleared = { error ->
             grid.clearCell(error)
         },
-        onStateUpdated = {
-//            val activeCellValue = grid.activeCell?.value
-//            if (activeCellValue != null) {
-//                grid.highlightValue(activeCellValue)
-//            } else {
-//                grid.highlightValue(null)
-//            }
+        onStateUpdated = { state ->
+            println("State updated: $state")
         }
     )
 

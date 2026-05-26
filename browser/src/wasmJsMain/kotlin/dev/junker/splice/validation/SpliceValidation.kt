@@ -8,7 +8,10 @@ import kotlin.math.abs
 data class SpliceValidation(
     val effectiveCells: List<SpliceCell>,
     val validations: Set<SpliceCellValidation>
-)
+) {
+    val isLocked: Boolean
+        get() = validations.isNotEmpty()
+}
 
 sealed interface SpliceCellValidation {
     val index: Int
@@ -52,9 +55,9 @@ fun Splice.getEffectiveCells(): SpliceValidation {
     val jumps = validateJumps(effectiveCells)
     val nullErrors = validateNulls(effectiveCells)
     val adjacencyErrors = validateAdjacency(effectiveCells)
-    val allErrors = jumps + nullErrors + adjacencyErrors
+    val validations = (jumps + nullErrors + adjacencyErrors).toSet()
 
-    return SpliceValidation(effectiveCells, allErrors.toSet())
+    return SpliceValidation(effectiveCells, validations)
 }
 
 private fun validateJumps(
@@ -101,27 +104,25 @@ private fun Splice.validateAdjacency(
         return emptyList()
     }
 
-    fun sharedOperator(a: Int, b: Int): Boolean {
+    fun partOfOperator(a: Int): Boolean {
         return operators.any { op ->
-            val indices = setOf(
+            a in setOf(
                 op.lhsPosition.toIndex(),
                 op.rhsPosition.toIndex(),
                 op.resultPosition.toIndex()
             )
-
-            a in indices && b in indices
         }
     }
 
     return buildList {
         for (i in 1..<cells.size) {
-            if (sharedOperator(i - 1, i)) {
+            if (partOfOperator(i)) {
                 continue
             }
 
-            val a = cells[i - 1].value.toInt()
-            val b = cells[i].value.toInt()
-            val distance = abs(a - b)
+            val lhs = cells[i - 1].value.toInt()
+            val rhs = cells[i].value.toInt()
+            val distance = abs(lhs - rhs)
 
             if (distance > 1 && distance != UByte.MAX_VALUE.toInt()) {
                 add(SpliceCellValidation.Adjacency(i))
