@@ -6,9 +6,11 @@ import dev.junker.orElse
 import dev.junker.splice
 import dev.junker.splice.Splice
 import dev.junker.splice.SpliceState
+import dev.junker.splice.cell.SpliceCell
 import dev.junker.splice.controls.SpliceControlsView
 import dev.junker.splice.controls.SpliceControlsView.Companion.spliceControlsView
 import dev.junker.splice.view.SpliceGridView.Companion.spliceGridView
+import kotlinx.browser.window
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -48,7 +50,11 @@ class SpliceView private constructor(
             grid.clearCell(error)
         },
         onStateUpdated = { state ->
-            println("State updated: $state")
+            if (state == "unlocked") {
+                window.alert("UNLOCKED")
+            }
+
+            setValidation(state)
         }
     )
 
@@ -85,6 +91,10 @@ class SpliceView private constructor(
         }
     }
 
+    private fun setValidation(state: String) {
+        root.setAttribute("data-state", state)
+    }
+
     private fun HTMLButtonElement.twitch() {
         classList.remove("twitch")
         offsetWidth
@@ -97,9 +107,14 @@ class SpliceView private constructor(
             val grid: SpliceGridView
             val controls: SpliceControlsView
 
-            val initial = Splice.simple(4) { i ->
-                (i + 1).toUByte()
-            }
+            val cells = listOf<UByte>(
+                2u, 50u, 0u, 51u,
+                50u, 25u, 25u, 0u,
+                1u, 2u, 3u, 4u,
+                89u, 90u, 4u, 5u,
+            )
+
+            val initial = Splice.simple(4) { i -> cells[i] }
 
             root = div(classes = splice.className) {
                 // FIXME: This shouldn't be decoupled from SpliceState.sidelength used above

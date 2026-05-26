@@ -92,12 +92,12 @@ class SpliceState(
             }
         }
 
-        (fromSnapshot.validations - toSnapshot.validations).forEach { clearedError ->
-            target.onValidationCleared(clearedError)
+        (fromSnapshot.validations - toSnapshot.validations).forEach { cleared ->
+            target.onValidationCleared(cleared)
         }
 
-        (if (force) toSnapshot.validations else toSnapshot.validations - fromSnapshot.validations).forEach { newError ->
-            target.onValidation(newError)
+        (if (force) toSnapshot.validations else toSnapshot.validations - fromSnapshot.validations).forEach { validation ->
+            target.onValidation(validation)
         }
 
         if (toSnapshot.isLocked) {

@@ -99,6 +99,7 @@ class SpliceCellView private constructor(
         return when (validation) {
             is SpliceCellValidation.Jump -> spliceJump
             is SpliceCellValidation.JumpTarget -> spliceJumpTarget
+            is SpliceCellValidation.JumpDestination -> spliceJumpTarget // TODO
             is SpliceCellValidation.Skip -> spliceSkip
             is SpliceCellValidation.Null -> spliceNull
             is SpliceCellValidation.Adjacency -> spliceOutOfRange

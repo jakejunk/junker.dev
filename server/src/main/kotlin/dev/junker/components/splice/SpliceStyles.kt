@@ -130,7 +130,7 @@ private fun CssBuilder.spliceGridStyles() {
         "&${spliceNull.selector}" {
             val c = SiteColor.BackgroundLight.color
 
-            color = Color.transparent
+            color = SiteColor.SubtleText.color
             property("background", "repeating-linear-gradient(60deg, $c, $c 2px, transparent 2px, transparent 27px)")
         }
 
