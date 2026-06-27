@@ -1,11 +1,14 @@
 package dev.junker.pages
 
+import dev.junker.pages.projects.MazePage
 import dev.junker.pages.projects.SplicePage
 import dev.junker.pages.projects.SudokuPage
 import kotlinx.html.FlowContent
 import kotlinx.html.a
 import kotlinx.html.article
 import kotlinx.html.h1
+import kotlinx.html.li
+import kotlinx.html.ul
 
 interface ProjectsPage : Page.Content {
     companion object {
@@ -22,8 +25,11 @@ interface ProjectsPage : Page.Content {
 
             // FIXME
             article {
-                a(href = "$ROOT_SLUG/sudoku") { +"Sudoku" }
-                a(href = "$ROOT_SLUG/splice") { +"Splice" }
+                ul {
+                    li { a(href = "$ROOT_SLUG/sudoku") { +"Sudoku" } }
+                    li { a(href = "$ROOT_SLUG/splice") { +"Splice" } }
+                    li { a(href = "$ROOT_SLUG/maze") { +"Maze" } }
+                }
             }
         }
     }
@@ -35,6 +41,9 @@ fun projectPage(projectName: String): ProjectsPage? {
     return when (projectName) {
         "sudoku" -> SudokuPage(projectNameFq)
         "splice" -> SplicePage(projectNameFq)
+        "maze" -> {
+            MazePage(projectNameFq)
+        }
         else -> null
     }
 }

@@ -21,6 +21,14 @@ value class BitField16(
         return BitField16(newData)
     }
 
+    fun setBits(other: BitField16): BitField16 {
+        return BitField16(data or other.data)
+    }
+
+    fun clearBits(other: BitField16): BitField16 {
+        return BitField16(data and other.data.inv())
+    }
+
     private fun withBitEnabled(position: Int): UShort {
         return (1 shl position).toUShort()
     }

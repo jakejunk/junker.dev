@@ -1,5 +1,7 @@
 package dev.junker
 
+import dev.junker.maze.Maze
+import dev.junker.maze.view.MazeView.Companion.mazeView
 import dev.junker.splice.view.SpliceView.Companion.spliceView
 import dev.junker.sudoku.view.SudokuView.Companion.sudokuView
 import dev.junker.syntax.highlightCodeBlocks
@@ -17,5 +19,9 @@ fun main() {
         getElementById(splicePlaceholder.id)?.remove()
         getElementById(spliceContainer.id)
             ?.append { spliceView() }
+
+        getElementById(mazePlaceholder.id)?.remove()
+        getElementById(mazeContainer.id)
+            ?.append { mazeView(Maze.simple(52, 26)) }
     }
 }
