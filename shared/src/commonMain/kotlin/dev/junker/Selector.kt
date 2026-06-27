@@ -2,6 +2,25 @@ package dev.junker
 
 import kotlin.jvm.JvmInline
 
+// Maze =======================================================================
+val mazeContainer = "maze-container".idSelector()
+val mazePlaceholder = "maze-placeholder".idSelector()
+val maze = "maze".classSelector()
+val mazeGrid = "maze-grid".classSelector()
+val mazeCell = "maze-cell".classSelector()
+
+val mazeNorthWall = "maze-north-wall".classSelector()
+val mazeSouthWall = "maze-south-wall".classSelector()
+val mazeEastWall = "maze-east-wall".classSelector()
+val mazeWestWall = "maze-west-wall".classSelector()
+
+// Controls
+val mazeControls = "maze-controls".classSelector()
+val mazeActions = "maze-actions".classSelector()
+val mazeAction = "maze-action".classSelector()
+val mazeActionNext = "maze-action-next".classSelector()
+val mazeActionUndo = "maze-action-undo".classSelector()
+
 // Splice =====================================================================
 // Grid
 val spliceContainer = "splice-container".idSelector()
