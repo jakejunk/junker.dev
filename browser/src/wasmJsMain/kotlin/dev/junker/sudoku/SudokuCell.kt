@@ -14,7 +14,7 @@ sealed interface SudokuCell {
         }
 
         fun isMarked(value: SudokuValue): Boolean {
-            return marks.getBit(value.asInt)
+            return marks.hasBit(value.asInt)
         }
 
         fun enableMark(value: SudokuValue): Empty {
@@ -29,7 +29,7 @@ sealed interface SudokuCell {
 
         fun forEachMark(action: (value: SudokuValue, enabled: Boolean) -> Unit) {
             forEachSudokuValue { value ->
-                val enabled = marks.getBit(value.asInt)
+                val enabled = marks.hasBit(value.asInt)
                 action(value, enabled)
             }
         }

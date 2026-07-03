@@ -4,11 +4,6 @@ import dev.junker.maze.cell.MazeCell
 import dev.junker.maze.cell.MazeCellView
 import dev.junker.maze.cell.MazeCellView.Companion.mazeCellView
 import dev.junker.mazeGrid
-import dev.junker.splice.SpliceOperator
-import dev.junker.splice.cell.SpliceCellView
-import dev.junker.splice.cell.SpliceCellView.Companion.spliceCellView
-import dev.junker.splice.validation.SpliceCellValidation
-import dev.junker.spliceGrid
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -17,13 +12,29 @@ import org.w3c.dom.HTMLElement
 
 class MazeGridView private constructor(
     private val root: HTMLElement,
-    val sideLength: Int,
     val cells: List<MazeCellView>,
+    val sideLength: Int,
 ) {
     var activeCell: MazeCellView? = null
 
     fun updateCell(index: Int, cell: MazeCell) {
-        cells[index].update(cell)
+        cells[index].updateWalls(cell)
+    }
+
+    fun markStartCell(index: Int) {
+        cells[index].markStartCell()
+    }
+
+    fun markEndCell(index: Int) {
+        cells[index].markEndCell()
+    }
+
+    fun clearStartCell(index: Int) {
+        cells[index].clearStartCell()
+    }
+
+    fun clearEndCell(index: Int) {
+        cells[index].clearEndCell()
     }
 
     inline fun forEachCellView(
@@ -47,7 +58,7 @@ class MazeGridView private constructor(
 
             root.style.setProperty("--grid-cols", sideLength.toString())
 
-            return MazeGridView(root, sideLength, cells)
+            return MazeGridView(root, cells, sideLength)
         }
     }
 }

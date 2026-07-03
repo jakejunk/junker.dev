@@ -3,6 +3,7 @@ package dev.junker.maze.view
 import dev.junker.maze
 import dev.junker.maze.Maze
 import dev.junker.maze.MazeState
+import dev.junker.maze.cell.WallDirection
 import dev.junker.maze.controls.MazeControlsView
 import dev.junker.maze.controls.MazeControlsView.Companion.mazeControlsView
 import dev.junker.maze.view.MazeGridView.Companion.mazeGridView
@@ -38,6 +39,18 @@ class MazeView private constructor(
         onCellUpdated = { index, cell ->
             grid.updateCell(index, cell)
         },
+        onStartMark = { index ->
+            grid.markStartCell(index)
+        },
+        onEndMark = { index ->
+            grid.markEndCell(index)
+        },
+        onStartClear = { index ->
+            grid.clearStartCell(index)
+        },
+        onEndClear = { index ->
+            grid.clearEndCell(index)
+        }
 //        onValidation = { validation ->
 //            grid.markCell(validation)
 //        },

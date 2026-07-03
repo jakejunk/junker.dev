@@ -7,6 +7,10 @@ class MazeState(
 //    private val onOperatorAdded: Splice.(PlacedOperator) -> Unit,
 //    private val onOperatorRemoved: Splice.(PlacedOperator) -> Unit,
     private val onCellUpdated: Maze.(Int, MazeCell) -> Unit,
+    private val onStartMark: Maze.(Int) -> Unit,
+    private val onEndMark: Maze.(Int) -> Unit,
+    private val onStartClear: Maze.(Int) -> Unit,
+    private val onEndClear: Maze.(Int) -> Unit,
 //    private val onValidation: Splice.(SpliceCellValidation) -> Unit,
 //    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
 //    private val onStateUpdated: Splice.(String) -> Unit
@@ -78,35 +82,20 @@ class MazeState(
         target: Maze,
         force: Boolean = false
     ) {
-//        (current.operators - target.operators).forEach { placedOperator ->
-//            target.onOperatorRemoved(placedOperator)
-//        }
-
-//        (if (force) target.operators else target.operators - current.operators).forEach { placedOperator ->
-//            target.onOperatorAdded(placedOperator)
-//        }
-
-//        val fromSnapshot = current.getEffectiveCells()
-//        val toSnapshot = target.getEffectiveCells()
-
         (current.cells zip target.cells).forEachIndexed { i, (from, to) ->
             if (from != to || force) {
                 target.onCellUpdated(i, to)
             }
         }
 
-//        (fromSnapshot.validations - toSnapshot.validations).forEach { cleared ->
-//            target.onValidationCleared(cleared)
-//        }
-//
-//        (if (force) toSnapshot.validations else toSnapshot.validations - fromSnapshot.validations).forEach { validation ->
-//            target.onValidation(validation)
-//        }
-//
-//        if (toSnapshot.isLocked) {
-//            target.onStateUpdated("locked")
-//        } else {
-//            target.onStateUpdated("unlocked")
-//        }
+        if (current.startIndex != target.startIndex || force) {
+            current.onStartClear(current.startIndex)
+            target.onStartMark(target.startIndex)
+        }
+
+        if (current.endIndex != target.endIndex || force) {
+            current.onEndClear(current.endIndex)
+            target.onEndMark(target.endIndex)
+        }
     }
 }

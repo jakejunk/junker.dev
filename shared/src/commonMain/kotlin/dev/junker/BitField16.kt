@@ -8,7 +8,7 @@ private val ZERO = 0u.toUShort()
 value class BitField16(
     private val data: UShort = ZERO
 ) {
-    fun getBit(position: Int): Boolean {
+    fun hasBit(position: Int): Boolean {
         return (data and withBitEnabled(position)) != ZERO
     }
 
@@ -31,5 +31,11 @@ value class BitField16(
 
     private fun withBitEnabled(position: Int): UShort {
         return (1 shl position).toUShort()
+    }
+
+    override fun toString(): String {
+        return data
+            .toString(2)
+            .padStart(4, '0')
     }
 }

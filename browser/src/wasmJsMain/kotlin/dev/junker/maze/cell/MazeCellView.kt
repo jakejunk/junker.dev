@@ -24,7 +24,7 @@ class MazeCellView private constructor(
         root.onpointerdown = { onCellSelected?.invoke(this) }
     }
 
-    fun update(to: MazeCell) {
+    fun updateWalls(to: MazeCell) {
         val current = currentState
 
         if (to.hasWall(WallDirection.NORTH)) {
@@ -60,6 +60,22 @@ class MazeCellView private constructor(
         }
 
         currentState = to
+    }
+
+    fun markStartCell() {
+        root.classList.add(mazeStart.className)
+    }
+
+    fun markEndCell() {
+        root.classList.add(mazeEnd.className)
+    }
+
+    fun clearStartCell() {
+        root.classList.remove(mazeStart.className)
+    }
+
+    fun clearEndCell() {
+        root.classList.remove(mazeEnd.className)
     }
 
     companion object {
