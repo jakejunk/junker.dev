@@ -14,6 +14,9 @@ val mazeSouthWall = "maze-south-wall".classSelector()
 val mazeEastWall = "maze-east-wall".classSelector()
 val mazeWestWall = "maze-west-wall".classSelector()
 
+val mazeStart = "maze-start".classSelector()
+val mazeEnd = "maze-end".classSelector()
+
 // Controls
 val mazeControls = "maze-controls".classSelector()
 val mazeActions = "maze-actions".classSelector()

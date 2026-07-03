@@ -58,9 +58,7 @@ private fun CssBuilder.mazeGridStyles() {
         monospaceFont()
         aspectRatio = AspectRatio(1, 1)
         backgroundColor = SiteColor.BackgroundDarkish.color
-        border = lightBorder(2.px)
-        borderTopStyle = BorderStyle.none
-        borderRightStyle = BorderStyle.none
+        border = lightBorder(1.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
         maxWidth = gridWidth.px
@@ -73,58 +71,57 @@ private fun CssBuilder.mazeGridStyles() {
         containerType = ContainerType.size
         position = Position.relative
 
-        before {
-            property("content", "attr(data-value)")
-            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
-            height = 100.pct
-            lineHeight = NumericLinearDimension(100, "cqh").lh
-            position = Position.absolute
-            textAlign = TextAlign.center
-            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.inherit))
-            property("text-decoration-color", SiteColor.SubtleText.color.toString())
-            width = 100.pct
-        }
-
-        after {
-            borderRadius = 16.px
-            bottom = 50.pct - 16.px
-            color = SiteColor.SubtleText.color
-            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 3.rem)
-            fontWeight = FontWeight.bold
-            height = 32.px
-            lineHeight = 32.px.lh
-            position = Position.absolute
-            right = (-17).px
-            textAlign = TextAlign.center
-            width = 32.px
-            zIndex = 1
-        }
+//        before {
+//            content = "".quoted
+//            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
+//            height = 100.pct
+//            lineHeight = NumericLinearDimension(100, "cqh").lh
+//            position = Position.absolute
+//            textAlign = TextAlign.center
+//            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.inherit))
+//            property("text-decoration-color", SiteColor.SubtleText.color.toString())
+//            width = 100.pct
+//        }
 
         "&${mazeNorthWall.selector}" {
-            borderTop = lightBorder(2.px)
+            borderTop = lightBorder(1.px)
         }
 
         "&${mazeSouthWall.selector}" {
-            borderBottom = lightBorder(2.px)
+            borderBottom = lightBorder(1.px)
         }
 
         "&${mazeEastWall.selector}" {
-            borderRight = lightBorder(2.px)
+            borderRight = lightBorder(1.px)
         }
 
         "&${mazeWestWall.selector}" {
-            borderLeft = lightBorder(2.px)
+            borderLeft = lightBorder(1.px)
         }
-    }
 
-    // User has mouse
-    media("(pointer: fine)") {
-        mazeCell.selector {
-            hover {
-                backgroundColor = SiteColor.BackgroundLight.color.withAlpha(0.5)
+        "&${mazeStart.selector}" {
+            before {
+                endPoint()
+                backgroundColor = SiteColor.Primary.color
+            }
+        }
+
+        "&${mazeEnd.selector}" {
+            before {
+                endPoint()
+                backgroundColor = SiteColor.Secondary.color
             }
         }
     }
+}
+
+private fun CssBuilder.endPoint() {
+    position = Position.absolute
+    width = 8.px
+    height = 8.px
+    left = 50.pct - 4.1.px
+    top = 50.pct - 4.1.px
+    borderRadius = 1.rem
 }
 
 private fun CssBuilder.mazeControlStyles() {

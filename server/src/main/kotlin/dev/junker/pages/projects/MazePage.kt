@@ -33,6 +33,8 @@ class MazePage(
             
             - 6/24: Basic idea implemented.
             - 6/26: "Next" button for endless mazes!
+            - 7/3: Mark start and end points for added difficulty.
+              - Need to add a visual trail for "walking" through a maze.
         """.trimIndent())
     }
 }

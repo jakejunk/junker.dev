@@ -1,6 +1,5 @@
 package dev.junker.maze
 
-import dev.junker.BitField16
 import dev.junker.maze.cell.MazeCell
 import dev.junker.maze.cell.WallDirection
 import kotlin.random.Random
@@ -8,7 +7,9 @@ import kotlin.random.Random
 class Maze private constructor(
     val seed: Int,
     val sideLength: Int,
-    val cells: List<MazeCell>
+    val cells: List<MazeCell>,
+    val startIndex: Int,
+    val endIndex: Int
 ) {
     fun Int.toPosition(): Position {
         return Position(this % sideLength, this / sideLength)
@@ -23,6 +24,50 @@ class Maze private constructor(
         }
     }
 
+    fun neighbors(index: Int): List<Int> {
+        val cell = cells[index]
+        val position = index.toPosition()
+
+        return buildList {
+            if (!cell.hasWall(WallDirection.NORTH) && position.y > 0) {
+                add(index - sideLength)
+            }
+
+            if (!cell.hasWall(WallDirection.SOUTH) && position.y < sideLength - 1) {
+                add(index + sideLength)
+            }
+
+            if (!cell.hasWall(WallDirection.EAST) && position.x < sideLength - 1) {
+                add(index + 1)
+            }
+
+            if (!cell.hasWall(WallDirection.WEST) && position.x > 0) {
+                add(index - 1)
+            }
+        }
+    }
+
+    fun distancesFromIndex(start: Int): IntArray {
+        val distances = IntArray(cells.size) { -1 }
+        distances[start] = 0
+
+        val stack = ArrayDeque<Int>()
+        stack.addLast(start)
+
+        while (stack.isNotEmpty()) {
+            val current = stack.removeLast()
+
+            for (neighbor in neighbors(current)) {
+                if (distances[neighbor] == -1) {
+                    distances[neighbor] = distances[current] + 1
+                    stack.addLast(neighbor)
+                }
+            }
+        }
+
+        return distances
+    }
+
     companion object {
         fun simple(
             seed: Int,
@@ -32,8 +77,8 @@ class Maze private constructor(
                 throw IllegalArgumentException("sideLength must be at least 2")
             }
 
-            val mazeCells = MutableList(sideLength * sideLength) { MazeCell(BitField16(WallDirection.ALL)) }
-            val maze = Maze(seed, sideLength, mazeCells)
+            val mazeCells = MutableList(sideLength * sideLength) { MazeCell.ALL_FLAGS }
+            val startMaze = Maze(seed, sideLength, mazeCells, 0, mazeCells.lastIndex)
             val uniqueRooms = ArrayList<MutableList<Position>>()
             val wallsToRemove = ArrayList<Wall>()
 
@@ -69,7 +114,7 @@ class Maze private constructor(
                     continue
                 }
 
-                with(maze) {
+                with(startMaze) {
                     val aCellIndex = wall.aRoomPosition.toIndex()!!
                     val bCellIndex = wall.bRoomPosition.toIndex()!!
 
@@ -87,7 +132,22 @@ class Maze private constructor(
                 uniqueRooms[targetIndex].addAll(toMerge)
             }
 
-            return maze
+            val (startIndex, endIndex) = determineLongestPath(startMaze)
+
+            return Maze(
+                seed = startMaze.seed,
+                sideLength = startMaze.sideLength,
+                cells = mazeCells,
+                startIndex = startIndex,
+                endIndex = endIndex
+            )
+        }
+
+        fun determineLongestPath(maze: Maze): Pair<Int, Int> {
+            val a = maze.distancesFromIndex(0).let { it.indices.maxBy { i -> it[i] } }
+            val b = maze.distancesFromIndex(a).let { it.indices.maxBy { i -> it[i] } }
+
+            return a to b
         }
     }
 }
