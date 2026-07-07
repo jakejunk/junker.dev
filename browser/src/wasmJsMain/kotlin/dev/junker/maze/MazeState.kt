@@ -1,12 +1,18 @@
 package dev.junker.maze
 
+import dev.junker.Result
+import dev.junker.err
 import dev.junker.maze.cell.MazeCell
+import dev.junker.maze.cell.WallDirection
+import dev.junker.ok
 
 class MazeState(
     initial: Maze,
 //    private val onOperatorAdded: Splice.(PlacedOperator) -> Unit,
 //    private val onOperatorRemoved: Splice.(PlacedOperator) -> Unit,
     private val onCellUpdated: Maze.(Int, MazeCell) -> Unit,
+    private val onCellVisited: Maze.(Int) -> Unit,
+    private val onCellCleared: Maze.(Int) -> Unit,
     private val onStartMark: Maze.(Int) -> Unit,
     private val onEndMark: Maze.(Int) -> Unit,
     private val onStartClear: Maze.(Int) -> Unit,
@@ -15,6 +21,14 @@ class MazeState(
 //    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
 //    private val onStateUpdated: Splice.(String) -> Unit
 ) {
+    private val progress = mutableListOf<Int>()
+
+    val currentCellIndex: Int
+        get() = when {
+            progress.isEmpty() -> current.startIndex
+            else -> progress.last()
+        }
+
     var current: Maze = initial
         set(value) {
             transition(
@@ -32,6 +46,41 @@ class MazeState(
             force = true
         )
     }
+
+    fun navigateInDirection(direction: Direction): Result<Unit, String> {
+        val (cell, position) = with(current) {
+            cells[currentCellIndex] to currentCellIndex.toPosition()
+        }
+
+        val (asWallTag, destination) = when (direction) {
+            Direction.UP -> WallDirection.NORTH to position.plusY(-1)
+            Direction.DOWN -> WallDirection.SOUTH to position.plusY(1)
+            Direction.LEFT -> WallDirection.WEST to position.plusX(-1)
+            Direction.RIGHT -> WallDirection.EAST to position.plusX(1)
+        }
+
+        if (cell.hasWall(asWallTag)) {
+            return "Wall".err()
+        }
+
+        val (destinationCell, destinationIndex) = with(current) {
+            val destinationIndex = destination.toIndex()
+                ?: return "OOB".err()
+
+            cells[destinationIndex] to destinationIndex
+        }
+
+        if (destinationCell.hasWall(asWallTag.opposite())) {
+            return "Wall but weird".err()
+        }
+
+        progress.add(destinationIndex)
+
+        current.onCellVisited(destinationIndex)
+
+        return Unit.ok()
+    }
+
 //
 //    fun undo(): Result<Unit, String> {
 //        if (history.isEmpty()) {
@@ -77,6 +126,7 @@ class MazeState(
 //        return history.lastOrNull() ?: initialSnapshot
 //    }
 //
+
     private fun transition(
         current: Maze,
         target: Maze,
@@ -86,6 +136,8 @@ class MazeState(
             if (from != to || force) {
                 target.onCellUpdated(i, to)
             }
+
+            target.onCellCleared(i)
         }
 
         if (current.startIndex != target.startIndex || force) {

@@ -71,57 +71,71 @@ private fun CssBuilder.mazeGridStyles() {
         containerType = ContainerType.size
         position = Position.relative
 
-//        before {
-//            content = "".quoted
-//            fontSize = clamp(5.px, NumericLinearDimension(40, "cqi"), 2.5.rem)
-//            height = 100.pct
-//            lineHeight = NumericLinearDimension(100, "cqh").lh
-//            position = Position.absolute
-//            textAlign = TextAlign.center
-//            textDecoration = TextDecoration(lines = setOf(TextDecorationLine.inherit))
-//            property("text-decoration-color", SiteColor.SubtleText.color.toString())
-//            width = 100.pct
-//        }
+        before {
+            position = Position.absolute
+            borderRadius = 1.rem
+        }
+
+        after {
+            display = Display.block
+            height = 100.pct
+            position = Position.absolute
+            width = 100.pct
+        }
 
         "&${mazeNorthWall.selector}" {
-            borderTop = lightBorder(1.px)
+            after {
+                borderTop = lightBorder(1.px)
+            }
         }
 
         "&${mazeSouthWall.selector}" {
-            borderBottom = lightBorder(1.px)
+            after {
+                borderBottom = lightBorder(1.px)
+            }
         }
 
         "&${mazeEastWall.selector}" {
-            borderRight = lightBorder(1.px)
+            after {
+                borderRight = lightBorder(1.px)
+            }
         }
 
         "&${mazeWestWall.selector}" {
-            borderLeft = lightBorder(1.px)
+            after {
+                borderLeft = lightBorder(1.px)
+            }
+        }
+
+        "&${mazeVisited.selector}" {
+            before {
+                mazePoint(4, SiteColor.Tertiary.color)
+            }
         }
 
         "&${mazeStart.selector}" {
             before {
-                endPoint()
-                backgroundColor = SiteColor.Primary.color
+                mazePoint(8, SiteColor.Primary.color)
             }
         }
 
         "&${mazeEnd.selector}" {
             before {
-                endPoint()
-                backgroundColor = SiteColor.Secondary.color
+                mazePoint(8, SiteColor.Secondary.color)
             }
         }
     }
 }
 
-private fun CssBuilder.endPoint() {
-    position = Position.absolute
-    width = 8.px
-    height = 8.px
-    left = 50.pct - 4.1.px
-    top = 50.pct - 4.1.px
-    borderRadius = 1.rem
+private fun CssBuilder.mazePoint(size: Int, color: Color) {
+    val halfIsh = size / 2 + 0.1
+
+    backgroundColor = color
+
+    width = size.px
+    height = size.px
+    left = 50.pct - halfIsh.px
+    top = 50.pct - halfIsh.px
 }
 
 private fun CssBuilder.mazeControlStyles() {

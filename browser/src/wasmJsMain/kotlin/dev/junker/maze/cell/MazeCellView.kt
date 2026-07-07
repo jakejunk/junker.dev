@@ -70,12 +70,20 @@ class MazeCellView private constructor(
         root.classList.add(mazeEnd.className)
     }
 
+    fun markCellVisited() {
+        root.classList.add(mazeVisited.className)
+    }
+
     fun clearStartCell() {
         root.classList.remove(mazeStart.className)
     }
 
     fun clearEndCell() {
         root.classList.remove(mazeEnd.className)
+    }
+
+    fun clearCellVisited() {
+        root.classList.remove(mazeVisited.className)
     }
 
     companion object {
