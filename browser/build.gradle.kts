@@ -33,6 +33,7 @@ kotlin {
             implementation(project(":shared"))
             implementation(libs.kotlinx.html)
             implementation(libs.kotlinx.browser)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
             implementation("dev.snipme:highlights:1.0.0")
         }
     }

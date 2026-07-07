@@ -11,6 +11,8 @@ enum class SiteColor(value: String) {
     PrimaryBright("#54E8CA"),
     Secondary("#ED6A5A"),
     SecondaryBright("#F29488"),
+    Tertiary("#9F8B63"),
+    TertiaryBright("#E0C27B"),
     PrimaryText("#F0E7D8"),
     SubtleText("#798BB4");
 
