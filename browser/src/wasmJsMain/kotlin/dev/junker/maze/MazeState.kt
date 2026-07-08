@@ -8,14 +8,12 @@ import dev.junker.ok
 
 class MazeState(
     initial: Maze,
-//    private val onOperatorAdded: Splice.(PlacedOperator) -> Unit,
-//    private val onOperatorRemoved: Splice.(PlacedOperator) -> Unit,
     private val onCellUpdated: Maze.(Int, MazeCell) -> Unit,
     private val onCellVisited: Maze.(Int) -> Unit,
     private val onCellCleared: Maze.(Int) -> Unit,
-    private val onStartMark: Maze.(Int) -> Unit,
+    private val onCurrentMark: Maze.(Int) -> Unit,
+    private val onCurrentClear: Maze.(Int) -> Unit,
     private val onEndMark: Maze.(Int) -> Unit,
-    private val onStartClear: Maze.(Int) -> Unit,
     private val onEndClear: Maze.(Int) -> Unit,
 //    private val onValidation: Splice.(SpliceCellValidation) -> Unit,
 //    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
@@ -48,8 +46,9 @@ class MazeState(
     }
 
     fun navigateInDirection(direction: Direction): Result<Unit, String> {
+        val currentIndex = currentCellIndex
         val (cell, position) = with(current) {
-            cells[currentCellIndex] to currentCellIndex.toPosition()
+            cells[currentIndex] to currentCellIndex.toPosition()
         }
 
         val (asWallTag, destination) = when (direction) {
@@ -76,56 +75,38 @@ class MazeState(
 
         progress.add(destinationIndex)
 
-        current.onCellVisited(destinationIndex)
+        with(current) {
+            onCellVisited(currentIndex)
+            onCurrentClear(currentIndex)
+            onCurrentMark(destinationIndex)
+        }
 
         return Unit.ok()
     }
 
-//
-//    fun undo(): Result<Unit, String> {
-//        if (history.isEmpty()) {
-//            return "No history.".err()
-//        }
-//
-//        val current = history.removeLast()
-//        val target = mostRecent()
-//
-//        return transition(current, target).ok()
-//    }
 
-//    fun applyOperator(
-//        index: Int,
-//        operator: SpliceOperator
-//    ): Result<Unit, String> {
-//        return update {
-//            applyOperator(index.toPosition(), operator)
-//        }
-//    }
-//
-//    fun removeOperator(
-//        index: Int
-//    ): Result<Unit, String> {
-//        return update {
-//            removeOperator(index.toPosition())
-//        }
-//    }
-//
-//    private inline fun update(
-//        action: Splice.() -> Result<Splice, String>
-//    ): Result<Unit, String> {
-//        val last = mostRecent()
-//        val updated = last.action()
-//
-//        return updated.ifOk { updatedSnapshot ->
-//            transition(last, updatedSnapshot)
-//            history.add(updatedSnapshot)
-//        }
-//    }
-//
-//    private fun mostRecent(): Splice {
-//        return history.lastOrNull() ?: initialSnapshot
-//    }
-//
+    fun rewind(): Result<Unit, String> {
+        if (progress.isEmpty()) {
+            return "No progress.".err()
+        }
+
+        repeat(3) {
+            if (progress.isNotEmpty()) {
+                val currentIndex = progress.removeLast()
+
+                with(current) {
+                    if (currentIndex !in progress) {
+                        onCellCleared(currentIndex)
+                    }
+
+                    onCurrentClear(currentIndex)
+                    onCurrentMark(currentCellIndex)
+                }
+            }
+        }
+
+        return Unit.ok()
+    }
 
     private fun transition(
         current: Maze,
@@ -141,8 +122,8 @@ class MazeState(
         }
 
         if (current.startIndex != target.startIndex || force) {
-            current.onStartClear(current.startIndex)
-            target.onStartMark(target.startIndex)
+            current.onCurrentClear(current.startIndex)
+            target.onCurrentMark(target.startIndex)
         }
 
         if (current.endIndex != target.endIndex || force) {

@@ -14,18 +14,18 @@ import org.w3c.dom.HTMLElement
 class MazeControlsView private constructor(
     val root: HTMLElement,
     val nextButton: HTMLButtonElement,
-    val undoButton: HTMLButtonElement
+    val rewindButton: HTMLButtonElement
 ) {
-    var onUndo: (() -> Unit)? = null
     var onNextMaze: (() -> Unit)? = null
+    var onRewind: (() -> Unit)? = null
 
     init {
         nextButton.onclick = {
             onNextMaze?.invoke()
         }
 
-        undoButton.onclick = {
-            onUndo?.invoke()
+        rewindButton.onclick = {
+            onRewind?.invoke()
         }
     }
 
@@ -33,7 +33,7 @@ class MazeControlsView private constructor(
         fun TagConsumer<Element>.mazeControlsView(): MazeControlsView {
             val controls: HTMLDivElement
             val nextButton: HTMLButtonElement
-            val undoButton: HTMLButtonElement
+            val rewindButton: HTMLButtonElement
 
             controls = div(classes = mazeControls.className) {
                 div(classes = mazeActions.className) {
@@ -46,11 +46,11 @@ class MazeControlsView private constructor(
                     }
 
                     label {
-                        undoButton = button(
-                            classes = "${mazeAction.className} ${mazeActionUndo.className}",
+                        rewindButton = button(
+                            classes = "${mazeAction.className} ${mazeActionRewind.className}",
                             name = "controls"
-                        ) { disabled = true }
-                        span { +"Undo" }
+                        )
+                        span { +"Rewind" }
                     }
                 }
             }
@@ -58,7 +58,7 @@ class MazeControlsView private constructor(
             return MazeControlsView(
                 root = controls,
                 nextButton = nextButton,
-                undoButton = undoButton
+                rewindButton = rewindButton
             )
         }
     }

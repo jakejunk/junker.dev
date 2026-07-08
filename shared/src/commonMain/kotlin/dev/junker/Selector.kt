@@ -23,7 +23,7 @@ val mazeControls = "maze-controls".classSelector()
 val mazeActions = "maze-actions".classSelector()
 val mazeAction = "maze-action".classSelector()
 val mazeActionNext = "maze-action-next".classSelector()
-val mazeActionUndo = "maze-action-undo".classSelector()
+val mazeActionRewind = "maze-action-rewind".classSelector()
 
 // Splice =====================================================================
 // Grid

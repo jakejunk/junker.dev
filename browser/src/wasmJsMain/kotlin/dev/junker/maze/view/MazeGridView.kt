@@ -8,7 +8,6 @@ import dev.junker.mazeGrid
 import dev.junker.util.Throttler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
@@ -42,16 +41,20 @@ class MazeGridView private constructor(
         }
     }
 
+    // TODO: Might not need these...
     private val viewScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private val throttler = Throttler(viewScope, 200.milliseconds)
 
-    var onNavigation: ((Direction) -> Unit)? = null
+    var onNavigationInput: ((Direction) -> Unit)? = null
+    var onRewindInput: (() -> Unit)? = null
 
     init {
         root.onkeydown = { e ->
             e.preventDefault()
 
-            throttler.post {
+            if (e.key == "Backspace") {
+                onRewindInput?.invoke()
+            } else {
                 val direction = when (e.key) {
                     "ArrowUp" -> Direction.UP
                     "ArrowDown" -> Direction.DOWN
@@ -61,7 +64,7 @@ class MazeGridView private constructor(
                 }
 
                 direction?.also {
-                    onNavigation?.invoke(it)
+                    onNavigationInput?.invoke(it)
                 }
             }
         }
@@ -79,7 +82,7 @@ class MazeGridView private constructor(
         cells[index].clearCellVisited()
     }
 
-    fun markStartCell(index: Int) {
+    fun markCurrentCell(index: Int) {
         cells[index].markStartCell()
     }
 
@@ -87,7 +90,7 @@ class MazeGridView private constructor(
         cells[index].markEndCell()
     }
 
-    fun clearStartCell(index: Int) {
+    fun clearCurrentCell(index: Int) {
         cells[index].clearStartCell()
     }
 

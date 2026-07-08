@@ -11,18 +11,6 @@ class MazeCellView private constructor(
     val root: HTMLElement
 ) {
     var currentState = MazeCell()
-    var onCellSelected: ((MazeCellView) -> Unit)? = null
-
-    var selected: Boolean
-        get() = root.classList.contains(spliceSelected.className)
-        set(value) = when (value) {
-            true -> root.classList.add(spliceSelected.className)
-            false -> root.classList.remove(spliceSelected.className)
-        }
-
-    init {
-        root.onpointerdown = { onCellSelected?.invoke(this) }
-    }
 
     fun updateWalls(to: MazeCell) {
         val current = currentState
