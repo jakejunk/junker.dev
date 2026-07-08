@@ -187,7 +187,7 @@ private fun CssBuilder.mazeControlStyles() {
                     }
                 }
 
-                "&${mazeActionUndo.selector}" {
+                "&${mazeActionRewind.selector}" {
                     before {
                         backgroundPosition = RelativePosition("0px -32px")
                     }

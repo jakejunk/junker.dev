@@ -1,20 +1,18 @@
 package dev.junker.maze.view
 
+import dev.junker.ifError
 import dev.junker.maze
 import dev.junker.maze.Maze
 import dev.junker.maze.MazeState
-import dev.junker.maze.cell.WallDirection
 import dev.junker.maze.controls.MazeControlsView
 import dev.junker.maze.controls.MazeControlsView.Companion.mazeControlsView
 import dev.junker.maze.view.MazeGridView.Companion.mazeGridView
-import dev.junker.util.Throttler
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
-import kotlin.time.Duration.Companion.milliseconds
 
 class MazeView private constructor(
     initial: Maze,
@@ -48,14 +46,14 @@ class MazeView private constructor(
         onCellCleared = { index ->
             grid.clearCell(index)
         },
-        onStartMark = { index ->
-            grid.markStartCell(index)
+        onCurrentMark = { index ->
+            grid.markCurrentCell(index)
+        },
+        onCurrentClear = { index ->
+            grid.clearCurrentCell(index)
         },
         onEndMark = { index ->
             grid.markEndCell(index)
-        },
-        onStartClear = { index ->
-            grid.clearStartCell(index)
         },
         onEndClear = { index ->
             grid.clearEndCell(index)
@@ -63,8 +61,16 @@ class MazeView private constructor(
     )
 
     init {
-        grid.onNavigation = { direction ->
-            state.navigateInDirection(direction)
+        with(grid) {
+            onNavigationInput = { direction ->
+                state.navigateInDirection(direction)
+            }
+
+            onRewindInput = {
+                state.rewind().ifError {
+                    controls.rewindButton.twitch()
+                }
+            }
         }
 
         with(controls) {
@@ -72,10 +78,10 @@ class MazeView private constructor(
                 state.current = Maze.simple(state.current.seed + 1, state.current.sideLength)
             }
 
-            onUndo = {
-//                state.undo().ifError {
-//                    undoButton.twitch()
-//                }
+            onRewind = {
+                state.rewind().ifError {
+                    rewindButton.twitch()
+                }
             }
         }
     }

@@ -36,9 +36,12 @@ class MazePage(
             - 7/3: Mark start and end points for added difficulty.
               - ~~Need to add a visual trail for "walking" through a maze.~~
             - 7/7: Keyboard navigation (arrow keys) + trail added.
-              - Add visualization for current position.
-              - Refactor "Undo" button into a rewind button.
-              - Update key press throttler behavior to avoid punishing fast key tappers.
+              - ~~Add visualization for current position.~~
+              - ~~Refactor "Undo" button into a rewind button.~~
+              - ~~Update key press throttler behavior to avoid punishing fast key tappers.~~
+            - 7/8: Maze start point repurposed as current position; clicking the rewind button takes 3 steps back.
+              - Input throttling has been removed entirely for now.
+              - Hitting backspace will also kick off a rewind.
         """.trimIndent())
     }
 }
