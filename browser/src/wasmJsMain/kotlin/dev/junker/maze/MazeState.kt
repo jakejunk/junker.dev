@@ -122,14 +122,12 @@ class MazeState(
             target.onCellCleared(i)
         }
 
-        if (current.startIndex != target.startIndex || force) {
-            current.onCurrentClear(current.startIndex)
-            target.onCurrentMark(target.startIndex)
-        }
+        current.onCurrentClear(currentCellIndex)
+        target.onCurrentMark(target.startIndex)
 
-        if (current.endIndex != target.endIndex || force) {
-            current.onEndClear(current.endIndex)
-            target.onEndMark(target.endIndex)
-        }
+        current.onEndClear(current.endIndex)
+        target.onEndMark(target.endIndex)
+
+        progress.clear()
     }
 }
