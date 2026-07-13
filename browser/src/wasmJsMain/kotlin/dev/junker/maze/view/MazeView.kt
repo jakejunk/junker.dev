@@ -1,12 +1,16 @@
 package dev.junker.maze.view
 
 import dev.junker.ifError
+import dev.junker.ifOk
 import dev.junker.maze
 import dev.junker.maze.Maze
 import dev.junker.maze.MazeState
 import dev.junker.maze.controls.MazeControlsView
 import dev.junker.maze.controls.MazeControlsView.Companion.mazeControlsView
+import dev.junker.maze.stats.MazeStatsView
+import dev.junker.maze.stats.MazeStatsView.Companion.mazeStatsView
 import dev.junker.maze.view.MazeGridView.Companion.mazeGridView
+import dev.junker.mazeSidePane
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -18,20 +22,26 @@ class MazeView private constructor(
     initial: Maze,
     private val root: HTMLElement,
     private val grid: MazeGridView,
-    private val controls: MazeControlsView
+    private val controls: MazeControlsView,
+    private val stats: MazeStatsView
 ) {
     companion object {
         fun TagConsumer<Element>.mazeView(initial: Maze): MazeView {
             val root: HTMLDivElement
             val grid: MazeGridView
             val controls: MazeControlsView
+            val stats: MazeStatsView
 
             root = div(classes = maze.className) {
                 grid = mazeGridView(initial.sideLength)
-                controls = mazeControlsView()
+
+                div(classes = mazeSidePane.className) {
+                    controls = mazeControlsView()
+                    stats = mazeStatsView()
+                }
             }
 
-            return MazeView(initial, root, grid, controls)
+            return MazeView(initial, root, grid, controls, stats)
         }
     }
 
@@ -42,6 +52,7 @@ class MazeView private constructor(
         },
         onCellVisited = { index ->
             grid.visitCell(index)
+            stats.recordStep()
         },
         onCellCleared = { index ->
             grid.clearCell(index)
@@ -67,9 +78,7 @@ class MazeView private constructor(
             }
 
             onRewindInput = {
-                state.rewind().ifError {
-                    controls.rewindButton.twitch()
-                }
+                rewindState()
             }
         }
 
@@ -79,11 +88,19 @@ class MazeView private constructor(
             }
 
             onRewind = {
-                state.rewind().ifError {
-                    rewindButton.twitch()
-                }
+                rewindState()
             }
         }
+    }
+
+    private fun rewindState() {
+        state.rewind()
+            .ifOk { stepsRewound ->
+                repeat(stepsRewound) {
+                    stats.rewindStep()
+                }
+            }
+            .ifError { controls.rewindButton.twitch() }
     }
 
     private fun setValidation(state: String) {

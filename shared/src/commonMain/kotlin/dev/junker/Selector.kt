@@ -6,6 +6,7 @@ import kotlin.jvm.JvmInline
 val mazeContainer = "maze-container".idSelector()
 val mazePlaceholder = "maze-placeholder".idSelector()
 val maze = "maze".classSelector()
+val mazeSidePane = "maze-side-pane".classSelector()
 val mazeGrid = "maze-grid".classSelector()
 val mazeCell = "maze-cell".classSelector()
 
