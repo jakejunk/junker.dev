@@ -12,7 +12,7 @@ private const val gridControlsGapWidth = 32
 
 fun CssBuilder.mazeStyles() {
     mazeGridStyles()
-    mazeControlStyles()
+    mazeSidePanelStyles()
 }
 
 private fun CssBuilder.mazeGridStyles() {
@@ -138,7 +138,12 @@ private fun CssBuilder.mazePoint(size: Int, color: Color) {
     top = 50.pct - halfIsh.px
 }
 
-private fun CssBuilder.mazeControlStyles() {
+private fun CssBuilder.mazeSidePanelStyles() {
+    mazeSidePane.selector {
+        flexColumn(columnGap = 16.px)
+        justifyContent = JustifyContent.spaceBetween
+    }
+
     mazeControls.selector {
         flexColumn(columnGap = 16.px)
         height = LinearDimension.fitContent
@@ -167,7 +172,7 @@ private fun CssBuilder.mazeControlStyles() {
                 textAlign = TextAlign.center
 
                 before {
-                    pixelatedBackgroundImage("assets/images/16x16_sudoku_icons.png", size = 64.px)
+                    pixelatedBackgroundImage("assets/images/action-icons.png", size = 128.px)
                     display = Display.inlineBlock
                     height = 32.px
                     width = 32.px
@@ -189,7 +194,7 @@ private fun CssBuilder.mazeControlStyles() {
 
                 "&${mazeActionRewind.selector}" {
                     before {
-                        backgroundPosition = RelativePosition("0px -32px")
+                        backgroundPosition = RelativePosition("0px -64px")
                     }
                 }
 

@@ -5,6 +5,7 @@ import dev.junker.err
 import dev.junker.maze.cell.MazeCell
 import dev.junker.maze.cell.WallDirection
 import dev.junker.ok
+import kotlin.math.min
 
 class MazeState(
     initial: Maze,
@@ -85,27 +86,27 @@ class MazeState(
     }
 
 
-    fun rewind(): Result<Unit, String> {
+    fun rewind(): Result<Int, String> {
         if (progress.isEmpty()) {
             return "No progress.".err()
         }
 
-        repeat(3) {
-            if (progress.isNotEmpty()) {
-                val currentIndex = progress.removeLast()
+        val stepsToRewind = min(3, progress.size)
 
-                with(current) {
-                    if (currentIndex !in progress) {
-                        onCellCleared(currentIndex)
-                    }
+        repeat(stepsToRewind) {
+            val currentIndex = progress.removeLast()
 
-                    onCurrentClear(currentIndex)
-                    onCurrentMark(currentCellIndex)
+            with(current) {
+                if (currentIndex !in progress) {
+                    onCellCleared(currentIndex)
                 }
+
+                onCurrentClear(currentIndex)
+                onCurrentMark(currentCellIndex)
             }
         }
 
-        return Unit.ok()
+        return stepsToRewind.ok()
     }
 
     private fun transition(

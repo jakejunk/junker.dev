@@ -271,7 +271,7 @@ private fun CssBuilder.sudokuControlStyles() {
                 textAlign = TextAlign.center
 
                 before {
-                    pixelatedBackgroundImage("assets/images/16x16_sudoku_icons.png", size = 64.px)
+                    pixelatedBackgroundImage("assets/images/action-icons.png", size = 128.px)
                     display = Display.inlineBlock
                     height = 32.px
                     width = 32.px
