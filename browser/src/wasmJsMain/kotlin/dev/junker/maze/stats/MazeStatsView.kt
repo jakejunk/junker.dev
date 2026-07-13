@@ -33,6 +33,11 @@ class MazeStatsView private constructor(
         stepsRewound += 1
     }
 
+    fun reset() {
+        steps = 0
+        stepsRewound = 0
+    }
+
     companion object {
         val mazeStats = "maze-stats".classSelector()
         val mazeSteps = "maze-steps".classSelector()

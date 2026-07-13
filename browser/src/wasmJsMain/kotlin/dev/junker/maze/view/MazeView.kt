@@ -85,6 +85,7 @@ class MazeView private constructor(
         with(controls) {
             onNextMaze = {
                 state.current = Maze.simple(state.current.seed + 1, state.current.sideLength)
+                stats.reset()
             }
 
             onRewind = {
