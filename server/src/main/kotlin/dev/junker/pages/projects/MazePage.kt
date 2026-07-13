@@ -33,7 +33,7 @@ class MazePage(
             
             - 6/24: Basic idea implemented.
             - 6/26: "Next" button for endless mazes!
-            - 7/3: Mark start and end points for added difficulty.
+            - 7/3: Marked start and end points for added difficulty.
               - ~~Need to add a visual trail for "walking" through a maze.~~
             - 7/7: Keyboard navigation (arrow keys) + trail added.
               - ~~Add visualization for current position.~~
@@ -42,6 +42,8 @@ class MazePage(
             - 7/8: Maze start point repurposed as current position; clicking the rewind button takes 3 steps back.
               - Input throttling has been removed entirely for now.
               - Hitting backspace will also kick off a rewind.
+            - 7/12: Added basic stats (steps + rewound steps).
+              - Needs a timer and some styling.
         """.trimIndent())
     }
 }

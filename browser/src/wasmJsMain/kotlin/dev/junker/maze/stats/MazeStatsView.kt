@@ -1,6 +1,8 @@
 package dev.junker.maze.stats
 
-import dev.junker.classSelector
+import dev.junker.mazeStats
+import dev.junker.mazeSteps
+import dev.junker.mazeStepsRewound
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -39,10 +41,6 @@ class MazeStatsView private constructor(
     }
 
     companion object {
-        val mazeStats = "maze-stats".classSelector()
-        val mazeSteps = "maze-steps".classSelector()
-        val mazeStepsRewound = "maze-steps-rewound".classSelector()
-
         fun TagConsumer<Element>.mazeStatsView(): MazeStatsView {
             val stats: HTMLDivElement
             val steps: HTMLDivElement

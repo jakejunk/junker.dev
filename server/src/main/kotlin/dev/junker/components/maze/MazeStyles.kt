@@ -124,6 +124,12 @@ private fun CssBuilder.mazeGridStyles() {
                 mazePoint(8, SiteColor.Secondary.color)
             }
         }
+
+        "&${mazeSideQuest.selector}" {
+            before {
+                mazePoint(8, SiteColor.TertiaryBright.color)
+            }
+        }
     }
 }
 
@@ -210,8 +216,6 @@ private fun CssBuilder.mazeSidePanelStyles() {
             }
         }
     }
-
-
 
     // When the splce area becomes too narrow, move controls underneath grid
     container("(max-width: ${gridWidth + controlWidth + gridControlsGapWidth - 1}.9px)") {
