@@ -138,7 +138,7 @@ class Maze private constructor(
                 uniqueRooms[targetIndex].addAll(toMerge)
             }
 
-            val points = determineLongestPath(startMaze)
+            val points = determineMazePoints(startMaze, 3)
 
             return Maze(
                 seed = startMaze.seed,
@@ -148,22 +148,37 @@ class Maze private constructor(
             )
         }
 
-        fun determineLongestPath(maze: Maze): MazePoints {
-            val aPoints = maze.distancesFromIndex(0)
-            val a = aPoints.let { aPoints.indices.maxBy { i -> it[i] } }
+        fun determineMazePoints(maze: Maze, numSideQuests: Int): MazePoints {
+            val start = maze.distancesFromIndex(0)
+                .let { it.indices.maxBy { i -> it[i] } }
 
-            val bPoints = maze.distancesFromIndex(a)
-            val b = bPoints.let { it.indices.maxBy { i -> it[i] } }
+            val distancesFromStart = maze.distancesFromIndex(start)
+            val end = distancesFromStart
+                .let { it.indices.maxBy { i -> it[i] } }
 
-            val sideQuestPoints = aPoints
-                .zip(bPoints)
-                .map { (aPoint, bPoint) -> min(aPoint, bPoint) }
-            val c = sideQuestPoints.let { it.indices.filter { i -> i != a && i != b }.maxBy { i -> it[i] } }
+            val sideQuests = buildList {
+                val distancesFromEnd = maze.distancesFromIndex(end)
+                var distancesFromPlaced = distancesFromStart.indices
+                    .map { i -> min(distancesFromStart[i], distancesFromEnd[i]) }
+
+                repeat(numSideQuests) {
+                    val sideQuest = distancesFromPlaced.indices
+                        .filter { i -> i != start && i != end || i in this@buildList }
+                        .maxBy { i -> distancesFromPlaced[i] }
+
+                    add(sideQuest)
+
+                    val distancesFromNew = maze.distancesFromIndex(sideQuest)
+
+                    distancesFromPlaced = distancesFromPlaced.indices
+                        .map { i -> min(distancesFromPlaced[i], distancesFromNew[i]) }
+                }
+            }
 
             return MazePoints(
-                start = a,
-                end = b,
-                sideQuests = listOf(c)
+                start = start,
+                end = end,
+                sideQuests = sideQuests
             )
         }
     }
