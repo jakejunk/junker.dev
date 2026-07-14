@@ -5,6 +5,7 @@ import dev.junker.maze.cell.MazeCell
 import dev.junker.maze.cell.MazeCellView
 import dev.junker.maze.cell.MazeCellView.Companion.mazeCellView
 import dev.junker.mazeGrid
+import dev.junker.util.InputAdapter
 import dev.junker.util.Throttler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,7 @@ class MazeGridView private constructor(
     private val root: HTMLElement,
     val cells: List<MazeCellView>,
     val sideLength: Int,
-) {
+) : AutoCloseable {
     companion object {
         fun TagConsumer<Element>.mazeGridView(sideLength: Int): MazeGridView {
             val root: HTMLDivElement
@@ -47,6 +48,13 @@ class MazeGridView private constructor(
 
     var onNavigationInput: ((Direction) -> Unit)? = null
     var onRewindInput: (() -> Unit)? = null
+
+    private val inputAdapter = InputAdapter(
+        target = root,
+        onSwipe = { direction ->
+            onNavigationInput?.invoke(direction)
+        }
+    )
 
     init {
         root.onkeydown = { e ->
@@ -104,5 +112,9 @@ class MazeGridView private constructor(
 
     fun clearSideQuestCell(index: Int) {
         cells[index].clearSideQuestCell()
+    }
+
+    override fun close() {
+        inputAdapter.close()
     }
 }

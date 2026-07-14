@@ -11,6 +11,7 @@ import dev.junker.maze.stats.MazeStatsView
 import dev.junker.maze.stats.MazeStatsView.Companion.mazeStatsView
 import dev.junker.maze.view.MazeGridView.Companion.mazeGridView
 import dev.junker.mazeSidePane
+import dev.junker.util.InputAdapter
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element

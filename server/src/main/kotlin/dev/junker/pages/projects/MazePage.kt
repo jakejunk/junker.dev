@@ -44,6 +44,10 @@ class MazePage(
               - Hitting backspace will also kick off a rewind.
             - 7/12: Added basic stats (steps + rewound steps).
               - Needs a timer and some styling.
+            - 7/13: Basic swipe input, and placed three new "side quest" points on the board.
+              - Those + the end point should be collectable.
+              - Scoring?
+              - Fix mobile UI.
         """.trimIndent())
     }
 }
