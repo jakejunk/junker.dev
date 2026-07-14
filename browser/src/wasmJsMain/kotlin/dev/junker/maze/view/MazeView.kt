@@ -68,6 +68,12 @@ class MazeView private constructor(
         },
         onEndClear = { index ->
             grid.clearEndCell(index)
+        },
+        onSideQuestMark = { index ->
+            grid.markSideQuestCell(index)
+        },
+        onSideQuestClear = { index ->
+            grid.clearSideQuestCell(index)
         }
     )
 

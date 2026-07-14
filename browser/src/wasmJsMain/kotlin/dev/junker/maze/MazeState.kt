@@ -16,6 +16,8 @@ class MazeState(
     private val onCurrentClear: Maze.(Int) -> Unit,
     private val onEndMark: Maze.(Int) -> Unit,
     private val onEndClear: Maze.(Int) -> Unit,
+    private val onSideQuestMark: Maze.(Int) -> Unit,
+    private val onSideQuestClear: Maze.(Int) -> Unit,
 //    private val onValidation: Splice.(SpliceCellValidation) -> Unit,
 //    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
 //    private val onStateUpdated: Splice.(String) -> Unit
@@ -24,7 +26,7 @@ class MazeState(
 
     val currentCellIndex: Int
         get() = when {
-            progress.isEmpty() -> current.startIndex
+            progress.isEmpty() -> current.points.start
             else -> progress.last()
         }
 
@@ -123,10 +125,18 @@ class MazeState(
         }
 
         current.onCurrentClear(currentCellIndex)
-        target.onCurrentMark(target.startIndex)
+        target.onCurrentMark(target.points.start)
 
-        current.onEndClear(current.endIndex)
-        target.onEndMark(target.endIndex)
+        current.onEndClear(current.points.end)
+        target.onEndMark(target.points.end)
+
+        for (sideQuest in current.points.sideQuests) {
+            current.onSideQuestClear(sideQuest)
+        }
+
+        for (sideQuest in target.points.sideQuests) {
+            target.onSideQuestMark(sideQuest)
+        }
 
         progress.clear()
     }

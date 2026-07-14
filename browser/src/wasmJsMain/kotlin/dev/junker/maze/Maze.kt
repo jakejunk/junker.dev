@@ -2,14 +2,20 @@ package dev.junker.maze
 
 import dev.junker.maze.cell.MazeCell
 import dev.junker.maze.cell.WallDirection
+import kotlin.math.min
 import kotlin.random.Random
+
+data class MazePoints(
+    val start: Int,
+    val end: Int,
+    val sideQuests: List<Int>
+)
 
 class Maze private constructor(
     val seed: Int,
     val sideLength: Int,
     val cells: List<MazeCell>,
-    val startIndex: Int,
-    val endIndex: Int
+    val points: MazePoints,
 ) {
     fun Int.toPosition(): Position {
         return Position(this % sideLength, this / sideLength)
@@ -78,7 +84,7 @@ class Maze private constructor(
             }
 
             val mazeCells = MutableList(sideLength * sideLength) { MazeCell.ALL_FLAGS }
-            val startMaze = Maze(seed, sideLength, mazeCells, 0, mazeCells.lastIndex)
+            val startMaze = Maze(seed, sideLength, mazeCells, MazePoints(0, mazeCells.lastIndex, emptyList()))
             val uniqueRooms = ArrayList<MutableList<Position>>()
             val wallsToRemove = ArrayList<Wall>()
 
@@ -132,22 +138,48 @@ class Maze private constructor(
                 uniqueRooms[targetIndex].addAll(toMerge)
             }
 
-            val (startIndex, endIndex) = determineLongestPath(startMaze)
+            val points = determineMazePoints(startMaze, 3)
 
             return Maze(
                 seed = startMaze.seed,
                 sideLength = startMaze.sideLength,
                 cells = mazeCells,
-                startIndex = startIndex,
-                endIndex = endIndex
+                points = points
             )
         }
 
-        fun determineLongestPath(maze: Maze): Pair<Int, Int> {
-            val a = maze.distancesFromIndex(0).let { it.indices.maxBy { i -> it[i] } }
-            val b = maze.distancesFromIndex(a).let { it.indices.maxBy { i -> it[i] } }
+        fun determineMazePoints(maze: Maze, numSideQuests: Int): MazePoints {
+            val start = maze.distancesFromIndex(0)
+                .let { it.indices.maxBy { i -> it[i] } }
 
-            return a to b
+            val distancesFromStart = maze.distancesFromIndex(start)
+            val end = distancesFromStart
+                .let { it.indices.maxBy { i -> it[i] } }
+
+            val sideQuests = buildList {
+                val distancesFromEnd = maze.distancesFromIndex(end)
+                var distancesFromPlaced = distancesFromStart.indices
+                    .map { i -> min(distancesFromStart[i], distancesFromEnd[i]) }
+
+                repeat(numSideQuests) {
+                    val sideQuest = distancesFromPlaced.indices
+                        .filter { i -> i != start && i != end || i in this@buildList }
+                        .maxBy { i -> distancesFromPlaced[i] }
+
+                    add(sideQuest)
+
+                    val distancesFromNew = maze.distancesFromIndex(sideQuest)
+
+                    distancesFromPlaced = distancesFromPlaced.indices
+                        .map { i -> min(distancesFromPlaced[i], distancesFromNew[i]) }
+                }
+            }
+
+            return MazePoints(
+                start = start,
+                end = end,
+                sideQuests = sideQuests
+            )
         }
     }
 }

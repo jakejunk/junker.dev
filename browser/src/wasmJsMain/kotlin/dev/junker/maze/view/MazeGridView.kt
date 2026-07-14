@@ -78,10 +78,6 @@ class MazeGridView private constructor(
         cells[index].markCellVisited()
     }
 
-    fun clearCell(index: Int) {
-        cells[index].clearCellVisited()
-    }
-
     fun markCurrentCell(index: Int) {
         cells[index].markStartCell()
     }
@@ -90,11 +86,23 @@ class MazeGridView private constructor(
         cells[index].markEndCell()
     }
 
+    fun markSideQuestCell(index: Int) {
+        cells[index].markSideQuestCell()
+    }
+
+    fun clearCell(index: Int) {
+        cells[index].clearCellVisited()
+    }
+
     fun clearCurrentCell(index: Int) {
         cells[index].clearStartCell()
     }
 
     fun clearEndCell(index: Int) {
         cells[index].clearEndCell()
+    }
+
+    fun clearSideQuestCell(index: Int) {
+        cells[index].clearSideQuestCell()
     }
 }
