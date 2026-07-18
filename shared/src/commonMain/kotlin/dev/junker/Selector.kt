@@ -8,6 +8,7 @@ val mazePlaceholder = "maze-placeholder".idSelector()
 val maze = "maze".classSelector()
 val mazeSidePane = "maze-side-pane".classSelector()
 val mazeGrid = "maze-grid".classSelector()
+val mazeGridContainer = "maze-grid-container".classSelector()
 val mazeCell = "maze-cell".classSelector()
 
 val mazeNorthWall = "maze-north-wall".classSelector()
@@ -29,7 +30,6 @@ val mazeActionRewind = "maze-action-rewind".classSelector()
 
 val mazeStats = "maze-stats".classSelector()
 val mazeSteps = "maze-steps".classSelector()
-val mazeStepsRewound = "maze-steps-rewound".classSelector()
 
 // Splice =====================================================================
 // Grid

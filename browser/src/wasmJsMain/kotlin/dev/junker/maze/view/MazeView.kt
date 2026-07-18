@@ -10,6 +10,7 @@ import dev.junker.maze.controls.MazeControlsView.Companion.mazeControlsView
 import dev.junker.maze.stats.MazeStatsView
 import dev.junker.maze.stats.MazeStatsView.Companion.mazeStatsView
 import dev.junker.maze.view.MazeGridView.Companion.mazeGridView
+import dev.junker.mazeGridContainer
 import dev.junker.mazeSidePane
 import dev.junker.util.InputAdapter
 import kotlinx.html.TagConsumer
@@ -29,16 +30,18 @@ class MazeView private constructor(
     companion object {
         fun TagConsumer<Element>.mazeView(initial: Maze): MazeView {
             val root: HTMLDivElement
+            val stats: MazeStatsView
             val grid: MazeGridView
             val controls: MazeControlsView
-            val stats: MazeStatsView
 
             root = div(classes = maze.className) {
-                grid = mazeGridView(initial.sideLength)
+                div(classes = mazeGridContainer.className) {
+                    stats = mazeStatsView()
+                    grid = mazeGridView(initial.sideLength)
+                }
 
                 div(classes = mazeSidePane.className) {
                     controls = mazeControlsView()
-                    stats = mazeStatsView()
                 }
             }
 
@@ -103,11 +106,6 @@ class MazeView private constructor(
 
     private fun rewindState() {
         state.rewind()
-            .ifOk { stepsRewound ->
-                repeat(stepsRewound) {
-                    stats.rewindStep()
-                }
-            }
             .ifError { controls.rewindButton.twitch() }
     }
 

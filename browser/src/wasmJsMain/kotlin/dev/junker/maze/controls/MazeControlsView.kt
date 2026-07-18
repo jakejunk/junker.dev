@@ -50,7 +50,7 @@ class MazeControlsView private constructor(
                             classes = "${mazeAction.className} ${mazeActionRewind.className}",
                             name = "controls"
                         )
-                        span { +"Rewind" }
+                        span { +"Skrrt" }
                     }
                 }
             }

@@ -54,6 +54,28 @@ private fun CssBuilder.mazeGridStyles() {
         margin = Margin(2.rem, (-1).rem + 5.px)
     }
 
+    mazeGridContainer.selector {
+        flexColumn()
+        flexBasis = 100.pct.basis
+        maxWidth = gridWidth.px
+    }
+
+    mazeStats.selector {
+        flexRow(rowGap = 8.px)
+        border = light2pxBorder()
+        borderBottomStyle = BorderStyle.none
+        borderTopLeftRadius = cornerRadius
+        borderTopRightRadius = cornerRadius
+        padding = Padding(horizontal = 12.px)
+
+        mazeSteps.selector {
+            before {
+                content = "Steps: ".quoted
+                color = SiteColor.SubtleText.color
+            }
+        }
+    }
+
     mazeGrid.selector {
         monospaceFont()
         aspectRatio = AspectRatio(1, 1)
@@ -61,7 +83,6 @@ private fun CssBuilder.mazeGridStyles() {
         border = lightBorder(1.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
-        maxWidth = gridWidth.px
 
         display = Display.grid
         gridTemplateColumns = GridTemplateColumns.repeat("var(--grid-cols), 1fr")
