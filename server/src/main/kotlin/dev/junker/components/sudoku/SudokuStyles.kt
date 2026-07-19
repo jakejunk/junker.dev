@@ -171,7 +171,7 @@ private fun CssBuilder.sudokuGridStyles() {
 
 private fun CssBuilder.sudokuControlStyles() {
     sudokuControls.selector {
-        flexColumn(columnGap = 16.px)
+        flexColumn(gap = 16.px)
         height = LinearDimension.fitContent
         width = controlWidth.px
     }
@@ -251,7 +251,7 @@ private fun CssBuilder.sudokuControlStyles() {
     }
 
     sudokuActions.selector {
-        flexRow(rowGap = 1.ch)
+        flexRow(gap = 1.ch)
 
         label {
             flexColumn()

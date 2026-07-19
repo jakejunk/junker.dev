@@ -170,11 +170,14 @@ fun StyledElement.pixelFont() {
 }
 
 fun StyledElement.flexRow(
-    rowGap: LinearDimension? = null
+    alignment: Align? = null,
+    gap: LinearDimension? = null
 ) {
     display = Display.flex
     flexDirection = FlexDirection.row
-    rowGap?.also { gap = it }
+
+    alignment?.also { this@flexRow.alignItems = it }
+    gap?.also { this@flexRow.gap = it }
 }
 
 fun StyledElement.wrappingRow(
@@ -189,11 +192,11 @@ fun StyledElement.wrappingRow(
 }
 
 fun StyledElement.flexColumn(
-    columnGap: LinearDimension? = null
+    gap: LinearDimension? = null
 ) {
     display = Display.flex
     flexDirection = FlexDirection.column
-    columnGap?.also { gap = it }
+    gap?.also { this@flexColumn.gap = it }
 }
 
 fun StyledElement.grid3x3(

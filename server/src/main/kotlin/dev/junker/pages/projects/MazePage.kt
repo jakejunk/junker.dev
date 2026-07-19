@@ -44,10 +44,12 @@ class MazePage(
               - Hitting backspace will also kick off a rewind.
             - 7/12: Added basic stats (steps + rewound steps).
               - Needs a timer and some styling.
-            - 7/13: Basic swipe input, and placed three new "side quest" points on the board.
-              - Those + the end point should be collectable.
+            - 7/13: Basic swipe input, and placed three new ~~"side quest points"~~ "treasures" on the board.
+              - The end point ~~and treasures~~ should be collectable.
               - Scoring?
               - Fix mobile UI.
+            - 7/17: Moved the stats section to above the grid.
+            - 7/18: Treasures are now collectable.
         """.trimIndent())
     }
 }

@@ -61,11 +61,12 @@ private fun CssBuilder.mazeGridStyles() {
     }
 
     mazeStats.selector {
-        flexRow(rowGap = 8.px)
+        flexRow(gap = 8.px)
         border = light2pxBorder()
         borderBottomStyle = BorderStyle.none
         borderTopLeftRadius = cornerRadius
         borderTopRightRadius = cornerRadius
+        justifyContent = JustifyContent.spaceBetween
         padding = Padding(horizontal = 12.px)
 
         mazeSteps.selector {
@@ -73,6 +74,14 @@ private fun CssBuilder.mazeGridStyles() {
                 content = "Steps: ".quoted
                 color = SiteColor.SubtleText.color
             }
+        }
+
+        mazeCollectedTreasures.selector {
+            flexRow(alignment = Align.center, gap = 8.px)
+        }
+
+        mazeCollectedTreasure.selector {
+            mazePoint(8, SiteColor.Tertiary.color)
         }
     }
 
@@ -94,7 +103,6 @@ private fun CssBuilder.mazeGridStyles() {
 
         before {
             position = Position.absolute
-            borderRadius = 1.rem
         }
 
         after {
@@ -146,7 +154,7 @@ private fun CssBuilder.mazeGridStyles() {
             }
         }
 
-        "&${mazeSideQuest.selector}" {
+        "&${mazeTreasure.selector}" {
             before {
                 mazePoint(8, SiteColor.TertiaryBright.color)
             }
@@ -158,6 +166,7 @@ private fun CssBuilder.mazePoint(size: Int, color: Color) {
     val halfIsh = size / 2 + 0.1
 
     backgroundColor = color
+    borderRadius = 1.rem
 
     width = size.px
     height = size.px
@@ -167,18 +176,18 @@ private fun CssBuilder.mazePoint(size: Int, color: Color) {
 
 private fun CssBuilder.mazeSidePanelStyles() {
     mazeSidePane.selector {
-        flexColumn(columnGap = 16.px)
+        flexColumn(gap = 16.px)
         justifyContent = JustifyContent.spaceBetween
     }
 
     mazeControls.selector {
-        flexColumn(columnGap = 16.px)
+        flexColumn(gap = 16.px)
         height = LinearDimension.fitContent
         width = controlWidth.px
     }
 
     mazeActions.selector {
-        flexRow(rowGap = 1.ch)
+        flexRow(gap = 1.ch)
         flexDirection = FlexDirection.rowReverse
 
         label {
@@ -256,11 +265,11 @@ fun CssBuilder.mazeTabletStyles() {
     }
 
     mazeControls.selector {
-        flexColumn(columnGap = 16.px)
+        flexColumn(gap = 16.px)
         width = LinearDimension.fitContent
     }
 
     mazeActions.selector {
-        flexColumn(columnGap = 1.ch)
+        flexColumn(gap = 1.ch)
     }
 }

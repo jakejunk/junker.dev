@@ -1,7 +1,6 @@
 package dev.junker.maze.view
 
 import dev.junker.ifError
-import dev.junker.ifOk
 import dev.junker.maze
 import dev.junker.maze.Maze
 import dev.junker.maze.MazeState
@@ -12,7 +11,6 @@ import dev.junker.maze.stats.MazeStatsView.Companion.mazeStatsView
 import dev.junker.maze.view.MazeGridView.Companion.mazeGridView
 import dev.junker.mazeGridContainer
 import dev.junker.mazeSidePane
-import dev.junker.util.InputAdapter
 import kotlinx.html.TagConsumer
 import kotlinx.html.js.div
 import org.w3c.dom.Element
@@ -73,11 +71,15 @@ class MazeView private constructor(
         onEndClear = { index ->
             grid.clearEndCell(index)
         },
-        onSideQuestMark = { index ->
+        onTreasureMark = { index ->
             grid.markSideQuestCell(index)
         },
-        onSideQuestClear = { index ->
+        onTreasureClear = { index ->
             grid.clearSideQuestCell(index)
+        },
+        onTreasureCollected = { index ->
+            grid.clearSideQuestCell(index)
+            stats.collectTreasure()
         }
     )
 

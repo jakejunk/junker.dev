@@ -169,7 +169,7 @@ private fun CssBuilder.spliceGridStyles() {
 
 private fun CssBuilder.spliceControlStyles() {
     spliceControls.selector {
-        flexColumn(columnGap = 16.px)
+        flexColumn(gap = 16.px)
         height = LinearDimension.fitContent
         width = controlWidth.px
     }
@@ -249,7 +249,7 @@ private fun CssBuilder.spliceControlStyles() {
     }
 
     spliceActions.selector {
-        flexRow(rowGap = 1.ch)
+        flexRow(gap = 1.ch)
 
         label {
             flexColumn()
