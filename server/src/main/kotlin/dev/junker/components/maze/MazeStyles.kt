@@ -81,7 +81,7 @@ private fun CssBuilder.mazeGridStyles() {
         }
 
         mazeCollectedTreasure.selector {
-            mazePoint(8, SiteColor.Tertiary.color)
+            mazePoint(8, SiteColor.TertiaryBright.color)
         }
 
         mazeCollectedTreasurePlaceholder.selector {
@@ -199,6 +199,7 @@ private fun CssBuilder.mazeSidePanelStyles() {
             flexBasis = FlexBasis("0")
             flexGrow = 1
             textAlign = TextAlign.center
+            whiteSpace = WhiteSpace.pre
 
             mazeAction.selector {
                 property("-webkit-tap-highlight-color", "transparent")

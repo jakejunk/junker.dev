@@ -52,9 +52,12 @@ class MazeView private constructor(
         onCellUpdated = { index, cell ->
             grid.updateCell(index, cell)
         },
-        onCellVisited = { index ->
+        onCellVisited = { index, countStep ->
             grid.visitCell(index)
-            stats.recordStep()
+
+            if (countStep) {
+                stats.recordStep()
+            }
         },
         onCellCleared = { index ->
             grid.clearCell(index)
