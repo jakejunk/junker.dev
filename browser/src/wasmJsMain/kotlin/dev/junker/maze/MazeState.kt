@@ -10,7 +10,7 @@ import kotlin.math.min
 class MazeState(
     initial: Maze,
     private val onCellUpdated: Maze.(Int, MazeCell) -> Unit,
-    private val onCellVisited: Maze.(Int) -> Unit,
+    private val onCellVisited: Maze.(Int, countStep: Boolean) -> Unit,
     private val onCellCleared: Maze.(Int) -> Unit,
     private val onCurrentMark: Maze.(Int) -> Unit,
     private val onCurrentClear: Maze.(Int) -> Unit,
@@ -78,7 +78,7 @@ class MazeState(
         }
 
         with(current) {
-            onCellVisited(currentIndex)
+            onCellVisited(currentIndex, true)
             onCurrentClear(currentIndex)
             onCurrentMark(destinationIndex)
 
@@ -101,7 +101,7 @@ class MazeState(
 
         val stepsToRewind = min(3, progress.size)
 
-        current.onCellVisited(currentCellIndex)
+        current.onCellVisited(currentCellIndex, false)
 
         repeat(stepsToRewind) {
             val currentIndex = progress.removeLast()

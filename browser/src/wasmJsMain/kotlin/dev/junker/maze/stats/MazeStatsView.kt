@@ -1,6 +1,7 @@
 package dev.junker.maze.stats
 
 import dev.junker.mazeCollectedTreasure
+import dev.junker.mazeCollectedTreasurePlaceholder
 import dev.junker.mazeCollectedTreasures
 import dev.junker.mazeStats
 import dev.junker.mazeSteps
@@ -27,14 +28,24 @@ class MazeStatsView private constructor(
     }
 
     fun collectTreasure() {
+        collectedTreasuresElement
+            .querySelector(mazeCollectedTreasurePlaceholder.selector)
+            ?.remove()
+
         collectedTreasuresElement.appendElement("div") {
             className = mazeCollectedTreasure.className
         }
     }
 
-    fun reset() {
+    fun reset(numTreasures: Int) {
         steps = 0
         collectedTreasuresElement.innerHTML = ""
+
+        repeat(numTreasures) {
+            collectedTreasuresElement.appendElement("div") {
+                className = mazeCollectedTreasurePlaceholder.className
+            }
+        }
     }
 
     companion object {

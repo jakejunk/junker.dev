@@ -32,6 +32,7 @@ val mazeStats = "maze-stats".classSelector()
 val mazeSteps = "maze-steps".classSelector()
 val mazeCollectedTreasures = "maze-collected-treasures".classSelector()
 val mazeCollectedTreasure = "maze-collected-treasure".classSelector()
+val mazeCollectedTreasurePlaceholder = "maze-collected-treasure-placeholder".classSelector()
 
 // Splice =====================================================================
 // Grid

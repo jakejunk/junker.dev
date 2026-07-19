@@ -52,9 +52,12 @@ class MazeView private constructor(
         onCellUpdated = { index, cell ->
             grid.updateCell(index, cell)
         },
-        onCellVisited = { index ->
+        onCellVisited = { index, countStep ->
             grid.visitCell(index)
-            stats.recordStep()
+
+            if (countStep) {
+                stats.recordStep()
+            }
         },
         onCellCleared = { index ->
             grid.clearCell(index)
@@ -96,14 +99,18 @@ class MazeView private constructor(
 
         with(controls) {
             onNextMaze = {
-                state.current = Maze.simple(state.current.seed + 1, state.current.sideLength)
-                stats.reset()
+                val newMaze = Maze.simple(state.current.seed + 1, state.current.sideLength)
+
+                state.current = newMaze
+                stats.reset(newMaze.points.treasures.size)
             }
 
             onRewind = {
                 rewindState()
             }
         }
+
+        stats.reset(state.current.points.treasures.size)
     }
 
     private fun rewindState() {
