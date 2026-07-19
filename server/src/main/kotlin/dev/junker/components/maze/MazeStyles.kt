@@ -83,6 +83,10 @@ private fun CssBuilder.mazeGridStyles() {
         mazeCollectedTreasure.selector {
             mazePoint(8, SiteColor.Tertiary.color)
         }
+
+        mazeCollectedTreasurePlaceholder.selector {
+            mazePoint(8, SiteColor.BackgroundLight.color)
+        }
     }
 
     mazeGrid.selector {
