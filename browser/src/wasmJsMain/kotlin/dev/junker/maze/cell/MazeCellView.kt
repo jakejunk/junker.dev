@@ -63,7 +63,7 @@ class MazeCellView private constructor(
     }
 
     fun markSideQuestCell() {
-        root.classList.add(mazeSideQuest.className)
+        root.classList.add(mazeTreasure.className)
     }
 
     fun clearCellVisited() {
@@ -79,7 +79,7 @@ class MazeCellView private constructor(
     }
 
     fun clearSideQuestCell() {
-        root.classList.remove(mazeSideQuest.className)
+        root.classList.remove(mazeTreasure.className)
     }
 
     companion object {

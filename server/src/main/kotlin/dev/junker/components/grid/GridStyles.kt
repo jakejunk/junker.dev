@@ -7,7 +7,7 @@ import kotlinx.css.properties.*
 
 fun CssBuilder.gridStyles() {
     notesGrid.selector {
-        flexRow(rowGap = 1.ch)
+        flexRow(gap = 1.ch)
         alignItems = Align.flexStart
         flexWrap = FlexWrap.wrap
         justifyContent = JustifyContent.center

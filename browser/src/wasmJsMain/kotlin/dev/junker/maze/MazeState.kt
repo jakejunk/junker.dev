@@ -16,8 +16,9 @@ class MazeState(
     private val onCurrentClear: Maze.(Int) -> Unit,
     private val onEndMark: Maze.(Int) -> Unit,
     private val onEndClear: Maze.(Int) -> Unit,
-    private val onSideQuestMark: Maze.(Int) -> Unit,
-    private val onSideQuestClear: Maze.(Int) -> Unit,
+    private val onTreasureMark: Maze.(Int) -> Unit,
+    private val onTreasureClear: Maze.(Int) -> Unit,
+    private val onTreasureCollected: Maze.(Int) -> Unit,
 //    private val onValidation: Splice.(SpliceCellValidation) -> Unit,
 //    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
 //    private val onStateUpdated: Splice.(String) -> Unit
@@ -76,13 +77,18 @@ class MazeState(
             return "Wall but weird".err()
         }
 
-        progress.add(destinationIndex)
-
         with(current) {
             onCellVisited(currentIndex)
             onCurrentClear(currentIndex)
             onCurrentMark(destinationIndex)
+
+            // TODO: Feels hacky. Consider transitioning to a new maze state with the treasure point removed
+            if (destinationIndex in points.treasures && destinationIndex !in progress) {
+                onTreasureCollected(destinationIndex)
+            }
         }
+
+        progress.add(destinationIndex)
 
         return Unit.ok()
     }
@@ -95,13 +101,16 @@ class MazeState(
 
         val stepsToRewind = min(3, progress.size)
 
+        current.onCellVisited(currentCellIndex)
+
         repeat(stepsToRewind) {
             val currentIndex = progress.removeLast()
 
             with(current) {
-                if (currentIndex !in progress) {
-                    onCellCleared(currentIndex)
-                }
+                // TODO: Decide if rewinding should actually clear visited cells
+//                if (currentIndex !in progress) {
+//                    onCellCleared(currentIndex)
+//                }
 
                 onCurrentClear(currentIndex)
                 onCurrentMark(currentCellIndex)
@@ -130,12 +139,12 @@ class MazeState(
         current.onEndClear(current.points.end)
         target.onEndMark(target.points.end)
 
-        for (sideQuest in current.points.sideQuests) {
-            current.onSideQuestClear(sideQuest)
+        for (sideQuest in current.points.treasures) {
+            current.onTreasureClear(sideQuest)
         }
 
-        for (sideQuest in target.points.sideQuests) {
-            target.onSideQuestMark(sideQuest)
+        for (treasure in target.points.treasures) {
+            target.onTreasureMark(treasure)
         }
 
         progress.clear()

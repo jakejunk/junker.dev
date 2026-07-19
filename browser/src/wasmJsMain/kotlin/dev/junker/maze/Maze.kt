@@ -8,7 +8,7 @@ import kotlin.random.Random
 data class MazePoints(
     val start: Int,
     val end: Int,
-    val sideQuests: List<Int>
+    val treasures: List<Int>
 )
 
 class Maze private constructor(
@@ -178,7 +178,7 @@ class Maze private constructor(
             return MazePoints(
                 start = start,
                 end = end,
-                sideQuests = sideQuests
+                treasures = sideQuests
             )
         }
     }
