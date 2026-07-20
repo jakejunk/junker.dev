@@ -23,7 +23,7 @@ data object AboutPage : Page.Content {
                 +" in high school computer science, I knew that I wanted to develop video games for a living. "
                 +"That dream made me who I am today—a software engineer building "
                 externalLink("CRUD", crudWikipediaLink)
-                +" applications for large companies"
+                +" applications for large corporations"
                 hiddenLink(".", missionAccomplishedLink)
                 + " "
                 +"Outside of work, I enjoy churning through the fun parts of new projects in the name of learning. "
@@ -45,40 +45,46 @@ data object AboutPage : Page.Content {
         section {
             h2 { +"About this site" }
             p {
-                +"This site is a journey, not a destination. "
-                +"There is no "
-                inlineCode("1.0")
-                +" release or monetization scheme in the works; trying new things is the only plan. "
-                +"It's my notepad and canvas, powered by a fairly straightforward stack: a "
-                externalLink("Droplet", dropletsLink)
-                +" for hosting, and "
+                +"Throw some "
                 externalLink("Ktor", ktorLink)
-                +" for the server. Everything else will be made from scratch"
-                sup { +"1" }
-                +"."
+                +" into a pot, sprinkle in a healthy bit of "
+                externalLink("Kotlin/Wasm", kotlinWasmLink)
+                +", and you've got a website stewing. "
+                +"The \"modern nostalgia\" aesthetic, inspired by me being a huge nerd, is composed of anything I can easily design myself. "
+                +"Hope you like pixel art!"
             }
             p {
-                +"This site will attempt to follow a few guiding principles:"
+                +"Of course, tooling and style are just half the story. "
+                +"What brings this all together, i.e., what keeps this fun, is a design philosophy centered on learning and experimentation. "
+                +"Behind all the scribbling and half-completed projects lie a few guiding principles:"
                 ul {
                     li {
-                        +"Scripting should not be required for anything essential (i.e. progressive enhancement)."
+                        +"Within reason, everything will be made from scratch"
+                        sup { +"1" }
+                        +"."
+                    }
+                    li {
+                        +"Strive for a progressive enhancement strategy by default. "
+
+                        ul {
+                            li {
+                                +"Said simply, use scripting responsibly."
+                            }
+                        }
                     }
                     li {
                         externalLink("AA WCAG", wcagLink)
-                        +" compliance is desired."
-                    }
-                    li {
-                        +"Never stop experimenting or having fun. \uD83D\uDE0A"
+                        +" compliance is the accessibility goal."
                     }
                 }
             }
-            p { +"Thanks for stopping by!" }
+            p { +"Thanks for stopping by! \uD83D\uDE0A" }
         }
 
         section(classes = "footnotes") {
             p {
                 sup { +"1" }
-                +"But first, I must invent the universe."
+                +"Just like an apple pie."
             }
         }
     }
@@ -87,6 +93,6 @@ data object AboutPage : Page.Content {
 private const val xnaWikipediaLink = "https://en.wikipedia.org/wiki/Microsoft_XNA"
 private const val crudWikipediaLink = "https://en.wikipedia.org/wiki/Create,_read,_update_and_delete"
 private const val missionAccomplishedLink = "https://upload.wikimedia.org/wikipedia/commons/b/b5/Mission_Accomplished_banner_on_the_USS_Abraham_Lincoln_%28CVN-72%29_%281%29.jpg"
-private const val dropletsLink = "https://www.digitalocean.com/products/droplets"
 private const val ktorLink = "https://ktor.io/"
+private const val kotlinWasmLink = "https://kotlinlang.org/docs/wasm-overview.html"
 private const val wcagLink = "https://www.w3.org/WAI/WCAG22/quickref/"
