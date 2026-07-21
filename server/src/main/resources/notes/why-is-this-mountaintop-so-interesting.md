@@ -79,17 +79,9 @@ _Why?_
 ## If I Had to Guess...
 
 Perhaps it's the desire to "plant my own flag" in the game world, or at least make discoveries that feel like my own.
-I've always felt that the appeal of an area plummets if I know its true purpose, so that tracks with my gameplay habits.
-There's just this inconspicuous sense of ownership and creative agency found when making your own meaning.
+Secret bases are a designed game feature, while the Route 4 hill is something I "found". My hill, my rules.
 
-But what about locations _meant_ for designing?
-Shouldn't that be right up my alley?
-How does a random hill beat out a secret base?
-
-Like before, there's that sense of ownership.
-Secret bases are a designed game feature, while the Route 4 hill was something I "discovered".
-My hill, my rules.
-Game Boy resource constraints also have to play a factor; fewer visuals meant more for a childhood imagination to fill in.
+Game Boy resource constraints probably also play a factor; fewer visuals meant more for a childhood imagination to fill in.
 I'm no psychologist, but that makes way too much sense to me.
 
 _There's no real conclusion to all this; I just find it interesting._
