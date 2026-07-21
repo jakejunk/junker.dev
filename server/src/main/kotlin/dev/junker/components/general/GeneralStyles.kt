@@ -93,6 +93,10 @@ fun CssBuilder.generalStyles() {
         color = SiteColor.SubtleText.color
     }
 
+    strong {
+        fontWeight = FontWeight.bold
+    }
+
     s {
         property("text-decoration-thickness", "from-font")
         opacity = 0.5
