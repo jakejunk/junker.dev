@@ -48,6 +48,7 @@ fun FlowContent.renderMarkdown(markdown: String) {
     val flavor = GFMFlavourDescriptor()
     val parser = MarkdownParser(flavor)
     val parsedTree = parser.buildMarkdownTreeFromString(markdown)
+
     renderMarkdown(parsedTree, markdown)
 }
 
