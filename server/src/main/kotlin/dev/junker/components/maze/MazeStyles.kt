@@ -29,7 +29,7 @@ private fun CssBuilder.mazeGridStyles() {
         secondaryTextGlow()
         animation += Animation(
             name = "fadeIn",
-            duration = 0.75.s,
+            duration = 1.s,
             timing = Timing.easeInOut,
             fillMode = FillMode.forwards
         )
@@ -38,10 +38,6 @@ private fun CssBuilder.mazeGridStyles() {
         maxWidth = gridWidth.px
         opacity = 0
         textAlign = TextAlign.center
-
-        transform {
-            opacity = 1
-        }
     }
 
     maze.selector {
@@ -49,9 +45,12 @@ private fun CssBuilder.mazeGridStyles() {
             rowGap = 16.px,
             columnGap = gridControlsGapWidth.px
         )
+        flickerIn()
+        animationDelay = 0.2.s
         containerType = ContainerType.inlineSize
         justifyContent = JustifyContent.center
         margin = Margin(2.rem, (-1).rem + 5.px)
+        opacity = 0
     }
 
     mazeGridContainer.selector {
