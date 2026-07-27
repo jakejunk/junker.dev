@@ -31,12 +31,7 @@ fun CssBuilder.generalStyles() {
 
     "h1, h2" {
         pixelFont()
-        animation += Animation(
-            name = "flickerIn",
-            duration = 0.75.s,
-            timing = cubicBezier(0.1, 1.1, 0.22, -1.0),
-            fillMode = FillMode.forwards
-        )
+        flickerIn()
         marginTop = 2.rem
         opacity = 0
         textAlign = TextAlign.center
@@ -245,6 +240,15 @@ fun StyledElement.frostedGlass(
         Color.transparent -> color
         else -> color.changeAlpha(alpha)
     }
+}
+
+fun CssBuilder.flickerIn() {
+    animation += Animation(
+        name = "flickerIn",
+        duration = 0.75.s,
+        timing = cubicBezier(0.1, 1.1, 0.22, -1.0),
+        fillMode = FillMode.forwards
+    )
 }
 
 fun StyledElement.property(name: String, value: String) {

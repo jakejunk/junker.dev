@@ -138,7 +138,7 @@ class Maze private constructor(
                 uniqueRooms[targetIndex].addAll(toMerge)
             }
 
-            val points = determineMazePoints(startMaze, 3)
+            val points = determineMazePoints(startMaze, 7)
 
             return Maze(
                 seed = startMaze.seed,
@@ -148,7 +148,7 @@ class Maze private constructor(
             )
         }
 
-        fun determineMazePoints(maze: Maze, numSideQuests: Int): MazePoints {
+        fun determineMazePoints(maze: Maze, numTreasures: Int): MazePoints {
             val start = maze.distancesFromIndex(0)
                 .let { it.indices.maxBy { i -> it[i] } }
 
@@ -161,7 +161,7 @@ class Maze private constructor(
                 var distancesFromPlaced = distancesFromStart.indices
                     .map { i -> min(distancesFromStart[i], distancesFromEnd[i]) }
 
-                repeat(numSideQuests) {
+                repeat(numTreasures) {
                     val sideQuest = distancesFromPlaced.indices
                         .filter { i -> i != start && i != end || i in this@buildList }
                         .maxBy { i -> distancesFromPlaced[i] }

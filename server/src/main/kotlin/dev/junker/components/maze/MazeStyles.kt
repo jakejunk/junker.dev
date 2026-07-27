@@ -4,6 +4,7 @@ import dev.junker.*
 import dev.junker.components.SiteColor
 import dev.junker.components.general.*
 import kotlinx.css.*
+import kotlinx.css.backgroundColor
 import kotlinx.css.properties.*
 
 private const val gridWidth = 650
@@ -29,7 +30,7 @@ private fun CssBuilder.mazeGridStyles() {
         secondaryTextGlow()
         animation += Animation(
             name = "fadeIn",
-            duration = 0.75.s,
+            duration = 1.s,
             timing = Timing.easeInOut,
             fillMode = FillMode.forwards
         )
@@ -38,10 +39,6 @@ private fun CssBuilder.mazeGridStyles() {
         maxWidth = gridWidth.px
         opacity = 0
         textAlign = TextAlign.center
-
-        transform {
-            opacity = 1
-        }
     }
 
     maze.selector {
@@ -49,9 +46,12 @@ private fun CssBuilder.mazeGridStyles() {
             rowGap = 16.px,
             columnGap = gridControlsGapWidth.px
         )
+        flickerIn()
+        animationDelay = 0.2.s
         containerType = ContainerType.inlineSize
         justifyContent = JustifyContent.center
         margin = Margin(2.rem, (-1).rem + 5.px)
+        opacity = 0
     }
 
     mazeGridContainer.selector {
@@ -90,9 +90,9 @@ private fun CssBuilder.mazeGridStyles() {
     }
 
     mazeGrid.selector {
+        frostedGlass(SiteColor.BackgroundDark.color)
         monospaceFont()
         aspectRatio = AspectRatio(1, 1)
-        backgroundColor = SiteColor.BackgroundDarkish.color
         border = lightBorder(1.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
@@ -193,6 +193,7 @@ private fun CssBuilder.mazeSidePanelStyles() {
     mazeActions.selector {
         flexRow(gap = 1.ch)
         flexDirection = FlexDirection.rowReverse
+        touchAction = TouchAction.manipulation
 
         label {
             flexColumn()
