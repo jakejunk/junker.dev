@@ -22,6 +22,6 @@ fun main() {
 
         getElementById(mazePlaceholder.id)?.remove()
         getElementById(mazeContainer.id)
-            ?.append { mazeView(Maze.simple(52, 33)) }
+            ?.append { mazeView(Maze.simple(1, 33)) }
     }
 }

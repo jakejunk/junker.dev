@@ -4,6 +4,7 @@ import dev.junker.*
 import dev.junker.components.SiteColor
 import dev.junker.components.general.*
 import kotlinx.css.*
+import kotlinx.css.backgroundColor
 import kotlinx.css.properties.*
 
 private const val gridWidth = 650
@@ -89,9 +90,9 @@ private fun CssBuilder.mazeGridStyles() {
     }
 
     mazeGrid.selector {
+        frostedGlass(SiteColor.BackgroundDark.color)
         monospaceFont()
         aspectRatio = AspectRatio(1, 1)
-        backgroundColor = SiteColor.BackgroundDarkish.color
         border = lightBorder(1.px)
         flexBasis = 100.pct.basis
         flexGrow = 1
@@ -192,6 +193,7 @@ private fun CssBuilder.mazeSidePanelStyles() {
     mazeActions.selector {
         flexRow(gap = 1.ch)
         flexDirection = FlexDirection.rowReverse
+        touchAction = TouchAction.manipulation
 
         label {
             flexColumn()
