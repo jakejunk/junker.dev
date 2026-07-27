@@ -180,20 +180,23 @@ private fun CssBuilder.mazePoint(size: Int, color: Color) {
 
 private fun CssBuilder.mazeSidePanelStyles() {
     mazeSidePane.selector {
-        flexColumn(gap = 16.px)
+        flexRow(gap = 16.px)
         justifyContent = JustifyContent.spaceBetween
+        maxWidth = gridWidth.px
+        width = 100.pct
     }
 
     mazeControls.selector {
-        flexColumn(gap = 16.px)
+        flexRow(gap = 16.px)
         height = LinearDimension.fitContent
-        width = controlWidth.px
+        width = 100.pct
     }
 
     mazeActions.selector {
         flexRow(gap = 1.ch)
         flexDirection = FlexDirection.rowReverse
         touchAction = TouchAction.manipulation
+        width = 100.pct
 
         label {
             flexColumn()
@@ -234,6 +237,12 @@ private fun CssBuilder.mazeSidePanelStyles() {
                     }
                 }
 
+                "&${mazeActionRestart.selector}" {
+                    before {
+                        backgroundPosition = RelativePosition("-64px 0px")
+                    }
+                }
+
                 "&${mazeActionRewind.selector}" {
                     before {
                         backgroundPosition = RelativePosition("0px -64px")
@@ -253,11 +262,18 @@ private fun CssBuilder.mazeSidePanelStyles() {
         }
     }
 
-    // When the splce area becomes too narrow, move controls underneath grid
-    container("(max-width: ${gridWidth + controlWidth + gridControlsGapWidth - 1}.9px)") {
+    // When the play area becomes too narrow, move controls underneath grid
+    container("(min-width: ${gridWidth + controlWidth + gridControlsGapWidth - 1}.9px)") {
+        mazeSidePane.selector {
+            width = LinearDimension.initial
+        }
+
         mazeControls.selector {
-            maxWidth = gridWidth.px
-            width = 100.pct
+            flexColumn(gap = 16.px)
+        }
+
+        mazeActions.selector {
+            flexColumn(gap = 1.ch)
         }
     }
 }
@@ -268,14 +284,5 @@ fun CssBuilder.mazeTabletStyles() {
     maze.selector {
         marginLeft = 0.px
         marginRight = 0.px
-    }
-
-    mazeControls.selector {
-        flexColumn(gap = 16.px)
-        width = LinearDimension.fitContent
-    }
-
-    mazeActions.selector {
-        flexColumn(gap = 1.ch)
     }
 }

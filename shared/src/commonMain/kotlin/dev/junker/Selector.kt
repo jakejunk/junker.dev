@@ -26,6 +26,7 @@ val mazeControls = "maze-controls".classSelector()
 val mazeActions = "maze-actions".classSelector()
 val mazeAction = "maze-action".classSelector()
 val mazeActionNext = "maze-action-next".classSelector()
+val mazeActionRestart = "maze-action-restart".classSelector()
 val mazeActionRewind = "maze-action-rewind".classSelector()
 
 val mazeStats = "maze-stats".classSelector()

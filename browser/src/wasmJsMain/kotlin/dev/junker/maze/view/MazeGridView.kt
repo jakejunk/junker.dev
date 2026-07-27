@@ -58,8 +58,6 @@ class MazeGridView private constructor(
 
     init {
         root.onkeydown = { e ->
-            e.preventDefault()
-
             if (e.key == "Backspace") {
                 onRewindInput?.invoke()
             } else {
@@ -73,6 +71,8 @@ class MazeGridView private constructor(
 
                 direction?.also {
                     onNavigationInput?.invoke(it)
+
+                    e.preventDefault()
                 }
             }
         }
