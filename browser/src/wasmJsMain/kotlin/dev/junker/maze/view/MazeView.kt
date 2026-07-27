@@ -105,6 +105,13 @@ class MazeView private constructor(
                 stats.reset(newMaze.points.treasures.size)
             }
 
+            onRestart = {
+                val current = state.current
+
+                state.current = current
+                stats.reset(current.points.treasures.size)
+            }
+
             onRewind = {
                 rewindState()
             }
