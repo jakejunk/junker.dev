@@ -33,6 +33,8 @@ class InputAdapter(
         touchStartX = touch.clientX
         touchStartY = touch.clientY
 
+        target.focus()
+
         e.preventDefault()
     }
 

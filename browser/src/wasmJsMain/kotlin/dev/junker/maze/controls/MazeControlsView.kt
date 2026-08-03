@@ -17,24 +17,6 @@ class MazeControlsView private constructor(
     val restartButton: HTMLButtonElement,
     val rewindButton: HTMLButtonElement
 ) {
-    var onNextMaze: (() -> Unit)? = null
-    var onRestart: (() -> Unit)? = null
-    var onRewind: (() -> Unit)? = null
-
-    init {
-        nextButton.onclick = {
-            onNextMaze?.invoke()
-        }
-
-        restartButton.onclick = {
-            onRestart?.invoke()
-        }
-
-        rewindButton.onclick = {
-            onRewind?.invoke()
-        }
-    }
-
     companion object {
         fun TagConsumer<Element>.mazeControlsView(): MazeControlsView {
             val controls: HTMLDivElement
@@ -53,19 +35,19 @@ class MazeControlsView private constructor(
                     }
 
                     label {
-                        restartButton = button(
-                            classes = "${mazeAction.className} ${mazeActionRestart.className}",
-                            name = "controls"
-                        )
-                        span { +"Restart" }
-                    }
-
-                    label {
                         rewindButton = button(
                             classes = "${mazeAction.className} ${mazeActionRewind.className}",
                             name = "controls"
                         )
                         span { +"Rewind" }
+                    }
+
+                    label {
+                        restartButton = button(
+                            classes = "${mazeAction.className} ${mazeActionRestart.className}",
+                            name = "controls"
+                        )
+                        span { +"Restart" }
                     }
                 }
             }
@@ -76,6 +58,24 @@ class MazeControlsView private constructor(
                 restartButton = restartButton,
                 rewindButton = rewindButton
             )
+        }
+    }
+
+    var onNextMaze: (() -> Unit)? = null
+    var onRestart: (() -> Unit)? = null
+    var onRewind: (() -> Unit)? = null
+
+    init {
+        nextButton.onclick = {
+            onNextMaze?.invoke()
+        }
+
+        restartButton.onclick = {
+            onRestart?.invoke()
+        }
+
+        rewindButton.onclick = {
+            onRewind?.invoke()
         }
     }
 }

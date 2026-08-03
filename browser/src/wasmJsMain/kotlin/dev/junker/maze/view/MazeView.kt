@@ -106,10 +106,14 @@ class MazeView private constructor(
             }
 
             onRestart = {
-                val current = state.current
+                if (state.hasProgressed) {
+                    val current = state.current
 
-                state.current = current
-                stats.reset(current.points.treasures.size)
+                    state.current = current
+                    stats.reset(current.points.treasures.size)
+                } else {
+                    restartButton.twitch()
+                }
             }
 
             onRewind = {

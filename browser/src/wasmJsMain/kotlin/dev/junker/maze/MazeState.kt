@@ -25,6 +25,9 @@ class MazeState(
 ) {
     private val progress = mutableListOf<Int>()
 
+    val hasProgressed: Boolean
+        get() = progress.isNotEmpty()
+
     val currentCellIndex: Int
         get() = when {
             progress.isEmpty() -> current.points.start
@@ -95,7 +98,7 @@ class MazeState(
 
 
     fun rewind(): Result<Int, String> {
-        if (progress.isEmpty()) {
+        if (!hasProgressed) {
             return "No progress.".err()
         }
 
@@ -107,11 +110,6 @@ class MazeState(
             val currentIndex = progress.removeLast()
 
             with(current) {
-                // TODO: Decide if rewinding should actually clear visited cells
-//                if (currentIndex !in progress) {
-//                    onCellCleared(currentIndex)
-//                }
-
                 onCurrentClear(currentIndex)
                 onCurrentMark(currentCellIndex)
             }

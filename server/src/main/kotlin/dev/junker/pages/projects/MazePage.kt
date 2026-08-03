@@ -52,6 +52,7 @@ class MazePage(
             - 7/18: Treasures are now collectable.
             - 7/19: Fixed button label wrapping and a few bugs. Added placeholders for collected treasure.
             - 7/27: Added a restart button and more treasures to collect. Additional mobile UI fixes.
+            - 8/3: New overlay for signaling when focus is needed.
         """.trimIndent())
     }
 }

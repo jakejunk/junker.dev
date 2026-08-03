@@ -5,12 +5,15 @@ import dev.junker.maze.cell.MazeCell
 import dev.junker.maze.cell.MazeCellView
 import dev.junker.maze.cell.MazeCellView.Companion.mazeCellView
 import dev.junker.mazeGrid
+import dev.junker.mazeGridCells
+import dev.junker.mazeGridOverlay
 import dev.junker.util.InputAdapter
 import dev.junker.util.Throttler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.html.TagConsumer
+import kotlinx.html.h1
 import kotlinx.html.js.div
 import kotlinx.html.tabIndex
 import org.w3c.dom.Element
@@ -29,14 +32,22 @@ class MazeGridView private constructor(
             val cells: List<MazeCellView>
 
             root = div(classes = mazeGrid.className) {
-                cells = List(sideLength * sideLength) { index ->
-                    mazeCellView(index)
+                val cellsContainer = div(classes = mazeGridCells.className) {
+                    cells = List(sideLength * sideLength) { index ->
+                        mazeCellView(index)
+                    }
+                }
+
+                cellsContainer.style.setProperty("--grid-cols", sideLength.toString())
+
+                div(classes = mazeGridOverlay.className) {
+                    h1 {
+                        +"Tap to play!"
+                    }
                 }
 
                 tabIndex = "0"
             }
-
-            root.style.setProperty("--grid-cols", sideLength.toString())
 
             return MazeGridView(root, cells, sideLength)
         }

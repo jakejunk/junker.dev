@@ -9,6 +9,8 @@ val maze = "maze".classSelector()
 val mazeSidePane = "maze-side-pane".classSelector()
 val mazeGrid = "maze-grid".classSelector()
 val mazeGridContainer = "maze-grid-container".classSelector()
+val mazeGridCells = "maze-grid-cells".classSelector()
+val mazeGridOverlay = "maze-grid-overlay".classSelector()
 val mazeCell = "maze-cell".classSelector()
 
 val mazeNorthWall = "maze-north-wall".classSelector()
