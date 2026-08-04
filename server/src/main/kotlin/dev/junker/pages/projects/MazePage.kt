@@ -45,13 +45,15 @@ class MazePage(
             - 7/12: Added basic stats (steps + rewound steps).
               - Needs a timer and some styling.
             - 7/13: Basic swipe input, and placed three new ~~"side quest points"~~ "treasures" on the board.
-              - The end point ~~and treasures~~ should be collectable.
+              - ~~The end point and treasures should be collectable.~~
               - Scoring?
               - ~~Fix mobile UI.~~
             - 7/17: Moved the stats section to above the grid.
             - 7/18: Treasures are now collectable.
             - 7/19: Fixed button label wrapping and a few bugs. Added placeholders for collected treasure.
             - 7/27: Added a restart button and more treasures to collect. Additional mobile UI fixes.
+            - 8/3: Reaching the end now unlocks the next maze.
+              - Also added an overlay for signaling when focus is needed.
         """.trimIndent())
     }
 }

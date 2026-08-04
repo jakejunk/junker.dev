@@ -4,7 +4,6 @@ import dev.junker.*
 import dev.junker.components.SiteColor
 import dev.junker.components.general.*
 import kotlinx.css.*
-import kotlinx.css.backgroundColor
 import kotlinx.css.properties.*
 
 private const val gridWidth = 650
@@ -52,6 +51,16 @@ private fun CssBuilder.mazeGridStyles() {
         justifyContent = JustifyContent.center
         margin = Margin(2.rem, (-1).rem + 5.px)
         opacity = 0
+
+        focusWithin {
+            mazeGridOverlay.selector {
+                opacity = 0
+            }
+
+            mazeGridCells.selector {
+                opacity = 1
+            }
+        }
     }
 
     mazeGridContainer.selector {
@@ -90,77 +99,92 @@ private fun CssBuilder.mazeGridStyles() {
     }
 
     mazeGrid.selector {
+        flexColumn()
         frostedGlass(SiteColor.BackgroundDark.color)
         monospaceFont()
         aspectRatio = AspectRatio(1, 1)
         border = lightBorder(1.px)
-        flexBasis = 100.pct.basis
-        flexGrow = 1
-
-        display = Display.grid
-        gridTemplateColumns = GridTemplateColumns.repeat("var(--grid-cols), 1fr")
-    }
-
-    mazeCell.selector {
-        containerType = ContainerType.size
         position = Position.relative
 
-        before {
-            position = Position.absolute
-        }
-
-        after {
-            display = Display.block
+        mazeGridOverlay.selector {
+            flexColumn()
+            border = lightBorder(1.px)
             height = 100.pct
+            justifyContent = JustifyContent.center
+            pointerEvents = PointerEvents.none
             position = Position.absolute
             width = 100.pct
         }
 
-        "&${mazeNorthWall.selector}" {
-            after {
-                borderTop = lightBorder(1.px)
-            }
-        }
+        mazeGridCells.selector {
+            display = Display.grid
+            flexBasis = 100.pct.basis
+            flexGrow = 1
+            gridTemplateColumns = GridTemplateColumns.repeat("var(--grid-cols), 1fr")
+            opacity = 0.1
 
-        "&${mazeSouthWall.selector}" {
-            after {
-                borderBottom = lightBorder(1.px)
-            }
-        }
+            mazeCell.selector {
+                containerType = ContainerType.size
+                position = Position.relative
 
-        "&${mazeEastWall.selector}" {
-            after {
-                borderRight = lightBorder(1.px)
-            }
-        }
+                before {
+                    position = Position.absolute
+                }
 
-        "&${mazeWestWall.selector}" {
-            after {
-                borderLeft = lightBorder(1.px)
-            }
-        }
+                after {
+                    display = Display.block
+                    height = 100.pct
+                    position = Position.absolute
+                    width = 100.pct
+                }
 
-        "&${mazeVisited.selector}" {
-            before {
-                mazePoint(4, SiteColor.Tertiary.color)
-            }
-        }
+                "&${mazeNorthWall.selector}" {
+                    after {
+                        borderTop = lightBorder(1.px)
+                    }
+                }
 
-        "&${mazeStart.selector}" {
-            before {
-                mazePoint(8, SiteColor.Primary.color)
-            }
-        }
+                "&${mazeSouthWall.selector}" {
+                    after {
+                        borderBottom = lightBorder(1.px)
+                    }
+                }
 
-        "&${mazeEnd.selector}" {
-            before {
-                mazePoint(8, SiteColor.Secondary.color)
-            }
-        }
+                "&${mazeEastWall.selector}" {
+                    after {
+                        borderRight = lightBorder(1.px)
+                    }
+                }
 
-        "&${mazeTreasure.selector}" {
-            before {
-                mazePoint(8, SiteColor.TertiaryBright.color)
+                "&${mazeWestWall.selector}" {
+                    after {
+                        borderLeft = lightBorder(1.px)
+                    }
+                }
+
+                "&${mazeVisited.selector}" {
+                    before {
+                        mazePoint(4, SiteColor.Tertiary.color)
+                    }
+                }
+
+                "&${mazeStart.selector}" {
+                    before {
+                        mazePoint(8, SiteColor.Primary.color)
+                    }
+                }
+
+                "&${mazeEnd.selector}" {
+                    before {
+                        mazePoint(8, SiteColor.Secondary.color)
+                    }
+                }
+
+                "&${mazeTreasure.selector}" {
+                    before {
+                        mazePoint(8, SiteColor.TertiaryBright.color)
+                    }
+                }
             }
         }
     }
@@ -256,6 +280,18 @@ private fun CssBuilder.mazeSidePanelStyles() {
                             duration = 1.s,
                             timing = Timing.easeInOut
                         )
+                    }
+                }
+
+                disabled {
+                    cursor = Cursor.notAllowed
+
+                    before {
+                        opacity = 0.25
+                    }
+
+                    sibling("span") {
+                        opacity = 0.25
                     }
                 }
             }

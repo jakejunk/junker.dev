@@ -83,6 +83,10 @@ class MazeView private constructor(
         onTreasureCollected = { index ->
             grid.clearSideQuestCell(index)
             stats.collectTreasure()
+        },
+        onCompleted = { index ->
+            grid.clearEndCell(index)
+            controls.unlockNextButton()
         }
     )
 
@@ -98,18 +102,26 @@ class MazeView private constructor(
         }
 
         with(controls) {
+            lockNextButton()
+
             onNextMaze = {
                 val newMaze = Maze.simple(state.current.seed + 1, state.current.sideLength)
 
                 state.current = newMaze
                 stats.reset(newMaze.points.treasures.size)
+
+                lockNextButton()
             }
 
             onRestart = {
-                val current = state.current
+                if (state.hasProgressed) {
+                    val current = state.current
 
-                state.current = current
-                stats.reset(current.points.treasures.size)
+                    state.current = current
+                    stats.reset(current.points.treasures.size)
+                } else {
+                    restartButton.twitch()
+                }
             }
 
             onRewind = {
