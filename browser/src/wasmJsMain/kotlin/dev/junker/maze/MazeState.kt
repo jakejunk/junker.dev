@@ -19,9 +19,7 @@ class MazeState(
     private val onTreasureMark: Maze.(Int) -> Unit,
     private val onTreasureClear: Maze.(Int) -> Unit,
     private val onTreasureCollected: Maze.(Int) -> Unit,
-//    private val onValidation: Splice.(SpliceCellValidation) -> Unit,
-//    private val onValidationCleared: Splice.(SpliceCellValidation) -> Unit,
-//    private val onStateUpdated: Splice.(String) -> Unit
+    private val onCompleted: Maze.(Int) -> Unit
 ) {
     private val progress = mutableListOf<Int>()
 
@@ -88,6 +86,11 @@ class MazeState(
             // TODO: Feels hacky. Consider transitioning to a new maze state with the treasure point removed
             if (destinationIndex in points.treasures && destinationIndex !in progress) {
                 onTreasureCollected(destinationIndex)
+            }
+
+            // TODO: Same hacky feeling
+            if (destinationIndex == points.end) {
+                onCompleted(destinationIndex)
             }
         }
 

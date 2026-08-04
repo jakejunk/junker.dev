@@ -78,4 +78,12 @@ class MazeControlsView private constructor(
             onRewind?.invoke()
         }
     }
+
+    fun lockNextButton() {
+        nextButton.disabled = true
+    }
+
+    fun unlockNextButton() {
+        nextButton.disabled = false
+    }
 }

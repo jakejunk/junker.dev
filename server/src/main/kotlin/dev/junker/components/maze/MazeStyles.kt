@@ -282,6 +282,18 @@ private fun CssBuilder.mazeSidePanelStyles() {
                         )
                     }
                 }
+
+                disabled {
+                    cursor = Cursor.notAllowed
+
+                    before {
+                        opacity = 0.25
+                    }
+
+                    sibling("span") {
+                        opacity = 0.25
+                    }
+                }
             }
         }
     }
