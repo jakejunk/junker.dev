@@ -114,7 +114,7 @@ class MazeView private constructor(
             }
 
             onRestart = {
-                if (state.hasProgressed) {
+                if (state.hasProgressed || stats.steps > 0) {
                     val current = state.current
 
                     state.current = current

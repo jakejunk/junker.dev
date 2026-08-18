@@ -17,37 +17,6 @@ class MazeStatsView private constructor(
     val stepElement: HTMLElement,
     val collectedTreasuresElement: HTMLDivElement,
 ) {
-    private var steps = 0
-        set(value) {
-            stepElement.textContent = value.toString()
-            field = value
-        }
-
-    fun recordStep() {
-        steps += 1
-    }
-
-    fun collectTreasure() {
-        collectedTreasuresElement
-            .querySelector(mazeCollectedTreasurePlaceholder.selector)
-            ?.remove()
-
-        collectedTreasuresElement.appendElement("div") {
-            className = mazeCollectedTreasure.className
-        }
-    }
-
-    fun reset(numTreasures: Int) {
-        steps = 0
-        collectedTreasuresElement.innerHTML = ""
-
-        repeat(numTreasures) {
-            collectedTreasuresElement.appendElement("div") {
-                className = mazeCollectedTreasurePlaceholder.className
-            }
-        }
-    }
-
     companion object {
         fun TagConsumer<Element>.mazeStatsView(): MazeStatsView {
             val stats: HTMLDivElement
@@ -67,6 +36,41 @@ class MazeStatsView private constructor(
                 stepElement = steps,
                 collectedTreasuresElement = collectedTreasures,
             )
+        }
+    }
+
+    var steps = 0
+        private set
+
+    var treasures = 0
+        private set
+
+    fun recordStep() {
+        steps += 1
+
+        stepElement.textContent = steps.toString()
+    }
+
+    fun collectTreasure() {
+        collectedTreasuresElement
+            .querySelector(mazeCollectedTreasurePlaceholder.selector)
+            ?.remove()
+
+        collectedTreasuresElement.appendElement("div") {
+            className = mazeCollectedTreasure.className
+        }
+
+        treasures += 1
+    }
+
+    fun reset(numTreasures: Int) {
+        steps = 0
+        collectedTreasuresElement.innerHTML = ""
+
+        repeat(numTreasures) {
+            collectedTreasuresElement.appendElement("div") {
+                className = mazeCollectedTreasurePlaceholder.className
+            }
         }
     }
 }
